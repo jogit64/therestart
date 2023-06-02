@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "therestart",
-    "slug": "therestart",
+    "name": "restart",
+    "slug": "restart",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.souda.restart"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "d5cbd956-8712-4c1b-ae9a-0da47eeb51d3"
+      }
     }
   }
 }
