@@ -3,7 +3,7 @@
 import React, { useContext } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import UserContext from "../../UserContext";
+import UserContext from "../../../UserContext";
 
 const WelcomeScreen = () => {
   const { firstName } = useContext(UserContext);

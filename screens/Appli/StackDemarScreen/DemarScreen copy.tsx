@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-import { auth } from "../../firebase.js";
+import { auth } from "../../../firebase.js";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { LinearGradient } from "expo-linear-gradient";
-import UserContext from "../../UserContext"; // Import du UserContext
+import UserContext from "../../../UserContext.js"; // Import du UserContext
 
 //import { BottomTabNavigator } from "./BottomTabNavigator";
 
