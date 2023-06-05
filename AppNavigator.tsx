@@ -10,7 +10,7 @@ import LoginScreen from "./screens/Auth/LoginScreen";
 import SignUpScreen from "./screens/Auth/SignUpScreen";
 import CGUScreen from "./screens/Conditions/CGUScreen";
 import PolitiqueScreen from "./screens/Conditions/PolitiqueScreen";
-//import DemarScreen from "./screens/Appli/DemarScreen";
+//import DemarTab from "./screens/Appli/DemarTab";
 import BottomTabNavigator from "./screens/Appli/BottomTabNavigator";
 //import BottomTabNavigator from "./screens/Appli/BottomTabNavigator";
 
@@ -57,12 +57,12 @@ export default function AppNavigator() {
         />
         {/* <Stack.Screen
         name="Demar"
-        component={DemarScreen}
+        component={DemarTab}
         options={{ headerShown: false }}
       /> */}
         {/* <Stack.Screen
           name="Demar"
-          component={DemarScreen}
+          component={DemarTab}
           options={{ headerShown: false }}
         /> */}
         <Stack.Screen
@@ -80,7 +80,7 @@ export default function AppNavigator() {
 //     <Tab.Navigator initialRouteName="Demar">
 //       <Stack.Screen
 //         name="Demar"
-//         component={DemarScreen}
+//         component={DemarTab}
 //         options={{ headerShown: false }}
 //       />
 //       <Tab.Screen name="Screen2" component={Screen2} />

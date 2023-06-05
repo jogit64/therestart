@@ -7,31 +7,40 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from "react-native";
+
 import Svg, { Ellipse } from "react-native-svg";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
-import { auth } from "../../../firebase.js";
+import { auth } from "../../firebase.js";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { LinearGradient } from "expo-linear-gradient";
 import { BlurView } from "expo-blur";
 import Icon from "react-native-vector-icons/FontAwesome";
-import UserContext from "../../../UserContext.tsx"; // Import du UserContext
+import UserContext from "../../UserContext.tsx"; // Import du UserContext
+import { createStackNavigator } from "@react-navigation/stack";
+import { useNavigation } from "@react-navigation/native";
+const Stack = createStackNavigator();
+import SettingsScreen from "./StackDemarTab/SettingsScreen";
 
-const DemarScreen = () => {
+function DemarTabContent() {
+  const navigation = useNavigation();
   const { firstName } = useContext(UserContext); // Utilisation du UserContext pour accéder au prénom de l'utilisateur
-
+  //const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <ImageBackground
         // style={styles.rect1}
         imageStyle={styles.rect1_imageStyle}
-        source={require("../../../assets/images/fondBonjourFirst.png")}
+        source={require("../../assets/images/fondBonjourFirst.png")}
       >
         <View style={styles.bonjour1StackRow}>
           <View style={styles.bonjour1Stack}>
             <Text style={styles.bonjour1}>Bonjour,</Text>
             <Text style={styles.firstname}>{firstName}!</Text>
           </View>
-          <TouchableOpacity style={styles.iconContainer}>
+          <TouchableOpacity
+            style={styles.iconContainer}
+            onPress={() => navigation.navigate("Settings")}
+          >
             <View style={styles.ellipseFondIcon1Stack}>
               <Svg viewBox="0 0 28.77 29.34" style={styles.ellipseFondIcon1}>
                 <Ellipse
@@ -57,12 +66,12 @@ const DemarScreen = () => {
             <ImageBackground
               style={styles.rondUsercontour1}
               imageStyle={styles.rondUsercontour1_imageStyle}
-              source={require("../../../assets/images/Gradient_jOL2tsn.png")}
+              source={require("../../assets/images/Gradient_jOL2tsn.png")}
             >
               <ImageBackground
                 style={styles.rondUsercontour}
                 imageStyle={styles.rondUsercontour_imageStyle}
-                source={require("../../../assets/images/Gradient_jOL2tsn.png")}
+                source={require("../../assets/images/Gradient_jOL2tsn.png")}
               >
                 <View style={styles.groupUserElilipse}>
                   <View style={styles.ellipseUserStack}>
@@ -90,7 +99,20 @@ const DemarScreen = () => {
       </ImageBackground>
     </View>
   );
-};
+}
+
+export default function DemarTab() {
+  return (
+    <Stack.Navigator initialRouteName="Demar">
+      <Stack.Screen
+        name="Demar"
+        component={DemarTabContent}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen name="Settings" component={SettingsScreen} />
+    </Stack.Navigator>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -99,18 +121,8 @@ const styles = StyleSheet.create({
   },
 
   rect1_imageStyle: {
-    //fontFamily: "roboto-regular",
-    //color: "rgba(50,56,106,1)",
-    //fontSize: 18,
-    //textAlign: "center",
-    //position: "absolute",
-    // left: 0,
     height: 280,
-    //width: "80%",
-    //bottom: 20,
     resizeMode: "contain",
-    //marginTop: 20,
-    //padding: 20,
     alignItems: "center",
   },
 
@@ -124,39 +136,22 @@ const styles = StyleSheet.create({
     fontFamily: "roboto700",
     color: "rgba(50,56,106,1)",
     fontSize: 20,
-    //marginRight: 80,
     marginLeft: 5,
     flexShrink: 1,
-    // textAlign: "center",
-    // position: "absolute",
-    // // left: 64,
-    // height: 22,
-    // width: 93,
-    // bottom: 0,
   },
   bonjour1: {
     fontFamily: "roboto",
     color: "rgba(50,56,106,1)",
     fontSize: 20,
-    // textAlign: "center",
-    // position: "absolute",
-    // // left: 50,
-    // height: 22,
-    // width: 93,
-    // bottom: 0,
   },
-  // groupSettingsEllipse: {
-  //   width: 29,
-  //   height: 29,
-  //   marginLeft: 59,
-  // },
+
   ellipseFondIcon1: {
-    // top: 0,
     left: 0,
     width: 29,
     height: 29,
     position: "absolute",
   },
+
   iconSettings1: {
     top: 3,
     left: 3,
@@ -164,10 +159,12 @@ const styles = StyleSheet.create({
     color: "rgba(111,120,189,1)",
     fontSize: 22,
   },
+
   ellipseFondIcon1Stack: {
     width: 29,
     height: 29,
   },
+
   bonjour1StackRow: {
     flexDirection: "row",
     justifyContent: "center",
@@ -175,24 +172,25 @@ const styles = StyleSheet.create({
     width: "100%",
     marginTop: 50,
     paddingLeft: 0,
-    //alignSelf: "center",
-    //backgroundColor: "red",
   },
+
   iconContainer: {
     position: "absolute",
-    //backgroundColor: "black",
     right: 10,
   },
+
   groupUser2group: {
     width: 112,
     height: 105,
     marginTop: 30,
     marginLeft: 124,
   },
+
   groupUserFon2Ronds: {
     width: 112,
     height: 105,
   },
+
   rondUsercontour1: {
     width: 112,
     height: 105,
@@ -207,6 +205,7 @@ const styles = StyleSheet.create({
     shadowRadius: 22,
     overflow: "hidden",
   },
+
   rondUsercontour1_imageStyle: {},
   rondUsercontour: {
     width: 85,
@@ -224,6 +223,7 @@ const styles = StyleSheet.create({
     marginTop: 13,
     marginLeft: 13,
   },
+
   rondUsercontour_imageStyle: {},
   groupUserElilipse: {
     width: 67,
@@ -234,12 +234,9 @@ const styles = StyleSheet.create({
     elevation: 160,
     shadowOpacity: 1,
     shadowRadius: 20,
-    // borderBottomRightRadius: 57,
-    // borderBottomLeftRadius: 57,
-    // flexDirection: "row",
-    // marginTop: 25,
     overflow: "hidden",
   },
+
   ellipseUser: {
     top: 0,
     left: 0,
@@ -247,6 +244,7 @@ const styles = StyleSheet.create({
     height: 67,
     position: "absolute",
   },
+
   iconUser: {
     top: 11,
     left: 14,
@@ -254,10 +252,11 @@ const styles = StyleSheet.create({
     color: "rgba(220,222,235,1)",
     fontSize: 40,
   },
+
   ellipseUserStack: {
     width: 67,
     height: 67,
   },
 });
 
-export default DemarScreen;
+export default DemarTab;

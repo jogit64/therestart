@@ -1,0 +1,50 @@
+App.tsx
+|
+└── AppNavigator.tsx
+    |
+    ├── Auth (Ecran d'authentification)
+    |   |
+    |   ├── LoginScreen.tsx
+    |   └── SignUpScreen.tsx
+    |
+    ├── Home (Ecran d'accueil)
+    |   |
+    |   └── HomeScreen.tsx
+    |       |
+    |       ├── swiper1
+    |       ├── swiper2
+    |       └── swiper3
+    |
+    ├── Appli
+    |   |
+    |   ├── BottomTabNavigator.tsx
+    |   |
+    |   ├── StackScreen2
+    |   |   |
+    |   |   ├── Screen2.tsx
+    |   |   └── WelcomeScreen.tsx
+    |   |
+    |   ├── StackScreen3
+    |   |   |
+    |   |   └── Screen3.tsx
+    |   |
+    |   ├── StackScreen4
+    |   |   |
+    |   |   └── Screen4.tsx
+    |   |
+    |   └── StackDemarTab
+    |       |
+    |       ├── DemarTab.tsx
+    |       └── SettingsScreen
+    |           |
+    |           ├── ContactScreen.tsx
+    |           ├── FaqScreen.tsx
+    |           ├── MonProfilScreen.tsx
+    |           ├── SettingsNavigator.tsx
+    |           ├── SettingsScreen.tsx
+    |           └── TutorielScreen.tsx
+    |
+    └── Conditions
+        |
+        ├── CGUScreen.tsx
+        └── PolitiqueScreen.tsx

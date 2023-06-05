@@ -55,6 +55,8 @@ import HomeScreen from "./screens/Home/HomeScreen"; // import your HomeScreen co
 import LoginScreen from "./screens/Auth/LoginScreen";
 import SignUpScreen from "./screens/Auth/SignUpScreen";
 
+//console.disableYellowBox = true;
+
 export default function App() {
   //* ------------------------------------------------------------
   //* A CONSERVER GESTION SPLASHSCREEN ET FONTS

@@ -1,11 +1,11 @@
-// Screen2.tsx
+// Tab4.tsx
 import React from "react";
 import { View, Text } from "react-native";
 
-export default function Screen2() {
+export default function Tab4() {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Screen2</Text>
+      <Text>Tab4</Text>
     </View>
   );
 }

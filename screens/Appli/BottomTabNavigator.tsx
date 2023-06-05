@@ -2,11 +2,13 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
-import WelcomeScreen from "./StackScreen2/WelcomeScreen";
-import Screen2 from "./StackScreen2/Screen2";
-import Screen3 from "./StackScreen3/Screen3";
-import Screen4 from "./StackScreen4/Screen4";
-import DemarScreen from "./StackDemarScreen/DemarScreen";
+//import WelcomeScreen from "./StackTab2/WelcomeScreen";
+import Tab2 from "./Tab2";
+import Tab3 from "./Tab3";
+import Tab4 from "./Tab4";
+import DemarTab from "./DemarTab";
+//import SettingsNavigator from "./StackDemarTab/SettingsNavigator";
+//import SettingsNavigator from "./StackDemarTab/SettingsNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -19,11 +21,11 @@ export const BottomTabNavigator = () => {
 
           if (route.name === "HomeTab") {
             iconName = focused ? "ios-home" : "ios-home-outline";
-          } else if (route.name === "Screen2") {
+          } else if (route.name === "Tab2") {
             iconName = focused ? "ios-list" : "ios-list-outline";
-          } else if (route.name === "Screen3") {
+          } else if (route.name === "Tab3") {
             iconName = focused ? "ios-search" : "ios-search-outline";
-          } else if (route.name === "Screen4") {
+          } else if (route.name === "Tab4") {
             iconName = focused ? "ios-person" : "ios-person-outline";
           }
 
@@ -37,12 +39,13 @@ export const BottomTabNavigator = () => {
     >
       <Tab.Screen
         name="HomeTab"
-        component={DemarScreen}
+        component={DemarTab}
         options={{ headerShown: false }}
       />
-      <Tab.Screen name="Screen2" component={Screen2} />
-      <Tab.Screen name="Screen3" component={Screen3} />
-      <Tab.Screen name="Screen4" component={Screen4} />
+      <Tab.Screen name="Tab2" component={Tab2} />
+      <Tab.Screen name="Tab3" component={Tab3} />
+      <Tab.Screen name="Tab4" component={Tab4} />
+      {/* <Tab.Screen name="Settings" component={SettingsNavigator} /> */}
     </Tab.Navigator>
   );
 };
