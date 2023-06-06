@@ -45,7 +45,6 @@ export const BottomTabNavigator = () => {
       <Tab.Screen name="Tab2" component={Tab2} />
       <Tab.Screen name="Tab3" component={Tab3} />
       <Tab.Screen name="Tab4" component={Tab4} />
-      {/* <Tab.Screen name="Settings" component={SettingsNavigator} /> */}
     </Tab.Navigator>
   );
 };

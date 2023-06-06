@@ -6,6 +6,7 @@ import {
   Image,
   ImageBackground,
   TouchableOpacity,
+  Modal, // <-- import this
 } from "react-native";
 
 import Svg, { Ellipse } from "react-native-svg";
@@ -25,6 +26,10 @@ function DemarTabContent() {
   const navigation = useNavigation();
   const { firstName } = useContext(UserContext); // Utilisation du UserContext pour accéder au prénom de l'utilisateur
   //const navigation = useNavigation();
+
+  // Add state for the modal visibility
+  const [isSettingsVisible, setIsSettingsVisible] = useState(false);
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -39,7 +44,8 @@ function DemarTabContent() {
           </View>
           <TouchableOpacity
             style={styles.iconContainer}
-            onPress={() => navigation.navigate("Settings")}
+            //onPress={() => navigation.navigate("Settings")}
+            onPress={() => setIsSettingsVisible(true)} // Open the modal when the settings icon is pressed
           >
             <View style={styles.ellipseFondIcon1Stack}>
               <Svg viewBox="0 0 28.77 29.34" style={styles.ellipseFondIcon1}>
@@ -60,6 +66,13 @@ function DemarTabContent() {
             </View>
           </TouchableOpacity>
         </View>
+
+        <Modal
+          animationType="fade" // The modal will slide from the right
+          visible={isSettingsVisible} // The modal will be visible when isSettingsVisible is true
+        >
+          <SettingsScreen close={() => setIsSettingsVisible(false)} />
+        </Modal>
 
         <View style={styles.groupUser2group}>
           <View style={styles.groupUserFon2Ronds}>
@@ -109,7 +122,11 @@ export default function DemarTab() {
         component={DemarTabContent}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="Settings" component={SettingsScreen} />
+      {/* <Stack.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{ headerShown: false }}
+      /> */}
     </Stack.Navigator>
   );
 }
