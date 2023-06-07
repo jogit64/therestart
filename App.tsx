@@ -66,6 +66,7 @@ export default function App() {
     lemon: require("./assets/fonts/lemon-regular.ttf"),
     roboto: require("./assets/fonts/roboto-regular.ttf"),
     roboto700: require("./assets/fonts/roboto-700.ttf"),
+    roboto500: require("./assets/fonts/roboto-500.ttf"),
   });
 
   useEffect(() => {

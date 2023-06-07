@@ -10,7 +10,6 @@ import LoginScreen from "./screens/Auth/LoginScreen";
 import SignUpScreen from "./screens/Auth/SignUpScreen";
 import CGUScreen from "./screens/Conditions/CGUScreen";
 import PolitiqueScreen from "./screens/Conditions/PolitiqueScreen";
-import SettingsScreen from "./screens/Appli/StackDemarTab/SettingsScreen";
 //import DemarTab from "./screens/Appli/DemarTab";
 import BottomTabNavigator from "./screens/Appli/BottomTabNavigator";
 //import BottomTabNavigator from "./screens/Appli/BottomTabNavigator";
@@ -69,11 +68,6 @@ export default function AppNavigator() {
         <Stack.Screen
           name="BottomTabNavigator"
           component={BottomTabNavigator}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Settings"
-          component={SettingsScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

@@ -22,7 +22,7 @@ import { useNavigation } from "@react-navigation/native";
 const Stack = createStackNavigator();
 import SettingsScreen from "./StackDemarTab/SettingsScreen";
 
-function DemarTab() {
+function DemarTabContent() {
   const navigation = useNavigation();
   const { firstName } = useContext(UserContext); // Utilisation du UserContext pour accéder au prénom de l'utilisateur
   //const navigation = useNavigation();
@@ -44,8 +44,8 @@ function DemarTab() {
           </View>
           <TouchableOpacity
             style={styles.iconContainer}
-            onPress={() => navigation.navigate("Settings")}
-            //onPress={() => setIsSettingsVisible(true)} // Open the modal when the settings icon is pressed
+            //onPress={() => navigation.navigate("Settings")}
+            onPress={() => setIsSettingsVisible(true)} // Open the modal when the settings icon is pressed
           >
             <View style={styles.ellipseFondIcon1Stack}>
               <Svg viewBox="0 0 28.77 29.34" style={styles.ellipseFondIcon1}>
@@ -67,12 +67,12 @@ function DemarTab() {
           </TouchableOpacity>
         </View>
 
-        {/* <Modal
-          animationType="slide" // The modal will slide from the right
+        <Modal
+          animationType="fade" // The modal will slide from the right
           visible={isSettingsVisible} // The modal will be visible when isSettingsVisible is true
         >
           <SettingsScreen close={() => setIsSettingsVisible(false)} />
-        </Modal> */}
+        </Modal>
 
         <View style={styles.groupUser2group}>
           <View style={styles.groupUserFon2Ronds}>
@@ -111,6 +111,23 @@ function DemarTab() {
         </View>
       </ImageBackground>
     </View>
+  );
+}
+
+export default function DemarTab() {
+  return (
+    <Stack.Navigator initialRouteName="Demar">
+      <Stack.Screen
+        name="Demar"
+        component={DemarTabContent}
+        options={{ headerShown: false }}
+      />
+      {/* <Stack.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{ headerShown: false }}
+      /> */}
+    </Stack.Navigator>
   );
 }
 
