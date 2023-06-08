@@ -1,67 +1,30 @@
 // App.tsx
-//import React from "react";
-//import { NavigationContainer } from "@react-navigation/native";
-import AppNavigator from "./AppNavigator";
-import { StatusBar } from "expo-status-bar";
 
-//import { Component, useEffect } from "react";
-
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  ScrollView,
-  FlatList,
-  Dimensions,
-} from "react-native";
-
-import { LinearGradient } from "expo-linear-gradient";
-//import Toast from "react-native-toast-message";
-//import Toast from "react-native-root-toast";
-
-//import { useFonts } from "expo-font";
-
-// import * as SplashScreen from "expo-splash-screen";
-
-// import Swiper from "react-native-swiper";
-
-// // * imports pour le bas
-// import MaterialButtonViolet1 from "./components/screenLancement/bottompart/MaterialButtonViolet1";
-// import MaterialButtonViolet3 from "./components/screenLancement/bottompart/MaterialButtonViolet3";
-
-// // * imports pour le haut p1
-// import Swiper1 from "./components/screenLancement/swiper1/swiper1";
-
-// // * imports pour le haut p2
-// import Swiper2 from "./components/screenLancement/swiper2/swiper2";
-
-// // * imports pour le haut p3
-// import Swiper3 from "./components/screenLancement/swiper3/swiper3";
-
-// import { NavigationContainer } from "@react-navigation/native";
-// import { createStackNavigator } from "@react-navigation/stack";
-// import HomeScreen from "./App"; // Votre composant actuel
-// import LoginScreen from "./screens/LoginScreen";
-// import SignUpScreen from "./screens/SignUpScreen";
-
-import React, { Component, useState, useEffect } from "react";
-import { AppState } from "react-native";
-import * as SplashScreen from "expo-splash-screen";
+// Importer les dépendances nécessaires de React
+import React, { useEffect, useContext } from "react";
+import { Dimensions } from "react-native";
 import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import HomeScreen from "./screens/Home/HomeScreen"; // import your HomeScreen component
-import LoginScreen from "./screens/Auth/LoginScreen";
-import SignUpScreen from "./screens/Auth/SignUpScreen";
 
+// Importer les composants et le contexte personnalisés
+//import { UserProvider, UserContext } from "./UserContext";
+//import UserProvider, { UserContext } from "./UserContext";
+//import { UserContext } from "./UserContext";
+//import UserProvider from "./UserContext";
+//import { UserProvider } from "./UserContext";
+import UserContext, { UserProvider } from "./UserContext";
+
+import AuthNavigator from "./AuthNavigator";
+import AppNavigator from "./AppNavigator";
+
+import LoadingSpinner from "./LoadingSpinner";
+
+// Désactiver temporairement les avertissements (à éviter en production)
 //console.disableYellowBox = true;
 
 export default function App() {
-  //* ------------------------------------------------------------
-  //* A CONSERVER GESTION SPLASHSCREEN ET FONTS
-  //* ------------------------------------------------------------
-
+  // Charger les polices personnalisées
   const [fontsLoaded] = useFonts({
     lemon: require("./assets/fonts/lemon-regular.ttf"),
     roboto: require("./assets/fonts/roboto-regular.ttf"),
@@ -69,6 +32,7 @@ export default function App() {
     roboto500: require("./assets/fonts/roboto-500.ttf"),
   });
 
+  // Préparer l'écran de démarrage
   useEffect(() => {
     async function prepare() {
       await SplashScreen.preventAutoHideAsync();
@@ -76,21 +40,38 @@ export default function App() {
     prepare();
   }, []);
 
+  // Si les polices ne sont pas chargées, ne rien afficher
   if (!fontsLoaded) {
     return undefined;
   } else {
     SplashScreen.hideAsync();
   }
-  //* ------------------------------------------------------------
-  //* FIN DE A CONSERVER
-  //* ------------------------------------------------------------
 
-  const Stack = createStackNavigator();
+  // Obtenir la largeur de l'écran (qui n'est pas utilisée actuellement)
   const screenWidth = Dimensions.get("window").width;
 
+  // Rendre le composant
   return (
-    <NavigationContainer>
-      <AppNavigator />
-    </NavigationContainer>
+    // Fournir le contexte utilisateur à tous les composants enfants
+    <UserProvider>
+      <NavigationContainer>
+        {/* Conditionally render AppNavigator or AuthNavigator based on user login status */}
+        <NavigationWrapper />
+      </NavigationContainer>
+    </UserProvider>
   );
+}
+
+// Un composant wrapper qui utilise le UserContext
+function NavigationWrapper() {
+  // const { isLoggedIn } = useContext(UserContext);
+  //const { isLoggedIn } = useContext(UserContext) as UserContextInterface;
+  const { isLoggedIn } = useContext(UserContext) as { isLoggedIn: boolean };
+
+  if (isLoggedIn === undefined) {
+    // Handle the case where the context is null
+    return <LoadingSpinner />;
+  }
+
+  return isLoggedIn ? <AppNavigator /> : <AuthNavigator />;
 }

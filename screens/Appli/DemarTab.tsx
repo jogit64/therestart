@@ -22,7 +22,14 @@ import { useNavigation } from "@react-navigation/native";
 const Stack = createStackNavigator();
 import SettingsScreen from "./StackDemarTab/SettingsScreen";
 
+import { BackHandler } from "react-native";
+import { useBackHandler } from "@react-native-community/hooks";
+
 function DemarTab() {
+  useBackHandler(() => {
+    BackHandler.exitApp();
+    return true;
+  });
   const navigation = useNavigation();
   const { firstName } = useContext(UserContext); // Utilisation du UserContext pour accéder au prénom de l'utilisateur
   //const navigation = useNavigation();
@@ -66,13 +73,6 @@ function DemarTab() {
             </View>
           </TouchableOpacity>
         </View>
-
-        {/* <Modal
-          animationType="slide" // The modal will slide from the right
-          visible={isSettingsVisible} // The modal will be visible when isSettingsVisible is true
-        >
-          <SettingsScreen close={() => setIsSettingsVisible(false)} />
-        </Modal> */}
 
         <View style={styles.groupUser2group}>
           <View style={styles.groupUserFon2Ronds}>

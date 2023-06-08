@@ -10,13 +10,17 @@ import Svg, { Ellipse } from "react-native-svg";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 
+import { useNavigation } from "@react-navigation/native";
+
 const SettingsScreen = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="rgba(0,0,0,1)" />
       <View style={styles.goBackButtonRow}>
         <TouchableOpacity
-          onPress={() => props.navigation.goBack()}
+          onPress={() => navigation.goBack()}
           style={styles.goBackButton}
         >
           <View style={styles.ellipseGoBackStack}>
