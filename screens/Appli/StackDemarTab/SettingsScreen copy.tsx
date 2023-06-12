@@ -9,14 +9,21 @@ import {
 import Svg, { Ellipse } from "react-native-svg";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
-
 import { useHardwareBackButton } from "../../../components/useHardwareBackButton";
 
 import { useNavigation } from "@react-navigation/native";
+import SettingsNavigator from "./SettingsNavigator";
+
 import { createStackNavigator } from "@react-navigation/stack";
+
+import { BackHandler } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
+
+const Stack = createStackNavigator();
 
 export default function SettingsScreen({ navigation }) {
   useHardwareBackButton();
+
   //const navigation = useNavigation();
 
   return (
@@ -28,15 +35,15 @@ export default function SettingsScreen({ navigation }) {
           style={styles.goBackButton}
         >
           <View style={styles.ellipseGoBackStack}>
-            <Svg viewBox="0 0 28.06 28.06" style={styles.ellipseGoBack}>
+            <Svg viewBox="0 0 24.55 24.55" style={styles.ellipseGoBack}>
               <Ellipse
                 stroke="rgba(230, 230, 230,1)"
                 strokeWidth={0}
                 fill="rgba(255,255,255,1)"
-                cx={14}
-                cy={14}
-                rx={14}
-                ry={14}
+                cx={12}
+                cy={12}
+                rx={12}
+                ry={12}
               ></Ellipse>
             </Svg>
             <FeatherIcon
@@ -93,8 +100,7 @@ export default function SettingsScreen({ navigation }) {
               style={styles.chevronTutoriel}
             ></FeatherIcon>
           </View>
-
-          <View style={styles.lignTuto}></View>
+          <View style={styles.lignTutoFAQ}></View>
         </TouchableOpacity>
       </View>
 
@@ -118,7 +124,7 @@ export default function SettingsScreen({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.lignFaq}></View>
+      <View style={styles.lignFaqTerme}></View>
 
       <View style={styles.groupTermes}>
         <TouchableOpacity
@@ -139,6 +145,8 @@ export default function SettingsScreen({ navigation }) {
           ></FeatherIcon>
         </TouchableOpacity>
       </View>
+
+      <View style={styles.lignTermePolitique}></View>
 
       <View style={styles.groupPolitique}>
         <TouchableOpacity
@@ -161,25 +169,6 @@ export default function SettingsScreen({ navigation }) {
           ></FeatherIcon>
         </TouchableOpacity>
       </View>
-      <View style={styles.groupContact}>
-        <TouchableOpacity
-          style={styles.buttonContact}
-          onPress={() => navigation.navigate("Contact")}
-        >
-          <View style={styles.iconContactRow}>
-            <MaterialCommunityIconsIcon
-              name="chevron-down-box"
-              style={styles.iconContact}
-            ></MaterialCommunityIconsIcon>
-            <Text style={styles.nousContacter}>Nous contacter</Text>
-          </View>
-          <View style={styles.iconContactRowFiller}></View>
-          <FeatherIcon
-            name="chevron-right"
-            style={styles.chevronContact}
-          ></FeatherIcon>
-        </TouchableOpacity>
-      </View>
 
       <TouchableOpacity
         onPress={() => {
@@ -188,9 +177,6 @@ export default function SettingsScreen({ navigation }) {
       >
         <Text style={styles.seDeconnecter}>Se déconnecter</Text>
       </TouchableOpacity>
-
-      <View style={styles.lignTerme}></View>
-      <View style={styles.lignPolitique}></View>
     </View>
   );
 }
@@ -205,23 +191,23 @@ const styles = StyleSheet.create({
     height: 35,
   },
   ellipseGoBack: {
-    top: 0,
+    top: 1,
     left: 0,
-    width: 28,
-    height: 28,
+    width: 25,
+    height: 25,
     position: "absolute",
   },
   iconGoBack: {
-    top: 2,
+    top: 0,
     left: 0,
     position: "absolute",
     color: "rgba(113,119,181,1)",
     fontSize: 26,
   },
   ellipseGoBackStack: {
-    width: 28,
-    height: 28,
-    marginTop: 2,
+    width: 26,
+    height: 26,
+    marginTop: 4,
     marginLeft: 4,
   },
   titreReglages: {
@@ -247,7 +233,6 @@ const styles = StyleSheet.create({
   groupProfil: {
     width: 323,
     height: 57,
-    overflow: "visible",
     marginTop: 8,
     marginLeft: 21,
   },
@@ -258,8 +243,8 @@ const styles = StyleSheet.create({
     borderRadius: 21,
     shadowColor: "rgba(222,231,248,1)",
     shadowOffset: {
-      width: 1,
       height: 9,
+      width: 1,
     },
     elevation: 30,
     shadowOpacity: 1,
@@ -357,7 +342,7 @@ const styles = StyleSheet.create({
     marginLeft: 16,
     marginRight: 12,
   },
-  lignTuto: {
+  lignTutoFAQ: {
     width: 290,
     height: 1,
     backgroundColor: "#E6E6E6",
@@ -416,7 +401,7 @@ const styles = StyleSheet.create({
     marginRight: 13,
     marginTop: 14,
   },
-  lignFaq: {
+  lignFaqTerme: {
     width: 290,
     height: 1,
     backgroundColor: "#E6E6E6",
@@ -475,10 +460,17 @@ const styles = StyleSheet.create({
     marginRight: 13,
     marginTop: 14,
   },
+  lignTermePolitique: {
+    width: 290,
+    height: 1,
+    backgroundColor: "#E6E6E6",
+    marginTop: 15,
+    marginLeft: 35,
+  },
   groupPolitique: {
     width: 295,
     height: 29,
-    marginTop: 28,
+    marginTop: 11,
     marginLeft: 34,
   },
   buttonPolitique: {
@@ -493,6 +485,8 @@ const styles = StyleSheet.create({
     elevation: 30,
     shadowOpacity: 1,
     shadowRadius: 10,
+    borderBottomRightRadius: 21,
+    borderBottomLeftRadius: 21,
     flexDirection: "row",
     marginTop: -14,
     marginLeft: -15,
@@ -527,81 +521,11 @@ const styles = StyleSheet.create({
     marginRight: 13,
     marginTop: 14,
   },
-  groupContact: {
-    width: 295,
-    height: 29,
-    marginTop: 24,
-    marginLeft: 34,
-  },
-  buttonContact: {
-    width: 323,
-    height: 57,
-    backgroundColor: "rgba(255,255,255,1)",
-    shadowColor: "rgba(222,231,248,1)",
-    shadowOffset: {
-      width: 1,
-      height: 9,
-    },
-    elevation: 30,
-    shadowOpacity: 1,
-    shadowRadius: 10,
-    borderBottomRightRadius: 21,
-    borderBottomLeftRadius: 21,
-    flexDirection: "row",
-    marginTop: -14,
-    marginLeft: -15,
-  },
-  iconContact: {
-    color: "rgba(111,120,189,1)",
-    fontSize: 27,
-    height: 29,
-    width: 27,
-  },
-  nousContacter: {
-    fontFamily: "roboto",
-    color: "rgba(50,56,106,1)",
-    marginLeft: 11,
-    marginTop: 6,
-  },
-  iconContactRow: {
-    height: 29,
-    flexDirection: "row",
-    marginLeft: 15,
-    marginTop: 14,
-  },
-  iconContactRowFiller: {
-    flex: 1,
-    flexDirection: "row",
-  },
-  chevronContact: {
-    color: "rgba(152,156,181,1)",
-    fontSize: 26,
-    height: 26,
-    width: 26,
-    marginRight: 13,
-    marginTop: 14,
-  },
   seDeconnecter: {
     fontFamily: "roboto500",
     color: "rgba(111,120,189,1)",
-    fontSize: 15,
-    marginTop: 50,
-    marginLeft: 128,
-  },
-  lignTerme: {
-    width: 290,
-    height: 1,
-    backgroundColor: "#E6E6E6",
-    marginTop: -163,
-    marginLeft: 35,
-  },
-  lignPolitique: {
-    width: 290,
-    height: 1,
-    backgroundColor: "#E6E6E6",
-    marginTop: 55,
-    marginLeft: 35,
+    fontSize: 14,
+    marginTop: 88,
+    alignSelf: "center",
   },
 });
-
-//export default SettingsScreen;

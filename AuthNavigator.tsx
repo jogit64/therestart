@@ -11,6 +11,7 @@ import LoginScreen from "./screens/Auth/LoginScreen";
 import SignUpScreen from "./screens/Auth/SignUpScreen";
 import CGUScreen from "./screens/Conditions/CGUScreen";
 import FaqScreen from "./screens/Appli/StackDemarTab/Settings/FaqScreen";
+import ContactScreen from "./screens/Appli/StackDemarTab/Settings/ContactScreen";
 import TutorielScreen from "./screens/Appli/StackDemarTab/Settings/TutorielScreen";
 import PolitiqueScreen from "./screens/Conditions/PolitiqueScreen";
 
@@ -100,6 +101,13 @@ export default function AuthNavigator() {
       <Stack.Screen
         name="Tuto"
         component={TutorielScreen}
+        //  options={{ headerShown: false }} // Cacher l'entête pour cet écran
+      />
+
+      {/* Écran Contact */}
+      <Stack.Screen
+        name="Contact"
+        component={ContactScreen}
         //  options={{ headerShown: false }} // Cacher l'entête pour cet écran
       />
     </Stack.Navigator>
