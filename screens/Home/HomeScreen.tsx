@@ -8,14 +8,9 @@ import {
   StyleSheet,
   Dimensions,
 } from "react-native";
-//import { View, StatusBar, Dimensions } from "react-native";
+
 import { LinearGradient } from "expo-linear-gradient";
-//import Swiper from "react-native-swiper";
-// import MaterialButtonViolet1 from "../components/screenLancement/bottompart/MaterialButtonViolet1";
-// import MaterialButtonViolet3 from "../components/screenLancement/bottompart/MaterialButtonViolet3";
-// import Swiper1 from "../components/screenLancement/swiper1/swiper1";
-// import Swiper2 from "../components/screenLancement/swiper2/swiper2";
-// import Swiper3 from "../components/screenLancement/swiper3/swiper3";
+
 import { useNavigation } from "@react-navigation/native";
 
 import { useFonts } from "expo-font";
@@ -27,13 +22,9 @@ import Swiper from "react-native-swiper";
 import MaterialButtonViolet1 from "./bottompart/MaterialButtonViolet1";
 import MaterialButtonViolet3 from "./bottompart/MaterialButtonViolet3";
 
-// * imports pour le haut p1
+// * imports pour le haut
 import Swiper1 from "./swiper1/swiper1";
-
-// * imports pour le haut p2
 import Swiper2 from "./swiper2/swiper2";
-
-// * imports pour le haut p3
 import Swiper3 from "./swiper3/swiper3";
 
 export default function HomeScreen() {

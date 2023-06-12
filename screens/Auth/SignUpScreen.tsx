@@ -118,7 +118,9 @@ const SignUpScreen = ({ navigation }) => {
       setFirstName(firstNameInput);
 
       // Redirige vers BottomTabNavigator.
-      navigation.navigate("BottomTabNavigator");
+      //navigation.navigate("BottomTabNavigator");
+      navigation.navigate("AppNavigator");
+      //navigation.navigate("HomeTab");
     } catch (error) {
       var errorCode = error.code;
       var errorMessage = error.message;

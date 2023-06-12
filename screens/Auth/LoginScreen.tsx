@@ -32,7 +32,8 @@ const LoginScreen = ({ navigation }) => {
 
       const auth = getAuth();
       await signInWithEmailAndPassword(auth, email, password);
-      navigation.navigate("BottomTabNavigator");
+      //navigation.navigate("BottomTabNavigator");
+      navigation.navigate("HomeTab");
 
       // Récupérer les informations sur l'utilisateur à partir de Firestore
       const user = auth.currentUser;

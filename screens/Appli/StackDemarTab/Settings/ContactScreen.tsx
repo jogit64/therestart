@@ -1,10 +1,12 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
+import { useHardwareBackButton } from "../../../../components/useHardwareBackButton";
 
-const FaqScreen: React.FC = () => {
+const ContactScreen: React.FC = () => {
+  useHardwareBackButton();
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Foire aux questions</Text>
+      <Text style={styles.text}>Contactez-nous</Text>
     </View>
   );
 };
@@ -23,4 +25,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FaqScreen;
+export default ContactScreen;

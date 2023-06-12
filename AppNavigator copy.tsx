@@ -7,6 +7,7 @@ import {
 
 // Importer les navigateurs
 import BottomTabNavigator from "./screens/Appli/BottomTabNavigator";
+import MainNavigator from "./MainNavigator";
 
 import SettingsScreen from "./screens/Appli/StackDemarTab/SettingsScreen";
 import MonProfilScreen from "./screens/Appli/StackDemarTab/Settings/MonProfilScreen";
@@ -29,18 +30,18 @@ export default function AppNavigator() {
       />
 
       {/* Écran Settings */}
-      {/* <Stack.Screen
+      <Stack.Screen
         name="Settings"
         component={SettingsScreen}
         options={{ headerShown: false }} // Cacher l'entête pour cet écran
-      /> */}
+      />
 
       {/* Écran MonProfil */}
-      {/* <Stack.Screen
+      <Stack.Screen
         name="MonProfil"
         component={MonProfilScreen}
         options={{ headerShown: false }} // Cacher l'entête pour cet écran
-      /> */}
+      />
     </Stack.Navigator>
   );
 }

@@ -1,7 +1,9 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
+import { useHardwareBackButton } from "../../../../components/useHardwareBackButton";
 
 const TutorielScreen: React.FC = () => {
+  useHardwareBackButton();
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Bienvenue dans le tutoriel</Text>

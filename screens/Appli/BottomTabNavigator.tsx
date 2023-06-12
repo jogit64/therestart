@@ -10,7 +10,7 @@ import DemarTab from "./DemarTab";
 // Création de l'objet Tab à partir de la méthode createBottomTabNavigator
 const Tab = createBottomTabNavigator();
 
-export const BottomTabNavigator = () => {
+const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
       // Options par défaut pour tous les écrans du Tab Navigator
@@ -20,7 +20,7 @@ export const BottomTabNavigator = () => {
 
           // Définition de l'icône en fonction du nom de la route
           switch (route.name) {
-            case "HomeTab":
+            case "Tab1":
               iconName = focused ? "ios-home" : "ios-home-outline";
               break;
             case "Tab2":
@@ -47,7 +47,7 @@ export const BottomTabNavigator = () => {
       })}
     >
       <Tab.Screen
-        name="HomeTab"
+        name="Tab1"
         component={DemarTab}
         options={{ headerShown: false }} // Cacher l'en-tête pour l'écran HomeTab
       />

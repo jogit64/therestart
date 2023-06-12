@@ -1,10 +1,12 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
+import { useHardwareBackButton } from "../../../../components/useHardwareBackButton";
+const MonProfilScreen: React.FC = () => {
+  useHardwareBackButton();
 
-const ContactScreen: React.FC = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Contactez-nous</Text>
+      <Text style={styles.text}>Hello World Profil</Text>
     </View>
   );
 };
@@ -23,4 +25,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ContactScreen;
+export default MonProfilScreen;

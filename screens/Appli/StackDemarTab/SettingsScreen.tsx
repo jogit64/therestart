@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useCallback } from "react";
 import {
   StyleSheet,
   View,
@@ -9,11 +9,22 @@ import {
 import Svg, { Ellipse } from "react-native-svg";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import { useHardwareBackButton } from "../../../components/useHardwareBackButton";
 
 import { useNavigation } from "@react-navigation/native";
+import SettingsNavigator from "./SettingsNavigator";
 
-const SettingsScreen = () => {
-  const navigation = useNavigation();
+import { createStackNavigator } from "@react-navigation/stack";
+
+import { BackHandler } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
+
+const Stack = createStackNavigator();
+
+export default function SettingsScreen({ navigation }) {
+  useHardwareBackButton();
+
+  //const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
@@ -44,11 +55,17 @@ const SettingsScreen = () => {
         <Text style={styles.titreReglages}>Réglages</Text>
       </View>
       <Text style={styles.labelCompte}>Compte</Text>
+
       <TouchableOpacity
-        onPress={() => props.navigation.navigate("MonProfil")}
+        onPress={() => navigation.navigate("MonProfil")}
+        // onPress={() => {
+        //   //console.log("Button clicked");
+        //   navigation.navigate("Settings", { screen: "MonProfil" });
+        //   //alert("Button clicked");
+        // }}
         style={styles.groupProfil}
       >
-        <TouchableOpacity style={styles.buttonmonProfil}>
+        <View style={styles.buttonmonProfil}>
           <View style={styles.iconmonProfilRow}>
             <MaterialCommunityIconsIcon
               name="account"
@@ -61,11 +78,16 @@ const SettingsScreen = () => {
             name="chevron-right"
             style={styles.chevronMonprofil}
           ></FeatherIcon>
-        </TouchableOpacity>
+        </View>
       </TouchableOpacity>
+
       <Text style={styles.labelLapplication}>L&#39;application</Text>
+
       <View style={styles.groupTutoriel}>
-        <TouchableOpacity style={styles.buttonTutoriel}>
+        <TouchableOpacity
+          style={styles.buttonTutoriel}
+          onPress={() => navigation.navigate("Tuto")}
+        >
           <View style={styles.iconTutorielRowRow}>
             <View style={styles.iconTutorielRow}>
               <MaterialCommunityIconsIcon
@@ -85,8 +107,12 @@ const SettingsScreen = () => {
           <View style={styles.lignTutoFAQ}></View>
         </TouchableOpacity>
       </View>
+
       <View style={styles.groupFAQ}>
-        <TouchableOpacity style={styles.buttonFAQ}>
+        <TouchableOpacity
+          style={styles.buttonFAQ}
+          onPress={() => navigation.navigate("Faq")}
+        >
           <View style={styles.iconFAQRow}>
             <MaterialCommunityIconsIcon
               name="comment-question"
@@ -101,9 +127,14 @@ const SettingsScreen = () => {
           ></FeatherIcon>
         </TouchableOpacity>
       </View>
+
       <View style={styles.lignFaqTerme}></View>
+
       <View style={styles.groupTermes}>
-        <TouchableOpacity style={styles.buttonTermes}>
+        <TouchableOpacity
+          style={styles.buttonTermes}
+          onPress={() => navigation.navigate("CGU")}
+        >
           <View style={styles.iconTermesRow}>
             <MaterialCommunityIconsIcon
               name="file-document"
@@ -118,9 +149,14 @@ const SettingsScreen = () => {
           ></FeatherIcon>
         </TouchableOpacity>
       </View>
+
       <View style={styles.lignTermePolitique}></View>
+
       <View style={styles.groupPolitique}>
-        <TouchableOpacity style={styles.buttonPolitique}>
+        <TouchableOpacity
+          style={styles.buttonPolitique}
+          onPress={() => navigation.navigate("Politique")}
+        >
           <View style={styles.iconPolitiqueRow}>
             <MaterialCommunityIconsIcon
               name="marker-check"
@@ -137,10 +173,17 @@ const SettingsScreen = () => {
           ></FeatherIcon>
         </TouchableOpacity>
       </View>
-      <Text style={styles.seDeconnecter}>Se déconnecter</Text>
+
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Home");
+        }}
+      >
+        <Text style={styles.seDeconnecter}>Se déconnecter</Text>
+      </TouchableOpacity>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -490,5 +533,3 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
 });
-
-export default SettingsScreen;

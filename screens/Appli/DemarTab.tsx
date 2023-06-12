@@ -19,11 +19,12 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import UserContext from "../../UserContext.tsx"; // Import du UserContext
 import { createStackNavigator } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
-const Stack = createStackNavigator();
 import SettingsScreen from "./StackDemarTab/SettingsScreen";
 
 import { BackHandler } from "react-native";
 import { useBackHandler } from "@react-native-community/hooks";
+
+const Stack = createStackNavigator();
 
 function DemarTab() {
   useBackHandler(() => {

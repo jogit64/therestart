@@ -1,27 +1,30 @@
+//************************************* */
 // App.tsx
+//************************************** */
+//
+//
 
 // Importer les dépendances nécessaires de React
 import React, { useEffect, useContext } from "react";
-import { Dimensions } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import { NavigationContainer } from "@react-navigation/native";
 
-// Importer les composants et le contexte personnalisés
-//import { UserProvider, UserContext } from "./UserContext";
-//import UserProvider, { UserContext } from "./UserContext";
-//import { UserContext } from "./UserContext";
-//import UserProvider from "./UserContext";
-//import { UserProvider } from "./UserContext";
 import UserContext, { UserProvider } from "./UserContext";
 
+import { NavigationContainer } from "@react-navigation/native";
 import AuthNavigator from "./AuthNavigator";
 import AppNavigator from "./AppNavigator";
 
 import LoadingSpinner from "./LoadingSpinner";
 
-// Désactiver temporairement les avertissements (à éviter en production)
-//console.disableYellowBox = true;
+// function NavigationWrapper() {
+//   const { isLoggedIn } = useContext(UserContext) as { isLoggedIn: boolean };
+//   if (isLoggedIn === undefined) {
+//     // Handle the case where the context is null
+//     return <LoadingSpinner />;
+//   }
+//   return isLoggedIn ? <AppNavigator /> : <AuthNavigator />;
+// }
 
 export default function App() {
   // Charger les polices personnalisées
@@ -47,31 +50,12 @@ export default function App() {
     SplashScreen.hideAsync();
   }
 
-  // Obtenir la largeur de l'écran (qui n'est pas utilisée actuellement)
-  const screenWidth = Dimensions.get("window").width;
-
-  // Rendre le composant
   return (
     // Fournir le contexte utilisateur à tous les composants enfants
     <UserProvider>
       <NavigationContainer>
-        {/* Conditionally render AppNavigator or AuthNavigator based on user login status */}
-        <NavigationWrapper />
+        <AuthNavigator />
       </NavigationContainer>
     </UserProvider>
   );
-}
-
-// Un composant wrapper qui utilise le UserContext
-function NavigationWrapper() {
-  // const { isLoggedIn } = useContext(UserContext);
-  //const { isLoggedIn } = useContext(UserContext) as UserContextInterface;
-  const { isLoggedIn } = useContext(UserContext) as { isLoggedIn: boolean };
-
-  if (isLoggedIn === undefined) {
-    // Handle the case where the context is null
-    return <LoadingSpinner />;
-  }
-
-  return isLoggedIn ? <AppNavigator /> : <AuthNavigator />;
 }
