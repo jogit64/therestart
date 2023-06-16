@@ -12,7 +12,7 @@ import Svg, { Ellipse } from "react-native-svg";
 import Icon from "react-native-vector-icons/Feather";
 import { useHardwareBackButton } from "../../../../components/useHardwareBackButton";
 
-export default function ContactScreen({ navigation }) {
+function ConnexionSecu(props) {
   useHardwareBackButton();
   return (
     <View style={styles.container}>
@@ -23,7 +23,7 @@ export default function ContactScreen({ navigation }) {
         >
           <View style={styles.goBackButtonRow}>
             <TouchableOpacity
-              onPress={() => navigation.goBack()}
+              onPress={() => props.navigation.goBack()}
               style={styles.goBackButton}
             >
               <View style={styles.ellipseGoBackStack}>
@@ -41,34 +41,52 @@ export default function ContactScreen({ navigation }) {
                 <Icon name="chevron-left" style={styles.iconGoBack}></Icon>
               </View>
             </TouchableOpacity>
-            <Text style={styles.nousContacter}>Nous contacter</Text>
+            <Text style={styles.infosPersonnelles}>Connexion et sécurité</Text>
           </View>
-          <View style={styles.groupSujet}>
-            <Text style={styles.sujet}>Sujet</Text>
+          <View style={styles.groupEmail}>
+            <Text style={styles.email}>Email</Text>
             <TextInput
-              placeholder="Entrez votre nom d'utilisateur"
+              placeholder="Entrez une adresse email valide"
               dataDetector="address"
               placeholderTextColor="rgba(151,155,180,1)"
               inlineImagePadding={0}
-              style={styles.inputSujet}
+              style={styles.inputEmail}
             ></TextInput>
           </View>
-          <View style={styles.groupMessage}>
-            <Text style={styles.message}>Message</Text>
+          <View style={styles.groupMdpActu}>
+            <Text style={styles.motDePasseActuel}>Mot de passe actuel</Text>
             <TextInput
-              placeholder="Entrez votre message ici - entre 10 et 400 caractères"
-              dataDetector="none"
+              placeholder="Mot de passe (8 caractères et + )"
+              dataDetector="address"
               placeholderTextColor="rgba(151,155,180,1)"
               inlineImagePadding={0}
-              textBreakStrategy="simple"
-              clearTextOnFocus={false}
-              multiline={true}
-              selectTextOnFocus={true}
-              style={styles.inputMessage}
+              style={styles.inputMdpActu}
+            ></TextInput>
+          </View>
+          <View style={styles.groupMdpNew}>
+            <Text style={styles.nouveauMotDePasse}>Nouveau mot de passe</Text>
+            <TextInput
+              placeholder="Mot de passe (8 caractères et + )"
+              dataDetector="address"
+              placeholderTextColor="rgba(151,155,180,1)"
+              inlineImagePadding={0}
+              style={styles.inputMdpNew}
+            ></TextInput>
+          </View>
+          <View style={styles.groupMdpConfirm}>
+            <Text style={styles.nouveauMotDePasse1}>
+              Confirmez le mot de passe
+            </Text>
+            <TextInput
+              placeholder="Mot de passe (8 caractères et + )"
+              dataDetector="address"
+              placeholderTextColor="rgba(151,155,180,1)"
+              inlineImagePadding={0}
+              style={styles.inputMdpConfirm}
             ></TextInput>
           </View>
           <TouchableOpacity
-            onPress={() => navigation.navigate("MonProfil")}
+            onPress={() => props.navigation.navigate("MonProfil")}
             style={styles.groupSauvegarder}
           >
             <TouchableOpacity style={styles.buttonSauvegarder}>
@@ -119,7 +137,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
     marginLeft: 4,
   },
-  nousContacter: {
+  infosPersonnelles: {
     fontFamily: "roboto700",
     color: "rgba(50,56,106,1)",
     fontSize: 18,
@@ -131,20 +149,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: 24,
     marginLeft: 19,
-    marginRight: 131,
+    marginRight: 79,
   },
-  groupSujet: {
+  groupEmail: {
     width: 298,
     height: 70,
     marginTop: 30,
     marginLeft: 30,
   },
-  sujet: {
+  email: {
     fontFamily: "roboto500",
     color: "rgba(50,56,106,1)",
     fontSize: 16,
   },
-  inputSujet: {
+  inputEmail: {
     fontFamily: "roboto",
     color: "#121212",
     height: 43,
@@ -157,38 +175,84 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     paddingLeft: 10,
   },
-  groupMessage: {
+  groupMdpActu: {
     width: 302,
     height: 69,
     marginTop: 29,
     marginLeft: 30,
   },
-  message: {
+  motDePasseActuel: {
     fontFamily: "roboto500",
     color: "rgba(50,56,106,1)",
     fontSize: 16,
   },
-  inputMessage: {
+  inputMdpActu: {
     fontFamily: "roboto",
     color: "#121212",
-    height: null, // change this
-    minHeight: 295, // add this
+    height: 43,
     width: 298,
     backgroundColor: "rgba(255,255,255,1)",
     borderWidth: 2,
     borderColor: "rgba(220,222,235,1)",
     borderRadius: 14,
     marginTop: 7,
-    marginLeft: 2,
+    alignSelf: "center",
     paddingLeft: 10,
   },
-
+  groupMdpNew: {
+    width: 302,
+    height: 69,
+    marginTop: 26,
+    marginLeft: 30,
+  },
+  nouveauMotDePasse: {
+    fontFamily: "roboto500",
+    color: "rgba(50,56,106,1)",
+    fontSize: 16,
+  },
+  inputMdpNew: {
+    fontFamily: "roboto",
+    color: "#121212",
+    height: 43,
+    width: 298,
+    backgroundColor: "rgba(255,255,255,1)",
+    borderWidth: 2,
+    borderColor: "rgba(220,222,235,1)",
+    borderRadius: 14,
+    marginTop: 7,
+    alignSelf: "center",
+    paddingLeft: 10,
+  },
+  groupMdpConfirm: {
+    width: 302,
+    height: 69,
+    marginTop: 32,
+    marginLeft: 30,
+  },
+  nouveauMotDePasse1: {
+    fontFamily: "roboto500",
+    color: "rgba(50,56,106,1)",
+    fontSize: 16,
+  },
+  inputMdpConfirm: {
+    fontFamily: "roboto",
+    color: "#121212",
+    height: 43,
+    width: 298,
+    backgroundColor: "rgba(255,255,255,1)",
+    borderWidth: 2,
+    borderColor: "rgba(220,222,235,1)",
+    borderRadius: 14,
+    marginTop: 7,
+    alignSelf: "center",
+    paddingLeft: 10,
+  },
   groupSauvegarder: {
     width: 290,
     height: 57,
     overflow: "visible",
     backgroundColor: "rgba(255,255,255,1)",
-    marginTop: 275,
+    marginTop: 79,
     marginLeft: 35,
   },
   buttonSauvegarder: {
@@ -214,3 +278,5 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+
+export default ConnexionSecu;

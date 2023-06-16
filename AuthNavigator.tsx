@@ -5,15 +5,17 @@ import {
   TransitionPresets,
 } from "@react-navigation/stack";
 
-// Importer les écrans
+// Importer les écrans<
 import HomeScreen from "./screens/Home/HomeScreen";
 import LoginScreen from "./screens/Auth/LoginScreen";
 import SignUpScreen from "./screens/Auth/SignUpScreen";
 import CGUScreen from "./screens/Conditions/CGUScreen";
+import PolitiqueScreen from "./screens/Conditions/PolitiqueScreen";
 import FaqScreen from "./screens/Appli/StackDemarTab/Settings/FaqScreen";
 import ContactScreen from "./screens/Appli/StackDemarTab/Settings/ContactScreen";
 import TutorielScreen from "./screens/Appli/StackDemarTab/Settings/TutorielScreen";
-import PolitiqueScreen from "./screens/Conditions/PolitiqueScreen";
+import InfosPersoScreen from "./screens/Appli/StackDemarTab/Settings/InfosPersoScreen";
+import ConnexSecuScreen from "./screens/Appli/StackDemarTab/Settings/ConnexSecuScreen";
 
 // Importer le BottomTabNavigator
 import BottomTabNavigator from "./screens/Appli/BottomTabNavigator";
@@ -87,28 +89,42 @@ export default function AuthNavigator() {
       <Stack.Screen
         name="MonProfil"
         component={MonProfilScreen}
-        //  options={{ headerShown: false }} // Cacher l'entête pour cet écran
+        options={{ headerShown: false }} // Cacher l'entête pour cet écran
       />
 
       {/* Écran Faq */}
       <Stack.Screen
         name="Faq"
         component={FaqScreen}
-        //  options={{ headerShown: false }} // Cacher l'entête pour cet écran
+        options={{ headerShown: false }} // Cacher l'entête pour cet écran
       />
 
       {/* Écran Tuto */}
       <Stack.Screen
         name="Tuto"
         component={TutorielScreen}
-        //  options={{ headerShown: false }} // Cacher l'entête pour cet écran
+        options={{ headerShown: false }} // Cacher l'entête pour cet écran
       />
 
       {/* Écran Contact */}
       <Stack.Screen
         name="Contact"
         component={ContactScreen}
-        //  options={{ headerShown: false }} // Cacher l'entête pour cet écran
+        options={{ headerShown: false }} // Cacher l'entête pour cet écran
+      />
+
+      {/* Écran InfoPerso */}
+      <Stack.Screen
+        name="InfosPerso"
+        component={InfosPersoScreen}
+        options={{ headerShown: false }} // Cacher l'entête pour cet écran
+      />
+
+      {/* Écran ConnexSecu */}
+      <Stack.Screen
+        name="ConnexSecu"
+        component={ConnexSecuScreen}
+        options={{ headerShown: false }} // Cacher l'entête pour cet écran
       />
     </Stack.Navigator>
   );
