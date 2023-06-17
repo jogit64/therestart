@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -25,8 +25,22 @@ export default function ContactScreen({ navigation }) {
 
   const [subject, setSubject] = React.useState("");
   const [message, setMessage] = React.useState("");
+  const [messageLength, setMessageLength] = React.useState(0); // New state to hold the message length
 
   const handleContactSubmit = async () => {
+    if (messageLength < 10 || messageLength > 400) {
+      // Display a toast message when message length is not valid
+      Toast.show("Votre message doit contenir entre 10 et 400 caractères.", {
+        duration: Toast.durations.LONG,
+        position: Toast.positions.BOTTOM,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+      });
+      return;
+    }
+
     try {
       const docRef = await addDoc(collection(db, "contactMessages"), {
         subject: subject,
@@ -101,15 +115,16 @@ export default function ContactScreen({ navigation }) {
               inlineImagePadding={0}
               style={styles.inputSujet}
               value={subject}
-              onChangeText={(text) => {
-                if (text.length >= 10 && text.length <= 400) {
-                  setMessage(text);
-                }
-              }}
+              onChangeText={setSubject}
             ></TextInput>
           </View>
           <View style={styles.groupMessage}>
-            <Text style={styles.message}>Message</Text>
+            <Text style={styles.message}>
+              Message{" "}
+              <Text style={styles.longMessage}>
+                (Nb. car. : {messageLength})
+              </Text>
+            </Text>
             <TextInput
               placeholder="Entrez votre message ici - entre 10 et 400 caractères"
               placeholderTextColor="rgba(151,155,180,1)"
@@ -118,11 +133,16 @@ export default function ContactScreen({ navigation }) {
               clearTextOnFocus={false}
               multiline={true}
               selectTextOnFocus={true}
-              style={[styles.inputMessage, { textAlignVertical: "top" }]}
+              textAlignVertical="top"
+              style={styles.inputMessage}
               value={message}
-              onChangeText={setMessage}
+              onChangeText={(text) => {
+                setMessage(text);
+                setMessageLength(text.length); // Update the message length each time the text changes
+              }}
             ></TextInput>
           </View>
+
           <TouchableOpacity
             onPress={handleContactSubmit}
             style={styles.groupEnvoyer}
@@ -268,6 +288,12 @@ const styles = StyleSheet.create({
     fontFamily: "roboto500",
     color: "rgba(255,255,255,1)",
     fontSize: 18,
+    textAlign: "center",
+  },
+  longMessage: {
+    fontFamily: "roboto500",
+    color: "rgba(50,56,106,1)",
+    fontSize: 14,
     textAlign: "center",
   },
 });
