@@ -11,9 +11,59 @@ import {
 import Svg, { Ellipse } from "react-native-svg";
 import Icon from "react-native-vector-icons/Feather";
 import { useHardwareBackButton } from "../../../../components/useHardwareBackButton";
+import {
+  collection,
+  addDoc,
+  Timestamp,
+  serverTimestamp,
+} from "firebase/firestore";
+import { db, auth } from "./../../../../firebase.js";
+import Toast from "react-native-root-toast";
 
 export default function ContactScreen({ navigation }) {
   useHardwareBackButton();
+
+  const [subject, setSubject] = React.useState("");
+  const [message, setMessage] = React.useState("");
+
+  const handleContactSubmit = async () => {
+    try {
+      const docRef = await addDoc(collection(db, "contactMessages"), {
+        subject: subject,
+        message: message,
+        userId: auth.currentUser.uid,
+        userEmail: auth.currentUser.email,
+        timestamp: serverTimestamp(),
+      });
+      console.log("Document written with ID: ", docRef.id);
+
+      // Afficher un message Toast de confirmation
+      Toast.show("Votre message a été envoyé avec succès.", {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.BOTTOM,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+      });
+
+      // Rediriger vers la page de profil
+      navigation.navigate("Settings");
+    } catch (e) {
+      console.error("Error adding document: ", e);
+
+      // Afficher un message Toast d'erreur
+      Toast.show("Une erreur s'est produite lors de l'envoi du message.", {
+        duration: Toast.durations.LONG,
+        position: Toast.positions.BOTTOM,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+      });
+    }
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="rgba(0,0,0,1)" />
@@ -46,34 +96,40 @@ export default function ContactScreen({ navigation }) {
           <View style={styles.groupSujet}>
             <Text style={styles.sujet}>Sujet</Text>
             <TextInput
-              placeholder="Entrez votre nom d'utilisateur"
-              dataDetector="address"
+              placeholder="Entrez votre sujet"
               placeholderTextColor="rgba(151,155,180,1)"
               inlineImagePadding={0}
               style={styles.inputSujet}
+              value={subject}
+              onChangeText={(text) => {
+                if (text.length >= 10 && text.length <= 400) {
+                  setMessage(text);
+                }
+              }}
             ></TextInput>
           </View>
           <View style={styles.groupMessage}>
             <Text style={styles.message}>Message</Text>
             <TextInput
               placeholder="Entrez votre message ici - entre 10 et 400 caractères"
-              dataDetector="none"
               placeholderTextColor="rgba(151,155,180,1)"
               inlineImagePadding={0}
               textBreakStrategy="simple"
               clearTextOnFocus={false}
               multiline={true}
               selectTextOnFocus={true}
-              style={styles.inputMessage}
+              style={[styles.inputMessage, { textAlignVertical: "top" }]}
+              value={message}
+              onChangeText={setMessage}
             ></TextInput>
           </View>
           <TouchableOpacity
-            onPress={() => navigation.navigate("MonProfil")}
-            style={styles.groupSauvegarder}
+            onPress={handleContactSubmit}
+            style={styles.groupEnvoyer}
           >
-            <TouchableOpacity style={styles.buttonSauvegarder}>
-              <Text style={styles.sauvegarder}>Sauvegarder</Text>
-            </TouchableOpacity>
+            <View style={styles.buttonEnvoyer}>
+              <Text style={styles.envoyer}>Envoyer</Text>
+            </View>
           </TouchableOpacity>
         </ScrollView>
       </View>
@@ -181,9 +237,10 @@ const styles = StyleSheet.create({
     marginTop: 7,
     marginLeft: 2,
     paddingLeft: 10,
+    paddingTop: 10,
   },
 
-  groupSauvegarder: {
+  groupEnvoyer: {
     width: 290,
     height: 57,
     overflow: "visible",
@@ -191,7 +248,7 @@ const styles = StyleSheet.create({
     marginTop: 275,
     marginLeft: 35,
   },
-  buttonSauvegarder: {
+  buttonEnvoyer: {
     width: 290,
     height: 55,
     backgroundColor: "rgba(111,120,189,1)",
@@ -207,7 +264,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  sauvegarder: {
+  envoyer: {
     fontFamily: "roboto500",
     color: "rgba(255,255,255,1)",
     fontSize: 18,

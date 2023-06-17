@@ -1,5 +1,4 @@
-// Importation des dépendances nécessaires
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Component } from "react";
 import {
   StyleSheet,
   View,
@@ -7,53 +6,47 @@ import {
   TouchableOpacity,
   Text,
   TextInput,
-  Alert,
 } from "react-native";
+
 import Svg, { Ellipse } from "react-native-svg";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import { useHardwareBackButton } from "../../../../components/useHardwareBackButton";
+import { Alert } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {
   getAuth,
   reauthenticateWithCredential,
+  deleteUser,
   EmailAuthProvider,
 } from "firebase/auth";
-import { getDoc, deleteDoc, doc, getFirestore } from "firebase/firestore";
 
-// Initialisation de la base de données Firebase
+import { getDoc, deleteDoc, doc } from "firebase/firestore";
+
+import { getFirestore } from "firebase/firestore";
+
 const db = getFirestore();
 
-// Cette fonction supprime le compte d'un utilisateur
 const deleteAccount = async (password, navigation) => {
-  // On récupère l'instance d'authentification et l'utilisateur courant
   const auth = getAuth();
   const user = auth.currentUser;
-
-  // Si un utilisateur est connecté, on continue
   if (user) {
-    // On demande une confirmation à l'utilisateur avant de supprimer son compte
     Alert.alert(
       "Confirmation de suppression",
       "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.",
       [
-        // L'utilisateur peut annuler la suppression
         { text: "Annuler", style: "cancel" },
         {
           text: "Supprimer",
           onPress: async () => {
-            // On crée des informations d'identification avec l'email et le mot de passe de l'utilisateur
             const credential = EmailAuthProvider.credential(
               user.email,
               password
             );
 
             try {
-              // On essaye de ré-authentifier l'utilisateur
               await reauthenticateWithCredential(user, credential);
             } catch (error) {
               console.error("Failed to re-authenticate user.", error);
-
-              // On vérifie si le mot de passe était incorrect
               if (error.code === "auth/wrong-password") {
                 Alert.alert(
                   "Erreur de mot de passe",
@@ -69,7 +62,6 @@ const deleteAccount = async (password, navigation) => {
               return;
             }
 
-            // On essaye de supprimer le document de l'utilisateur dans la base de données
             const userDocRef = doc(db, "users", user.uid);
             try {
               await deleteDoc(userDocRef);
@@ -77,21 +69,19 @@ const deleteAccount = async (password, navigation) => {
               console.error("Failed to delete user document.", error);
             }
 
-            // On essaye de supprimer le compte de l'utilisateur
             try {
               await user.delete();
             } catch (error) {
               console.error("Failed to delete user account.", error);
             }
 
-            // On informe l'utilisateur que son compte a été supprimé et on le redirige vers la page de connexion
             Alert.alert(
               "Compte supprimé",
               "Votre compte a été supprimé avec succès.",
               [
                 {
                   text: "OK",
-                  onPress: () => navigation.navigate("Login"),
+                  onPress: () => navigation.navigate("Login"), // Redirection vers l'écran de connexion
                 },
               ]
             );
@@ -102,56 +92,45 @@ const deleteAccount = async (password, navigation) => {
   }
 };
 
-// Le composant MonProfilScreen permet à l'utilisateur de gérer son profil
 export default function MonProfilScreen({ navigation }) {
-  // État pour le mot de passe et sa validité
-  const [password, setPassword] = useState("");
   const [isPasswordValid, setisPasswordValid] = useState(false);
-
-  // État pour la visibilité du mot de passe
   const [isPasswordVisible, setPasswordVisibility] = useState(false);
-
-  // Utilisation du hook useHardwareBackButton pour gérer le bouton retour du matériel
   useHardwareBackButton();
+  const [password, setPassword] = useState("");
 
-  // Cette fonction est appelée chaque fois que le mot de passe change
   const handlePasswordChange = (password) => {
     setPassword(password);
     validatePassword(password);
   };
 
-  // Styles pour l'entrée et le bouton qui changent en fonction de la validité du mot de passe
   const inputStyle = {
     ...styles.input,
     borderColor: isPasswordValid ? "#6f78bd" : "rgba(220,222,235,1)",
   };
+
   const buttonStyle = {
     ...styles.buttonSupprimer,
+    // backgroundColor: isPasswordValid ? "#e95120" : "rgba(255,255,255,1)",
     backgroundColor: isPasswordValid ? "#e95120" : "#dcdeeb",
-    alignSelf: "center",
+    alignSelf: "center", // to center the button horizontally
   };
+
   const buttonTextStyle = isPasswordValid
     ? styles.activeButtonText
     : styles.buttonText;
 
-  // Cette fonction vérifie si le mot de passe est valide ou non
+  useEffect(() => {
+    validatePassword(password);
+  }, [password]);
+
   const validatePassword = (password) => {
     const isValid = password.length >= 3;
     setisPasswordValid(isValid);
   };
 
-  // Effet pour valider le mot de passe chaque fois qu'il change
-  useEffect(() => {
-    validatePassword(password);
-  }, [password]);
-
-  // Rendu du composant
-
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="rgba(0,0,0,1)" />
-
-      {/* Go back button and profile title */}
       <View style={styles.goBackButtonRow}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -169,25 +148,27 @@ export default function MonProfilScreen({ navigation }) {
                 ry={14}
               ></Ellipse>
             </Svg>
-            <FeatherIcon name="chevron-left" style={styles.iconGoBack} />
+            <FeatherIcon
+              name="chevron-left"
+              style={styles.iconGoBack}
+            ></FeatherIcon>
           </View>
         </TouchableOpacity>
         <Text style={styles.monProfil6}>Mon profil</Text>
       </View>
-
       <View style={styles.lignPolitique}></View>
-
-      {/* Infos personnelles button */}
       <TouchableOpacity
         style={styles.buttonInfosPerso}
         onPress={() => navigation.navigate("InfosPerso")}
       >
         <Text style={styles.infosPersonnelles}>Infos personnelles</Text>
         <View style={styles.infosPersonnellesFiller}></View>
-        <FeatherIcon name="chevron-right" style={styles.chevronInfosPerso} />
+        <FeatherIcon
+          name="chevron-right"
+          style={styles.chevronInfosPerso}
+        ></FeatherIcon>
       </TouchableOpacity>
 
-      {/* Connexion et sécurité button */}
       <TouchableOpacity
         style={styles.buttonSecu}
         onPress={() => navigation.navigate("ConnexSecu")}
@@ -196,16 +177,16 @@ export default function MonProfilScreen({ navigation }) {
         <View style={styles.nousSecuRow}>
           <Text style={styles.nousSecu}>Connexion et sécurité</Text>
           <View style={styles.nousSecuFiller}></View>
-          <FeatherIcon name="chevron-right" style={styles.chevronContact} />
+          <FeatherIcon
+            name="chevron-right"
+            style={styles.chevronContact}
+          ></FeatherIcon>
         </View>
       </TouchableOpacity>
-
       <Text style={styles.titreSuppr}>Supprimer mon compte</Text>
       <Text style={styles.infoMessage}>
         Pour supprimer votre compte, veuillez renseigner votre mot de passe.
       </Text>
-
-      {/* Password input */}
       <View style={styles.passwordContainer}>
         <TextInput
           style={inputStyle}
@@ -226,7 +207,6 @@ export default function MonProfilScreen({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      {/* Supprimer mon compte button */}
       <View style={styles.buttonSupprimerContainer}>
         <TouchableOpacity
           style={buttonStyle}
