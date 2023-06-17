@@ -27,6 +27,15 @@ export default function ContactScreen({ navigation }) {
   const [message, setMessage] = React.useState("");
   const [messageLength, setMessageLength] = React.useState(0); // New state to hold the message length
 
+  const activeButtonStyle = {
+    ...styles.buttonEnvoyer,
+    backgroundColor: "rgba(111,120,189,1)", // active color
+  };
+  const inactiveButtonStyle = {
+    ...styles.buttonEnvoyer,
+    backgroundColor: "#dcdeeb", // inactive color
+  };
+
   const handleContactSubmit = async () => {
     if (messageLength < 10 || messageLength > 400) {
       // Display a toast message when message length is not valid
@@ -143,14 +152,29 @@ export default function ContactScreen({ navigation }) {
             ></TextInput>
           </View>
 
-          <TouchableOpacity
-            onPress={handleContactSubmit}
-            style={styles.groupEnvoyer}
+          <View
+            style={[
+              styles.groupEnvoyer,
+              {
+                backgroundColor:
+                  messageLength >= 10 && messageLength <= 400
+                    ? "rgba(111,120,189,1)"
+                    : "#dcdeeb",
+              },
+            ]}
           >
-            <View style={styles.buttonEnvoyer}>
+            <TouchableOpacity
+              onPress={handleContactSubmit}
+              disabled={messageLength < 10 || messageLength > 400}
+              style={
+                messageLength >= 10 && messageLength <= 400
+                  ? styles.activeButtonEnvoyer
+                  : styles.inactiveButtonEnvoyer
+              }
+            >
               <Text style={styles.envoyer}>Envoyer</Text>
-            </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
+          </View>
         </ScrollView>
       </View>
     </View>
@@ -264,15 +288,16 @@ const styles = StyleSheet.create({
     width: 290,
     height: 57,
     overflow: "visible",
-    backgroundColor: "rgba(255,255,255,1)",
+    // backgroundColor: "rgba(255,255,255,1)",
     marginTop: 275,
     marginLeft: 35,
+    borderRadius: 11,
   },
   buttonEnvoyer: {
     width: 290,
     height: 55,
-    backgroundColor: "rgba(111,120,189,1)",
-    borderRadius: 11,
+    //  backgroundColor: "rgba(111,120,189,1)",
+    //borderRadius: 11,
     shadowColor: "rgba(222,231,248,1)",
     shadowOffset: {
       height: 3,
@@ -295,5 +320,38 @@ const styles = StyleSheet.create({
     color: "rgba(50,56,106,1)",
     fontSize: 14,
     textAlign: "center",
+  },
+
+  activeButtonEnvoyer: {
+    width: 290,
+    height: 55,
+    backgroundColor: "rgba(111,120,189,1)",
+    borderRadius: 11,
+    shadowColor: "rgba(222,231,248,1)",
+    shadowOffset: {
+      height: 3,
+      width: 1,
+    },
+    elevation: 30,
+    shadowOpacity: 1,
+    shadowRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  inactiveButtonEnvoyer: {
+    width: 290,
+    height: 55,
+    backgroundColor: "#dcdeeb",
+    borderRadius: 11,
+    shadowColor: "rgba(222,231,248,1)",
+    shadowOffset: {
+      height: 3,
+      width: 1,
+    },
+    elevation: 30,
+    shadowOpacity: 1,
+    shadowRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
