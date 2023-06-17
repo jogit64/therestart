@@ -52,6 +52,18 @@ const deleteAccount = async (password, navigation) => {
               await reauthenticateWithCredential(user, credential);
             } catch (error) {
               console.error("Failed to re-authenticate user.", error);
+              if (error.code === "auth/wrong-password") {
+                Alert.alert(
+                  "Erreur de mot de passe",
+                  "Le mot de passe que vous avez saisi est incorrect.",
+                  [
+                    {
+                      text: "OK",
+                    },
+                  ]
+                );
+                return;
+              }
               return;
             }
 
@@ -91,11 +103,6 @@ export default function MonProfilScreen({ navigation }) {
   useHardwareBackButton();
   const [password, setPassword] = useState("");
 
-  // const validatePassword = (password) => {
-  //   const isValid = password.length >= 8;
-  //   setisPasswordValid(isValid);
-  // };
-
   const handlePasswordChange = (password) => {
     setPassword(password);
     validatePassword(password);
@@ -122,7 +129,7 @@ export default function MonProfilScreen({ navigation }) {
   }, [password]);
 
   const validatePassword = (password) => {
-    const isValid = password.length >= 8;
+    const isValid = password.length >= 3;
     setisPasswordValid(isValid);
   };
 
