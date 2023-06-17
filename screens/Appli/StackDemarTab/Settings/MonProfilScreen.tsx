@@ -1,19 +1,131 @@
-import React, { Component } from "react";
+import React, { useState, useEffect, Component } from "react";
 import {
   StyleSheet,
   View,
   StatusBar,
   TouchableOpacity,
   Text,
+  TextInput,
 } from "react-native";
+
 import Svg, { Ellipse } from "react-native-svg";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import { useHardwareBackButton } from "../../../../components/useHardwareBackButton";
+import { Alert } from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import {
+  getAuth,
+  reauthenticateWithCredential,
+  deleteUser,
+  EmailAuthProvider,
+} from "firebase/auth";
 
-//const MonProfilScreen: React.FC = () => {
+import { getDoc, deleteDoc, doc } from "firebase/firestore";
+
+import { getFirestore } from "firebase/firestore";
+
+const db = getFirestore();
+
+// const handlePasswordChange = (password) => {
+//   setPassword(password);
+//   validatePassword(password);
+// };
+
+const deleteAccount = async (password, navigation) => {
+  const auth = getAuth();
+  const user = auth.currentUser;
+  if (user) {
+    Alert.alert(
+      "Confirmation de suppression",
+      "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.",
+      [
+        { text: "Annuler", style: "cancel" },
+        {
+          text: "Supprimer",
+          onPress: async () => {
+            const credential = EmailAuthProvider.credential(
+              user.email,
+              password
+            );
+
+            try {
+              await reauthenticateWithCredential(user, credential);
+            } catch (error) {
+              console.error("Failed to re-authenticate user.", error);
+              return;
+            }
+
+            const userDocRef = doc(db, "users", user.uid);
+            try {
+              await deleteDoc(userDocRef);
+            } catch (error) {
+              console.error("Failed to delete user document.", error);
+            }
+
+            try {
+              await user.delete();
+            } catch (error) {
+              console.error("Failed to delete user account.", error);
+            }
+
+            Alert.alert(
+              "Compte supprimé",
+              "Votre compte a été supprimé avec succès.",
+              [
+                {
+                  text: "OK",
+                  onPress: () => navigation.navigate("Login"), // Redirection vers l'écran de connexion
+                },
+              ]
+            );
+          },
+        },
+      ]
+    );
+  }
+};
 
 export default function MonProfilScreen({ navigation }) {
+  const [isPasswordValid, setisPasswordValid] = useState(false);
+  const [isPasswordVisible, setPasswordVisibility] = useState(false);
   useHardwareBackButton();
+  const [password, setPassword] = useState("");
+
+  // const validatePassword = (password) => {
+  //   const isValid = password.length >= 8;
+  //   setisPasswordValid(isValid);
+  // };
+
+  const handlePasswordChange = (password) => {
+    setPassword(password);
+    validatePassword(password);
+  };
+
+  const inputStyle = {
+    ...styles.input,
+    borderColor: isPasswordValid ? "#6f78bd" : "rgba(220,222,235,1)",
+  };
+
+  const buttonStyle = {
+    ...styles.buttonSupprimer,
+    // backgroundColor: isPasswordValid ? "#e95120" : "rgba(255,255,255,1)",
+    backgroundColor: isPasswordValid ? "#e95120" : "#dcdeeb",
+    alignSelf: "center", // to center the button horizontally
+  };
+
+  const buttonTextStyle = isPasswordValid
+    ? styles.activeButtonText
+    : styles.buttonText;
+
+  useEffect(() => {
+    validatePassword(password);
+  }, [password]);
+
+  const validatePassword = (password) => {
+    const isValid = password.length >= 8;
+    setisPasswordValid(isValid);
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="rgba(0,0,0,1)" />
@@ -69,10 +181,39 @@ export default function MonProfilScreen({ navigation }) {
           ></FeatherIcon>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.buttonSupprimer}>
-        <Text style={styles.supprimerMonCompte}>Supprimer mon compte</Text>
-        <View style={styles.supprimerMonCompteFiller}></View>
-      </TouchableOpacity>
+      <Text style={styles.titreSuppr}>Supprimer mon compte</Text>
+      <Text style={styles.infoMessage}>
+        Pour supprimer votre compte, veuillez renseigner votre mot de passe.
+      </Text>
+      <View style={styles.passwordContainer}>
+        <TextInput
+          style={inputStyle}
+          onChangeText={handlePasswordChange}
+          value={password}
+          placeholder="Entrez votre mot de passe"
+          secureTextEntry={!isPasswordVisible}
+        />
+        <TouchableOpacity
+          style={styles.eyeButton}
+          onPress={() => setPasswordVisibility(!isPasswordVisible)}
+        >
+          <Icon
+            name={isPasswordVisible ? "eye-off" : "eye"}
+            size={24}
+            color="grey"
+          />
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.buttonSupprimerContainer}>
+        <TouchableOpacity
+          style={buttonStyle}
+          onPress={() => deleteAccount(password, navigation)}
+          disabled={!isPasswordValid}
+        >
+          <Text style={buttonTextStyle}>Supprimer mon compte</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -113,6 +254,7 @@ const styles = StyleSheet.create({
     marginLeft: 83,
     marginTop: 5,
   },
+
   goBackButtonRow: {
     height: 35,
     flexDirection: "row",
@@ -208,23 +350,41 @@ const styles = StyleSheet.create({
     marginLeft: 32,
     marginRight: 11,
   },
-  buttonSupprimer: {
-    width: 323,
-    height: 57,
-    backgroundColor: "rgba(255,255,255,1)",
-    borderRadius: 21,
-    shadowColor: "rgba(225,229,245,1)",
-    shadowOffset: {
-      width: 3,
-      height: 3,
-    },
-    elevation: 60,
-    shadowOpacity: 1,
-    shadowRadius: 20,
-    flexDirection: "row",
-    marginTop: 24,
-    marginLeft: 21,
+
+  titreSuppr: {
+    fontFamily: "roboto700",
+    color: "rgba(50,56,106,1)",
+    fontSize: 20,
+    marginLeft: 83,
+    marginTop: 65,
   },
+
+  buttonSupprimer: {
+    width: 260,
+    height: 44,
+    //backgroundColor: "#dcdeeb",
+    borderRadius: 10,
+    justifyContent: "center", // to center the text vertically
+    alignItems: "center", // to center the text horizontally
+    marginVertical: 20,
+  },
+
+  buttonText: {
+    color: "#121212",
+    fontSize: 15,
+    fontFamily: "roboto",
+  },
+
+  activeButtonText: {
+    color: "#fff",
+    fontSize: 15,
+    fontFamily: "roboto",
+  },
+
+  // buttonSupprimerActive: {
+  //   backgroundColor: "#6f78bd",
+  // },
+
   supprimerMonCompte: {
     fontFamily: "roboto",
     color: "rgba(50,56,106,1)",
@@ -235,12 +395,36 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
   },
-  chevronSupprimer: {
-    color: "rgba(152,156,181,1)",
-    fontSize: 26,
-    height: 26,
-    width: 26,
-    marginRight: 18,
+
+  input: {
+    fontFamily: "roboto",
+    color: "#121212",
+    height: 55,
+    width: 260,
+    backgroundColor: "rgba(255,255,255,1)",
+    borderWidth: 2,
+
+    borderRadius: 14,
+    padding: 10,
+    marginTop: 10,
+  },
+
+  passwordContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center", // Si vous voulez centrer l'ensemble horizontalement
+  },
+  infoMessage: {
+    fontFamily: "roboto",
+    fontSize: 14,
+    color: "rgba(50,56,106,1)",
+    marginHorizontal: 50, // Ajustez ces valeurs comme vous le souhaitez
+    //marginVertical: 10,
     marginTop: 15,
+    marginBottom: 15,
+    textAlign: "center", // Si vous voulez centrer le texte
+  },
+  eyeButton: {
+    marginLeft: -30,
   },
 });
