@@ -37,7 +37,7 @@ interface UserContextInterface {
 }
 
 function InfosPersoScreen({ navigation }) {
-  //useHardwareBackButton();
+  useHardwareBackButton();
   const db = getFirestore();
   const auth = getAuth();
   const storage = getStorage();

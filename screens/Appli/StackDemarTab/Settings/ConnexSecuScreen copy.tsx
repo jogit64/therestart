@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
 import {
   StyleSheet,
   View,
@@ -10,95 +10,34 @@ import {
 } from "react-native";
 import Svg, { Ellipse } from "react-native-svg";
 import Icon from "react-native-vector-icons/Feather";
+import { useHardwareBackButton } from "../../../../components/useHardwareBackButton";
 
-import { auth, provider } from "../../../../firebase.js";
-//import { EmailAuthProvider } from "firebase/auth";
-import { EmailAuthProvider } from "firebase/auth";
-import { reauthenticateWithCredential, updatePassword } from "firebase/auth";
-
+import { auth } from "../../../../firebase.js";
 import Toast from "react-native-root-toast";
 
 export default function ConnexionSecu({ navigation }) {
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  useHardwareBackButton();
 
   const handleSave = async () => {
     try {
       const user = auth.currentUser;
 
-      const credentials = EmailAuthProvider.credential(
-        user.email,
-        currentPassword
+      // Pour changer le mot de passe :
+      if (newPassword) {
+        // newPassword est le nouveau mot de passe saisi par l'utilisateur
+        await user.updatePassword(newPassword);
+      }
+
+      Toast.show(
+        "Les informations de connexion ont été mises à jour.",
+        Toast.LONG
       );
-
-      await reauthenticateWithCredential(user, credentials);
-
-      if (newPassword !== confirmPassword) {
-        Toast.show(
-          "Le nouveau mot de passe et sa confirmation ne correspondent pas.",
-          {
-            duration: Toast.durations.LONG,
-            position: Toast.positions.CENTER,
-            shadow: true,
-            animation: true,
-            hideOnPress: true,
-            delay: 0,
-          }
-        );
-        return;
-      }
-
-      if (newPassword.length < 8) {
-        Toast.show(
-          "Le nouveau mot de passe doit comporter au moins 8 caractères.",
-          {
-            duration: Toast.durations.LONG,
-            position: Toast.positions.CENTER,
-            shadow: true,
-            animation: true,
-            hideOnPress: true,
-            delay: 0,
-          }
-        );
-        return;
-      }
-
-      await updatePassword(user, newPassword);
-
-      Toast.show("Les informations de connexion ont été mises à jour.", {
-        duration: Toast.durations.LONG,
-        position: Toast.positions.CENTER,
-        shadow: true,
-        animation: true,
-        hideOnPress: true,
-        delay: 0,
-      });
     } catch (error) {
+      Toast.show(
+        "Erreur lors de la mise à jour des informations de connexion.",
+        Toast.LONG
+      );
       console.error(error);
-
-      if (error.code === "auth/wrong-password") {
-        Toast.show("Le mot de passe actuel est incorrect.", {
-          duration: Toast.durations.LONG,
-          position: Toast.positions.CENTER,
-          shadow: true,
-          animation: true,
-          hideOnPress: true,
-          delay: 0,
-        });
-      } else {
-        Toast.show(
-          "Erreur lors de la mise à jour des informations de connexion.",
-          {
-            duration: Toast.durations.LONG,
-            position: Toast.positions.CENTER,
-            shadow: true,
-            animation: true,
-            hideOnPress: true,
-            delay: 0,
-          }
-        );
-      }
     }
   };
 
@@ -135,23 +74,20 @@ export default function ConnexionSecu({ navigation }) {
           <View style={styles.groupMdpActu}>
             <Text style={styles.motDePasseActuel}>Mot de passe actuel</Text>
             <TextInput
-              placeholder="Mot de passe actuel"
+              placeholder="Mot de passe (8 caractères et + )"
               placeholderTextColor="rgba(151,155,180,1)"
               inlineImagePadding={0}
               style={styles.inputMdpActu}
-              onChangeText={setCurrentPassword}
-              value={currentPassword}
             ></TextInput>
           </View>
           <View style={styles.groupMdpNew}>
             <Text style={styles.nouveauMotDePasse}>Nouveau mot de passe</Text>
             <TextInput
-              placeholder="Nouveau mot de passe (8 caractères et + )"
+              placeholder="Mot de passe (8 caractères et + )"
+              dataDetector="address"
               placeholderTextColor="rgba(151,155,180,1)"
               inlineImagePadding={0}
               style={styles.inputMdpNew}
-              onChangeText={setNewPassword}
-              value={newPassword}
             ></TextInput>
           </View>
           <View style={styles.groupMdpConfirm}>
@@ -159,23 +95,21 @@ export default function ConnexionSecu({ navigation }) {
               Confirmez le mot de passe
             </Text>
             <TextInput
-              placeholder="Confirmez le nouveau mot de passe"
+              placeholder="Mot de passe (8 caractères et + )"
+              dataDetector="address"
               placeholderTextColor="rgba(151,155,180,1)"
               inlineImagePadding={0}
               style={styles.inputMdpConfirm}
-              onChangeText={setConfirmPassword}
-              value={confirmPassword}
             ></TextInput>
           </View>
-
-          <View style={styles.groupSauvegarder}>
-            <TouchableOpacity
-              onPress={handleSave}
-              style={styles.buttonSauvegarder}
-            >
+          <TouchableOpacity
+            onPress={() => navigation.navigate("MonProfil")}
+            style={styles.groupSauvegarder}
+          >
+            <TouchableOpacity style={styles.buttonSauvegarder}>
               <Text style={styles.sauvegarder}>Sauvegarder</Text>
             </TouchableOpacity>
-          </View>
+          </TouchableOpacity>
         </ScrollView>
       </View>
     </View>

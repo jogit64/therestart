@@ -14,10 +14,9 @@ import { LinearGradient } from "expo-linear-gradient";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import React, { useState, useEffect, useContext } from "react";
 
-import { auth } from "../../firebase.js"; // Importez auth depuis firebase.js
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
-
+//import Toast from "react-native-toast-message";
 import Toast from "react-native-root-toast";
 
 import UserContext from "../../UserContext"; // Import du UserContext
@@ -31,6 +30,7 @@ const LoginScreen = ({ navigation }) => {
     try {
       setIsLoading(true); // démarre l'indicateur de chargement
 
+      const auth = getAuth();
       await signInWithEmailAndPassword(auth, email, password);
       //navigation.navigate("BottomTabNavigator");
       navigation.navigate("HomeTab");
