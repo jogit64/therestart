@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   StyleSheet,
   View,
@@ -16,17 +16,24 @@ import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommun
 //import { useHardwareBackButton } from "../../../../components/useHardwareBackButton";
 import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-
+import UserContext from "./../../../../UserContext";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import { useHardwareBackButton } from "../../../../components/useHardwareBackButton";
 
 import * as ImagePicker from "expo-image-picker";
+import Toast from "react-native-root-toast";
 
-interface User {
-  firstName: string; // Remplacez 'username' par 'firstName'
-  age: number; // Ajoutez cette ligne
-  // Add other fields as needed
+// Définir l'interface pour le contexte de l'utilisateur
+interface UserContextInterface {
+  firstName: string; // Le prénom de l'utilisateur
+  isLoggedIn: boolean; // L'état de connexion de l'utilisateur
+  imageUrl: string; // L'URL de l'image de l'utilisateur
+
+  // Des fonctions pour mettre à jour le prénom, l'état de connexion, et l'URL de l'image
+  setFirstName: React.Dispatch<React.SetStateAction<string>>;
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+  setImageUrl: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function InfosPersoScreen({ navigation }) {
@@ -34,31 +41,17 @@ function InfosPersoScreen({ navigation }) {
   const db = getFirestore();
   const auth = getAuth();
   const storage = getStorage();
+  // Accéder au contexte de l'utilisateur
+  const userContext = useContext(UserContext);
 
   const [user, setUser] = useState<User | null>(null);
   const [firstName, setFirstName] = useState("");
   const [age, setAge] = useState<number | null>(null);
   const [sex, setSex] = useState<string | null>(null);
 
-  //const [image, setImage] = useState<string | null>(null); // Ajoutez cette ligne
-
-  // const [image, setImage] = useState(
-  //   require("./../../../../assets/userHead.png")
-  // ); // Changez la valeur initiale de l'état image à l'image par défaut
-
   const [image, setImage] = useState<string | number>(
     require("./../../../../assets/userHead.png")
-  ); // Changez la valeur initiale de l'état image à l'image par défaut
-
-  // useEffect(() => {
-  //   (async () => {
-  //     const { status } =
-  //       await ImagePicker.requestMediaLibraryPermissionsAsync(); // utilisez ImagePicker.requestMediaLibraryPermissionsAsync à la place de Permissions.askAsync(Permissions.CAMERA_ROLL);
-  //     if (status !== "granted") {
-  //       alert("Sorry, we need camera roll permissions to make this work!");
-  //     }
-  //   })();
-  // }, []);
+  );
 
   const pickImage = async () => {
     console.log("pickImage was triggered");
@@ -77,8 +70,8 @@ function InfosPersoScreen({ navigation }) {
 
     console.log(result);
 
-    if (!result.cancelled) {
-      const response = await fetch(result.uri);
+    if (!result.canceled && result.assets && result.assets.length > 0) {
+      const response = await fetch(result.assets[0].uri);
       const blob = await response.blob();
       const imageRef = ref(storage, `images/${auth.currentUser.uid}`);
       await uploadBytes(imageRef, blob);
@@ -98,6 +91,9 @@ function InfosPersoScreen({ navigation }) {
         setUser(userData);
         setFirstName(userData.firstName);
         setAge(userData.age);
+        setSex(userData.sex);
+        userContext.setImageUrl(userData.imageUrl); // Mise à jour du contexte avec l'URL de l'image
+        setImage(userData.imageUrl); // Mise à jour de l'état local avec l'URL de l'image
       }
     };
 
@@ -105,9 +101,40 @@ function InfosPersoScreen({ navigation }) {
   }, []);
 
   const handleSave = async () => {
-    const userRef = doc(db, "users", auth.currentUser.uid);
-    await updateDoc(userRef, { firstName: firstName, age: age, sex: sex });
-    setUser({ firstName: firstName, age: age, sex: sex });
+    try {
+      const userRef = doc(db, "users", auth.currentUser.uid);
+
+      // Mettre à jour Firestore
+      await updateDoc(userRef, {
+        firstName: firstName,
+        age: age,
+        sex: sex,
+        imageUrl: image,
+      });
+
+      // Mettre à jour le contexte
+      setUser({ firstName: firstName, age: age, sex: sex, imageUrl: image });
+
+      // Afficher un toast de succès
+      Toast.show("Profil mis à jour !", {
+        duration: Toast.durations.LONG,
+        position: Toast.positions.CENTER, // positionne le toast au centre
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+      });
+    } catch (error) {
+      // Afficher un toast d'erreur
+      Toast.show("Erreur lors de la mise à jour du profil.", {
+        duration: Toast.durations.LONG,
+        position: Toast.positions.CENTER, // positionne le toast au centre
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+      });
+    }
   };
 
   return (
@@ -147,7 +174,10 @@ function InfosPersoScreen({ navigation }) {
             <Image
               source={typeof image === "number" ? image : { uri: image }}
               resizeMode="contain"
-              style={styles.image}
+              style={[
+                styles.image,
+                typeof image === "number" ? {} : styles.roundImage,
+              ]}
             ></Image>
 
             <TouchableOpacity onPress={pickImage} style={styles.cam}>
@@ -193,7 +223,16 @@ function InfosPersoScreen({ navigation }) {
             />
           </View>
           <View style={styles.groupSexe}>
-            <Text style={styles.sexe}>Sexe</Text>
+            <Text style={styles.sexe}>
+              Sexe{" "}
+              {sex === "Masculin"
+                ? "(M)"
+                : sex === "Féminin"
+                ? "(F)"
+                : sex === "Non spécifié"
+                ? "(Je ne préfère pas le dire)"
+                : "(Aucun choix précédent)"}
+            </Text>
             <View style={styles.groupMascuRow}>
               <View style={styles.groupMascu}>
                 <TouchableOpacity
@@ -541,6 +580,11 @@ const styles = StyleSheet.create({
   buttonSelected: {
     borderWidth: 1,
     borderColor: "blue",
+  },
+  roundImage: {
+    width: 100, // Mettez ici la largeur de votre image
+    height: 100, // Mettez ici la hauteur de votre image
+    borderRadius: 50, // la moitié de la largeur/hauteur de l'image
   },
 });
 

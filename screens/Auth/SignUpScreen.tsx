@@ -110,9 +110,14 @@ const SignUpScreen = ({ navigation }) => {
       const user = userCredential.user;
       console.log("User registered successfully!", user);
 
-      // Enregistrer le prénom de l'utilisateur, l'âge et le sexe dans Firestore
+      // Enregistrer le prénom de l'utilisateur, l'âge, le sexe, et l'URL d'image dans Firestore
       const userDocRef = doc(db, "users", user.uid);
-      await setDoc(userDocRef, { firstName: firstNameInput, age: "", sex: "" });
+      await setDoc(userDocRef, {
+        firstName: firstNameInput,
+        age: "",
+        sex: "",
+        imageUrl: "", // ou une URL d'image par défaut
+      });
 
       // Mettre à jour le contexte de l'utilisateur
       setFirstName(firstNameInput);
