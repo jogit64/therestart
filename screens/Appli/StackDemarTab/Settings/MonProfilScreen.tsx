@@ -136,7 +136,7 @@ export default function MonProfilScreen({ navigation }) {
 
   // Cette fonction vérifie si le mot de passe est valide ou non
   const validatePassword = (password) => {
-    const isValid = password.length >= 3;
+    const isValid = password.length >= 8;
     setisPasswordValid(isValid);
   };
 

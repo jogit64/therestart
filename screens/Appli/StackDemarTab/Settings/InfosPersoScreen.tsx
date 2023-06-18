@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -13,13 +13,106 @@ import Svg, { Ellipse } from "react-native-svg";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
+//import { useHardwareBackButton } from "../../../../components/useHardwareBackButton";
+import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
 import { useHardwareBackButton } from "../../../../components/useHardwareBackButton";
 
+import * as ImagePicker from "expo-image-picker";
+
+interface User {
+  firstName: string; // Remplacez 'username' par 'firstName'
+  age: number; // Ajoutez cette ligne
+  // Add other fields as needed
+}
+
 function InfosPersoScreen({ navigation }) {
-  useHardwareBackButton();
+  //useHardwareBackButton();
+  const db = getFirestore();
+  const auth = getAuth();
+  const storage = getStorage();
+
+  const [user, setUser] = useState<User | null>(null);
+  const [firstName, setFirstName] = useState("");
+  const [age, setAge] = useState<number | null>(null);
+  const [sex, setSex] = useState<string | null>(null);
+
+  //const [image, setImage] = useState<string | null>(null); // Ajoutez cette ligne
+
+  // const [image, setImage] = useState(
+  //   require("./../../../../assets/userHead.png")
+  // ); // Changez la valeur initiale de l'état image à l'image par défaut
+
+  const [image, setImage] = useState<string | number>(
+    require("./../../../../assets/userHead.png")
+  ); // Changez la valeur initiale de l'état image à l'image par défaut
+
+  // useEffect(() => {
+  //   (async () => {
+  //     const { status } =
+  //       await ImagePicker.requestMediaLibraryPermissionsAsync(); // utilisez ImagePicker.requestMediaLibraryPermissionsAsync à la place de Permissions.askAsync(Permissions.CAMERA_ROLL);
+  //     if (status !== "granted") {
+  //       alert("Sorry, we need camera roll permissions to make this work!");
+  //     }
+  //   })();
+  // }, []);
+
+  const pickImage = async () => {
+    console.log("pickImage was triggered");
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== "granted") {
+      alert("Sorry, we need camera roll permissions to make this work!");
+      return;
+    }
+
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      const response = await fetch(result.uri);
+      const blob = await response.blob();
+      const imageRef = ref(storage, `images/${auth.currentUser.uid}`);
+      await uploadBytes(imageRef, blob);
+
+      const downloadUrl = await getDownloadURL(imageRef);
+
+      setImage(downloadUrl);
+    }
+  };
+
+  useEffect(() => {
+    const userRef = doc(db, "users", auth.currentUser.uid);
+    const fetchData = async () => {
+      const docSnap = await getDoc(userRef);
+      if (docSnap.exists()) {
+        const userData = docSnap.data() as User;
+        setUser(userData);
+        setFirstName(userData.firstName);
+        setAge(userData.age);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleSave = async () => {
+    const userRef = doc(db, "users", auth.currentUser.uid);
+    await updateDoc(userRef, { firstName: firstName, age: age, sex: sex });
+    setUser({ firstName: firstName, age: age, sex: sex });
+  };
+
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="rgba(0,0,0,1)" />
+      {/* <StatusBar backgroundColor="rgba(0,0,0,1)" /> */}
       <View style={styles.scrollArea}>
         <ScrollView
           contentContainerStyle={styles.scrollArea_contentContainerStyle}
@@ -49,13 +142,16 @@ function InfosPersoScreen({ navigation }) {
             </TouchableOpacity>
             <Text style={styles.infosPersonnelles}>Infos personnelles</Text>
           </View>
-          <View style={styles.imageStack}>
+
+          <View style={styles.imageStack} pointerEvents="box-none">
             <Image
-              source={require("./../../../../assets/userHead.png")}
+              source={typeof image === "number" ? image : { uri: image }}
               resizeMode="contain"
               style={styles.image}
             ></Image>
-            <View style={styles.groupPhoto1}>
+
+            <TouchableOpacity onPress={pickImage} style={styles.cam}>
+              {/* <View style={styles.groupPhoto1}> */}
               <View style={styles.ellipsePhoto1Stack}>
                 <Svg viewBox="0 0 29.57 29.57" style={styles.ellipsePhoto1}>
                   <Ellipse
@@ -73,33 +169,40 @@ function InfosPersoScreen({ navigation }) {
                   style={styles.iconPhoto1}
                 ></EntypoIcon>
               </View>
-            </View>
+              {/* </View> */}
+            </TouchableOpacity>
           </View>
+
           <View style={styles.groupName}>
-            <Text style={styles.nomDutilisateur}>Nom d&#39;utilisateur</Text>
-            <TextInput
-              placeholder="Entrez votre nom d'utilisateur"
-              dataDetector="address"
-              placeholderTextColor="rgba(151,155,180,1)"
-              inlineImagePadding={0}
-              style={styles.inputName}
-            ></TextInput>
+            <View style={styles.container}>
+              <TextInput
+                placeholder="Prénom"
+                value={firstName}
+                onChangeText={setFirstName}
+                style={styles.inputName}
+              />
+            </View>
           </View>
           <View style={styles.groupAge}>
             <Text style={styles.age}>Âge</Text>
             <TextInput
-              placeholder="Entrez votre âge"
-              dataDetector="address"
-              placeholderTextColor="rgba(151,155,180,1)"
-              inlineImagePadding={0}
+              placeholder="Âge"
+              value={age}
+              onChangeText={(text) => setAge(text)}
               style={styles.inputAge}
-            ></TextInput>
+            />
           </View>
           <View style={styles.groupSexe}>
             <Text style={styles.sexe}>Sexe</Text>
             <View style={styles.groupMascuRow}>
               <View style={styles.groupMascu}>
-                <TouchableOpacity style={styles.button2}>
+                <TouchableOpacity
+                  onPress={() => setSex("Masculin")}
+                  style={[
+                    styles.button2,
+                    sex === "Masculin" && styles.buttonSelected,
+                  ]}
+                >
                   <MaterialCommunityIconsIcon
                     name="gender-male"
                     style={styles.iconMascu}
@@ -107,8 +210,15 @@ function InfosPersoScreen({ navigation }) {
                   <Text style={styles.masculin}>Masculin</Text>
                 </TouchableOpacity>
               </View>
+
               <View style={styles.groupFemin}>
-                <TouchableOpacity style={styles.button3}>
+                <TouchableOpacity
+                  onPress={() => setSex("Féminin")}
+                  style={[
+                    styles.button3,
+                    sex === "Féminin" && styles.buttonSelected,
+                  ]}
+                >
                   <MaterialCommunityIconsIcon
                     name="gender-female"
                     style={styles.iconFemin}
@@ -118,22 +228,27 @@ function InfosPersoScreen({ navigation }) {
               </View>
             </View>
           </View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("MonProfil")}
-            style={styles.groupPasDire}
-          >
-            <TouchableOpacity style={styles.buttonPasDire}>
+
+          <View style={styles.groupPasDire}>
+            <TouchableOpacity
+              onPress={() => setSex("Non spécifié")}
+              style={[
+                styles.buttonPasDire,
+                sex === "Non spécifié" && styles.buttonSelected,
+              ]}
+            >
               <Text style={styles.labelPasDire}>Je préfère ne pas le dire</Text>
             </TouchableOpacity>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("MonProfil")}
-            style={styles.groupSauvegarder}
-          >
-            <TouchableOpacity style={styles.buttonSauvegarder}>
+          </View>
+
+          <View style={styles.groupSauvegarder}>
+            <TouchableOpacity
+              onPress={handleSave}
+              style={styles.buttonSauvegarder}
+            >
               <Text style={styles.sauvegarder}>Sauvegarder</Text>
             </TouchableOpacity>
-          </TouchableOpacity>
+          </View>
         </ScrollView>
       </View>
     </View>
@@ -212,10 +327,19 @@ const styles = StyleSheet.create({
   iconPhoto1: {
     top: 6,
     left: 7,
-    position: "absolute",
+    //position: "absolute",
     color: "rgba(255,255,255,1)",
     fontSize: 16,
   },
+  cam: {
+    position: "absolute", // positionner absolument
+    bottom: 0, // ancrer en bas
+    right: 0, // ancrer à droite
+    //backgroundColor: "red",
+    width: 34, // largeur de votre TouchableOpacity
+    height: 34, // hauteur de votre TouchableOpacity
+  },
+
   ellipsePhoto1Stack: {
     width: 30,
     height: 30,
@@ -413,6 +537,10 @@ const styles = StyleSheet.create({
     color: "rgba(255,255,255,1)",
     fontSize: 18,
     textAlign: "center",
+  },
+  buttonSelected: {
+    borderWidth: 1,
+    borderColor: "blue",
   },
 });
 
