@@ -118,9 +118,9 @@ export default function SettingsScreen({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.lignFaq}></View>
+      {/* <View style={styles.lignFaq}></View> */}
 
-      <View style={styles.groupTermes}>
+      {/* <View style={styles.groupTermes}>
         <TouchableOpacity
           style={styles.buttonTermes}
           onPress={() => navigation.navigate("CGU")}
@@ -138,7 +138,7 @@ export default function SettingsScreen({ navigation }) {
             style={styles.chevronTermes}
           ></FeatherIcon>
         </TouchableOpacity>
-      </View>
+      </View> */}
 
       <View style={styles.groupPolitique}>
         <TouchableOpacity
@@ -478,7 +478,7 @@ const styles = StyleSheet.create({
   groupPolitique: {
     width: 295,
     height: 29,
-    marginTop: 28,
+    marginTop: 20,
     marginLeft: 34,
   },
   buttonPolitique: {
