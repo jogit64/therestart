@@ -15,13 +15,31 @@ import { auth, provider } from "../../../../firebase.js";
 //import { EmailAuthProvider } from "firebase/auth";
 import { EmailAuthProvider } from "firebase/auth";
 import { reauthenticateWithCredential, updatePassword } from "firebase/auth";
+import { useHardwareBackButton } from "../../../../components/useHardwareBackButton";
 
 import Toast from "react-native-root-toast";
 
 export default function ConnexionSecu({ navigation }) {
+  useHardwareBackButton();
+
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [activeInput, setActiveInput] = useState("");
+  const [isCurrentPasswordValid, setIsCurrentPasswordValid] = useState(false);
+  const [isNewPasswordValid, setIsNewPasswordValid] = useState(false);
+  const [isConfirmPasswordValid, setIsConfirmPasswordValid] = useState(false);
+
+  const handleFocus = (name) => {
+    setActiveInput(name);
+  };
+
+  // Fonction pour valider le mot de passe
+  const validatePassword = (password, setPasswordValid) => {
+    const isValid = password.length >= 8;
+    setPasswordValid(isValid);
+  };
 
   const handleSave = async () => {
     try {
@@ -65,6 +83,7 @@ export default function ConnexionSecu({ navigation }) {
       }
 
       await updatePassword(user, newPassword);
+      navigation.navigate("MonProfil");
 
       Toast.show("Les informations de connexion ont été mises à jour.", {
         duration: Toast.durations.LONG,
@@ -76,8 +95,8 @@ export default function ConnexionSecu({ navigation }) {
       });
     } catch (error) {
       console.error(error);
-
       if (error.code === "auth/wrong-password") {
+        console.log("bigo");
         Toast.show("Le mot de passe actuel est incorrect.", {
           duration: Toast.durations.LONG,
           position: Toast.positions.CENTER,
@@ -134,37 +153,93 @@ export default function ConnexionSecu({ navigation }) {
 
           <View style={styles.groupMdpActu}>
             <Text style={styles.motDePasseActuel}>Mot de passe actuel</Text>
-            <TextInput
+            {/* <TextInput
               placeholder="Mot de passe actuel"
               placeholderTextColor="rgba(151,155,180,1)"
               inlineImagePadding={0}
               style={styles.inputMdpActu}
               onChangeText={setCurrentPassword}
               value={currentPassword}
+              onFocus={() => handleFocus("currentPassword")}
+            ></TextInput> */}
+
+            <TextInput
+              placeholder="Mot de passe actuel"
+              placeholderTextColor="rgba(151,155,180,1)"
+              inlineImagePadding={0}
+              style={[
+                styles.inputMdpActu,
+                activeInput === "currentPassword" && styles.activeInput,
+                isCurrentPasswordValid && styles.inputValid,
+              ]}
+              onChangeText={(text) => {
+                setCurrentPassword(text);
+                validatePassword(text, setIsCurrentPasswordValid);
+              }}
+              value={currentPassword}
+              onFocus={() => handleFocus("currentPassword")}
             ></TextInput>
           </View>
           <View style={styles.groupMdpNew}>
             <Text style={styles.nouveauMotDePasse}>Nouveau mot de passe</Text>
-            <TextInput
+
+            {/* <TextInput
               placeholder="Nouveau mot de passe (8 caractères et + )"
               placeholderTextColor="rgba(151,155,180,1)"
               inlineImagePadding={0}
               style={styles.inputMdpNew}
               onChangeText={setNewPassword}
               value={newPassword}
+              onFocus={() => handleFocus("currentPassword")}
+            ></TextInput> */}
+
+            <TextInput
+              placeholder="Nouveau mot de passe (8 caractères et + )"
+              placeholderTextColor="rgba(151,155,180,1)"
+              inlineImagePadding={0}
+              style={[
+                styles.inputMdpNew,
+                activeInput === "newPassword" && styles.activeInput,
+                isNewPasswordValid && styles.inputValid,
+              ]}
+              onChangeText={(text) => {
+                setNewPassword(text);
+                validatePassword(text, setIsNewPasswordValid);
+              }}
+              value={newPassword}
+              onFocus={() => handleFocus("newPassword")}
             ></TextInput>
           </View>
           <View style={styles.groupMdpConfirm}>
             <Text style={styles.nouveauMotDePasse1}>
               Confirmez le mot de passe
             </Text>
-            <TextInput
+
+            {/* <TextInput
               placeholder="Confirmez le nouveau mot de passe"
               placeholderTextColor="rgba(151,155,180,1)"
               inlineImagePadding={0}
               style={styles.inputMdpConfirm}
               onChangeText={setConfirmPassword}
               value={confirmPassword}
+              onFocus={() => handleFocus("currentPassword")}
+            ></TextInput> */}
+
+            <TextInput
+              placeholder="Confirmez le nouveau mot de passe"
+              placeholderTextColor="rgba(151,155,180,1)"
+              inlineImagePadding={0}
+              style={[
+                styles.inputMdpConfirm,
+                activeInput === "confirmPassword" && styles.activeInput,
+                isConfirmPasswordValid && styles.inputValid,
+              ]}
+              onChangeText={(text) => {
+                setConfirmPassword(text);
+                validatePassword(text, setIsConfirmPasswordValid);
+              }}
+              value={confirmPassword}
+              onFocus={() => handleFocus("confirmPassword")}
             ></TextInput>
           </View>
 
@@ -330,6 +405,15 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     paddingLeft: 10,
   },
+
+  activeInput: {
+    borderColor: "#6f78bd",
+  },
+
+  inputValid: {
+    backgroundColor: "#fffac3",
+  },
+
   groupSauvegarder: {
     width: 290,
     height: 57,

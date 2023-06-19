@@ -93,7 +93,10 @@ function InfosPersoScreen({ navigation }) {
         setAge(userData.age);
         setSex(userData.sex);
         userContext.setImageUrl(userData.imageUrl); // Mise à jour du contexte avec l'URL de l'image
-        setImage(userData.imageUrl); // Mise à jour de l'état local avec l'URL de l'image
+        if (userData.imageUrl) {
+          // Ajoutez cette vérification ici
+          setImage(userData.imageUrl); // Mise à jour de l'état local avec l'URL de l'image
+        }
       }
     };
 
