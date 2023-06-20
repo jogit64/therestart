@@ -19,7 +19,7 @@ import { getAuth } from "firebase/auth";
 import UserContext from "./../../../../UserContext";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-import { useHardwareBackButton } from "../../../../components/useHardwareBackButton";
+import { useHardwareBackButton } from "../../../../../components/useHardwareBackButton";
 
 import * as ImagePicker from "expo-image-picker";
 import Toast from "react-native-root-toast";

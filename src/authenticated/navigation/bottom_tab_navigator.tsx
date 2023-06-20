@@ -2,9 +2,9 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
-import Tab2 from "./Tab2";
-import Tab3 from "./Tab3";
-import Tab4 from "./Tab4";
+import Tab2 from "./tab2";
+import Tab3 from "./tab3.t";
+import Tab4 from "./tab4";
 import DemarTab from "./DemarTab";
 
 // Création de l'objet Tab à partir de la méthode createBottomTabNavigator

@@ -19,7 +19,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import UserContext from "../../UserContext";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
-import SettingsScreen from "./StackDemarTab/SettingsScreen";
+import SettingsScreen from "./StackDemarTab/SettingsScreen.js";
 
 import { BackHandler } from "react-native";
 import { useBackHandler } from "@react-native-community/hooks";

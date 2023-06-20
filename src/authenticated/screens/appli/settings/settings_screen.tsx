@@ -10,7 +10,7 @@ import Svg, { Ellipse } from "react-native-svg";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 
-import { useHardwareBackButton } from "../../../components/useHardwareBackButton";
+import { useHardwareBackButton } from "../../../../../components/useHardwareBackButton";
 
 import { useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";

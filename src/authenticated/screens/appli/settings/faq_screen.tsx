@@ -7,7 +7,7 @@ import {
   Text,
 } from "react-native";
 import Svg, { Ellipse } from "react-native-svg";
-import { useHardwareBackButton } from "../../../../components/useHardwareBackButton";
+import { useHardwareBackButton } from "../../../../../components/useHardwareBackButton";
 
 import { FontAwesome } from "@expo/vector-icons";
 
