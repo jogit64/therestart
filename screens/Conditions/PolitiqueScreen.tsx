@@ -209,5 +209,3 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 });
-
-export default CGUScreen;

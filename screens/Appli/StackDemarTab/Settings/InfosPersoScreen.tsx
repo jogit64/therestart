@@ -25,16 +25,16 @@ import * as ImagePicker from "expo-image-picker";
 import Toast from "react-native-root-toast";
 
 // Définir l'interface pour le contexte de l'utilisateur
-interface UserContextInterface {
-  firstName: string; // Le prénom de l'utilisateur
-  isLoggedIn: boolean; // L'état de connexion de l'utilisateur
-  imageUrl: string; // L'URL de l'image de l'utilisateur
+// interface UserContextInterface {
+//   firstName: string; // Le prénom de l'utilisateur
+//   isLoggedIn: boolean; // L'état de connexion de l'utilisateur
+//   imageUrl: string; // L'URL de l'image de l'utilisateur
 
-  // Des fonctions pour mettre à jour le prénom, l'état de connexion, et l'URL de l'image
-  setFirstName: React.Dispatch<React.SetStateAction<string>>;
-  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
-  setImageUrl: React.Dispatch<React.SetStateAction<string>>;
-}
+//   // Des fonctions pour mettre à jour le prénom, l'état de connexion, et l'URL de l'image
+//   setFirstName: React.Dispatch<React.SetStateAction<string>>;
+//   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+//   setImageUrl: React.Dispatch<React.SetStateAction<string>>;
+// }
 
 function InfosPersoScreen({ navigation }) {
   useHardwareBackButton();

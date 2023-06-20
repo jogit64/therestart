@@ -5,10 +5,11 @@ import React, { createContext, useState, ReactNode } from "react";
 interface UserContextInterface {
   firstName: string; // Le prénom de l'utilisateur
   isLoggedIn: boolean; // L'état de connexion de l'utilisateur
-
+  imageUrl: string;
   // Des fonctions pour mettre à jour le prénom et l'état de connexion
   setFirstName: React.Dispatch<React.SetStateAction<string>>;
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+  setImageUrl: React.Dispatch<React.SetStateAction<string>>;
 }
 
 // Créer le contexte avec une valeur initiale nulle

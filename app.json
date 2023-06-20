@@ -11,19 +11,22 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
         "NSPhotoLibraryUsageDescription": "This app would like to access your photo library"
       }
     },
-
     "android": {
+      "permissions": [
+        "CAMERA_ROLL"
+      ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff",
-        "permissions": ["CAMERA_ROLL"]
+        "backgroundColor": "#ffffff"
       },
       "package": "com.souda.restart"
     },
@@ -32,7 +35,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "d5cbd956-8712-4c1b-ae9a-0da47eeb51d3"
+        "projectId": "7d1ccb3f-98ab-48ea-90af-26812c1a4f27"
       }
     }
   }

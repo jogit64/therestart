@@ -6,7 +6,7 @@ import {
   Image,
   ImageBackground,
   TouchableOpacity,
-  Modal, // <-- import this
+  Modal,
 } from "react-native";
 
 import Svg, { Ellipse } from "react-native-svg";
@@ -16,7 +16,7 @@ import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { LinearGradient } from "expo-linear-gradient";
 import { BlurView } from "expo-blur";
 import Icon from "react-native-vector-icons/FontAwesome";
-import UserContext from "../../UserContext.tsx"; // Import du UserContext
+import UserContext from "../../UserContext";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
 import SettingsScreen from "./StackDemarTab/SettingsScreen";
@@ -31,12 +31,21 @@ function DemarTab() {
     BackHandler.exitApp();
     return true;
   });
+
   const navigation = useNavigation();
-  const { firstName } = useContext(UserContext); // Utilisation du UserContext pour accéder au prénom de l'utilisateur
-  //const navigation = useNavigation();
 
   // Add state for the modal visibility
   const [isSettingsVisible, setIsSettingsVisible] = useState(false);
+
+  // Get user context
+  const userContext = useContext(UserContext);
+
+  if (userContext === null) {
+    // Handle the case where the context is null, e.g. return a default component or null
+    return null;
+  }
+
+  const { firstName } = userContext; // Get firstName from user context
 
   return (
     <View style={styles.container}>

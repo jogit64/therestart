@@ -13,18 +13,8 @@ import UserContext, { UserProvider } from "./UserContext";
 
 import { NavigationContainer } from "@react-navigation/native";
 import AuthNavigator from "./AuthNavigator";
-import AppNavigator from "./AppNavigator";
 
 import LoadingSpinner from "./LoadingSpinner";
-
-// function NavigationWrapper() {
-//   const { isLoggedIn } = useContext(UserContext) as { isLoggedIn: boolean };
-//   if (isLoggedIn === undefined) {
-//     // Handle the case where the context is null
-//     return <LoadingSpinner />;
-//   }
-//   return isLoggedIn ? <AppNavigator /> : <AuthNavigator />;
-// }
 
 export default function App() {
   // Charger les polices personnalisées
