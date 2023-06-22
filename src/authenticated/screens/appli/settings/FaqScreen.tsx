@@ -7,15 +7,19 @@ import {
   Text,
 } from "react-native";
 import Svg, { Ellipse } from "react-native-svg";
-import { useHardwareBackButton } from "../../../../../components/useHardwareBackButton";
-
+import { useHardwareBackButton } from "components/useHardwareBackButton";
 import { FontAwesome } from "@expo/vector-icons";
-
 import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../../../../utils/navigationTypes";
 
-export default function FaqScreen({ navigation }) {
+type FaqScreenNavigationProp = StackNavigationProp<RootStackParamList, "Faq">;
+
+export default function FaqScreen() {
   useHardwareBackButton();
+  const navigation = useNavigation<FaqScreenNavigationProp>();
   return (
     <View style={styles.container}>
       <View style={styles.goBackButtonRow}>
@@ -118,13 +122,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 
-  infosPersonnelles: {
-    fontFamily: "roboto700",
-    color: "rgba(50,56,106,1)",
-    fontSize: 20,
-    marginTop: 15,
-    textAlign: "center",
-  },
+  // infosPersonnelles: {
+  //   fontFamily: "roboto700",
+  //   color: "rgba(50,56,106,1)",
+  //   fontSize: 20,
+  //   marginTop: 15,
+  //   textAlign: "center",
+  // },
 
   wrench: {
     color: "#4F8EF7",

@@ -7,37 +7,34 @@ import {
   TouchableOpacity,
   Text,
   Image,
+  Alert,
   TextInput,
 } from "react-native";
 import Svg, { Ellipse } from "react-native-svg";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
-//import { useHardwareBackButton } from "../../../../components/useHardwareBackButton";
 import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import UserContext from "./../../../../UserContext";
+import UserContext from "./../../../../../utils/UserContext";
+
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-
-import { useHardwareBackButton } from "../../../../../components/useHardwareBackButton";
-
+import { useHardwareBackButton } from "components/useHardwareBackButton";
 import * as ImagePicker from "expo-image-picker";
 import Toast from "react-native-root-toast";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "./../../../../../utils/navigationTypes";
+import { User } from "./../../../../../utils/types";
 
-// Définir l'interface pour le contexte de l'utilisateur
-// interface UserContextInterface {
-//   firstName: string; // Le prénom de l'utilisateur
-//   isLoggedIn: boolean; // L'état de connexion de l'utilisateur
-//   imageUrl: string; // L'URL de l'image de l'utilisateur
+type InfosPersoScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  "InfosPerso"
+>;
 
-//   // Des fonctions pour mettre à jour le prénom, l'état de connexion, et l'URL de l'image
-//   setFirstName: React.Dispatch<React.SetStateAction<string>>;
-//   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
-//   setImageUrl: React.Dispatch<React.SetStateAction<string>>;
-// }
-
-function InfosPersoScreen({ navigation }) {
+function InfosPersoScreen() {
   useHardwareBackButton();
+  const navigation = useNavigation<InfosPersoScreenNavigationProp>();
   const db = getFirestore();
   const auth = getAuth();
   const storage = getStorage();
@@ -48,10 +45,10 @@ function InfosPersoScreen({ navigation }) {
   const [firstName, setFirstName] = useState("");
   const [age, setAge] = useState<number | null>(null);
   const [sex, setSex] = useState<string | null>(null);
+  const defaultImage = require("assets/images/userHead.png");
+  //const [userImage, setUserImage] = useState<string | null>(null);
 
-  const [image, setImage] = useState<string | number>(
-    require("./../../../../assets/userHead.png")
-  );
+  const [userImage, setUserImage] = useState<string>("");
 
   const pickImage = async () => {
     console.log("pickImage was triggered");
@@ -73,29 +70,31 @@ function InfosPersoScreen({ navigation }) {
     if (!result.canceled && result.assets && result.assets.length > 0) {
       const response = await fetch(result.assets[0].uri);
       const blob = await response.blob();
-      const imageRef = ref(storage, `images/${auth.currentUser.uid}`);
+      const imageRef = ref(storage, `images/${auth.currentUser!.uid}`);
       await uploadBytes(imageRef, blob);
 
       const downloadUrl = await getDownloadURL(imageRef);
 
-      setImage(downloadUrl);
+      setUserImage(downloadUrl);
     }
   };
 
   useEffect(() => {
-    const userRef = doc(db, "users", auth.currentUser.uid);
+    const userRef = doc(db, "users", auth.currentUser!.uid);
     const fetchData = async () => {
       const docSnap = await getDoc(userRef);
       if (docSnap.exists()) {
         const userData = docSnap.data() as User;
         setUser(userData);
-        setFirstName(userData.firstName);
-        setAge(userData.age);
-        setSex(userData.sex);
-        userContext.setImageUrl(userData.imageUrl); // Mise à jour du contexte avec l'URL de l'image
-        if (userData.imageUrl) {
-          // Ajoutez cette vérification ici
-          setImage(userData.imageUrl); // Mise à jour de l'état local avec l'URL de l'image
+        setFirstName(userData.basicInfo.firstName);
+        setAge(userData.extraInfo.age);
+        setSex(userData.extraInfo.sex);
+        if (userData.extraInfo.imageUrl) {
+          userContext?.setImageUrl(userData.extraInfo.imageUrl);
+          setUserImage(userData.extraInfo.imageUrl);
+        } else {
+          userContext?.setImageUrl("");
+          setUserImage("");
         }
       }
     };
@@ -105,38 +104,38 @@ function InfosPersoScreen({ navigation }) {
 
   const handleSave = async () => {
     try {
-      const userRef = doc(db, "users", auth.currentUser.uid);
+      const userRef = doc(db, "users", auth.currentUser!.uid);
 
       // Mettre à jour Firestore
       await updateDoc(userRef, {
         firstName: firstName,
         age: age,
         sex: sex,
-        imageUrl: image,
+        imageUrl: userImage,
       });
 
       // Mettre à jour le contexte
-      setUser({ firstName: firstName, age: age, sex: sex, imageUrl: image });
+      // Mettre à jour le contexte
+      setUser({
+        basicInfo: {
+          firstName: firstName,
+          email: user ? user.basicInfo.email : "", // vous devrez gérer correctement le champ email
+        },
+        extraInfo: {
+          age: age,
+          sex: sex,
+          imageUrl: userImage,
+          isLoggedIn: user ? user.extraInfo.isLoggedIn : false, // ici vous devez gérer correctement le champ isLoggedIn
+        },
+      });
 
-      // Afficher un toast de succès
-      Toast.show("Profil mis à jour !", {
-        duration: Toast.durations.LONG,
-        position: Toast.positions.CENTER, // positionne le toast au centre
-        shadow: true,
-        animation: true,
-        hideOnPress: true,
-        delay: 0,
-      });
-    } catch (error) {
-      // Afficher un toast d'erreur
-      Toast.show("Erreur lors de la mise à jour du profil.", {
-        duration: Toast.durations.LONG,
-        position: Toast.positions.CENTER, // positionne le toast au centre
-        shadow: true,
-        animation: true,
-        hideOnPress: true,
-        delay: 0,
-      });
+      // Reste de votre code
+    } catch (error: unknown) {
+      // Gestion d'erreur
+      if (typeof error === "object" && error !== null && "message" in error) {
+        const { message } = error as { message: string };
+        Alert.alert("Erreur", message, [{ text: "OK" }]);
+      }
     }
   };
 
@@ -175,13 +174,10 @@ function InfosPersoScreen({ navigation }) {
 
           <View style={styles.imageStack} pointerEvents="box-none">
             <Image
-              source={typeof image === "number" ? image : { uri: image }}
+              source={userImage ? { uri: userImage } : defaultImage}
               resizeMode="contain"
-              style={[
-                styles.image,
-                typeof image === "number" ? {} : styles.roundImage,
-              ]}
-            ></Image>
+              style={[styles.image, userImage ? styles.roundImage : {}]}
+            />
 
             <TouchableOpacity onPress={pickImage} style={styles.cam}>
               {/* <View style={styles.groupPhoto1}> */}
@@ -220,8 +216,10 @@ function InfosPersoScreen({ navigation }) {
             <Text style={styles.age}>Âge</Text>
             <TextInput
               placeholder="Âge"
-              value={age}
-              onChangeText={(text) => setAge(text)}
+              value={age !== null ? age.toString() : ""}
+              onChangeText={(text) =>
+                !isNaN(Number(text)) && setAge(parseInt(text))
+              }
               style={styles.inputAge}
             />
           </View>

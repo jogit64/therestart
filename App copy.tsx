@@ -1,11 +1,18 @@
-import React, { useEffect } from "react";
+//************************************* */
+// App.tsx
+//************************************** */
+//
+//
+
+// Importer les dépendances nécessaires de React
+import React, { useEffect, useContext } from "react";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
 import UserContext, { UserProvider } from "./utils/UserContext";
 
 import { NavigationContainer } from "@react-navigation/native";
-import AppNavigator from "./AppNavigator";
+import AuthNavigator from "./AppNavigator";
 
 import LoadingSpinner from "./utils/LoadingSpinner";
 
@@ -18,29 +25,26 @@ export default function App() {
     roboto500: require("./assets/fonts/roboto-500.ttf"),
   });
 
+  // Préparer l'écran de démarrage
   useEffect(() => {
     async function prepare() {
       await SplashScreen.preventAutoHideAsync();
     }
-
     prepare();
-
-    // Ajoutez une autre fonction useEffect qui masque l'écran de démarrage une fois que tout est prêt
-    return function cleanup() {
-      SplashScreen.hideAsync();
-    };
   }, []);
 
-  // Si les polices ne sont pas chargées, afficher le composant de chargement
+  // Si les polices ne sont pas chargées, ne rien afficher
   if (!fontsLoaded) {
-    return <LoadingSpinner />;
+    return undefined;
+  } else {
+    SplashScreen.hideAsync();
   }
 
   return (
     // Fournir le contexte utilisateur à tous les composants enfants
     <UserProvider>
       <NavigationContainer>
-        <AppNavigator />
+        <AuthNavigator />
       </NavigationContainer>
     </UserProvider>
   );

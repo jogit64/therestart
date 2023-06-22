@@ -10,18 +10,27 @@ import {
 } from "react-native";
 import Svg, { Ellipse } from "react-native-svg";
 import Icon from "react-native-vector-icons/Feather";
-import { useHardwareBackButton } from "../../../../../components/useHardwareBackButton";
+import { useHardwareBackButton } from "components/useHardwareBackButton";
 import {
   collection,
   addDoc,
   Timestamp,
   serverTimestamp,
 } from "firebase/firestore";
-import { db, auth } from "./../../../../firebase.js";
+import { db, auth } from "../../../../../utils/firebase.js";
 import Toast from "react-native-root-toast";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../../../../utils/navigationTypes";
 
-export default function ContactScreen({ navigation }) {
+type ContactScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  "Contact"
+>;
+
+export default function ContactScreen() {
   useHardwareBackButton();
+  const navigation = useNavigation<ContactScreenNavigationProp>();
 
   const [subject, setSubject] = React.useState("");
   const [message, setMessage] = React.useState("");
@@ -54,8 +63,8 @@ export default function ContactScreen({ navigation }) {
       const docRef = await addDoc(collection(db, "contactMessages"), {
         subject: subject,
         message: message,
-        userId: auth.currentUser.uid,
-        userEmail: auth.currentUser.email,
+        userId: auth.currentUser!.uid, // Ici, nous utilisons l'opérateur d'affirmation non-null pour dire à TypeScript que auth.currentUser n'est pas null
+        userEmail: auth.currentUser!.email,
         timestamp: serverTimestamp(),
       });
       console.log("Document written with ID: ", docRef.id);
@@ -111,6 +120,7 @@ export default function ContactScreen({ navigation }) {
                     ry={14}
                   ></Ellipse>
                 </Svg>
+                {/* <Icon name="chevron-left" style={styles.iconGoBack}></Icon> */}
                 <Icon name="chevron-left" style={styles.iconGoBack}></Icon>
               </View>
             </TouchableOpacity>
@@ -271,8 +281,7 @@ const styles = StyleSheet.create({
   inputMessage: {
     fontFamily: "roboto",
     color: "#121212",
-    height: null, // change this
-    minHeight: 295, // add this
+    minHeight: 295,
     width: 298,
     backgroundColor: "rgba(255,255,255,1)",
     borderWidth: 2,

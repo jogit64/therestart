@@ -11,11 +11,13 @@ import {
 import Svg, { Ellipse } from "react-native-svg";
 import Icon from "react-native-vector-icons/Feather";
 
-import { auth, provider } from "../../../../firebase.js";
+import { auth, provider } from "../../../../../utils/firebase.js";
 //import { EmailAuthProvider } from "firebase/auth";
 import { EmailAuthProvider } from "firebase/auth";
 import { reauthenticateWithCredential, updatePassword } from "firebase/auth";
 import { useHardwareBackButton } from "../../../../../components/useHardwareBackButton.js";
+
+import { RootStackParamList } from "../../../../../utils/navigationTypes";
 
 import Toast from "react-native-root-toast";
 

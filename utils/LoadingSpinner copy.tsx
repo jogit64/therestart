@@ -1,17 +1,12 @@
+// LoadingSpinner.tsx
+
 import React from "react";
 import { View, ActivityIndicator, StyleSheet, Text } from "react-native";
 
-const LoadingSpinner = ({
-  spinnerColor = "#0000ff",
-  largeSpinner = true,
-  loadingText = "Chargement...respire...",
-}) => (
+const LoadingSpinner = () => (
   <View style={styles.container}>
-    <ActivityIndicator
-      size={largeSpinner ? "large" : "small"}
-      color={spinnerColor}
-    />
-    <Text style={styles.loadingText}>{loadingText}</Text>
+    <ActivityIndicator size="large" color="#0000ff" />
+    <Text style={styles.loadingText}>Chargement...respire...</Text>
   </View>
 );
 

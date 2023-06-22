@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import Svg, { Ellipse } from "react-native-svg";
 import FeatherIcon from "react-native-vector-icons/Feather";
-import { useHardwareBackButton } from "../../../../../components/useHardwareBackButton";
+import { useHardwareBackButton } from "components/useHardwareBackButton";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {
   getAuth,
@@ -20,11 +20,23 @@ import {
 } from "firebase/auth";
 import { getDoc, deleteDoc, doc, getFirestore } from "firebase/firestore";
 
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../../../../utils/navigationTypes";
+
+type MonProfilScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  "MonProfil"
+>;
+
 // Initialisation de la base de données Firebase
 const db = getFirestore();
 
 // Cette fonction supprime le compte d'un utilisateur
-const deleteAccount = async (password, navigation) => {
+const deleteAccount = async (
+  password: string,
+  navigation: MonProfilScreenNavigationProp
+) => {
   // On récupère l'instance d'authentification et l'utilisateur courant
   const auth = getAuth();
   const user = auth.currentUser;
@@ -42,6 +54,13 @@ const deleteAccount = async (password, navigation) => {
           text: "Supprimer",
           onPress: async () => {
             // On crée des informations d'identification avec l'email et le mot de passe de l'utilisateur
+            if (user.email === null) {
+              console.error(
+                "Failed to delete user account. User email is null."
+              );
+              return;
+            }
+
             const credential = EmailAuthProvider.credential(
               user.email,
               password
@@ -50,21 +69,29 @@ const deleteAccount = async (password, navigation) => {
             try {
               // On essaye de ré-authentifier l'utilisateur
               await reauthenticateWithCredential(user, credential);
-            } catch (error) {
-              console.error("Failed to re-authenticate user.", error);
+            } catch (error: unknown) {
+              if (
+                typeof error === "object" &&
+                error !== null &&
+                "code" in error &&
+                "message" in error
+              ) {
+                const { code } = error as { code: string; message: string };
+                console.error("Failed to re-authenticate user.", error);
 
-              // On vérifie si le mot de passe était incorrect
-              if (error.code === "auth/wrong-password") {
-                Alert.alert(
-                  "Erreur de mot de passe",
-                  "Le mot de passe que vous avez saisi est incorrect.",
-                  [
-                    {
-                      text: "OK",
-                    },
-                  ]
-                );
-                return;
+                // On vérifie si le mot de passe était incorrect
+                if (code === "auth/wrong-password") {
+                  Alert.alert(
+                    "Erreur de mot de passe",
+                    "Le mot de passe que vous avez saisi est incorrect.",
+                    [
+                      {
+                        text: "OK",
+                      },
+                    ]
+                  );
+                  return;
+                }
               }
               return;
             }
@@ -103,7 +130,7 @@ const deleteAccount = async (password, navigation) => {
 };
 
 // Le composant MonProfilScreen permet à l'utilisateur de gérer son profil
-export default function MonProfilScreen({ navigation }) {
+export default function MonProfilScreen() {
   // État pour le mot de passe et sa validité
   const [password, setPassword] = useState("");
   const [isPasswordValid, setisPasswordValid] = useState(false);
@@ -114,8 +141,10 @@ export default function MonProfilScreen({ navigation }) {
   // Utilisation du hook useHardwareBackButton pour gérer le bouton retour du matériel
   useHardwareBackButton();
 
+  const navigation = useNavigation<MonProfilScreenNavigationProp>();
+
   // Cette fonction est appelée chaque fois que le mot de passe change
-  const handlePasswordChange = (password) => {
+  const handlePasswordChange = (password: string) => {
     setPassword(password);
     validatePassword(password);
   };
@@ -128,14 +157,13 @@ export default function MonProfilScreen({ navigation }) {
   const buttonStyle = {
     ...styles.buttonSupprimer,
     backgroundColor: isPasswordValid ? "#e95120" : "#dcdeeb",
-    alignSelf: "center",
   };
   const buttonTextStyle = isPasswordValid
     ? styles.activeButtonText
     : styles.buttonText;
 
   // Cette fonction vérifie si le mot de passe est valide ou non
-  const validatePassword = (password) => {
+  const validatePassword = (password: string) => {
     const isValid = password.length >= 8;
     setisPasswordValid(isValid);
   };
@@ -190,7 +218,7 @@ export default function MonProfilScreen({ navigation }) {
       {/* Connexion et sécurité button */}
       <TouchableOpacity
         style={styles.buttonSecu}
-        onPress={() => navigation.navigate("ConnexSecu")}
+        onPress={() => navigation.navigate("ChangePassword")}
       >
         <View style={styles.lignInfo}></View>
         <View style={styles.nousSecuRow}>
@@ -227,7 +255,7 @@ export default function MonProfilScreen({ navigation }) {
       </View>
 
       {/* Supprimer mon compte button */}
-      <View style={styles.buttonSupprimerContainer}>
+      <View style={{ alignSelf: "center" }}>
         <TouchableOpacity
           style={buttonStyle}
           onPress={() => deleteAccount(password, navigation)}

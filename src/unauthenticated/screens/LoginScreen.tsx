@@ -8,23 +8,30 @@ import {
   Keyboard,
   ActivityIndicator,
 } from "react-native";
-import { authStyles } from "./authStyles";
+import { authStyles } from "../styles/authStyles";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { LinearGradient } from "expo-linear-gradient";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import React, { useState, useEffect, useContext } from "react";
 
-import { auth } from "../../firebase.js"; // Importez auth depuis firebase.js
+import { auth } from "../../../utils/firebase.js"; // Importez auth depuis firebase.js
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 
 import Toast from "react-native-root-toast";
 
-import UserContext from "../../UserContext"; // Import du UserContext
+import UserContext from "../../../utils/UserContext"; // Import du UserContext
 
-const LoginScreen = ({ navigation }) => {
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../../utils/navigationTypes";
+
+const LoginScreen = ({
+  navigation,
+}: {
+  navigation: StackNavigationProp<RootStackParamList, "Login">;
+}) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { setFirstName } = useContext(UserContext); // Ajout de setFirstName depuis le UserContext
+  const { setUser } = useContext(UserContext)!; // Ajout de setUser depuis le UserContext
 
   const handleLogin = async () => {
     Keyboard.dismiss(); // ferme le clavier
@@ -32,8 +39,7 @@ const LoginScreen = ({ navigation }) => {
       setIsLoading(true); // démarre l'indicateur de chargement
 
       await signInWithEmailAndPassword(auth, email, password);
-      //navigation.navigate("BottomTabNavigator");
-      navigation.navigate("HomeTab");
+      navigation.navigate("Tab1");
 
       // Récupérer les informations sur l'utilisateur à partir de Firestore
       const user = auth.currentUser;
@@ -42,50 +48,68 @@ const LoginScreen = ({ navigation }) => {
         const userDocRef = doc(db, "users", user.uid);
         const userDocSnap = await getDoc(userDocRef);
 
-        // Mettre à jour le prénom de l'utilisateur dans le contexte
+        // Mettre à jour les données de l'utilisateur dans le contexte
         const userData = userDocSnap.data();
-        if (userData && userData.firstName) {
-          setFirstName(userData.firstName);
+        if (userData) {
+          setUser({
+            basicInfo: {
+              firstName: userData.firstName || "",
+              email: user.email || "",
+            },
+            extraInfo: {
+              isLoggedIn: true,
+              imageUrl: userData.imageUrl || null,
+              age: userData.age || null,
+              sex: userData.sex || null,
+            },
+          });
         }
       } else {
-        // Gérer le cas où l'utilisateur est null
+        // cas impossible car l'utilisateur vient d'être authentifié avec succès
       }
-    } catch (error) {
-      console.error("Erreur lors de la connexion :", error);
+    } catch (error: unknown) {
+      if (
+        typeof error === "object" &&
+        error !== null &&
+        "code" in error &&
+        "message" in error
+      ) {
+        const { code, message } = error as { code: string; message: string };
+        var toastMessage = "";
 
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      var toastMessage = "";
+        // Gestion d'erreur spécifique pour un email non trouvé
+        if (code === "auth/user-not-found") {
+          toastMessage =
+            "Il n'y a pas d'utilisateur correspondant à cet identifiant. L'utilisateur peut avoir été supprimé.";
+        }
+        // Gestion d'erreur pour un mot de passe invalide
+        else if (code === "auth/wrong-password") {
+          toastMessage =
+            "Le mot de passe est invalide\nou l'utilisateur n'a pas de mot de passe.";
+        }
+        // Gestion d'erreur pour un e-mail invalide
+        else if (code === "auth/invalid-email") {
+          toastMessage = "L'adresse e-mail n'est pas valide.";
+        }
+        // Gestion d'erreur pour trop de tentatives de connexion
+        else if (code === "auth/too-many-requests") {
+          toastMessage =
+            "L'accès à ce compte a été temporairement désactivé\nen raison de nombreuses tentatives de connexion échouées.\nVous pouvez le restaurer immédiatement en réinitialisant\nvotre mot de passe ou vous pouvez réessayer plus tard.";
+        }
 
-      // Gestion d'erreur spécifique pour un email non trouvé
-      if (errorCode === "auth/user-not-found") {
-        toastMessage =
-          "Il n'y a pas d'utilisateur correspondant à cet identifiant. L'utilisateur peut avoir été supprimé.";
+        // Afficher le message d'erreur en utilisant Toast
+        Toast.show(toastMessage, {
+          duration: Toast.durations.LONG,
+          position: Toast.positions.TOP,
+          shadow: true,
+          animation: true,
+          hideOnPress: true,
+          delay: 0,
+        });
+        console.error("Erreur lors de la connexion :", message);
+      } else {
+        console.error("Erreur lors de la connexion :", error);
       }
-      // Gestion d'erreur pour un mot de passe invalide
-      else if (errorCode === "auth/wrong-password") {
-        toastMessage =
-          "Le mot de passe est invalide\nou l'utilisateur n'a pas de mot de passe.";
-      }
-      // Gestion d'erreur pour un e-mail invalide
-      else if (errorCode === "auth/invalid-email") {
-        toastMessage = "L'adresse e-mail n'est pas valide.";
-      }
-      // Gestion d'erreur pour trop de tentatives de connexion
-      else if (errorCode === "auth/too-many-requests") {
-        toastMessage =
-          "L'accès à ce compte a été temporairement désactivé\nen raison de nombreuses tentatives de connexion échouées.\nVous pouvez le restaurer immédiatement en réinitialisant\nvotre mot de passe ou vous pouvez réessayer plus tard.";
-      }
-
-      // Afficher le message d'erreur en utilisant Toast
-      Toast.show(toastMessage, {
-        duration: Toast.durations.LONG,
-        position: Toast.positions.TOP,
-        shadow: true,
-        animation: true,
-        hideOnPress: true,
-        delay: 0,
-      });
     }
     setIsLoading(false); // arrête l'indicateur de chargement
   };
@@ -109,13 +133,14 @@ const LoginScreen = ({ navigation }) => {
 
   // Fonction pour gérer le focus sur les différents inputs
   // Elle réinitialise aussi l'état isInputValid à false lors du focus
-  const handleFocus = (name) => {
+  const handleFocus = (name: string) => {
     setActiveInput(name);
     setIsInputValid(false);
   };
+
   // Fonction pour valider le mot de passe
   // Elle vérifie si le mot de passe a au moins 8 caractères
-  const validatePassword = (password) => {
+  const validatePassword = (password: string) => {
     const isValid = password.length >= 8;
 
     if (isValid) {
@@ -129,7 +154,7 @@ const LoginScreen = ({ navigation }) => {
 
   // Fonction pour valider l'email
   // Elle vérifie si l'email respecte le format correct
-  const validateEmail = (email) => {
+  const validateEmail = (email: string) => {
     const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
     if (isValid) {
@@ -255,16 +280,12 @@ const LoginScreen = ({ navigation }) => {
             </View>
 
             {/* // ! text et liens CGU */}
-            <TouchableOpacity onPress={() => navigation.navigate("CGU")}>
+            <TouchableOpacity>
               <Text style={authStyles.textCGU}>
                 En vous connectant, vous acceptez nos{"\n"}
-                <Text
-                  style={authStyles.linkText}
-                  onPress={() => navigation.navigate("CGU")}
-                >
+                <Text style={authStyles.linkText}>
                   conditions générales
-                </Text>{" "}
-                et{" "}
+                </Text> et{" "}
                 <Text
                   style={authStyles.linkText}
                   onPress={() => navigation.navigate("Politique")}

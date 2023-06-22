@@ -10,14 +10,23 @@ import Svg, { Ellipse } from "react-native-svg";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 
-import { useHardwareBackButton } from "../../../../../components/useHardwareBackButton";
+import { useHardwareBackButton } from "components/useHardwareBackButton";
 
-import { useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-export default function SettingsScreen({ navigation }) {
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../../../../utils/navigationTypes";
+
+type SettingsScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  "Settings"
+>;
+
+export default function SettingsScreen() {
   useHardwareBackButton();
-  //const navigation = useNavigation();
+
+  const navigation = useNavigation<SettingsScreenNavigationProp>();
 
   return (
     <View style={styles.container}>
@@ -75,7 +84,7 @@ export default function SettingsScreen({ navigation }) {
       <View style={styles.groupTutoriel}>
         <TouchableOpacity
           style={styles.buttonTutoriel}
-          onPress={() => navigation.navigate("Tuto")}
+          onPress={() => navigation.navigate("Tutoriel")}
         >
           <View style={styles.iconTutorielRowRow}>
             <View style={styles.iconTutorielRow}>
@@ -183,7 +192,7 @@ export default function SettingsScreen({ navigation }) {
 
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("Home");
+          navigation.navigate("Tab1");
         }}
       >
         <Text style={styles.seDeconnecter}>Se déconnecter</Text>

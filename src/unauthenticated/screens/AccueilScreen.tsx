@@ -1,54 +1,51 @@
 import React from "react";
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  FlatList,
-  StyleSheet,
-  Dimensions,
-} from "react-native";
+import { View, Dimensions, StyleSheet } from "react-native";
 
 import { LinearGradient } from "expo-linear-gradient";
-
 import { useNavigation } from "@react-navigation/native";
-
-import { useFonts } from "expo-font";
+import { StackNavigationProp } from "@react-navigation/stack";
 import { StatusBar } from "expo-status-bar";
-
 import Swiper from "react-native-swiper";
 
-// * imports pour le bas
-import MaterialButtonViolet1 from "./bottompart/MaterialButtonViolet1";
-import MaterialButtonViolet3 from "./bottompart/MaterialButtonViolet3";
+import MaterialButtonViolet1 from "./accueil/bottompart/MaterialButtonViolet1";
+import MaterialButtonViolet3 from "./accueil/bottompart/MaterialButtonViolet3";
 
-// * imports pour le haut
-import Swiper1 from "./swiper1/swiper1";
-import Swiper2 from "./swiper2/swiper2";
-import Swiper3 from "./swiper3/swiper3";
+import Swiper1 from "./accueil/swiper1/swiper1";
+import Swiper2 from "./accueil/swiper2/swiper2";
+import Swiper3 from "./accueil/swiper3/swiper3";
 
-export default function HomeScreen() {
-  const navigation = useNavigation();
-  const screenWidth = Dimensions.get("window").width;
+import { RootStackParamList } from "../../../utils/navigationTypes";
+
+// Define color constants
+const COLORS = {
+  dot: "#dcdeeb",
+  activeDot: "#6f78bd",
+  gradientStart: "#e9f6ff",
+  gradientEnd: "#f8fcff",
+  button1Bg: "rgba(111,120,189,1)",
+  button2Bg: "rgba(255,255,255,1)",
+  button2Shadow: "#000",
+  statusBarBg: "rgba(111,120,189,1)",
+};
+
+export default function AccueilScreen() {
+  const navigation =
+    useNavigation<StackNavigationProp<RootStackParamList, "Accueil">>();
 
   return (
     <View style={styles.container}>
-      {/* 2/3 of the screen *********************************************************/}
-
+      {/* Swiper area */}
       <View style={{ flex: 3 }}>
         <Swiper
           showsButtons={false}
           showsPagination={true}
-          dotColor="#dcdeeb"
-          activeDotColor="#6f78bd"
+          dotColor={COLORS.dot}
+          activeDotColor={COLORS.activeDot}
           loop={false}
         >
           {/* Each child view of Swiper represents a page */}
-          {/*  // ! *********** swiper volet 1 ********** */}
           <LinearGradient
-            //
-            colors={["yellow", "#f8fcff"]}
-            colors={["#e9f6ff", "#f8fcff"]}
+            colors={[COLORS.gradientStart, COLORS.gradientEnd]}
             style={styles.page}
             start={{ x: 0, y: 0 }}
             end={{ x: 0, y: 1 }}
@@ -56,10 +53,8 @@ export default function HomeScreen() {
           >
             <Swiper1 />
           </LinearGradient>
-          {/*  // ! *********** swiper volet 2 ********** */}
           <LinearGradient
-            //colors={["yellow", "#f8fcff"]}
-            colors={["#e9f6ff", "#f8fcff"]}
+            colors={[COLORS.gradientStart, COLORS.gradientEnd]}
             style={styles.page}
             start={{ x: 0, y: 0 }}
             end={{ x: 0, y: 1 }}
@@ -67,11 +62,8 @@ export default function HomeScreen() {
           >
             <Swiper2 />
           </LinearGradient>
-
-          {/*  // ! *********** swiper volet 3 ********** */}
           <LinearGradient
-            //colors={["yellow", "#f8fcff"]}
-            colors={["#e9f6ff", "#f8fcff"]}
+            colors={[COLORS.gradientStart, COLORS.gradientEnd]}
             style={styles.page}
             start={{ x: 0, y: 0 }}
             end={{ x: 0, y: 1 }}
@@ -82,14 +74,9 @@ export default function HomeScreen() {
         </Swiper>
       </View>
 
-      {/* 1/3 of the screen *********************************************************/}
-
+      {/* Button area */}
       <View style={{ flex: 1 }}>
-        <StatusBar
-          barStyle="light-content"
-          backgroundColor="rgba(111,120,189,1)"
-        />
-
+        <StatusBar style="light" backgroundColor={COLORS.statusBarBg} />
         <MaterialButtonViolet1
           style={styles.materialButtonViolet1}
           onPress={() => navigation.navigate("SignUp")}
@@ -104,19 +91,13 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  //* Style du conteneur général ------------------------------------------
   container: {
     flex: 1,
   },
-
-  //* Style du haut slide 2/3 -------------------------------------
-  // ! cf. chaque swiper
-
-  //* Style du bas fixe 1/3 ---------------------------------------
   materialButtonViolet1: {
     height: 55,
     width: 312,
-    backgroundColor: "rgba(111,120,189,1)",
+    backgroundColor: COLORS.button1Bg,
     borderRadius: 11,
     marginTop: 5,
     alignSelf: "center",
@@ -124,8 +105,8 @@ const styles = StyleSheet.create({
   materialButtonViolet3: {
     height: 55,
     width: 312,
-    backgroundColor: "rgba(255,255,255,1)",
-    shadowColor: "#000",
+    backgroundColor: COLORS.button2Bg,
+    shadowColor: COLORS.button2Shadow,
     shadowOffset: {
       width: 3,
       height: 3,
@@ -137,19 +118,10 @@ const styles = StyleSheet.create({
     marginTop: 21,
     alignSelf: "center",
   },
-
   page: {
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
     height: "100%",
-  },
-  pageTitle: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-  pageContent: {
-    fontSize: 16,
-    marginTop: 10,
   },
 });

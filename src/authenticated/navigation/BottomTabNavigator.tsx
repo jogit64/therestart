@@ -2,10 +2,12 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
-import Tab2 from "./tab2";
-import Tab3 from "./tab3.t";
-import Tab4 from "./tab4";
-import DemarTab from "./DemarTab";
+import Tab2 from "../screens/appli/Tab2";
+import Tab3 from "../screens/appli/Tab3";
+import Tab4 from "../screens/appli/Tab4";
+//import Tab1 from "../screens/appli/Tab1";
+
+import Tab1Navigator from "./Tab1Navigator";
 
 // Création de l'objet Tab à partir de la méthode createBottomTabNavigator
 const Tab = createBottomTabNavigator();
@@ -48,7 +50,7 @@ const BottomTabNavigator = () => {
     >
       <Tab.Screen
         name="Tab1"
-        component={DemarTab}
+        component={Tab1Navigator} // Ici vous utilisez le Stack Navigator que vous avez défini pour Tab1
         options={{ headerShown: false }} // Cacher l'en-tête pour l'écran HomeTab
       />
       <Tab.Screen name="Tab2" component={Tab2} />

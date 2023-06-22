@@ -1,18 +1,15 @@
 // Importer les dépendances requises de React
 import React, { createContext, useState, ReactNode } from "react";
+import { User } from "./types";
 
-// Définir l'interface pour le contexte de l'utilisateur
-interface UserContextInterface {
-  firstName: string; // Le prénom de l'utilisateur
-  isLoggedIn: boolean; // L'état de connexion de l'utilisateur
-  imageUrl: string;
-  // Des fonctions pour mettre à jour le prénom et l'état de connexion
-  setFirstName: React.Dispatch<React.SetStateAction<string>>;
-  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
-  setImageUrl: React.Dispatch<React.SetStateAction<string>>;
+export interface UserContextInterface {
+  user: User;
+  setUser: React.Dispatch<React.SetStateAction<User>>;
+  imageUrl: string | null; // Ajoutez cette ligne
+  setImageUrl: React.Dispatch<React.SetStateAction<string | null>>; // Ajoutez cette ligne
 }
 
-// Créer le contexte avec une valeur initiale nulle
+// Créer le contexte avec une valeur initiale
 const UserContext = createContext<UserContextInterface | null>(null);
 
 // Définir les props pour UserProvider
@@ -23,22 +20,32 @@ interface UserProviderProps {
 // Créer le provider de contexte. C'est un composant qui enveloppera d'autres composants
 // et leur fournira l'accès au contexte de l'utilisateur.
 export const UserProvider = ({ children }: UserProviderProps) => {
-  // Utiliser l'hook useState pour gérer le prénom, l'état de connexion, et l'URL de l'image de l'utilisateur
-  const [firstName, setFirstName] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [imageUrl, setImageUrl] = useState("");
+  // Utiliser l'hook useState pour gérer l'information de l'utilisateur
+  const [user, setUser] = useState<User>({
+    basicInfo: {
+      firstName: "",
+      email: "", // Initialisez cela aussi à une chaîne vide
+    },
+    extraInfo: {
+      isLoggedIn: false,
+      imageUrl: null,
+      age: null,
+      sex: null,
+    },
+  });
+
+  // Ajoutez un nouvel état pour gérer imageUrl
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
 
   // Renvoyer le provider de contexte. Les valeurs qui peuvent être utilisées par
   // les composants enfants sont passées au provider via la prop value.
   return (
     <UserContext.Provider
       value={{
-        firstName,
-        setFirstName,
-        isLoggedIn,
-        setIsLoggedIn,
-        imageUrl,
-        setImageUrl,
+        user,
+        setUser,
+        imageUrl, // Ajoutez cette ligne
+        setImageUrl, // Ajoutez cette ligne
       }}
     >
       {children}

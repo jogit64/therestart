@@ -1,130 +1,36 @@
-// AuthNavigator.tsx
 import React from "react";
-import {
-  createStackNavigator,
-  TransitionPresets,
-} from "@react-navigation/stack";
+import { createStackNavigator } from "@react-navigation/stack";
+import AccueilScreen from "./src/unauthenticated/screens/AccueilScreen";
+import LoginScreen from "./src/unauthenticated/screens/LoginScreen";
+import SignUpScreen from "./src/unauthenticated/screens/SignUpScreen";
+import BottomTabNavigator from "./src/authenticated/navigation/BottomTabNavigator";
 
-// Importer les écrans<
-import HomeScreen from "./screens/Home/HomeScreen";
-import LoginScreen from "./screens/Auth/LoginScreen";
-import SignUpScreen from "./screens/Auth/SignUpScreen";
-import CGUScreen from "./screens/Conditions/CGUScreen";
-import PolitiqueScreen from "./screens/Conditions/PolitiqueScreen";
-import FaqScreen from "./screens/Appli/StackDemarTab/Settings/FaqScreen";
-import ContactScreen from "./screens/Appli/StackDemarTab/Settings/ContactScreen";
-import TutorielScreen from "./screens/Appli/StackDemarTab/Settings/TutorielScreen";
-import InfosPersoScreen from "./screens/Appli/StackDemarTab/Settings/InfosPersoScreen";
-import ConnexSecuScreen from "./screens/Appli/StackDemarTab/Settings/ConnexSecuScreen";
+import { RootStackParamList } from "./utils/navigationTypes";
 
-// Importer le BottomTabNavigator
-import BottomTabNavigator from "./screens/Appli/BottomTabNavigator";
-// import MainNavigator from "./MainNavigator";
+const Stack = createStackNavigator<RootStackParamList>();
 
-import SettingsScreen from "./screens/Appli/StackDemarTab/SettingsScreen";
-// import SettingsNavigator from "./screens/Appli/StackDemarTab/SettingsNavigator";
-import MonProfilScreen from "./screens/Appli/StackDemarTab/Settings/MonProfilScreen";
-
-const Stack = createStackNavigator();
-//console.log("le stact est :", Stack);
-
-export default function AuthNavigator() {
+export default function AppNavigator() {
   return (
-    <Stack.Navigator
-      initialRouteName="Home" // Définir l'écran par défaut
-      screenOptions={{
-        ...TransitionPresets.SlideFromRightIOS, // Utiliser l'effet de transition iOS par défaut sur toutes les plateformes
-      }}
-    >
-      {/* Écran HomeScreen */}
+    <Stack.Navigator initialRouteName="Accueil">
       <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{ headerShown: false }} // Cacher l'entête pour cet écran
+        name="Accueil"
+        component={AccueilScreen}
+        options={{ headerShown: false }}
       />
-
-      {/* Écran LoginScreen */}
       <Stack.Screen
         name="Login"
         component={LoginScreen}
-        options={{ headerShown: false }} // Cacher l'entête pour cet écran
+        options={{ headerShown: false }}
       />
-
-      {/* Écran SignUpScreen */}
       <Stack.Screen
         name="SignUp"
         component={SignUpScreen}
-        options={{ headerShown: false }} // Cacher l'entête pour cet écran
+        options={{ headerShown: false }}
       />
-
-      {/* Écran CGU */}
       <Stack.Screen
-        name="CGU"
-        component={CGUScreen}
-        options={{ headerShown: false }} // Cacher l'entête pour cet écran
-      />
-
-      {/* Écran Politique */}
-      <Stack.Screen
-        name="Politique"
-        component={PolitiqueScreen}
-        options={{ headerShown: false }} // Cacher l'entête pour cet écran
-      />
-
-      {/* Écran BottomTabNavigator */}
-      <Stack.Screen
-        name="HomeTab"
+        name="App"
         component={BottomTabNavigator}
-        options={{ headerShown: false }} // Cacher l'entête pour cet écran
-      />
-
-      {/* Écran Settings */}
-      <Stack.Screen
-        name="Settings"
-        component={SettingsScreen}
-        options={{ headerShown: false }} // Cacher l'entête pour cet écran
-      />
-
-      {/* Écran MonProfil */}
-      <Stack.Screen
-        name="MonProfil"
-        component={MonProfilScreen}
-        options={{ headerShown: false }} // Cacher l'entête pour cet écran
-      />
-
-      {/* Écran Faq */}
-      <Stack.Screen
-        name="Faq"
-        component={FaqScreen}
-        options={{ headerShown: false }} // Cacher l'entête pour cet écran
-      />
-
-      {/* Écran Tuto */}
-      <Stack.Screen
-        name="Tuto"
-        component={TutorielScreen}
-        options={{ headerShown: false }} // Cacher l'entête pour cet écran
-      />
-
-      {/* Écran Contact */}
-      <Stack.Screen
-        name="Contact"
-        component={ContactScreen}
-        options={{ headerShown: false }} // Cacher l'entête pour cet écran
-      />
-
-      {/* Écran InfoPerso */}
-      <Stack.Screen
-        name="InfosPerso"
-        component={InfosPersoScreen}
-        options={{ headerShown: false }} // Cacher l'entête pour cet écran
-      />
-
-      {/* Écran ConnexSecu */}
-      <Stack.Screen
-        name="ConnexSecu"
-        component={ConnexSecuScreen}
-        options={{ headerShown: false }} // Cacher l'entête pour cet écran
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

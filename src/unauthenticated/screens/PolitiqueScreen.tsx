@@ -11,9 +11,16 @@ import {
 import Svg, { Ellipse } from "react-native-svg";
 import Icon from "react-native-vector-icons/Feather";
 
-import { useHardwareBackButton } from "../../components/useHardwareBackButton";
+import { useHardwareBackButton } from "./../../../components/useHardwareBackButton";
 
-export default function CGUScreen({ navigation }) {
+import { RootStackParamList } from "../../../utils/navigationTypes";
+import { StackNavigationProp } from "@react-navigation/stack";
+
+export default function PolitiqueScreen({
+  navigation,
+}: {
+  navigation: StackNavigationProp<RootStackParamList, "Politique">;
+}) {
   useHardwareBackButton();
   const cguText = `Conditions générales d'utilisation
 

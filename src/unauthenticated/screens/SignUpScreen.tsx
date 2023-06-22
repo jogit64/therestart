@@ -7,22 +7,27 @@ import {
   ScrollView,
   Keyboard,
 } from "react-native";
-import { authStyles } from "./authStyles";
-// import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { authStyles } from "../styles/authStyles";
 import { LinearGradient } from "expo-linear-gradient";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import React, { useState, useEffect, useContext } from "react";
 
-import { auth } from "../../firebase.js";
+import { auth } from "../../../utils/firebase.js";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 import { createUserWithEmailAndPassword } from "firebase/auth";
-//import Toast from "react-native-toast-message";
 import Toast from "react-native-root-toast";
 
-import UserContext from "../../UserContext"; // Import du UserContext
+import { RootStackParamList } from "../../../utils/navigationTypes";
+import { StackNavigationProp } from "@react-navigation/stack";
 
-const SignUpScreen = ({ navigation }) => {
+import UserContext from "../../../utils/UserContext";
+
+const SignUpScreen = ({
+  navigation,
+}: {
+  navigation: StackNavigationProp<RootStackParamList, "SignUp">;
+}) => {
   // Définition des états
   const [activeInput, setActiveInput] = useState("");
   const [isButtonActive, setButtonActive] = useState(false);
@@ -39,19 +44,26 @@ const SignUpScreen = ({ navigation }) => {
   const [emailError, setEmailError] = useState("");
 
   const [isPasswordVisible, setPasswordVisibility] = useState(false);
-  const [firstNameInput, setFirstNameInput] = useState(""); // Renommé en firstNameInput
+  const [firstNameInput, setFirstNameInput] = useState("");
 
-  const { setFirstName } = useContext(UserContext);
+  // Utilisez ici le contexte de l'utilisateur
+  const userContext = useContext(UserContext);
+
+  if (!userContext) {
+    throw new Error("UserContext is undefined");
+  }
+
+  const { setUser } = userContext;
 
   // ! Fonction pour gérer le focus sur les différents inputs
   // Elle réinitialise aussi l'état isInputValid à false lors du focus
-  const handleFocus = (name) => {
+  const handleFocus = (name: string) => {
     setActiveInput(name);
     setIsInputValid(false);
   };
   //  ! Fonction pour valider le mot de passe
   // Elle vérifie si le mot de passe a au moins 8 caractères
-  const validatePassword = (password) => {
+  const validatePassword = (password: string) => {
     const isValid = password.length >= 8;
 
     if (isValid) {
@@ -65,7 +77,7 @@ const SignUpScreen = ({ navigation }) => {
 
   // ! Fonction pour valider l'email
   // Elle vérifie si l'email respecte le format correct
-  const validateEmail = (email) => {
+  const validateEmail = (email: string) => {
     const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
     if (isValid) {
@@ -79,7 +91,7 @@ const SignUpScreen = ({ navigation }) => {
 
   // ! Fonction pour valider le prénom
   // Elle vérifie si le prénom est non vide
-  const validateFirstName = (firstName) => {
+  const validateFirstName = (firstName: string) => {
     const isValid = firstName !== "";
 
     if (isValid) {
@@ -110,53 +122,65 @@ const SignUpScreen = ({ navigation }) => {
       const user = userCredential.user;
       console.log("User registered successfully!", user);
 
-      // Enregistrer le prénom de l'utilisateur, l'âge, le sexe, et l'URL d'image dans Firestore
       const userDocRef = doc(db, "users", user.uid);
       await setDoc(userDocRef, {
         firstName: firstNameInput,
         age: "",
         sex: "",
-        imageUrl: "", // ou une URL d'image par défaut
+        imageUrl: "",
       });
 
-      // Mettre à jour le contexte de l'utilisateur
-      setFirstName(firstNameInput);
-
-      // Redirige vers BottomTabNavigator.
-      //navigation.navigate("BottomTabNavigator");
-      //navigation.navigate("AppNavigator");
-      navigation.navigate("HomeTab");
-    } catch (error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      console.log("Failed to register user.", errorCode, errorMessage);
-
-      // Message par défaut
-      let toastMessage = errorMessage;
-
-      // Gestion d'erreur spécifique pour un email déjà utilisé
-      if (errorCode === "auth/email-already-in-use") {
-        toastMessage =
-          "Cette adresse e-mail est déjà utilisée.\nVeuillez aller sur l'écran Me connecter.";
-      }
-      // Gestion d'erreur pour un mot de passe invalide
-      else if (errorCode === "auth/weak-password") {
-        toastMessage = "Le mot de passe est trop faible.";
-      }
-      // Gestion d'erreur pour un e-mail invalide
-      else if (errorCode === "auth/invalid-email") {
-        toastMessage = "L'adresse e-mail n'est pas valide.";
-      }
-
-      // Afficher le message d'erreur en utilisant Toast
-      Toast.show(toastMessage, {
-        duration: Toast.durations.LONG,
-        position: Toast.positions.TOP,
-        shadow: true,
-        animation: true,
-        hideOnPress: true,
-        delay: 0,
+      setUser({
+        basicInfo: {
+          firstName: firstNameInput,
+          email: email,
+        },
+        extraInfo: {
+          isLoggedIn: true,
+          imageUrl: null,
+          age: null,
+          sex: null,
+        },
       });
+
+      navigation.navigate("Tab1");
+    } catch (error: unknown) {
+      if (
+        typeof error === "object" &&
+        error !== null &&
+        "code" in error &&
+        "message" in error
+      ) {
+        const { code, message } = error as { code: string; message: string };
+        var toastMessage = message; // Message par défaut
+
+        // Gestion d'erreur spécifique pour un email déjà utilisé
+        if (code === "auth/email-already-in-use") {
+          toastMessage =
+            "Cette adresse e-mail est déjà utilisée.\nVeuillez aller sur l'écran Me connecter.";
+        }
+        // Gestion d'erreur pour un mot de passe invalide
+        else if (code === "auth/weak-password") {
+          toastMessage = "Le mot de passe est trop faible.";
+        }
+        // Gestion d'erreur pour un e-mail invalide
+        else if (code === "auth/invalid-email") {
+          toastMessage = "L'adresse e-mail n'est pas valide.";
+        }
+
+        // Afficher le message d'erreur en utilisant Toast
+        Toast.show(toastMessage, {
+          duration: Toast.durations.LONG,
+          position: Toast.positions.TOP,
+          shadow: true,
+          animation: true,
+          hideOnPress: true,
+          delay: 0,
+        });
+        console.error("Failed to register user.", message);
+      } else {
+        console.error("Failed to register user.", error);
+      }
     }
   };
 
@@ -280,16 +304,12 @@ const SignUpScreen = ({ navigation }) => {
             </View>
 
             {/* // ! text et liens CGU */}
-            <TouchableOpacity onPress={() => navigation.navigate("CGU")}>
+            <TouchableOpacity>
               <Text style={authStyles.textCGU}>
                 En vous connectant, vous acceptez nos{"\n"}
-                <Text
-                  style={authStyles.linkText}
-                  onPress={() => navigation.navigate("CGU")}
-                >
+                <Text style={authStyles.linkText}>
                   conditions générales
-                </Text>{" "}
-                et{" "}
+                </Text> et{" "}
                 <Text
                   style={authStyles.linkText}
                   onPress={() => navigation.navigate("Politique")}
