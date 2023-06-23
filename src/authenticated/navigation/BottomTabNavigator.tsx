@@ -22,16 +22,16 @@ const BottomTabNavigator = () => {
 
           // Définition de l'icône en fonction du nom de la route
           switch (route.name) {
-            case "Tab1":
+            case "Accueil":
               iconName = focused ? "ios-home" : "ios-home-outline";
               break;
-            case "Tab2":
+            case "Emotions":
               iconName = focused ? "ios-list" : "ios-list-outline";
               break;
-            case "Tab3":
+            case "Ruminations":
               iconName = focused ? "ios-search" : "ios-search-outline";
               break;
-            case "Tab4":
+            case "Projets":
               iconName = focused ? "ios-person" : "ios-person-outline";
               break;
             // default:
@@ -49,13 +49,25 @@ const BottomTabNavigator = () => {
       })}
     >
       <Tab.Screen
-        name="Tab1"
-        component={Tab1Navigator} // Ici vous utilisez le Stack Navigator que vous avez défini pour Tab1
+        name="Accueil"
+        component={Tab1Navigator}
         options={{ headerShown: false }} // Cacher l'en-tête pour l'écran HomeTab
       />
-      <Tab.Screen name="Tab2" component={Tab2} />
-      <Tab.Screen name="Tab3" component={Tab3} />
-      <Tab.Screen name="Tab4" component={Tab4} />
+      <Tab.Screen
+        name="Emotions"
+        component={Tab2}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="Ruminations"
+        component={Tab3}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="Projets"
+        component={Tab4}
+        options={{ headerShown: false }}
+      />
     </Tab.Navigator>
   );
 };

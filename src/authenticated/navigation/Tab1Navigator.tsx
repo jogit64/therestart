@@ -24,13 +24,41 @@ function Tab1Navigator() {
 
   return (
     <Tab1Stack.Navigator initialRouteName="Tab1">
-      <Tab1Stack.Screen name="Tab1" component={Tab1} />
-      <Tab1Stack.Screen name="Settings" component={SettingsScreen} />
-      <Tab1Stack.Screen name="InfosPerso" component={InfosPersoScreen} />
-      <Tab1Stack.Screen name="MonProfil" component={MonProfilScreen} />
-      <Tab1Stack.Screen name="Contact" component={ContactScreen} />
-      <Tab1Stack.Screen name="Faq" component={FaqScreen} />
-      <Tab1Stack.Screen name="Tutoriel" component={TutorielScreen} />
+      <Tab1Stack.Screen
+        name="Tab1"
+        component={Tab1}
+        options={{ headerShown: false }}
+      />
+      <Tab1Stack.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{ headerShown: false }}
+      />
+      <Tab1Stack.Screen
+        name="InfosPerso"
+        component={InfosPersoScreen}
+        options={{ headerShown: false }}
+      />
+      <Tab1Stack.Screen
+        name="MonProfil"
+        component={MonProfilScreen}
+        options={{ headerShown: false }}
+      />
+      <Tab1Stack.Screen
+        name="Contact"
+        component={ContactScreen}
+        options={{ headerShown: false }}
+      />
+      <Tab1Stack.Screen
+        name="Faq"
+        component={FaqScreen}
+        options={{ headerShown: false }}
+      />
+      <Tab1Stack.Screen
+        name="Tutoriel"
+        component={TutorielScreen}
+        options={{ headerShown: false }}
+      />
       <Tab1Stack.Screen
         name="ChangePassword"
         component={ChangePasswordScreen}

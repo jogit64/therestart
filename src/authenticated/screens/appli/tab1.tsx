@@ -15,7 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import Tab1Styles from "../../styles/Tab1Styles";
 
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "./../../../../utils/navigationTypes";
+import { RootStackParamList } from "../../../../utils/navigationTypes";
 
 interface SalutationProps {
   firstName: string;
@@ -28,7 +28,7 @@ type ProfileIconProps = {
 const Salutation: React.FC<SalutationProps> = ({ firstName }) => (
   <View style={Tab1Styles.bonjour1StackRow}>
     <View style={Tab1Styles.bonjour1Stack}>
-      <Text style={Tab1Styles.bonjour1}>Bonjour,</Text>
+      <Text style={Tab1Styles.bonjour1}>Hey bonjour,</Text>
       <Text style={Tab1Styles.firstname}>{firstName}!</Text>
     </View>
   </View>

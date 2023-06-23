@@ -24,13 +24,12 @@ export default function App() {
     }
 
     prepare();
-  }, []);
 
-  useEffect(() => {
-    if (fontsLoaded) {
+    // Ajoutez une autre fonction useEffect qui masque l'écran de démarrage une fois que tout est prêt
+    return function cleanup() {
       SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
+    };
+  }, []);
 
   // Si les polices ne sont pas chargées, afficher le composant de chargement
   if (!fontsLoaded) {
