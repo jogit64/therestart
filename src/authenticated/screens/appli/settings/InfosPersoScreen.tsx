@@ -27,10 +27,10 @@ import { useNavigation } from "@react-navigation/native";
 import { User } from "./../../../../../utils/types";
 
 import { StackNavigationProp } from "@react-navigation/stack";
-import { Tab1ParamList } from "../../../../../utils/navigationTypes";
+import { RootStackParamList } from "../../../../../utils/navigationTypes";
 
 type InfosPersoScreenNavigationProp = StackNavigationProp<
-  Tab1ParamList,
+  RootStackParamList,
   "InfosPerso"
 >;
 

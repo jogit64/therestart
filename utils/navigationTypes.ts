@@ -4,22 +4,30 @@ export type RootStackParamList = {
   SignUp: undefined;
   BottomTabNavigator: undefined | { screen: keyof TabParamList };
   Politique: undefined;
-};
-
-export type TabParamList = {
-  Accueil: undefined | { screen: keyof Tab1ParamList };
-  Tab2: undefined;
-  Tab3: undefined;
-  Tab4: undefined;
-};
-
-export type Tab1ParamList = {
-  Tab1Home: undefined;
-  Settings: { tabBarVisible: boolean };
+  Settings: undefined;
   InfosPerso: undefined;
   MonProfil: undefined;
   Contact: undefined;
   Faq: undefined;
   Tutoriel: undefined;
   ChangePassword: undefined;
+};
+
+export type TabParamList = {
+  HelloWorldScreen: undefined;
+  Tab2: undefined;
+  Tab3: undefined;
+  Tab4: undefined;
+};
+
+export type Tab1ParamList = {
+  Tab1P0: undefined;
+  Tab1P1: undefined;
+  // Settings: undefined;
+  // InfosPerso: undefined;
+  // MonProfil: undefined;
+  // Contact: undefined;
+  // Faq: undefined;
+  // Tutoriel: undefined;
+  // ChangePassword: undefined;
 };

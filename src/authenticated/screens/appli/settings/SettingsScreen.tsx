@@ -17,10 +17,10 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { Tab1ParamList } from "../../../../../utils/navigationTypes";
+import { RootStackParamList } from "../../../../../utils/navigationTypes";
 
 type SettingsScreenNavigationProp = StackNavigationProp<
-  Tab1ParamList,
+  RootStackParamList,
   "Settings"
 >;
 
@@ -153,7 +153,7 @@ export default function SettingsScreen() {
       <View style={styles.groupPolitique}>
         <TouchableOpacity
           style={styles.buttonPolitique}
-          onPress={() => navigation.navigate("Politique")}
+          //onPress={() => navigation.navigate("Politique")}
         >
           <View style={styles.iconPolitiqueRow}>
             <MaterialCommunityIconsIcon
@@ -193,7 +193,7 @@ export default function SettingsScreen() {
 
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("Tab1");
+          // navigation.navigate("Tab1");
         }}
       >
         <Text style={styles.seDeconnecter}>Se déconnecter</Text>

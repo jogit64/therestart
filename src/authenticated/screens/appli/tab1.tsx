@@ -22,7 +22,7 @@ interface SalutationProps {
 }
 
 type ProfileIconProps = {
-  navigation: StackNavigationProp<Tab1ParamList, "Tab1Home">;
+  navigation: StackNavigationProp<Tab1ParamList, "Tab1P1">;
 };
 
 const Salutation: React.FC<SalutationProps> = ({ firstName }) => (
@@ -99,7 +99,7 @@ const UserProfile = () => (
 
 function Tab1() {
   const navigation =
-    useNavigation<StackNavigationProp<Tab1ParamList, "Tab1Home">>();
+    useNavigation<StackNavigationProp<Tab1ParamList, "Tab1P1">>();
 
   const userContext = useContext<UserContextInterface | null>(UserContext);
 
@@ -120,9 +120,51 @@ function Tab1() {
         <Salutation firstName={firstName} />
         <ProfileIcon navigation={navigation} />
         <UserProfile />
+
+        {/* Add your button here */}
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate("Tab1P1")}
+          >
+            <Text style={styles.buttonText}>Go to Tab1P1</Text>
+          </TouchableOpacity>
+        </View>
       </ImageBackground>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  text: {
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+  button: {
+    backgroundColor: "#6f78bd",
+    padding: 10,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
+  },
+  buttonContainer: {
+    //position: "absolute",
+    bottom: 0,
+    right: 0,
+    left: 0,
+    top: 120,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "red",
+  },
+});
 
 export default Tab1;

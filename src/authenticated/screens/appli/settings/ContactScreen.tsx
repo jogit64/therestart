@@ -21,10 +21,10 @@ import { db, auth } from "../../../../../utils/firebase.js";
 import Toast from "react-native-root-toast";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { Tab1ParamList } from "../../../../../utils/navigationTypes";
+import { RootStackParamList } from "../../../../../utils/navigationTypes";
 
 type ContactScreenNavigationProp = StackNavigationProp<
-  Tab1ParamList,
+  RootStackParamList,
   "Contact"
 >;
 

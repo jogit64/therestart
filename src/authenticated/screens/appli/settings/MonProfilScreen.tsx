@@ -22,10 +22,10 @@ import { getDoc, deleteDoc, doc, getFirestore } from "firebase/firestore";
 
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { Tab1ParamList } from "../../../../../utils/navigationTypes";
+import { RootStackParamList } from "../../../../../utils/navigationTypes";
 
 type MonProfilScreenNavigationProp = StackNavigationProp<
-  Tab1ParamList,
+  RootStackParamList,
   "MonProfil"
 >;
 
@@ -118,7 +118,7 @@ const deleteAccount = async (
               [
                 {
                   text: "OK",
-                  onPress: () => navigation.navigate("Login"),
+                  //onPress: () => navigation.navigate("Login"),
                 },
               ]
             );

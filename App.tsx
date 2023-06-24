@@ -18,24 +18,24 @@ export default function App() {
     roboto500: require("./assets/fonts/roboto-500.ttf"),
   });
 
-  useEffect(() => {
-    async function prepare() {
-      await SplashScreen.preventAutoHideAsync();
-    }
+  // useEffect(() => {
+  //   async function prepare() {
+  //     await SplashScreen.preventAutoHideAsync();
+  //   }
 
-    prepare();
-  }, []);
+  //   prepare();
+  // }, []);
 
-  useEffect(() => {
-    if (fontsLoaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
+  // useEffect(() => {
+  //   if (fontsLoaded) {
+  //     SplashScreen.hideAsync();
+  //   }
+  // }, [fontsLoaded]);
 
   // Si les polices ne sont pas chargées, afficher le composant de chargement
-  if (!fontsLoaded) {
-    return <LoadingSpinner />;
-  }
+  // if (!fontsLoaded) {
+  //   return <LoadingSpinner />;
+  // }
 
   return (
     // Fournir le contexte utilisateur à tous les composants enfants

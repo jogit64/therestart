@@ -20,11 +20,11 @@ import Toast from "react-native-root-toast";
 
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { Tab1ParamList } from "../../../../../utils/navigationTypes";
+import { RootStackParamList } from "../../../../../utils/navigationTypes";
 
 export default function ChangePasswordScreen() {
   const navigation =
-    useNavigation<StackNavigationProp<Tab1ParamList, "ChangePassword">>();
+    useNavigation<StackNavigationProp<RootStackParamList, "ChangePassword">>();
 
   useHardwareBackButton();
 
