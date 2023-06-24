@@ -39,7 +39,9 @@ const LoginScreen = ({
       setIsLoading(true); // démarre l'indicateur de chargement
 
       await signInWithEmailAndPassword(auth, email, password);
-      navigation.navigate("App", { screen: "Tab1Navigator" });
+      //      navigation.navigate("BottomTabNavigator", { screen: "Tab1Home" });
+      //      navigation.navigate("Accueil", { screen: "Tab1Home" });
+      navigation.navigate("BottomTabNavigator", { screen: "Accueil" });
 
       // Récupérer les informations sur l'utilisateur à partir de Firestore
       const user = auth.currentUser;

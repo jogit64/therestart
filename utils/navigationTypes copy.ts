@@ -2,7 +2,7 @@ export type RootStackParamList = {
   Accueil: undefined;
   Login: undefined;
   SignUp: undefined;
-  BottomTabNavigator: undefined | { screen: keyof TabParamList };
+  BottomTabNavigator: TabParamList;
   Politique: undefined;
 };
 
@@ -15,7 +15,7 @@ export type TabParamList = {
 
 export type Tab1ParamList = {
   Tab1Home: undefined;
-  Settings: { tabBarVisible: boolean };
+  Settings: undefined;
   InfosPerso: undefined;
   MonProfil: undefined;
   Contact: undefined;

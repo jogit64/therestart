@@ -12,23 +12,23 @@ import UserContext, {
   UserContextInterface,
 } from "../../../../utils/UserContext";
 import { useNavigation } from "@react-navigation/native";
-import Tab1Styles from "../../styles/Tab1Styles";
+import Tab1Styles from "./../../styles/Tab1Styles";
 
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../../../utils/navigationTypes";
+import { Tab1ParamList } from "../../../../utils/navigationTypes";
 
 interface SalutationProps {
   firstName: string;
 }
 
 type ProfileIconProps = {
-  navigation: StackNavigationProp<RootStackParamList, "Tab1">;
+  navigation: StackNavigationProp<Tab1ParamList, "Tab1Home">;
 };
 
 const Salutation: React.FC<SalutationProps> = ({ firstName }) => (
   <View style={Tab1Styles.bonjour1StackRow}>
     <View style={Tab1Styles.bonjour1Stack}>
-      <Text style={Tab1Styles.bonjour1}>Hey bonjour,</Text>
+      <Text style={Tab1Styles.bonjour1}>Bonjour,</Text>
       <Text style={Tab1Styles.firstname}>{firstName}!</Text>
     </View>
   </View>
@@ -37,7 +37,7 @@ const Salutation: React.FC<SalutationProps> = ({ firstName }) => (
 const ProfileIcon = ({ navigation }: ProfileIconProps) => (
   <TouchableOpacity
     style={Tab1Styles.iconContainer}
-    onPress={() => navigation.navigate("Settings")}
+    onPress={() => navigation.navigate("Settings", { tabBarVisible: false })}
   >
     <View style={Tab1Styles.ellipseFondIcon1Stack}>
       <Svg viewBox="0 0 28.77 29.34" style={Tab1Styles.ellipseFondIcon1}>
@@ -99,7 +99,8 @@ const UserProfile = () => (
 
 function Tab1() {
   const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, "Tab1">>();
+    useNavigation<StackNavigationProp<Tab1ParamList, "Tab1Home">>();
+
   const userContext = useContext<UserContextInterface | null>(UserContext);
 
   if (userContext === null) {

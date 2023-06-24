@@ -23,12 +23,14 @@ import { useHardwareBackButton } from "components/useHardwareBackButton";
 import * as ImagePicker from "expo-image-picker";
 import Toast from "react-native-root-toast";
 import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "./../../../../../utils/navigationTypes";
+
 import { User } from "./../../../../../utils/types";
 
+import { StackNavigationProp } from "@react-navigation/stack";
+import { Tab1ParamList } from "../../../../../utils/navigationTypes";
+
 type InfosPersoScreenNavigationProp = StackNavigationProp<
-  RootStackParamList,
+  Tab1ParamList,
   "InfosPerso"
 >;
 

@@ -63,6 +63,7 @@ export default Tab1Styles = StyleSheet.create({
   iconContainer: {
     position: "absolute",
     right: 10,
+    marginTop: 100,
   },
 
   groupUser2group: {

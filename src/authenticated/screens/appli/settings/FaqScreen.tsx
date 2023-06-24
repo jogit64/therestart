@@ -13,9 +13,9 @@ import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../../../../utils/navigationTypes";
+import { Tab1ParamList } from "../../../../../utils/navigationTypes";
 
-type FaqScreenNavigationProp = StackNavigationProp<RootStackParamList, "Faq">;
+type FaqScreenNavigationProp = StackNavigationProp<Tab1ParamList, "Faq">;
 
 export default function FaqScreen() {
   useHardwareBackButton();

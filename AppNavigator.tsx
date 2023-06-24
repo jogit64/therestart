@@ -28,7 +28,7 @@ export default function AppNavigator() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="App"
+        name="BottomTabNavigator"
         component={BottomTabNavigator}
         options={{ headerShown: false }}
       />

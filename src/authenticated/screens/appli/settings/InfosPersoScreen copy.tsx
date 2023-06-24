@@ -23,12 +23,13 @@ import * as ImagePicker from "expo-image-picker";
 import Toast from "react-native-root-toast";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "./../../../../../utils/navigationTypes";
+import { Tab1ParamList } from "../../../../../utils/navigationTypes";
+
 import { User } from "./../../../../../utils/types";
 
 type InfosPersoScreenNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  "InfosPersoScreen"
+  Tab1ParamList,
+  "InfosPerso"
 >;
 
 function InfosPersoScreen() {

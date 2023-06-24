@@ -5,8 +5,8 @@ import { Ionicons } from "@expo/vector-icons";
 import Tab2 from "../screens/appli/Tab2";
 import Tab3 from "../screens/appli/Tab3";
 import Tab4 from "../screens/appli/Tab4";
-//import Tab1 from "../screens/appli/Tab1";
 
+//import Tab1 from "../screens/appli/Tab1";
 import Tab1Navigator from "./Tab1Navigator";
 
 // Création de l'objet Tab à partir de la méthode createBottomTabNavigator
@@ -25,13 +25,13 @@ const BottomTabNavigator = () => {
             case "Accueil":
               iconName = focused ? "ios-home" : "ios-home-outline";
               break;
-            case "Emotions":
+            case "Tab2":
               iconName = focused ? "ios-list" : "ios-list-outline";
               break;
-            case "Ruminations":
+            case "Tab3":
               iconName = focused ? "ios-search" : "ios-search-outline";
               break;
-            case "Projets":
+            case "Tab4":
               iconName = focused ? "ios-person" : "ios-person-outline";
               break;
             // default:
@@ -50,24 +50,12 @@ const BottomTabNavigator = () => {
     >
       <Tab.Screen
         name="Accueil"
-        component={Tab1Navigator}
+        component={Tab1Navigator} // Ici vous utilisez le Stack Navigator que vous avez défini pour Tab1
         options={{ headerShown: false }} // Cacher l'en-tête pour l'écran HomeTab
       />
-      <Tab.Screen
-        name="Emotions"
-        component={Tab2}
-        options={{ headerShown: false }}
-      />
-      <Tab.Screen
-        name="Ruminations"
-        component={Tab3}
-        options={{ headerShown: false }}
-      />
-      <Tab.Screen
-        name="Projets"
-        component={Tab4}
-        options={{ headerShown: false }}
-      />
+      <Tab.Screen name="Tab2" component={Tab2} />
+      <Tab.Screen name="Tab3" component={Tab3} />
+      <Tab.Screen name="Tab4" component={Tab4} />
     </Tab.Navigator>
   );
 };

@@ -1,4 +1,4 @@
-import React, { Component, useCallback } from "react";
+import React, { Component, useEffect, useCallback } from "react";
 import {
   StyleSheet,
   View,
@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Text,
 } from "react-native";
+
 import Svg, { Ellipse } from "react-native-svg";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -16,10 +17,10 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../../../../utils/navigationTypes";
+import { Tab1ParamList } from "../../../../../utils/navigationTypes";
 
 type SettingsScreenNavigationProp = StackNavigationProp<
-  RootStackParamList,
+  Tab1ParamList,
   "Settings"
 >;
 

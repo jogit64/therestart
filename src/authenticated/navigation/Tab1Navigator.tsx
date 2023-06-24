@@ -12,9 +12,9 @@ import ContactScreen from "../screens/appli/settings/ContactScreen";
 import FaqScreen from "../screens/appli/settings/FaqScreen";
 import TutorielScreen from "../screens/appli/settings/TutorielScreen";
 
-import { RootStackParamList } from "../../../utils/navigationTypes";
+import { Tab1ParamList } from "../../../utils/navigationTypes"; // importez Tab1ParamList
 
-const Tab1Stack = createStackNavigator<RootStackParamList>();
+const Tab1Stack = createStackNavigator<Tab1ParamList>(); // utilisez Tab1ParamList pour créer Tab1Stack
 
 function Tab1Navigator() {
   useBackHandler(() => {
@@ -23,9 +23,9 @@ function Tab1Navigator() {
   });
 
   return (
-    <Tab1Stack.Navigator initialRouteName="Tab1">
+    <Tab1Stack.Navigator initialRouteName="Tab1Home">
       <Tab1Stack.Screen
-        name="Tab1"
+        name="Tab1Home"
         component={Tab1}
         options={{ headerShown: false }}
       />

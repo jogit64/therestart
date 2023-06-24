@@ -22,10 +22,10 @@ import { getDoc, deleteDoc, doc, getFirestore } from "firebase/firestore";
 
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../../../../utils/navigationTypes";
+import { Tab1ParamList } from "../../../../../utils/navigationTypes";
 
 type MonProfilScreenNavigationProp = StackNavigationProp<
-  RootStackParamList,
+  Tab1ParamList,
   "MonProfil"
 >;
 
