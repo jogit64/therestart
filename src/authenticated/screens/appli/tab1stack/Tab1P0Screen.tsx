@@ -11,18 +11,22 @@ import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommun
 import UserContext, {
   UserContextInterface,
 } from "../../../../../utils/UserContext";
+
 import { useNavigation } from "@react-navigation/native";
 import Tab1Styles from "./../../../styles/Tab1Styles";
 
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Tab1ParamList } from "../../../../../utils/navigationTypes";
+import { RootStackParamList } from "../../../../../utils/navigationTypes";
 
 interface SalutationProps {
   firstName: string;
 }
 
+type CombinedParamList = Tab1ParamList & RootStackParamList;
+
 type ProfileIconProps = {
-  navigation: StackNavigationProp<Tab1ParamList, "Tab1P1">;
+  navigation: StackNavigationProp<CombinedParamList>;
 };
 
 const Salutation: React.FC<SalutationProps> = ({ firstName }) => (
@@ -37,7 +41,7 @@ const Salutation: React.FC<SalutationProps> = ({ firstName }) => (
 const ProfileIcon = ({ navigation }: ProfileIconProps) => (
   <TouchableOpacity
     style={Tab1Styles.iconContainer}
-    onPress={() => navigation.navigate("Settings", { tabBarVisible: false })}
+    onPress={() => navigation.navigate("Settings")}
   >
     <View style={Tab1Styles.ellipseFondIcon1Stack}>
       <Svg viewBox="0 0 28.77 29.34" style={Tab1Styles.ellipseFondIcon1}>
@@ -98,8 +102,7 @@ const UserProfile = () => (
 );
 
 function Tab1() {
-  const navigation =
-    useNavigation<StackNavigationProp<Tab1ParamList, "Tab1P1">>();
+  const navigation = useNavigation<StackNavigationProp<CombinedParamList>>();
 
   const userContext = useContext<UserContextInterface | null>(UserContext);
 

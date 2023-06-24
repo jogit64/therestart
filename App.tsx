@@ -33,9 +33,9 @@ export default function App() {
   // }, [fontsLoaded]);
 
   // Si les polices ne sont pas chargées, afficher le composant de chargement
-  // if (!fontsLoaded) {
-  //   return <LoadingSpinner />;
-  // }
+  if (!fontsLoaded) {
+    return <LoadingSpinner />;
+  }
 
   return (
     // Fournir le contexte utilisateur à tous les composants enfants

@@ -6,7 +6,7 @@ import {
 import { useBackHandler } from "@react-native-community/hooks";
 import { BackHandler } from "react-native";
 
-import Tab1 from "../screens/appli/Tab1";
+//import Tab1 from "../screens/appli/Tab1";
 // import SettingsScreen from "../screens/appli/settings/SettingsScreen";
 // import InfosPersoScreen from "../screens/appli/settings/InfosPersoScreen";
 // import ChangePasswordScreen from "../screens/appli/settings/ChangePasswordScreen";

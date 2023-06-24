@@ -143,7 +143,8 @@ const SignUpScreen = ({
         },
       });
 
-      navigation.navigate("Tab1");
+      //navigation.navigate("Tab1");
+      navigation.navigate("BottomTabNavigator", { screen: "Accueil" });
     } catch (error: unknown) {
       if (
         typeof error === "object" &&

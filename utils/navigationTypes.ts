@@ -14,7 +14,7 @@ export type RootStackParamList = {
 };
 
 export type TabParamList = {
-  HelloWorldScreen: undefined;
+  Accueil: undefined;
   Tab2: undefined;
   Tab3: undefined;
   Tab4: undefined;
