@@ -111,7 +111,7 @@ CGU réalisées sur http://legalplace.fr/
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="rgba(0,0,0,1)" />
+      {/* <StatusBar backgroundColor="rgba(0,0,0,1)" /> */}
       <View style={styles.goBackButtonRow}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}

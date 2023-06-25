@@ -177,7 +177,7 @@ export default function MonProfilScreen() {
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="rgba(0,0,0,1)" />
+      {/* <StatusBar backgroundColor="rgba(0,0,0,1)" /> */}
 
       {/* Go back button and profile title */}
       <View style={styles.goBackButtonRow}>

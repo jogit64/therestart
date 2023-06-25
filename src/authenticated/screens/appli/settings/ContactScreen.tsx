@@ -98,7 +98,7 @@ export default function ContactScreen() {
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="rgba(0,0,0,1)" />
+      {/* <StatusBar backgroundColor="rgba(0,0,0,1)" /> */}
       <View style={styles.scrollArea}>
         <ScrollView
           contentContainerStyle={styles.scrollArea_contentContainerStyle}
