@@ -24,7 +24,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   const [user, setUser] = useState<User>({
     basicInfo: {
       firstName: "",
-      email: "", // Initialisez cela aussi à une chaîne vide
+      email: "",
     },
     extraInfo: {
       isLoggedIn: false,

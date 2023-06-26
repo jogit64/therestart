@@ -29,8 +29,6 @@ import { User } from "./../../../../../utils/types";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../../../utils/navigationTypes";
 
-import LoadingSpinner from "./../../../../../utils/LoadingSpinner";
-
 type InfosPersoScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   "InfosPerso"
@@ -62,7 +60,6 @@ function InfosPersoScreen() {
       return;
     }
 
-    setLoading(true); // set loading to true before picking the image
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -82,8 +79,6 @@ function InfosPersoScreen() {
 
       setUserImage(downloadUrl);
     }
-
-    setLoading(false); // set loading to false after the image has been processed
   };
 
   // Ajoutez un état de chargement
@@ -116,8 +111,7 @@ function InfosPersoScreen() {
 
   // Assurez-vous que loading est false avant de rendre votre composant
   if (loading) {
-    //return <Text>Loading...</Text>; // ou n'importe quel autre indicateur de chargement
-    return <LoadingSpinner />;
+    return <Text>Loading...</Text>; // ou n'importe quel autre indicateur de chargement
   }
 
   const handleSave = async () => {
@@ -233,21 +227,6 @@ function InfosPersoScreen() {
               </View>
               {/* </View> */}
             </TouchableOpacity>
-          </View>
-
-          <View>
-            {/* {loading && (
-              <View
-                style={{
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <LoadingSpinner />
-                <Text>Chargement...</Text>
-              </View>
-            )} */}
           </View>
 
           <View style={styles.groupName}>

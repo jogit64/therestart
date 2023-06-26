@@ -123,14 +123,9 @@ const SignUpScreen = ({
       console.log("User registered successfully!", user);
 
       const userDocRef = doc(db, "users", user.uid);
-      await setDoc(userDocRef, {
-        firstName: firstNameInput,
-        age: "",
-        sex: "",
-        imageUrl: "",
-      });
 
-      setUser({
+      // Création de l'objet user
+      const newUser = {
         basicInfo: {
           firstName: firstNameInput,
           email: email,
@@ -141,7 +136,13 @@ const SignUpScreen = ({
           age: null,
           sex: null,
         },
-      });
+      };
+
+      // Stockage de l'objet user dans Firestore
+      await setDoc(userDocRef, newUser);
+
+      // Mise à jour du contexte de l'utilisateur
+      setUser(newUser);
 
       //navigation.navigate("Tab1");
       navigation.navigate("BottomTabNavigator", { screen: "Accueil" });

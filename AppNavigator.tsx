@@ -41,13 +41,41 @@ export default function AppNavigator() {
         options={{ headerShown: false }}
       />
 
-      <Stack.Screen name="Settings" component={SettingsScreen} />
-      <Stack.Screen name="InfosPerso" component={InfosPersoScreen} />
-      <Stack.Screen name="MonProfil" component={MonProfilScreen} />
-      <Stack.Screen name="Contact" component={ContactScreen} />
-      <Stack.Screen name="Faq" component={FaqScreen} />
-      <Stack.Screen name="Tutoriel" component={TutorielScreen} />
-      <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
+      <Stack.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="InfosPerso"
+        component={InfosPersoScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="MonProfil"
+        component={MonProfilScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Contact"
+        component={ContactScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Faq"
+        component={FaqScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Tutoriel"
+        component={TutorielScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ChangePassword"
+        component={ChangePasswordScreen}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 }
