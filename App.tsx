@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { HelloWorld1Screen } from "./HelloWorld1Screen";
 import { HelloWorld2Screen } from "./HelloWorld2Screen";
+import "react-native-gesture-handler";
 
 export type RootStackParamList = {
   HelloWorld1: undefined;
