@@ -7,14 +7,14 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { StatusBar } from "expo-status-bar";
 import Swiper from "react-native-swiper";
 
-import MaterialButtonViolet1 from "./accueil/bottompart/MaterialButtonViolet1";
-import MaterialButtonViolet3 from "./accueil/bottompart/MaterialButtonViolet3";
+import MaterialButtonViolet1 from "./src/unauthenticated/screens/accueil/bottompart/MaterialButtonViolet1";
+import MaterialButtonViolet3 from "./src/unauthenticated/screens/accueil/bottompart/MaterialButtonViolet3";
 
-import Swiper1 from "./accueil/swiper1/swiper1";
-import Swiper2 from "./accueil/swiper2/swiper2";
-import Swiper3 from "./accueil/swiper3/swiper3";
+import Swiper1 from "./src/unauthenticated/screens/accueil/swiper1/swiper1";
+import Swiper2 from "./src/unauthenticated/screens/accueil/swiper2/swiper2";
+import Swiper3 from "./src/unauthenticated/screens/accueil/swiper3/swiper3";
 
-import { RootStackParamList } from "../../../utils/navigationTypes";
+import { RootStackParamList } from "./utils/navigationTypes";
 
 // Define color constants
 const COLORS = {

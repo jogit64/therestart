@@ -1,26 +1,49 @@
-import * as React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { HelloWorld1Screen } from "./HelloWorld1Screen";
-import { HelloWorld2Screen } from "./HelloWorld2Screen";
+import React, { useEffect } from "react";
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 import "react-native-gesture-handler";
 
-export type RootStackParamList = {
-  HelloWorld1: undefined;
-  HelloWorld2: undefined;
-};
+import UserContext, { UserProvider } from "./utils/UserContext";
 
-const Stack = createStackNavigator<RootStackParamList>();
+import { NavigationContainer } from "@react-navigation/native";
+import AppNavigator from "./AppNavigator";
 
-function App() {
+import LoadingSpinner from "./utils/LoadingSpinner";
+
+export default function App() {
+  // Charger les polices personnalisées
+  const [fontsLoaded] = useFonts({
+    lemon: require("./assets/fonts/lemon-regular.ttf"),
+    roboto: require("./assets/fonts/roboto-regular.ttf"),
+    roboto700: require("./assets/fonts/roboto-700.ttf"),
+    roboto500: require("./assets/fonts/roboto-500.ttf"),
+  });
+
+  useEffect(() => {
+    async function prepare() {
+      await SplashScreen.preventAutoHideAsync();
+    }
+
+    prepare();
+  }, []);
+
+  useEffect(() => {
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  // Si les polices ne sont pas chargées, afficher le composant de chargement
+  if (!fontsLoaded) {
+    return <LoadingSpinner />;
+  }
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="HelloWorld1">
-        <Stack.Screen name="HelloWorld1" component={HelloWorld1Screen} />
-        <Stack.Screen name="HelloWorld2" component={HelloWorld2Screen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    // Fournir le contexte utilisateur à tous les composants enfants
+    <UserProvider>
+      <NavigationContainer>
+        <AppNavigator />
+      </NavigationContainer>
+    </UserProvider>
   );
 }
-
-export default App;
