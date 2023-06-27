@@ -118,7 +118,7 @@ const deleteAccount = async (
               [
                 {
                   text: "OK",
-                  //onPress: () => navigation.navigate("Login"),
+                  onPress: () => navigation.navigate("Accueil"),
                 },
               ]
             );

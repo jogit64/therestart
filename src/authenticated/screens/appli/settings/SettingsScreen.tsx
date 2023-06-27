@@ -193,7 +193,7 @@ export default function SettingsScreen() {
 
       <TouchableOpacity
         onPress={() => {
-          // navigation.navigate("Tab1");
+          navigation.navigate("Accueil");
         }}
       >
         <Text style={styles.seDeconnecter}>Se déconnecter</Text>
