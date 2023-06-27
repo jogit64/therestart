@@ -28,8 +28,8 @@ const BottomTabNavigator = () => {
             case "Emotions":
               iconName = focused ? "ios-heart-half" : "ios-heart-half-outline";
               break;
-            case "Ruminations":
-              iconName = focused ? "ios-aperture" : "ios-aperture-outline";
+            case "Désidentification":
+              iconName = focused ? "ios-people" : "ios-people-outline";
               break;
             case "Projets":
               iconName = focused ? "ios-today" : "ios-today-outline";
@@ -54,7 +54,7 @@ const BottomTabNavigator = () => {
         options={{ headerShown: false }} // Cacher l'en-tête pour l'écran HomeTab
       />
       <Tab.Screen name="Emotions" component={Tab2} />
-      <Tab.Screen name="Ruminations" component={Tab3} />
+      <Tab.Screen name="Désidentification" component={Tab3} />
       <Tab.Screen name="Projets" component={Tab4} />
     </Tab.Navigator>
   );

@@ -41,7 +41,7 @@ const LoginScreen = ({
       await signInWithEmailAndPassword(auth, email, password);
       //      navigation.navigate("BottomTabNavigator", { screen: "Tab1Home" });
       //      navigation.navigate("Accueil", { screen: "Tab1Home" });
-      navigation.navigate("BottomTabNavigator", { screen: "Accueil" });
+      //navigation.navigate("BottomTabNavigator", { screen: "Accueil" });
 
       // Récupérer les informations sur l'utilisateur à partir de Firestore
       const user = auth.currentUser;
@@ -53,9 +53,11 @@ const LoginScreen = ({
         // Mettre à jour les données de l'utilisateur dans le contexte
         const userData = userDocSnap.data();
         if (userData) {
+          console.log(userData);
           setUser({
             basicInfo: {
-              firstName: userData.firstName || "",
+              //firstName: userData.firstName || "",
+              firstName: userData.basicInfo.firstName || "",
               email: user.email || "",
             },
             extraInfo: {
@@ -65,6 +67,7 @@ const LoginScreen = ({
               sex: userData.sex || null,
             },
           });
+          navigation.navigate("BottomTabNavigator", { screen: "Accueil" });
         }
       } else {
         // cas impossible car l'utilisateur vient d'être authentifié avec succès
