@@ -256,7 +256,12 @@ const LoginScreen = ({
 
             {/* // ! Mot de passe oublié  ?*/}
             <View>
-              <Text style={authStyles.passForgot}>Mot de passe oublié ?</Text>
+              <Text
+                style={authStyles.passForgot}
+                onPress={() => navigation.navigate("ReinitMdp")}
+              >
+                Mot de passe oublié ?
+              </Text>
             </View>
 
             {/* // ! bouton Créer un cpte gratuit */}

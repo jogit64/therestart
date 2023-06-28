@@ -1,6 +1,7 @@
 export type RootStackParamList = {
   Accueil: undefined;
   Login: undefined;
+  ReinitMdp: undefined;
   SignUp: undefined;
   BottomTabNavigator: undefined | { screen: keyof TabParamList };
   Politique: undefined;
