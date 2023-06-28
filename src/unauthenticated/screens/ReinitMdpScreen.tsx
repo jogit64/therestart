@@ -41,7 +41,7 @@ function ReinitMdp(props) {
       <Text style={styles.labelEmail}>Email</Text>
 
       <TextInput
-        placeholder="placeholder"
+        placeholder="Entrez une adresse email valide"
         placeholderTextColor="rgba(151,155,180,1)"
         inlineImagePadding={0}
         style={styles.inputEmail}
