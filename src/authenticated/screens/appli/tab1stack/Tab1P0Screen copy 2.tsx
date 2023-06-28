@@ -82,33 +82,31 @@ function Tab1() {
               </View>
             </TouchableOpacity>
           </View>
-          <ImageBackground
-            style={{
-              ...styles.rondUsercontour1,
-              zIndex: 1,
-              position: "absolute",
-            }}
-            imageStyle={styles.rondUsercontour1_imageStyle}
-            source={require("assets/images/Gradient_jOL2tsn.png")}
-          />
-          <ImageBackground
-            style={{
-              ...styles.rondUsercontour,
-              zIndex: 2,
-              position: "absolute",
-            }}
-            imageStyle={styles.rondUsercontour_imageStyle}
-            source={require("assets/images/Gradient_jOL2tsn.png")}
-          />
-          <Image
-            source={
-              userContext.imageUrl
-                ? { uri: userContext.imageUrl }
-                : defaultImage
-            }
-            resizeMode="contain"
-            style={{ ...styles.photoProfil, zIndex: 3, position: "absolute" }}
-          />
+          <View style={styles.groupUser2group}>
+            <View style={styles.groupUserFon2Ronds}>
+              <ImageBackground
+                style={styles.rondUsercontour1}
+                imageStyle={styles.rondUsercontour1_imageStyle}
+                source={require("assets/images/Gradient_jOL2tsn.png")}
+              >
+                <ImageBackground
+                  style={styles.rondUsercontour}
+                  imageStyle={styles.rondUsercontour_imageStyle}
+                  source={require("assets/images/Gradient_jOL2tsn.png")}
+                >
+                  <Image
+                    source={
+                      userContext.imageUrl
+                        ? { uri: userContext.imageUrl }
+                        : defaultImage
+                    }
+                    resizeMode="cover"
+                    style={styles.photoProfil}
+                  ></Image>
+                </ImageBackground>
+              </ImageBackground>
+            </View>
+          </View>
         </ImageBackground>
 
         <View style={styles.buttonContainer}>
@@ -156,24 +154,34 @@ const styles = StyleSheet.create({
     fontFamily: "roboto",
     color: "rgba(50,56,106,1)",
     fontSize: 18,
+    textAlign: "center",
+    position: "absolute",
+    left: 10,
+    height: 22,
+    width: 93,
+    bottom: 0,
   },
   souda: {
     fontFamily: "roboto700",
     color: "rgba(50,56,106,1)",
     fontSize: 18,
-    marginLeft: 4, // Créer de l'espace entre les Text
+    textAlign: "center",
+    position: "absolute",
+    left: 62,
+    height: 22,
+    width: 93,
+    bottom: 0,
   },
   bonjour1Stack: {
-    flexDirection: "row", // Placer les Text côte à côte
-    alignItems: "center", // Centrer verticalement
+    width: 157,
+    height: 22,
     alignSelf: "flex-end",
+    marginBottom: 3,
   },
   buttonSettings: {
-    position: "absolute", // Positionner l'icône indépendamment
-    right: 10, // Créer de l'espace à droite
-    top: 10, // Créer de l'espace en haut
     width: 29,
     height: 29,
+    marginLeft: 54,
   },
   ellipseFondIcon: {
     top: 0,
@@ -196,8 +204,19 @@ const styles = StyleSheet.create({
   bonjour1StackRow: {
     height: 29,
     flexDirection: "row",
-    justifyContent: "center", // Centrer horizontalement
     marginTop: 27,
+    marginLeft: 102,
+    marginRight: 18,
+  },
+  groupUser2group: {
+    width: 112,
+    height: 105,
+    marginTop: 23,
+    marginLeft: 124,
+  },
+  groupUserFon2Ronds: {
+    width: 112,
+    height: 105,
   },
   rondUsercontour1: {
     width: 112,
@@ -212,35 +231,35 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 22,
     overflow: "hidden",
-    marginTop: 79,
-    marginLeft: 124,
-    opacity: 0.25,
   },
   rondUsercontour1_imageStyle: {},
   rondUsercontour: {
-    width: 95,
-    height: 90,
+    width: 85,
+    height: 80,
     borderRadius: 100,
     shadowColor: "rgba(220,225,244,1)",
     shadowOffset: {
       width: 3,
       height: 3,
     },
-    elevation: 54,
+    elevation: 24,
     shadowOpacity: 1,
     shadowRadius: 8,
     overflow: "hidden",
-    marginTop: 86,
-    marginLeft: 133,
-    opacity: 0.5,
+    marginTop: 13,
+    marginLeft: 13,
   },
+
   rondUsercontour_imageStyle: {},
   photoProfil: {
-    width: 81,
-    height: 81,
-    marginTop: 90,
-    marginLeft: 140,
-    borderRadius: 50,
+    //opacity: 1,
+    // width: 76,
+    // height: 76,
+    // marginTop: 2,
+    // marginLeft: 5,
+    width: 100, // Mettez ici la largeur de votre image
+    height: 100, // Mettez ici la hauteur de votre image
+    borderRadius: 5,
   },
 
   button: {
@@ -260,7 +279,7 @@ const styles = StyleSheet.create({
     top: 120,
     justifyContent: "center",
     alignItems: "center",
-    //backgroundColor: "red",
+    backgroundColor: "red",
   },
 });
 

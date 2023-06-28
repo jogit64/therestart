@@ -31,7 +31,10 @@ const LoginScreen = ({
   navigation: StackNavigationProp<RootStackParamList, "Login">;
 }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { setUser } = useContext(UserContext)!; // Ajout de setUser depuis le UserContext
+
+  const userContext = useContext(UserContext)!; // Récupération du contexte complet
+
+  const { setUser } = userContext; // Destructuration pour obtenir setUser
 
   const handleLogin = async () => {
     Keyboard.dismiss(); // ferme le clavier
@@ -52,21 +55,22 @@ const LoginScreen = ({
 
         // Mettre à jour les données de l'utilisateur dans le contexte
         const userData = userDocSnap.data();
-        if (userData) {
-          console.log(userData);
+        if (userData && userContext) {
           setUser({
             basicInfo: {
-              //firstName: userData.firstName || "",
               firstName: userData.basicInfo.firstName || "",
               email: user.email || "",
             },
             extraInfo: {
               isLoggedIn: true,
-              imageUrl: userData.imageUrl || null,
-              age: userData.age || null,
-              sex: userData.sex || null,
+              imageUrl: userData.extraInfo.imageUrl || "",
+              age: userData.extraInfo.age || null,
+              sex: userData.extraInfo.sex || null,
             },
           });
+
+          // Mettre à jour l'image de l'utilisateur dans le contexte
+          userContext.setImageUrl(userData.extraInfo.imageUrl || "");
           navigation.navigate("BottomTabNavigator", { screen: "Accueil" });
         }
       } else {

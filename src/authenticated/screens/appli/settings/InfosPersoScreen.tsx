@@ -150,6 +150,8 @@ function InfosPersoScreen() {
         },
       });
 
+      userContext?.setImageUrl(userImage);
+
       // Reste de votre code
     } catch (error: unknown) {
       // Gestion d'erreur

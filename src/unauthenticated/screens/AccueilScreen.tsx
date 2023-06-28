@@ -101,6 +101,9 @@ const styles = StyleSheet.create({
     borderRadius: 11,
     marginTop: 5,
     alignSelf: "center",
+    elevation: 5,
+    shadowOpacity: 1,
+    shadowRadius: 0,
   },
   materialButtonViolet3: {
     height: 55,

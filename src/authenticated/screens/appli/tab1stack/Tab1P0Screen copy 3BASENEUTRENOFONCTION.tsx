@@ -60,12 +60,9 @@ function Tab1() {
           <View style={styles.bonjour1StackRow}>
             <View style={styles.bonjour1Stack}>
               <Text style={styles.bonjour1}>Bonjour,</Text>
-              <Text style={styles.souda}>{firstName}!</Text>
+              <Text style={styles.souda}>Souda</Text>
             </View>
-            <TouchableOpacity
-              style={styles.buttonSettings}
-              onPress={() => navigation.navigate("Settings")}
-            >
+            <TouchableOpacity style={styles.buttonSettings}>
               <View style={styles.ellipseFondIconStack}>
                 <Svg viewBox="0 0 28.77 29.34" style={styles.ellipseFondIcon}>
                   <Ellipse
@@ -83,42 +80,23 @@ function Tab1() {
             </TouchableOpacity>
           </View>
           <ImageBackground
-            style={{
-              ...styles.rondUsercontour1,
-              zIndex: 1,
-              position: "absolute",
-            }}
+            style={styles.rondUsercontour1}
             imageStyle={styles.rondUsercontour1_imageStyle}
             source={require("assets/images/Gradient_jOL2tsn.png")}
-          />
-          <ImageBackground
-            style={{
-              ...styles.rondUsercontour,
-              zIndex: 2,
-              position: "absolute",
-            }}
-            imageStyle={styles.rondUsercontour_imageStyle}
-            source={require("assets/images/Gradient_jOL2tsn.png")}
-          />
-          <Image
-            source={
-              userContext.imageUrl
-                ? { uri: userContext.imageUrl }
-                : defaultImage
-            }
-            resizeMode="contain"
-            style={{ ...styles.photoProfil, zIndex: 3, position: "absolute" }}
-          />
-        </ImageBackground>
-
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate("Tab1P1")}
           >
-            <Text style={styles.buttonText}>Go to Tab1P1</Text>
-          </TouchableOpacity>
-        </View>
+            <ImageBackground
+              style={styles.rondUsercontour}
+              imageStyle={styles.rondUsercontour_imageStyle}
+              source={require("assets/images/Gradient_jOL2tsn.png")}
+            >
+              <Image
+                source={require("assets/images/userHead.png")}
+                resizeMode="contain"
+                style={styles.photoProfil}
+              ></Image>
+            </ImageBackground>
+          </ImageBackground>
+        </ImageBackground>
       </View>
     );
   }
@@ -153,27 +131,37 @@ const styles = StyleSheet.create({
   },
   fondHaut_imageStyle: {},
   bonjour1: {
-    fontFamily: "roboto",
+    fontFamily: "roboto-regular",
     color: "rgba(50,56,106,1)",
     fontSize: 18,
+    textAlign: "center",
+    position: "absolute",
+    left: 0,
+    height: 22,
+    width: 93,
+    bottom: 0,
   },
   souda: {
-    fontFamily: "roboto700",
+    fontFamily: "roboto-700",
     color: "rgba(50,56,106,1)",
     fontSize: 18,
-    marginLeft: 4, // Créer de l'espace entre les Text
+    textAlign: "center",
+    position: "absolute",
+    left: 64,
+    height: 22,
+    width: 93,
+    bottom: 0,
   },
   bonjour1Stack: {
-    flexDirection: "row", // Placer les Text côte à côte
-    alignItems: "center", // Centrer verticalement
+    width: 157,
+    height: 22,
     alignSelf: "flex-end",
+    marginBottom: 3,
   },
   buttonSettings: {
-    position: "absolute", // Positionner l'icône indépendamment
-    right: 10, // Créer de l'espace à droite
-    top: 10, // Créer de l'espace en haut
     width: 29,
     height: 29,
+    marginLeft: 54,
   },
   ellipseFondIcon: {
     top: 0,
@@ -196,8 +184,9 @@ const styles = StyleSheet.create({
   bonjour1StackRow: {
     height: 29,
     flexDirection: "row",
-    justifyContent: "center", // Centrer horizontalement
     marginTop: 27,
+    marginLeft: 102,
+    marginRight: 18,
   },
   rondUsercontour1: {
     width: 112,
@@ -212,55 +201,32 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 22,
     overflow: "hidden",
-    marginTop: 79,
+    marginTop: 23,
     marginLeft: 124,
-    opacity: 0.25,
   },
   rondUsercontour1_imageStyle: {},
   rondUsercontour: {
-    width: 95,
-    height: 90,
+    width: 85,
+    height: 80,
     borderRadius: 100,
     shadowColor: "rgba(220,225,244,1)",
     shadowOffset: {
       width: 3,
       height: 3,
     },
-    elevation: 54,
+    elevation: 24,
     shadowOpacity: 1,
     shadowRadius: 8,
     overflow: "hidden",
-    marginTop: 86,
-    marginLeft: 133,
-    opacity: 0.5,
+    marginTop: 12,
+    marginLeft: 14,
   },
   rondUsercontour_imageStyle: {},
   photoProfil: {
-    width: 81,
-    height: 81,
-    marginTop: 90,
-    marginLeft: 140,
-    borderRadius: 50,
-  },
-
-  button: {
-    backgroundColor: "#6f78bd",
-    padding: 10,
-    borderRadius: 5,
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 16,
-  },
-  buttonContainer: {
-    //position: "absolute",
-    bottom: 0,
-    right: 0,
-    left: 0,
-    top: 120,
-    justifyContent: "center",
-    alignItems: "center",
-    //backgroundColor: "red",
+    width: 76,
+    height: 76,
+    marginTop: 3,
+    marginLeft: 4,
   },
 });
 
