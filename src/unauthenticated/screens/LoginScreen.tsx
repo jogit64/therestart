@@ -296,10 +296,7 @@ const LoginScreen = ({
             {/* // ! text et liens CGU */}
             <TouchableOpacity>
               <Text style={authStyles.textCGU}>
-                En vous connectant, vous acceptez nos{"\n"}
-                <Text style={authStyles.linkText}>
-                  conditions générales
-                </Text> et{" "}
+                En vous connectant, vous acceptez notre{"\n"}
                 <Text
                   style={authStyles.linkText}
                   onPress={() => navigation.navigate("Politique")}

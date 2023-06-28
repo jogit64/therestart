@@ -135,12 +135,12 @@ const styles = StyleSheet.create({
     width: 360,
     height: 203,
     borderRadius: 52,
-    shadowColor: "rgba(220,221,241,1)",
+    shadowColor: "grey",
     shadowOffset: {
       height: 7,
       width: 0,
     },
-    elevation: 33,
+    elevation: 7,
     shadowOpacity: 1,
     shadowRadius: 11,
     borderBottomRightRadius: 57,
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     height: 29,
     flexDirection: "row",
     justifyContent: "center", // Centrer horizontalement
-    marginTop: 27,
+    marginTop: 37,
   },
   rondUsercontour1: {
     width: 112,

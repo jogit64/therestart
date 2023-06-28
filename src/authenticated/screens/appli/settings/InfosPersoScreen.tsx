@@ -135,18 +135,18 @@ function InfosPersoScreen() {
           imageUrl: userImage,
         },
       });
+
       // Mettre à jour le contexte
-      // Mettre à jour le contexte
-      setUser({
+      userContext?.setUser({
         basicInfo: {
           firstName: firstName,
-          email: user ? user.basicInfo.email : "", // vous devrez gérer correctement le champ email
+          email: user ? user.basicInfo.email : "",
         },
         extraInfo: {
           age: age,
           sex: sex,
           imageUrl: userImage,
-          isLoggedIn: user ? user.extraInfo.isLoggedIn : false, // ici vous devez gérer correctement le champ isLoggedIn
+          isLoggedIn: user ? user.extraInfo.isLoggedIn : false,
         },
       });
 

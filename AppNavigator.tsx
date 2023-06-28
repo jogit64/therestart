@@ -4,6 +4,7 @@ import AccueilScreen from "./src/unauthenticated/screens/AccueilScreen";
 import LoginScreen from "./src/unauthenticated/screens/LoginScreen";
 import SignUpScreen from "./src/unauthenticated/screens/SignUpScreen";
 import ReinitMdpScreen from "./src/unauthenticated/screens/ReinitMdpScreen";
+import PolitiqueScreen from "./src/unauthenticated/screens/PolitiqueScreen";
 import BottomTabNavigator from "./src/authenticated/navigation/BottomTabNavigator";
 
 import SettingsScreen from "./src/authenticated/screens/appli/settings/SettingsScreen";
@@ -34,6 +35,11 @@ export default function AppNavigator() {
       <Stack.Screen
         name="SignUp"
         component={SignUpScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Politique"
+        component={PolitiqueScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen

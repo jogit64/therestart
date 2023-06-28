@@ -11,13 +11,19 @@ import {
 
 import Svg, { Ellipse } from "react-native-svg";
 import Icon from "react-native-vector-icons/Feather";
+import { useHardwareBackButton } from "./../../../components/useHardwareBackButton";
 
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../../utils/navigationTypes";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
-const auth = getAuth();
+type ReinitMdpProps = {
+  navigation: StackNavigationProp<RootStackParamList, "ReinitMdp">;
+};
 
-function ReinitMdp(props) {
+const ReinitMdp: React.FC<ReinitMdpProps> = ({ navigation }) => {
   const [email, setEmail] = useState("");
+  const auth = getAuth();
 
   const handleResetPassword = () => {
     sendPasswordResetEmail(auth, email)
@@ -32,11 +38,13 @@ function ReinitMdp(props) {
       });
   };
 
+  useHardwareBackButton();
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="rgba(0,0,0,1)" />
       <TouchableOpacity
-        onPress={() => props.navigation.goBack()}
+        onPress={() => navigation.goBack()}
         style={styles.goBackButton}
       >
         <View style={styles.ellipseGoBackStack}>
@@ -76,7 +84,7 @@ function ReinitMdp(props) {
       </TouchableOpacity>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
