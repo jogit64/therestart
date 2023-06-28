@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import {
+  Alert,
   StyleSheet,
   View,
   StatusBar,
@@ -7,11 +8,30 @@ import {
   Text,
   TextInput,
 } from "react-native";
+
 import Svg, { Ellipse } from "react-native-svg";
 import Icon from "react-native-vector-icons/Feather";
-import CupertinoButtonGrey from "../components/CupertinoButtonGrey";
+
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+
+const auth = getAuth();
 
 function ReinitMdp(props) {
+  const [email, setEmail] = useState("");
+
+  const handleResetPassword = () => {
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        Alert.alert(
+          "Email envoyé",
+          "Veuillez vérifier votre boîte de réception et suivre les instructions pour réinitialiser votre mot de passe."
+        );
+      })
+      .catch((error) => {
+        Alert.alert("Erreur", error.message);
+      });
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="rgba(0,0,0,1)" />
@@ -45,8 +65,13 @@ function ReinitMdp(props) {
         placeholderTextColor="rgba(151,155,180,1)"
         inlineImagePadding={0}
         style={styles.inputEmail}
+        onChangeText={(text) => setEmail(text)}
+        value={email}
       ></TextInput>
-      <TouchableOpacity style={styles.buttonEnvoyer}>
+      <TouchableOpacity
+        style={styles.buttonEnvoyer}
+        onPress={handleResetPassword}
+      >
         <Text style={styles.textEnvoyer}>Envoyer</Text>
       </TouchableOpacity>
     </View>

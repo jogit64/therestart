@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 57,
     borderTopLeftRadius: 0,
     borderTopRightRadius: 0,
-    marginTop: 23,
+    //marginTop: 23,
     alignSelf: "center",
     overflow: "hidden",
   },
