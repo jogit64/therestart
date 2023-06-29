@@ -20,6 +20,8 @@ import UserContext from "./../../../../../utils/UserContext";
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useHardwareBackButton } from "components/useHardwareBackButton";
+import { StatusBarCustom } from "components/StatusBarCustom";
+
 import * as ImagePicker from "expo-image-picker";
 import Toast from "react-native-root-toast";
 import { useNavigation } from "@react-navigation/native";
@@ -169,6 +171,7 @@ function InfosPersoScreen() {
   return (
     <View style={styles.container}>
       {/* <StatusBar backgroundColor="rgba(0,0,0,1)" /> */}
+      <StatusBarCustom />
       <View style={styles.scrollArea}>
         <ScrollView
           contentContainerStyle={styles.scrollArea_contentContainerStyle}

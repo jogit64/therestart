@@ -25,6 +25,8 @@ import UserContext from "../../../utils/UserContext"; // Import du UserContext
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../utils/navigationTypes";
 
+import { StatusBarCustom } from "components/StatusBarCustom";
+
 const LoginScreen = ({
   navigation,
 }: {
@@ -181,6 +183,7 @@ const LoginScreen = ({
 
   return (
     <View style={authStyles.container}>
+      <StatusBarCustom />
       <ScrollView>
         <LinearGradient
           colors={["#e9f6ff", "#f8fcff"]}

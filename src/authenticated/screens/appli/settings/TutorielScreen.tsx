@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import Svg, { Ellipse } from "react-native-svg";
 import { useHardwareBackButton } from "components/useHardwareBackButton";
+import { StatusBarCustom } from "components/StatusBarCustom";
 
 import { FontAwesome } from "@expo/vector-icons";
 
@@ -28,6 +29,7 @@ export default function TutorielScreen() {
   const navigation = useNavigation<TutorielScreenNavigationProp>();
   return (
     <View style={styles.container}>
+      <StatusBarCustom />
       <View style={styles.goBackButtonRow}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}

@@ -15,6 +15,7 @@ import { auth } from "../../../../../utils/firebase.js";
 import { EmailAuthProvider } from "firebase/auth";
 import { reauthenticateWithCredential, updatePassword } from "firebase/auth";
 import { useHardwareBackButton } from "components/useHardwareBackButton";
+import { StatusBarCustom } from "components/StatusBarCustom";
 
 import Toast from "react-native-root-toast";
 
@@ -137,6 +138,7 @@ export default function ChangePasswordScreen() {
   return (
     <View style={styles.container}>
       {/* <StatusBar backgroundColor="rgba(0,0,0,1)" /> */}
+      <StatusBarCustom />
       <View style={styles.scrollArea}>
         <ScrollView
           contentContainerStyle={styles.scrollArea_contentContainerStyle}

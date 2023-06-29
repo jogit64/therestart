@@ -12,6 +12,7 @@ import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import { useHardwareBackButton } from "components/useHardwareBackButton";
+import { StatusBarCustom } from "components/StatusBarCustom";
 
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -32,6 +33,7 @@ export default function SettingsScreen() {
   return (
     <View style={styles.container}>
       {/* <StatusBar backgroundColor="rgba(0,0,0,1)" /> */}
+      <StatusBarCustom />
       <View style={styles.goBackButtonRow}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}

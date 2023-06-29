@@ -11,10 +11,12 @@ import {
 import Svg, { Ellipse } from "react-native-svg";
 import Icon from "react-native-vector-icons/Feather";
 
-import { useHardwareBackButton } from "./../../../components/useHardwareBackButton";
+import { useHardwareBackButton } from "components/useHardwareBackButton";
 
 import { RootStackParamList } from "../../../utils/navigationTypes";
 import { StackNavigationProp } from "@react-navigation/stack";
+
+import { StatusBarCustom } from "components/StatusBarCustom";
 
 export default function PolitiqueScreen({
   navigation,
@@ -112,6 +114,7 @@ CGU réalisées sur http://legalplace.fr/
   return (
     <View style={styles.container}>
       {/* <StatusBar backgroundColor="rgba(0,0,0,1)" /> */}
+      <StatusBarCustom />
       <View style={styles.goBackButtonRow}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}

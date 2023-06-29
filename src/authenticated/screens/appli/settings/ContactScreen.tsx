@@ -11,6 +11,8 @@ import {
 import Svg, { Ellipse } from "react-native-svg";
 import Icon from "react-native-vector-icons/Feather";
 import { useHardwareBackButton } from "components/useHardwareBackButton";
+import { StatusBarCustom } from "components/StatusBarCustom";
+
 import {
   collection,
   addDoc,
@@ -99,6 +101,7 @@ export default function ContactScreen() {
   return (
     <View style={styles.container}>
       {/* <StatusBar backgroundColor="rgba(0,0,0,1)" /> */}
+      <StatusBarCustom />
       <View style={styles.scrollArea}>
         <ScrollView
           contentContainerStyle={styles.scrollArea_contentContainerStyle}

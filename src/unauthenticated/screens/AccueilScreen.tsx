@@ -4,7 +4,10 @@ import { View, Dimensions, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+
 import { StatusBar } from "expo-status-bar";
+import { StatusBarCustom } from "components/StatusBarCustom";
+
 import Swiper from "react-native-swiper";
 
 import MaterialButtonViolet1 from "./accueil/bottompart/MaterialButtonViolet1";
@@ -25,7 +28,7 @@ const COLORS = {
   button1Bg: "rgba(111,120,189,1)",
   button2Bg: "rgba(255,255,255,1)",
   button2Shadow: "#000",
-  statusBarBg: "rgba(111,120,189,1)",
+  //statusBarBg: "rgba(111,120,189,1)",
 };
 
 export default function AccueilScreen() {
@@ -77,6 +80,7 @@ export default function AccueilScreen() {
       {/* Button area */}
       <View style={{ flex: 1 }}>
         {/* <StatusBar style="light" backgroundColor={COLORS.statusBarBg} /> */}
+        <StatusBarCustom />
         <MaterialButtonViolet1
           style={styles.materialButtonViolet1}
           onPress={() => navigation.navigate("SignUp")}

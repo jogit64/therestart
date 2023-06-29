@@ -11,7 +11,8 @@ import {
 
 import Svg, { Ellipse } from "react-native-svg";
 import Icon from "react-native-vector-icons/Feather";
-import { useHardwareBackButton } from "./../../../components/useHardwareBackButton";
+import { useHardwareBackButton } from "components/useHardwareBackButton";
+import { StatusBarCustom } from "components/StatusBarCustom";
 
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../utils/navigationTypes";
@@ -42,7 +43,8 @@ const ReinitMdp: React.FC<ReinitMdpProps> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="rgba(0,0,0,1)" />
+      {/* <StatusBar backgroundColor="rgba(0,0,0,1)" /> */}
+      <StatusBarCustom />
       <TouchableOpacity
         onPress={() => navigation.goBack()}
         style={styles.goBackButton}

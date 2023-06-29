@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import Svg, { Ellipse } from "react-native-svg";
 import { useHardwareBackButton } from "components/useHardwareBackButton";
+import { StatusBarCustom } from "components/StatusBarCustom";
+
 import { FontAwesome } from "@expo/vector-icons";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -22,6 +24,7 @@ export default function FaqScreen() {
   const navigation = useNavigation<FaqScreenNavigationProp>();
   return (
     <View style={styles.container}>
+      <StatusBarCustom />
       <View style={styles.goBackButtonRow}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}

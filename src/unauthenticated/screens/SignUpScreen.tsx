@@ -22,6 +22,7 @@ import { RootStackParamList } from "../../../utils/navigationTypes";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 import UserContext from "../../../utils/UserContext";
+import { StatusBarCustom } from "components/StatusBarCustom";
 
 const SignUpScreen = ({
   navigation,
@@ -188,6 +189,7 @@ const SignUpScreen = ({
 
   return (
     <View style={authStyles.container}>
+      <StatusBarCustom />
       <ScrollView style={authStyles.scrollView}>
         <LinearGradient
           //colors={["yellow", "#f8fcff"]}

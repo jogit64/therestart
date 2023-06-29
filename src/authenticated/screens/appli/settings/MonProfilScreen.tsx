@@ -12,6 +12,8 @@ import {
 import Svg, { Ellipse } from "react-native-svg";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import { useHardwareBackButton } from "components/useHardwareBackButton";
+import { StatusBarCustom } from "components/StatusBarCustom";
+
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {
   getAuth,
@@ -178,6 +180,7 @@ export default function MonProfilScreen() {
   return (
     <View style={styles.container}>
       {/* <StatusBar backgroundColor="rgba(0,0,0,1)" /> */}
+      <StatusBarCustom />
 
       {/* Go back button and profile title */}
       <View style={styles.goBackButtonRow}>

@@ -9,6 +9,8 @@ import Tab4 from "../screens/appli/Tab4";
 //import Tab1 from "../screens/appli/Tab1";
 import Tab1Navigator from "./Tab1Navigator";
 
+//import { StatusBarCustom } from "components/StatusBarCustom";
+
 // Création de l'objet Tab à partir de la méthode createBottomTabNavigator
 const Tab = createBottomTabNavigator();
 
