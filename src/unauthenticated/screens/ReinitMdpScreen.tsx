@@ -24,9 +24,33 @@ type ReinitMdpProps = {
 
 const ReinitMdp: React.FC<ReinitMdpProps> = ({ navigation }) => {
   const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [activeInput, setActiveInput] = useState("");
   const auth = getAuth();
 
+  const handleFocus = (name: string) => {
+    setActiveInput(name);
+  };
+
+  const validateEmail = (email: string) => {
+    const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+    if (isValid) {
+      setEmailError("");
+      setIsEmailValid(true);
+    } else {
+      setEmailError("Veuillez entrer une adresse e-mail valide");
+      setIsEmailValid(false);
+    }
+  };
+
   const handleResetPassword = () => {
+    if (!isEmailValid) {
+      Alert.alert("Erreur", emailError);
+      return;
+    }
+
     sendPasswordResetEmail(auth, email)
       .then(() => {
         Alert.alert(
@@ -43,7 +67,6 @@ const ReinitMdp: React.FC<ReinitMdpProps> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {/* <StatusBar backgroundColor="rgba(0,0,0,1)" /> */}
       <StatusBarCustom />
       <TouchableOpacity
         onPress={() => navigation.goBack()}
@@ -74,13 +97,17 @@ const ReinitMdp: React.FC<ReinitMdpProps> = ({ navigation }) => {
         placeholder="Entrez une adresse email valide"
         placeholderTextColor="rgba(151,155,180,1)"
         inlineImagePadding={0}
-        style={styles.inputEmail}
-        onChangeText={(text) => setEmail(text)}
+        style={[styles.inputEmail, isEmailValid && styles.inputValid]}
+        onChangeText={(text) => {
+          setEmail(text);
+          validateEmail(text);
+        }}
         value={email}
       ></TextInput>
       <TouchableOpacity
-        style={styles.buttonEnvoyer}
+        style={[styles.buttonEnvoyer, isEmailValid && styles.buttonActive]}
         onPress={handleResetPassword}
+        disabled={!isEmailValid}
       >
         <Text style={styles.textEnvoyer}>Envoyer</Text>
       </TouchableOpacity>
@@ -175,6 +202,12 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 15,
     fontFamily: "roboto",
+  },
+  buttonActive: {
+    backgroundColor: "#6f78bd",
+  },
+  inputValid: {
+    backgroundColor: "#fffac3", // Changez cette couleur comme vous le souhaitez
   },
 });
 
