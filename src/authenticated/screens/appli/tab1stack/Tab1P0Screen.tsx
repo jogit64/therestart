@@ -22,9 +22,12 @@ import { RootStackParamList } from "../../../../../utils/navigationTypes";
 
 import Icon from "react-native-vector-icons/Entypo";
 
+import { useHardwareBackButton } from "components/useHardwareBackButton";
+
 type CombinedParamList = Tab1ParamList & RootStackParamList;
 
 function Tab1() {
+  useHardwareBackButton();
   const navigation = useNavigation<StackNavigationProp<CombinedParamList>>();
 
   const userContext = useContext<UserContextInterface | null>(UserContext);
