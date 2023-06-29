@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ImageBackground,
   TouchableOpacity,
+  ScrollView,
   Image,
 } from "react-native";
 import Svg, { Ellipse } from "react-native-svg";
@@ -25,6 +26,78 @@ import Icon from "react-native-vector-icons/Entypo";
 import { useHardwareBackButton } from "components/useHardwareBackButton";
 
 type CombinedParamList = Tab1ParamList & RootStackParamList;
+
+// * ---------------------- FONCTIONS --------------------
+
+// Components rendus séparément
+const UserGreeting = ({ firstName }) => (
+  <View style={styles.bonjour1Stack}>
+    <Text style={styles.bonjour1}>Bonjour,</Text>
+    <Text style={styles.souda}>{firstName}!</Text>
+  </View>
+);
+
+const SettingsButton = ({ onPress }) => (
+  <TouchableOpacity style={styles.buttonSettings} onPress={onPress}>
+    <View style={styles.ellipseFondIconStack}>
+      <Svg viewBox="0 0 28.77 29.34" style={styles.ellipseFondIcon}>
+        <Ellipse
+          stroke="rgba(230, 230, 230,1)"
+          strokeWidth={0}
+          fill="rgba(255,255,255,1)"
+          cx={14}
+          cy={15}
+          rx={14}
+          ry={15}
+        />
+      </Svg>
+      <Icon name="cog" style={styles.iconCog} />
+    </View>
+  </TouchableOpacity>
+);
+
+const UserImage = ({ imageUrl, defaultImage }) => (
+  <Image
+    source={imageUrl ? { uri: imageUrl } : defaultImage}
+    resizeMode="contain"
+    style={{ ...styles.photoProfil, zIndex: 3, position: "absolute" }}
+  />
+);
+
+// * ----------------------MES FONCTIONS TEST --------------------------
+// function HelloWorld() {
+//   return (
+//     <View>
+//       <Text>Hello, world!</Text>
+//     </View>
+//   );
+// }
+
+function Badges() {
+  const badges = [
+    { title: "Hello", subtitle: "Subtitle 1" },
+    { title: "World", subtitle: "Subtitle 2" },
+    { title: "World", subtitle: "Subtitle 3" },
+    { title: "World", subtitle: "Subtitle 4" },
+    { title: "World", subtitle: "Subtitle 5" },
+    // Ajouter autant de badges que vous voulez
+  ];
+
+  return (
+    <View style={styles.badgesContainer}>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        {badges.map((badge, index) => (
+          <View key={index} style={styles.badgeContainer}>
+            <Text style={styles.badgeText}>{badge.title}</Text>
+            <Text style={styles.badgeSubtitle}>{badge.subtitle}</Text>
+          </View>
+        ))}
+      </ScrollView>
+    </View>
+  );
+}
+
+// * ------------------------- COMPOSANT PRINCIPAL --------------------
 
 function Tab1() {
   useHardwareBackButton();
@@ -53,6 +126,8 @@ function Tab1() {
     const { basicInfo } = user;
     const { firstName } = basicInfo;
 
+    // * ------------------- RENDU ---------------------------
+
     return (
       <View style={styles.container}>
         <ImageBackground
@@ -61,29 +136,8 @@ function Tab1() {
           source={require("assets/images/Gradient_zagbeIB.png")}
         >
           <View style={styles.bonjour1StackRow}>
-            <View style={styles.bonjour1Stack}>
-              <Text style={styles.bonjour1}>Bonjour,</Text>
-              <Text style={styles.souda}>{firstName}!</Text>
-            </View>
-            <TouchableOpacity
-              style={styles.buttonSettings}
-              onPress={() => navigation.navigate("Settings")}
-            >
-              <View style={styles.ellipseFondIconStack}>
-                <Svg viewBox="0 0 28.77 29.34" style={styles.ellipseFondIcon}>
-                  <Ellipse
-                    stroke="rgba(230, 230, 230,1)"
-                    strokeWidth={0}
-                    fill="rgba(255,255,255,1)"
-                    cx={14}
-                    cy={15}
-                    rx={14}
-                    ry={15}
-                  ></Ellipse>
-                </Svg>
-                <Icon name="cog" style={styles.iconCog}></Icon>
-              </View>
-            </TouchableOpacity>
+            <UserGreeting firstName={firstName} />
+            <SettingsButton onPress={() => navigation.navigate("Settings")} />
           </View>
           <ImageBackground
             style={{
@@ -103,24 +157,20 @@ function Tab1() {
             imageStyle={styles.rondUsercontour_imageStyle}
             source={require("assets/images/Gradient_jOL2tsn.png")}
           />
-          <Image
-            source={
-              userContext.imageUrl
-                ? { uri: userContext.imageUrl }
-                : defaultImage
-            }
-            resizeMode="contain"
-            style={{ ...styles.photoProfil, zIndex: 3, position: "absolute" }}
+          <UserImage
+            imageUrl={userContext.imageUrl}
+            defaultImage={defaultImage}
           />
         </ImageBackground>
 
-        <View style={styles.buttonContainer}>
+        <View style={styles.content}>
           <TouchableOpacity
             style={styles.button}
             onPress={() => navigation.navigate("Tab1P1")}
           >
             <Text style={styles.buttonText}>Go to Tab1P1</Text>
           </TouchableOpacity>
+          <Badges />
         </View>
       </View>
     );
@@ -246,15 +296,15 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
 
-  button: {
-    backgroundColor: "#6f78bd",
-    padding: 10,
-    borderRadius: 5,
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 16,
-  },
+  // button: {
+  //   backgroundColor: "#6f78bd",
+  //   padding: 10,
+  //   borderRadius: 5,
+  // },
+  // buttonText: {
+  //   color: "white",
+  //   fontSize: 16,
+  // },
   buttonContainer: {
     //position: "absolute",
     bottom: 0,
@@ -264,6 +314,57 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     //backgroundColor: "red",
+  },
+
+  // * MES STYLES TEST -----------------
+
+  badgeContainer: {
+    backgroundColor: "#6f78bd",
+    borderRadius: 5, // Plus petit pour un look plus rectangulaire
+    paddingVertical: 3,
+    paddingHorizontal: 5,
+    marginRight: 5,
+    marginTop: 5,
+    width: 80, // Ajouter une largeur spécifique pour que tous les badges aient la même taille
+    height: 80,
+    alignItems: "center", // Centrer le contenu horizontalement
+  },
+  badgeText: {
+    color: "#fff",
+    fontSize: 12,
+    textAlign: "center", // Centrer le texte
+  },
+  badgeSubtitle: {
+    color: "#fff",
+    fontSize: 10,
+    textAlign: "center", // Centrer le texte
+  },
+
+  button: {
+    backgroundColor: "#6f78bd",
+    padding: 10,
+    borderRadius: 5,
+    alignSelf: "center", // centrer le bouton
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
+  },
+  //...
+  badgesContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginBottom: 20, // donner un peu d'espace entre les badges et le bouton
+    marginTop: 40,
+    marginLeft: 20,
+    justifyContent: "center", // centrer les badges
+  },
+
+  content: {
+    flex: 1, // pour prendre le reste de l'espace
+    justifyContent: "flex-start", // aligner le contenu à la fin
+    //marginBottom: 20, // donner un peu d'espace en bas
+    paddingTop: 50,
   },
 });
 
