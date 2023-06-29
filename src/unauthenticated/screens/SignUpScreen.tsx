@@ -24,6 +24,8 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import UserContext from "../../../utils/UserContext";
 import { StatusBarCustom } from "components/StatusBarCustom";
 
+import LoadingSpinner from "./../../../utils/LoadingSpinner";
+
 const SignUpScreen = ({
   navigation,
 }: {
@@ -49,6 +51,8 @@ const SignUpScreen = ({
 
   // Utilisez ici le contexte de l'utilisateur
   const userContext = useContext(UserContext);
+
+  const [loading, setLoading] = useState(false);
 
   if (!userContext) {
     throw new Error("UserContext is undefined");
@@ -114,6 +118,8 @@ const SignUpScreen = ({
   const handleRegister = async () => {
     // Fermer le clavier
     Keyboard.dismiss();
+    setLoading(true); // Définissez loading à true ici
+
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -184,9 +190,13 @@ const SignUpScreen = ({
       } else {
         console.error("Failed to register user.", error);
       }
+      setLoading(false);
     }
   };
 
+  if (loading) {
+    return <LoadingSpinner />;
+  }
   return (
     <View style={authStyles.container}>
       <StatusBarCustom />
