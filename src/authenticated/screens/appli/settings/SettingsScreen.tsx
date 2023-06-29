@@ -155,7 +155,7 @@ export default function SettingsScreen() {
       <View style={styles.groupPolitique}>
         <TouchableOpacity
           style={styles.buttonPolitique}
-          //onPress={() => navigation.navigate("Politique")}
+          onPress={() => navigation.navigate("Politique")}
         >
           <View style={styles.iconPolitiqueRow}>
             <MaterialCommunityIconsIcon

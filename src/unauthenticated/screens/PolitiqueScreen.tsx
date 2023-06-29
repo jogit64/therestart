@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   scrollArea_contentContainerStyle: {
-    height: 5620,
+    height: 3520,
     width: 360,
   },
 

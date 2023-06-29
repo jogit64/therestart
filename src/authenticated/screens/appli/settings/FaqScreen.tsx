@@ -118,20 +118,20 @@ const styles = StyleSheet.create({
     margin: 10,
     color: "#333",
   },
-  infosPersonnelles: {
-    fontFamily: "roboto",
-    color: "rgba(50,56,106,1)",
-    marginLeft: 32,
-    marginTop: 20,
-  },
-
   // infosPersonnelles: {
-  //   fontFamily: "roboto700",
+  //   fontFamily: "roboto",
   //   color: "rgba(50,56,106,1)",
-  //   fontSize: 20,
-  //   marginTop: 15,
-  //   textAlign: "center",
+  //   marginLeft: 32,
+  //   marginTop: 20,
   // },
+
+  infosPersonnelles: {
+    fontFamily: "roboto700",
+    color: "rgba(50,56,106,1)",
+    fontSize: 20,
+    marginTop: 15,
+    textAlign: "center",
+  },
 
   wrench: {
     color: "#4F8EF7",
