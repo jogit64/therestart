@@ -22,11 +22,11 @@ const Swiper2 = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.titrePrincipal}>
-        Sortez d&#39;une émotion {"\n"}inconfortable
+        Souvenirs enchantés : {"\n"}Cultivez les graines de joie !
       </Text>
       <Text style={styles.sousTitre}>
-        Des questions pour vous aider à vous désifdentifier de vos croyances et
-        désamorcer vos pensées et émotions limitantes
+        Plongez dans un océan de souvenirs merveilleux et cultivez les graines
+        de joie avec notre application.
       </Text>
       <View style={styles.ellipseMStackStack}>
         <View style={styles.ellipseMStack}>
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   titrePrincipal: {
     fontFamily: "roboto700",
     color: "rgba(50,56,106,1)",
-    fontSize: 22,
+    fontSize: 20,
     textAlign: "center",
     marginTop: 45,
     alignSelf: "center",

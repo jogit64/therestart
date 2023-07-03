@@ -18,11 +18,11 @@ const Swiper1 = () => {
     <View style={styles.container}>
       {/* <View style={styles.container}> */}
       <Text style={styles.titrePrincipal}>
-        Sortez d&#39;une émotion {"\n"}inconfortable
+        Croyances limitantes : libérez-vous!
       </Text>
       <Text style={styles.sousTitre}>
-        Des questions pour vous aider à vous désifdentifier de vos croyances et
-        désamorcer vos pensées et émotions limitantes
+        Plongez dans un voyage de transformation intérieure et découvrez la
+        magie de la libération des croyances limitantes.
       </Text>
       <View style={styles.ellipseMStackStackStack}>
         <View style={styles.ellipseMStackStack}>
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   titrePrincipal: {
     fontFamily: "roboto700",
     color: "rgba(50,56,106,1)",
-    fontSize: 22,
+    fontSize: 20,
     textAlign: "center",
     //marginTop: 30,
     //marginLeft: 73,

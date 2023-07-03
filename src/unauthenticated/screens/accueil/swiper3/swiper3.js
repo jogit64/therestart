@@ -81,11 +81,11 @@ const Swiper3 = () => {
       <View style={styles.groupTitre}>
         <View style={styles.titrePrincipalStack}>
           <Text style={styles.titrePrincipal}>
-            Listez vos projets{"\n"}stimulants
+            Feuilletez vos rêves : Trouvez l'inspiration au quotidien"
           </Text>
           <Text style={styles.sousTitre}>
-            Des questions pour vous aider à vous désifdentifier de vos croyances
-            et désamorcer vos pensées et émotions limitantes
+            Enregistrez vos projets stimulants et redécouvrez la motivation
+            instantanée à chaque regard.
           </Text>
         </View>
       </View>
@@ -291,7 +291,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     fontFamily: "roboto700",
     color: "rgba(50,56,106,1)",
-    fontSize: 22,
+    fontSize: 20,
     textAlign: "center",
     alignSelf: "center",
     //left: 0,
