@@ -81,7 +81,7 @@ const Swiper3 = () => {
       <View style={styles.groupTitre}>
         <View style={styles.titrePrincipalStack}>
           <Text style={styles.titrePrincipal}>
-            Feuilletez vos rêves : Trouvez l'inspiration au quotidien"
+            Feuilletez vos rêves : L'inspiration au quotidien"
           </Text>
           <Text style={styles.sousTitre}>
             Enregistrez vos projets stimulants et redécouvrez la motivation

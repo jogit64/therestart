@@ -130,11 +130,13 @@ function Tab1() {
 
     return (
       <View style={styles.container}>
-        <ImageBackground
+        {/* Partie haute */}
+        <View style={styles.header}>
+          {/* <ImageBackground
           style={styles.fondHaut}
           imageStyle={styles.fondHaut_imageStyle}
           source={require("assets/images/Gradient_zagbeIB.png")}
-        >
+        > */}
           <View style={styles.bonjour1StackRow}>
             <UserGreeting firstName={firstName} />
             <SettingsButton onPress={() => navigation.navigate("Settings")} />
@@ -161,9 +163,12 @@ function Tab1() {
             imageUrl={userContext.imageUrl}
             defaultImage={defaultImage}
           />
-        </ImageBackground>
+          {/* </ImageBackground> */}
+        </View>
 
-        <View style={styles.content}>
+        {/* Partie basse */}
+        <View style={styles.lowerSection}>
+          {/* Contenu de la partie basse */}
           <TouchableOpacity
             style={styles.button}
             onPress={() => navigation.navigate("Tab1P1")}
@@ -183,6 +188,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "rgba(255,255,255,1)",
+    flexDirection: "column",
+    justifyContent: "space-around",
+  },
+
+  lowerSection: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 20, // Marge haute pour l'espacement si nécessaire
   },
   fondHaut: {
     width: 360,
