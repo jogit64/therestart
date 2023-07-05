@@ -45,8 +45,8 @@ const BottomTabNavigator = () => {
           // Retourner le composant d'icône
           return <Ionicons name={iconName as any} size={size} color={color} />;
         },
-        tabBarActiveTintColor: "tomato", // Couleur de l'icône du tab actif
-        tabBarInactiveTintColor: "gray", // Couleur de l'icône du tab inactif
+        tabBarActiveTintColor: "#6f78bd", // Couleur de l'icône du tab actif
+        tabBarInactiveTintColor: "#b8b8b8", // Couleur de l'icône du tab inactif
         tabBarStyle: { display: "flex" }, // Styles appliqués à la barre de tabs
       })}
     >
