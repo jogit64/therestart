@@ -9,7 +9,7 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
-import { Feather } from "@expo/vector-icons";
+
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 // Les catégories
@@ -181,6 +181,8 @@ const styles = StyleSheet.create({
     marginBottom: 50,
     marginTop: 15,
     backgroundColor: "#f0f0ff",
+    height: 50,
+    paddingLeft: 15,
   },
 
   listItemContainer: {
