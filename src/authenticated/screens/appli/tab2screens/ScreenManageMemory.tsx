@@ -11,6 +11,8 @@ import {
 } from "firebase/firestore";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import Dialog from "react-native-dialog";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 // Les catégories
 const categories = [
@@ -37,6 +39,15 @@ function ScreenManageMemory() {
     "#3a86a8",
     "#2baa8c",
   ];
+
+  const [isDialogVisible, setDialogVisible] = useState(false);
+  const openDialog = () => {
+    setDialogVisible(true);
+  };
+
+  const closeDialog = () => {
+    setDialogVisible(false);
+  };
 
   // Créez un état initial pour les inputs de chaque catégorie
   const initialInputState: { [key: string]: string } = {};
