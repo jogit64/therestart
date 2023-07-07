@@ -55,7 +55,11 @@ const BottomTabNavigator = () => {
         component={Tab1Navigator} // Ici vous utilisez le Stack Navigator que vous avez défini pour Tab1
         options={{ headerShown: false }} // Cacher l'en-tête pour l'écran HomeTab
       />
-      <Tab.Screen name="Emotions" component={Tab2} />
+      <Tab.Screen
+        name="Emotions"
+        component={Tab2}
+        options={{ headerShown: false }}
+      />
       <Tab.Screen name="Désidentification" component={Tab3} />
       <Tab.Screen name="Projets" component={Tab4} />
     </Tab.Navigator>

@@ -12,6 +12,8 @@ export type RootStackParamList = {
   Faq: undefined;
   Tutoriel: undefined;
   ChangePassword: undefined;
+  ScreenRandomMemory: undefined;
+  ScreenManageMemory: undefined;
 };
 
 export type TabParamList = {

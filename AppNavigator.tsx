@@ -15,6 +15,9 @@ import ContactScreen from "./src/authenticated/screens/appli/settings/ContactScr
 import FaqScreen from "./src/authenticated/screens/appli/settings/FaqScreen";
 import TutorielScreen from "./src/authenticated/screens/appli/settings/TutorielScreen";
 
+import ScreenRandomMemory from "./src/authenticated/screens/appli/tab2screens/ScreenRandomMemory";
+import ScreenManageMemory from "./src/authenticated/screens/appli/tab2screens/ScreenManageMemory";
+
 import { RootStackParamList } from "./utils/navigationTypes";
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -86,6 +89,16 @@ export default function AppNavigator() {
       <Stack.Screen
         name="ChangePassword"
         component={ChangePasswordScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ScreenRandomMemory"
+        component={ScreenRandomMemory}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ScreenManageMemory"
+        component={ScreenManageMemory}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
