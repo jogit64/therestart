@@ -39,19 +39,17 @@ function ScreenManageMemory() {
   ];
 
   // Créez un état initial pour les inputs de chaque catégorie
-  const initialInputState = {};
-
+  const initialInputState: { [key: string]: string } = {};
   categories.forEach((category) => {
     initialInputState[category] = "";
   });
 
   // Utilisez cet état pour créer un état React pour les inputs
   const [inputTexts, setInputTexts] = useState(initialInputState);
-
   useEffect(() => {
+    const newMemories: Record<string, { id: string; text: string }[]> = {};
     const fetchMemories = async () => {
-      const newMemories = {};
-
+      const newMemories: Record<string, { id: string; text: string }[]> = {};
       for (const category of categories) {
         newMemories[category] = [];
 
@@ -67,17 +65,21 @@ function ScreenManageMemory() {
     fetchMemories();
   }, []);
 
-  const addMemory = async (category, text) => {
+  const addMemory = async (category: string, text: string) => {
     const docRef = await addDoc(collection(db, category), { text });
-    const newMemories = { ...memories };
+    const newMemories: Record<string, { id: string; text: string }[]> = {
+      ...memories,
+    };
     newMemories[category].push({ id: docRef.id, text });
     setMemories(newMemories);
     setInputTexts((prev) => ({ ...prev, [category]: "" }));
   };
 
-  const deleteMemory = async (category, id) => {
+  const deleteMemory = async (category: string, id: string) => {
     await deleteDoc(doc(db, category, id));
-    const newMemories = { ...memories };
+    const newMemories: Record<string, { id: string; text: string }[]> = {
+      ...memories,
+    };
     newMemories[category] = newMemories[category].filter(
       (memory) => memory.id !== id
     );
