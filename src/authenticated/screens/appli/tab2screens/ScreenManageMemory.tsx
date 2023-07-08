@@ -37,6 +37,14 @@ const categories = [
 
 function ScreenManageMemory() {
   //const [memories, setMemories] = useState({});
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [modalVisibleReassign, setModalVisibleReassign] = useState(false);
+  const [selectedMemory, setSelectedMemory] = useState<{
+    id: string;
+    category: string;
+    text: string;
+  } | null>(null);
+
   const db = getFirestore();
   const colors = [
     "#21becd",
@@ -79,6 +87,31 @@ function ScreenManageMemory() {
 
     fetchMemories();
   }, []);
+
+  const reassignMemory = async (
+    category: string,
+    id: string,
+    newCategory: string
+  ) => {
+    const memory = memories[category].find((memory) => memory.id === id);
+    if (!memory) return;
+
+    // Supprimer l'élément de la catégorie actuelle
+    await deleteMemory(category, id);
+
+    // Ajouter l'élément à la nouvelle catégorie
+    await addMemory(newCategory, memory.text); // await est ajouté ici
+
+    // Actualisez le state des mémoires
+    const newMemories: Record<string, { id: string; text: string }[]> = {
+      ...memories,
+    };
+    newMemories[category] = newMemories[category].filter(
+      (memory) => memory.id !== id
+    );
+    newMemories[newCategory].push({ id: memory.id, text: memory.text });
+    setMemories(newMemories);
+  };
 
   const addMemory = async (category: string, text: string) => {
     const docRef = await addDoc(collection(db, category), { text });
@@ -177,60 +210,100 @@ function ScreenManageMemory() {
             <Text style={styles.category}>{category}</Text>
             {memories[category] &&
               memories[category].map((memory, index) => (
-                <ListItem
-                  key={memory.id}
-                  bottomDivider
-                  containerStyle={{
-                    backgroundColor: colors[index % colors.length],
-                    borderRadius: 10,
-                    marginBottom: 10,
-                  }}
-                >
-                  <ListItem.Content>
-                    {/* <TextInput
-                    style={styles.itemText}
-                    defaultValue={memory.text}
-                    multiline
-                    onChangeText={(newText) =>
-                      onTextChange(category, memory.id, newText)
-                    }
-                    onBlur={() =>
-                      updateMemory(
-                        category,
-                        memory.id,
-                        editedTexts[category]?.[memory.id] || memory.text
-                      )
-                    }
-                  /> */}
-
-                    <TextInput
-                      style={styles.itemText}
-                      defaultValue={memory.text}
-                      // multiline
-                      onChangeText={(newText) =>
-                        onTextChange(category, memory.id, newText)
-                      }
-                      onSubmitEditing={() =>
-                        updateMemory(
-                          category,
-                          memory.id,
-                          editedTexts[category]?.[memory.id] || memory.text
-                        )
-                      }
-                    />
-                  </ListItem.Content>
-                  <Button
-                    icon={
-                      <MaterialCommunityIcons
-                        name="trash-can"
-                        size={24}
-                        style={styles.deleteIcon}
+                <View key={memory.id}>
+                  <ListItem
+                    bottomDivider
+                    containerStyle={{
+                      backgroundColor: colors[index % colors.length],
+                      borderRadius: 10,
+                      marginBottom: 10,
+                    }}
+                  >
+                    <ListItem.Content
+                      style={{ flexDirection: "row", alignItems: "center" }}
+                    >
+                      <TextInput
+                        style={[styles.itemText, { flex: 1 }]}
+                        defaultValue={memory.text}
+                        onChangeText={(newText) =>
+                          onTextChange(category, memory.id, newText)
+                        }
+                        onSubmitEditing={() =>
+                          updateMemory(
+                            category,
+                            memory.id,
+                            editedTexts[category]?.[memory.id] || memory.text
+                          )
+                        }
                       />
-                    }
-                    type="clear"
-                    onPress={() => deleteMemory(category, memory.id)}
-                  />
-                </ListItem>
+                      <View style={{ flexDirection: "row" }}>
+                        <Button
+                          icon={
+                            <MaterialCommunityIcons
+                              name="folder-move"
+                              size={24}
+                              style={styles.moveIcon}
+                            />
+                          }
+                          type="clear"
+                          onPress={() => {
+                            setSelectedMemory({
+                              id: memory.id,
+                              category,
+                              text: memory.text,
+                            });
+                            setModalVisibleReassign(true);
+                          }}
+                        />
+
+                        <Button
+                          icon={
+                            <MaterialCommunityIcons
+                              name="trash-can"
+                              size={24}
+                              style={styles.deleteIcon}
+                            />
+                          }
+                          type="clear"
+                          onPress={() => deleteMemory(category, memory.id)}
+                        />
+                      </View>
+                    </ListItem.Content>
+                  </ListItem>
+
+                  <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisibleReassign}
+                    onRequestClose={() => setModalVisibleReassign(false)}
+                  >
+                    <View style={styles.centeredView}>
+                      <View style={styles.modalView}>
+                        <Text style={styles.modalText}>
+                          Choisissez une nouvelle catégorie
+                        </Text>
+                        {categories.map((category) => (
+                          <TouchableOpacity
+                            key={category}
+                            onPress={() => {
+                              if (selectedMemory) {
+                                reassignMemory(
+                                  selectedMemory.category,
+                                  selectedMemory.id,
+                                  category
+                                );
+                                setSelectedMemory(null);
+                              }
+                              setModalVisibleReassign(false);
+                            }}
+                          >
+                            <Text>{category}</Text>
+                          </TouchableOpacity>
+                        ))}
+                      </View>
+                    </View>
+                  </Modal>
+                </View>
               ))}
             <TextInput
               style={styles.input}
@@ -283,6 +356,16 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     color: "white",
   },
+
+  deleteIcon: {
+    color: "white",
+    fontSize: 20,
+  },
+  moveIcon: {
+    color: "white",
+    fontSize: 20,
+  },
+
   input: {
     fontFamily: "roboto",
     fontSize: 16,
@@ -293,15 +376,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#f0f0ff",
     height: 50,
     paddingLeft: 15,
-  },
-
-  listItemContainer: {
-    backgroundColor: "#404295",
-    borderRadius: 10,
-    marginBottom: 10,
-  },
-  deleteIcon: {
-    color: "white",
   },
 
   header: {
