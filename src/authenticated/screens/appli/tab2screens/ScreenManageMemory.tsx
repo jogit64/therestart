@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, TextInput, ScrollView, StyleSheet } from "react-native";
+import {
+  View,
+  TextInput,
+  ScrollView,
+  StyleSheet,
+  Modal,
+  TouchableOpacity,
+} from "react-native";
 import { ListItem, Button, Icon, Text } from "react-native-elements";
 import {
   getFirestore,
@@ -40,6 +47,8 @@ function ScreenManageMemory() {
     "#3a86a8",
     "#2baa8c",
   ];
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   // Créez un état initial pour les inputs de chaque catégorie
   const initialInputState: { [key: string]: string } = {};
@@ -126,7 +135,42 @@ function ScreenManageMemory() {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>Vos graines de joie</Text>
+      <View style={styles.header}>
+        <View style={styles.iconContainer}>
+          <TouchableOpacity onPress={() => setModalVisible(true)}>
+            <MaterialCommunityIcons
+              name="help-circle"
+              size={34}
+              color="#5b5da7"
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Mes graines de joie</Text>
+        </View>
+      </View>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>
+              Ici vous pouvez afficher vos FAQ
+            </Text>
+            <TouchableOpacity
+              style={styles.buttonClose}
+              onPress={() => setModalVisible(!modalVisible)}
+            >
+              <Text style={styles.textStyle}>Cacher</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
       {categories.map((category) => (
         <View key={category}>
           <Text style={styles.category}>{category}</Text>
@@ -249,6 +293,35 @@ const styles = StyleSheet.create({
   },
   deleteIcon: {
     color: "white",
+  },
+
+  header: {
+    marginHorizontal: 10,
+  },
+  iconContainer: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+  },
+  titleContainer: {
+    alignItems: "center",
+    marginTop: -20, // margin négatif pour rapprocher les deux lignes
+  },
+
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    height: "80%", // Pour définir la hauteur de votre modal
   },
 });
 
