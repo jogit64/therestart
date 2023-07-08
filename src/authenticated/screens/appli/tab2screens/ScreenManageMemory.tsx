@@ -134,59 +134,60 @@ function ScreenManageMemory() {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.iconContainer}>
-          <TouchableOpacity onPress={() => setModalVisible(true)}>
-            <MaterialCommunityIcons
-              name="help-circle"
-              size={34}
-              color="#5b5da7"
-            />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>Mes graines de joie</Text>
-        </View>
-      </View>
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>
-              Ici vous pouvez afficher vos FAQ
-            </Text>
-            <TouchableOpacity
-              style={styles.buttonClose}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={styles.textStyle}>Cacher</Text>
+    <View style={{ flex: 1 }}>
+      <ScrollView style={styles.container}>
+        <View style={styles.header}>
+          <View style={styles.iconContainer}>
+            <TouchableOpacity onPress={() => setModalVisible(true)}>
+              <MaterialCommunityIcons
+                name="help-circle"
+                size={34}
+                color="#5b5da7"
+              />
             </TouchableOpacity>
           </View>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>Mes graines de joie</Text>
+          </View>
         </View>
-      </Modal>
 
-      {categories.map((category) => (
-        <View key={category}>
-          <Text style={styles.category}>{category}</Text>
-          {memories[category] &&
-            memories[category].map((memory, index) => (
-              <ListItem
-                key={memory.id}
-                bottomDivider
-                containerStyle={{
-                  backgroundColor: colors[index % colors.length],
-                  borderRadius: 10,
-                  marginBottom: 10,
-                }}
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => setModalVisible(false)}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>
+                Ici vous pouvez afficher vos FAQ
+              </Text>
+              <TouchableOpacity
+                style={styles.buttonClose}
+                onPress={() => setModalVisible(!modalVisible)}
               >
-                <ListItem.Content>
-                  {/* <TextInput
+                <Text style={styles.textStyle}>Cacher</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+
+        {categories.map((category) => (
+          <View key={category}>
+            <Text style={styles.category}>{category}</Text>
+            {memories[category] &&
+              memories[category].map((memory, index) => (
+                <ListItem
+                  key={memory.id}
+                  bottomDivider
+                  containerStyle={{
+                    backgroundColor: colors[index % colors.length],
+                    borderRadius: 10,
+                    marginBottom: 10,
+                  }}
+                >
+                  <ListItem.Content>
+                    {/* <TextInput
                     style={styles.itemText}
                     defaultValue={memory.text}
                     multiline
@@ -202,50 +203,58 @@ function ScreenManageMemory() {
                     }
                   /> */}
 
-                  <TextInput
-                    style={styles.itemText}
-                    defaultValue={memory.text}
-                    // multiline
-                    onChangeText={(newText) =>
-                      onTextChange(category, memory.id, newText)
-                    }
-                    onSubmitEditing={() =>
-                      updateMemory(
-                        category,
-                        memory.id,
-                        editedTexts[category]?.[memory.id] || memory.text
-                      )
-                    }
-                  />
-                </ListItem.Content>
-                <Button
-                  icon={
-                    <MaterialCommunityIcons
-                      name="trash-can"
-                      size={24}
-                      style={styles.deleteIcon}
+                    <TextInput
+                      style={styles.itemText}
+                      defaultValue={memory.text}
+                      // multiline
+                      onChangeText={(newText) =>
+                        onTextChange(category, memory.id, newText)
+                      }
+                      onSubmitEditing={() =>
+                        updateMemory(
+                          category,
+                          memory.id,
+                          editedTexts[category]?.[memory.id] || memory.text
+                        )
+                      }
                     />
-                  }
-                  type="clear"
-                  onPress={() => deleteMemory(category, memory.id)}
-                />
-              </ListItem>
-            ))}
-          <TextInput
-            style={styles.input}
-            placeholder={`Ajouter un souvenir à ${category}`}
-            value={inputTexts[category]}
-            onChangeText={(text) =>
-              setInputTexts((prev) => ({ ...prev, [category]: text }))
-            }
-            onSubmitEditing={() => {
-              addMemory(category, inputTexts[category]);
-              setInputTexts((prev) => ({ ...prev, [category]: "" }));
-            }}
-          />
-        </View>
-      ))}
-    </ScrollView>
+                  </ListItem.Content>
+                  <Button
+                    icon={
+                      <MaterialCommunityIcons
+                        name="trash-can"
+                        size={24}
+                        style={styles.deleteIcon}
+                      />
+                    }
+                    type="clear"
+                    onPress={() => deleteMemory(category, memory.id)}
+                  />
+                </ListItem>
+              ))}
+            <TextInput
+              style={styles.input}
+              placeholder={`Ajouter un souvenir à ${category}`}
+              value={inputTexts[category]}
+              onChangeText={(text) =>
+                setInputTexts((prev) => ({ ...prev, [category]: text }))
+              }
+              onSubmitEditing={() => {
+                addMemory(category, inputTexts[category]);
+                setInputTexts((prev) => ({ ...prev, [category]: "" }));
+              }}
+            />
+          </View>
+        ))}
+      </ScrollView>
+      <View style={styles.footer}>
+        <TouchableOpacity
+        // onPress={/* Ajouter votre gestionnaire de clic ici */}
+        >
+          <Text style={styles.footerText}>Gérer les catégories</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 }
 
@@ -322,6 +331,21 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
     height: "80%", // Pour définir la hauteur de votre modal
+  },
+
+  footer: {
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    height: 50, // Ajustez selon vos besoins
+    backgroundColor: "red", // Choisissez une couleur
+    opacity: 0.8,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  footerText: {
+    color: "#fff",
+    fontSize: 18,
   },
 });
 
