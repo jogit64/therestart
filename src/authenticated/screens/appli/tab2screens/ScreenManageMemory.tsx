@@ -8,11 +8,12 @@ import {
   getDocs,
   deleteDoc,
   doc,
+  updateDoc,
 } from "firebase/firestore";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import Dialog from "react-native-dialog";
-import { SafeAreaView } from "react-native-safe-area-context";
+
+import { Memories, Memory } from "./../../../../../utils/types";
 
 // Les catégories
 const categories = [
@@ -28,7 +29,7 @@ const categories = [
 ];
 
 function ScreenManageMemory() {
-  const [memories, setMemories] = useState({});
+  //const [memories, setMemories] = useState({});
   const db = getFirestore();
   const colors = [
     "#21becd",
@@ -40,15 +41,6 @@ function ScreenManageMemory() {
     "#2baa8c",
   ];
 
-  const [isDialogVisible, setDialogVisible] = useState(false);
-  const openDialog = () => {
-    setDialogVisible(true);
-  };
-
-  const closeDialog = () => {
-    setDialogVisible(false);
-  };
-
   // Créez un état initial pour les inputs de chaque catégorie
   const initialInputState: { [key: string]: string } = {};
   categories.forEach((category) => {
@@ -57,6 +49,9 @@ function ScreenManageMemory() {
 
   // Utilisez cet état pour créer un état React pour les inputs
   const [inputTexts, setInputTexts] = useState(initialInputState);
+
+  const [memories, setMemories] = useState<Memories>({});
+
   useEffect(() => {
     const newMemories: Record<string, { id: string; text: string }[]> = {};
     const fetchMemories = async () => {
@@ -97,6 +92,38 @@ function ScreenManageMemory() {
     setMemories(newMemories);
   };
 
+  const updateMemory = async (category: string, id: string, text: string) => {
+    const memoryRef = doc(db, category, id);
+    await updateDoc(memoryRef, { text });
+
+    const newMemories: Record<string, { id: string; text: string }[]> = {
+      ...memories,
+    };
+
+    const memoryIndex = newMemories[category].findIndex(
+      (memory) => memory.id === id
+    );
+    if (memoryIndex !== -1) {
+      newMemories[category][memoryIndex].text = text;
+    }
+
+    setMemories(newMemories);
+  };
+
+  const [editedTexts, setEditedTexts] = useState<
+    Record<string, Record<string, string>>
+  >({});
+
+  const onTextChange = (category: string, id: string, newText: string) => {
+    setEditedTexts((prev) => ({
+      ...prev,
+      [category]: {
+        ...(prev[category] || {}),
+        [id]: newText,
+      },
+    }));
+  };
+
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Vos graines de joie</Text>
@@ -108,7 +135,6 @@ function ScreenManageMemory() {
               <ListItem
                 key={memory.id}
                 bottomDivider
-                // Utilisez l'index de l'élément pour choisir la couleur
                 containerStyle={{
                   backgroundColor: colors[index % colors.length],
                   borderRadius: 10,
@@ -116,12 +142,35 @@ function ScreenManageMemory() {
                 }}
               >
                 <ListItem.Content>
-                  <TextInput
+                  {/* <TextInput
                     style={styles.itemText}
                     defaultValue={memory.text}
                     multiline
-                    onSubmitEditing={(event) =>
-                      updateMemory(category, memory.id, event.nativeEvent.text)
+                    onChangeText={(newText) =>
+                      onTextChange(category, memory.id, newText)
+                    }
+                    onBlur={() =>
+                      updateMemory(
+                        category,
+                        memory.id,
+                        editedTexts[category]?.[memory.id] || memory.text
+                      )
+                    }
+                  /> */}
+
+                  <TextInput
+                    style={styles.itemText}
+                    defaultValue={memory.text}
+                    // multiline
+                    onChangeText={(newText) =>
+                      onTextChange(category, memory.id, newText)
+                    }
+                    onSubmitEditing={() =>
+                      updateMemory(
+                        category,
+                        memory.id,
+                        editedTexts[category]?.[memory.id] || memory.text
+                      )
                     }
                   />
                 </ListItem.Content>
@@ -141,13 +190,10 @@ function ScreenManageMemory() {
           <TextInput
             style={styles.input}
             placeholder={`Ajouter un souvenir à ${category}`}
-            // Utilisez la valeur de l'input de l'état
             value={inputTexts[category]}
-            // Mettez à jour l'état lorsque l'utilisateur tape
             onChangeText={(text) =>
               setInputTexts((prev) => ({ ...prev, [category]: text }))
             }
-            // Soumettez le formulaire et réinitialisez la valeur de l'input
             onSubmitEditing={() => {
               addMemory(category, inputTexts[category]);
               setInputTexts((prev) => ({ ...prev, [category]: "" }));
@@ -202,7 +248,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   deleteIcon: {
-    color: "gray",
+    color: "white",
   },
 });
 
