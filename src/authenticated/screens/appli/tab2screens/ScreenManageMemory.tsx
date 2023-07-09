@@ -16,34 +16,40 @@ import {
   deleteDoc,
   doc,
   updateDoc,
+  query,
+  where,
 } from "firebase/firestore";
-
+import { auth } from "../../../../../utils/firebase.js";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
 import { Memories, Memory } from "./../../../../../utils/types";
-
-// Les catégories
-const categories = [
-  "Musique",
-  "Objet",
-  "Lieu",
-  "Personne",
-  "Sentiment",
-  "Odeur",
-  "Goût",
-  "Son",
-  "Texture",
-];
+import ManageCategoriesModal from "./modal/ManageCategoriesModal";
 
 function ScreenManageMemory() {
-  //const [memories, setMemories] = useState({});
   const [selectedCategory, setSelectedCategory] = useState("");
   const [modalVisibleReassign, setModalVisibleReassign] = useState(false);
+  const [modalVisibleManage, setModalVisibleManage] = useState(false);
+  const userId = auth.currentUser?.uid;
   const [selectedMemory, setSelectedMemory] = useState<{
     id: string;
     category: string;
     text: string;
   } | null>(null);
+  // Utilisez cet état pour créer un état React pour les inputs
+  //const [inputTexts, setInputTexts] = useState(initialInputState);
+
+  const [inputTexts, setInputTexts] = useState({});
+
+  const [categories, setCategories] = useState([
+    "Musique",
+    "Objet",
+    "Lieu",
+    "Personne",
+    "Sentiment",
+    "Odeur",
+    "Goût",
+    "Son",
+    "Texture",
+  ]);
 
   const db = getFirestore();
   const colors = [
@@ -58,98 +64,72 @@ function ScreenManageMemory() {
 
   const [modalVisible, setModalVisible] = useState(false);
 
-  // Créez un état initial pour les inputs de chaque catégorie
-  const initialInputState: { [key: string]: string } = {};
-  categories.forEach((category) => {
-    initialInputState[category] = "";
-  });
-
-  // Utilisez cet état pour créer un état React pour les inputs
-  const [inputTexts, setInputTexts] = useState(initialInputState);
-
   const [memories, setMemories] = useState<Memories>({});
 
   useEffect(() => {
-    const newMemories: Record<string, { id: string; text: string }[]> = {};
     const fetchMemories = async () => {
-      const newMemories: Record<string, { id: string; text: string }[]> = {};
-      for (const category of categories) {
-        newMemories[category] = [];
+      if (!userId) return;
 
-        const querySnapshot = await getDocs(collection(db, category));
-        querySnapshot.forEach((doc) => {
-          newMemories[category].push({ id: doc.id, text: doc.data().text });
+      const memoriesRef = collection(db, "users", userId, "memories");
+      const memoriesQuery = query(memoriesRef, where("userId", "==", userId));
+      const querySnapshot = await getDocs(memoriesQuery);
+
+      const newMemories: Memory[] = [];
+      querySnapshot.forEach((doc) => {
+        newMemories.push({
+          id: doc.id,
+          category: doc.data().category,
+          text: doc.data().text,
         });
-      }
+      });
 
       setMemories(newMemories);
     };
 
     fetchMemories();
-  }, []);
+  }, [userId]);
 
-  const reassignMemory = async (
-    category: string,
-    id: string,
-    newCategory: string
-  ) => {
-    const memory = memories[category].find((memory) => memory.id === id);
-    if (!memory) return;
+  const reassignMemory = async (id: string, newCategory: string) => {
+    const memory = memories.find((memory) => memory.id === id);
+    if (!memory || !userId) return;
 
-    // Supprimer l'élément de la catégorie actuelle
-    await deleteMemory(category, id);
-
-    // Ajouter l'élément à la nouvelle catégorie
-    await addMemory(newCategory, memory.text); // await est ajouté ici
+    // Mettre à jour le champ 'category' du document de ce souvenir
+    const memoryRef = doc(db, "users", userId, "memories", id);
+    await updateDoc(memoryRef, { category: newCategory });
 
     // Actualisez le state des mémoires
-    const newMemories: Record<string, { id: string; text: string }[]> = {
-      ...memories,
-    };
-    newMemories[category] = newMemories[category].filter(
-      (memory) => memory.id !== id
+    const updatedMemories = memories.map((memory) =>
+      memory.id === id ? { ...memory, category: newCategory } : memory
     );
-    newMemories[newCategory].push({ id: memory.id, text: memory.text });
-    setMemories(newMemories);
+    setMemories(updatedMemories);
   };
 
   const addMemory = async (category: string, text: string) => {
-    const docRef = await addDoc(collection(db, category), { text });
-    const newMemories: Record<string, { id: string; text: string }[]> = {
-      ...memories,
-    };
-    newMemories[category].push({ id: docRef.id, text });
-    setMemories(newMemories);
-    setInputTexts((prev) => ({ ...prev, [category]: "" }));
+    if (!userId) return;
+    const docRef = await addDoc(collection(db, "users", userId, "memories"), {
+      category,
+      text,
+    });
+
+    setMemories((prev) => [...prev, { id: docRef.id, category, text }]);
   };
 
-  const deleteMemory = async (category: string, id: string) => {
-    await deleteDoc(doc(db, category, id));
-    const newMemories: Record<string, { id: string; text: string }[]> = {
-      ...memories,
-    };
-    newMemories[category] = newMemories[category].filter(
-      (memory) => memory.id !== id
-    );
-    setMemories(newMemories);
+  const deleteMemory = async (id: string) => {
+    if (!userId) return;
+    await deleteDoc(doc(db, "users", userId, "memories", id));
+
+    setMemories((prev) => prev.filter((memory) => memory.id !== id));
   };
 
-  const updateMemory = async (category: string, id: string, text: string) => {
-    const memoryRef = doc(db, category, id);
+  const updateMemory = async (id: string, text: string) => {
+    if (!userId) return;
+    const memoryRef = doc(db, "users", userId, "memories", id);
     await updateDoc(memoryRef, { text });
 
-    const newMemories: Record<string, { id: string; text: string }[]> = {
-      ...memories,
-    };
-
-    const memoryIndex = newMemories[category].findIndex(
-      (memory) => memory.id === id
+    const updatedMemories = memories.map((memory) =>
+      memory.id === id ? { ...memory, text } : memory
     );
-    if (memoryIndex !== -1) {
-      newMemories[category][memoryIndex].text = text;
-    }
-
-    setMemories(newMemories);
+    setMemories(updatedMemories);
   };
 
   const [editedTexts, setEditedTexts] = useState<
@@ -321,12 +301,18 @@ function ScreenManageMemory() {
         ))}
       </ScrollView>
       <View style={styles.footer}>
-        <TouchableOpacity
-        // onPress={/* Ajouter votre gestionnaire de clic ici */}
-        >
+        <TouchableOpacity onPress={() => setModalVisibleManage(true)}>
           <Text style={styles.footerText}>Gérer les catégories</Text>
         </TouchableOpacity>
       </View>
+
+      <ManageCategoriesModal
+        visible={modalVisibleManage}
+        categories={categories}
+        memories={memories}
+        onClose={() => setModalVisibleManage(false)}
+        // ici, vous pouvez passer les autres props nécessaires
+      />
     </View>
   );
 }
@@ -413,12 +399,12 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 50, // Ajustez selon vos besoins
     backgroundColor: "red", // Choisissez une couleur
-    opacity: 0.8,
+    opacity: 0.95,
     justifyContent: "center",
     alignItems: "center",
   },
   footerText: {
-    color: "#fff",
+    color: "white",
     fontSize: 18,
   },
 });
