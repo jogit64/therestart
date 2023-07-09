@@ -1,4 +1,3 @@
-// types.ts
 export interface BasicUserInfo {
   firstName: string;
   email: string;
@@ -14,15 +13,16 @@ export interface ExtraUserInfo {
 export interface User {
   basicInfo: BasicUserInfo;
   extraInfo: ExtraUserInfo;
+  categories: Category[]; // Nouveau champ
 }
 
-// Définir le type Memory
+export interface Category {
+  id: string;
+  name: string;
+}
+
 export interface Memory {
   id: string;
   text: string;
-}
-
-// Définir le type Memories
-export interface Memories {
-  [category: string]: Memory[];
+  categoryId: string;
 }

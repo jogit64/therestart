@@ -143,6 +143,18 @@ const SignUpScreen = ({
           age: null,
           sex: null,
         },
+        categories: [
+          // Ajout du tableau de catégories ici avec un ID unique pour chaque catégorie
+          { id: "1", name: "Musique" },
+          { id: "2", name: "Objet" },
+          { id: "3", name: "Lieu" },
+          { id: "4", name: "Personne" },
+          { id: "5", name: "Sentiment" },
+          { id: "6", name: "Odeur" },
+          { id: "7", name: "Goût" },
+          { id: "8", name: "Son" },
+          { id: "9", name: "Texture" },
+        ],
       };
 
       // Stockage de l'objet user dans Firestore

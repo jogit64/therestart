@@ -18,10 +18,11 @@ import {
   updateDoc,
   query,
   where,
+  getDoc,
 } from "firebase/firestore";
 import { auth } from "../../../../../utils/firebase.js";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Memories, Memory } from "./../../../../../utils/types";
+import { Memory, Category } from "./../../../../../utils/types";
 import ManageCategoriesModal from "./modal/ManageCategoriesModal";
 
 function ScreenManageMemory() {
@@ -35,20 +36,6 @@ function ScreenManageMemory() {
     text: string;
   } | null>(null);
 
-  const [inputTexts, setInputTexts] = useState({});
-
-  const [categories, setCategories] = useState([
-    "Musique",
-    "Objet",
-    "Lieu",
-    "Personne",
-    "Sentiment",
-    "Odeur",
-    "Goût",
-    "Son",
-    "Texture",
-  ]);
-
   const db = getFirestore();
   const colors = [
     "#21becd",
@@ -60,14 +47,35 @@ function ScreenManageMemory() {
     "#2baa8c",
   ];
 
+  const [inputTexts, setInputTexts] = useState<Record<string, string>>({
+    "1": "",
+    "2": "",
+    "3": "",
+    "4": "",
+    "5": "",
+    "6": "",
+    "7": "",
+    "8": "",
+    "9": "",
+  });
+
   const [modalVisible, setModalVisible] = useState(false);
 
   const [memories, setMemories] = useState<Memories>({});
+  const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
-    const fetchMemories = async () => {
+    const fetchUserData = async () => {
       if (!userId) return;
 
+      // Fetch user categories
+      const userRef = doc(db, "users", userId);
+      const userDoc = await getDoc(userRef);
+      if (userDoc.exists()) {
+        setCategories(userDoc.data().categories || []); // utilisez une valeur par défaut si aucune catégorie n'est définie pour l'utilisateur
+      }
+
+      // Fetch user memories
       const memoriesRef = collection(db, "users", userId, "memories");
       const memoriesQuery = query(memoriesRef);
       const querySnapshot = await getDocs(memoriesQuery);
@@ -78,125 +86,159 @@ function ScreenManageMemory() {
       querySnapshot.forEach((doc) => {
         const memory = {
           id: doc.id,
-          category: doc.data().category,
           text: doc.data().text,
+          categoryId: doc.data().categoryId, // Utilisez categoryId à la place de category
         };
 
         // Si la catégorie de ce souvenir n'existe pas encore dans groupedMemories, créez-la
-        if (!groupedMemories[memory.category]) {
-          groupedMemories[memory.category] = [];
+        if (!groupedMemories[memory.categoryId]) {
+          groupedMemories[memory.categoryId] = [];
         }
 
         // Ajoutez ce souvenir à sa catégorie correspondante
-        groupedMemories[memory.category].push(memory);
+        groupedMemories[memory.categoryId].push(memory);
       });
 
       setMemories(groupedMemories);
     };
 
-    fetchMemories();
-  }, [userId]);
+    fetchUserData();
+  }, [userId, categories]);
 
-  const addMemory = async (category: string, text: string) => {
+  const addMemory = async (categoryId: string, text: string) => {
     if (!userId) return;
+
+    // Trouver le nom de la catégorie en utilisant categoryId
+    const category = categories.find((c) => c.id === categoryId)?.name;
+    if (!category) {
+      console.error(`No category found for id ${categoryId}`);
+      return;
+    }
+
     const docRef = await addDoc(collection(db, "users", userId, "memories"), {
-      category,
+      categoryId, // use categoryId instead of category name
       text,
     });
 
-    // Si la catégorie de ce souvenir n'existe pas encore dans memories, créez-la
-    if (!memories[category]) {
-      memories[category] = [];
+    // Faire une copie de l'état des memories
+    const newMemories = { ...memories };
+
+    // Si la catégorie de ce souvenir n'existe pas encore dans newMemories, créez-la
+    if (!newMemories[categoryId]) {
+      newMemories[categoryId] = [];
     }
 
     // Ajoutez ce souvenir à sa catégorie correspondante
-    memories[category].push({ id: docRef.id, category, text });
+    newMemories[categoryId].push({ id: docRef.id, categoryId, text }); // use categoryId instead of category name
 
-    setMemories({ ...memories });
+    // Mettez à jour l'état des memories avec la copie modifiée
+    setMemories(newMemories);
   };
 
   const reassignMemory = async (
     id: string,
-    oldCategory: string,
-    newCategory: string
+    oldCategoryId: string,
+    newCategoryId: string
   ) => {
-    if (!memories[oldCategory] || !userId) return;
-    const memory = memories[oldCategory].find((memory) => memory.id === id);
+    if (!memories[oldCategoryId] || !userId) return;
+    const memory = memories[oldCategoryId].find((memory) => memory.id === id);
     if (!memory) return;
 
-    // Mettre à jour le champ 'category' du document de ce souvenir
+    // // Trouver le nom de la nouvelle catégorie en utilisant newCategoryId
+    // const newCategory = categories.find((c) => c.id === newCategoryId)?.name;
+    // if (!newCategory) {
+    //   console.error(`No category found for id ${newCategoryId}`);
+    //   return;
+    // }
+
+    // Mettre à jour le champ 'categoryId' du document de ce souvenir
     const memoryRef = doc(db, "users", userId, "memories", id);
-    await updateDoc(memoryRef, { category: newCategory });
+    await updateDoc(memoryRef, { categoryId: newCategoryId });
+
+    // Faire une copie de l'état des memories
+    const newMemories = { ...memories };
 
     // Retirer le souvenir de l'ancienne catégorie
-    memories[oldCategory] = memories[oldCategory].filter(
+    newMemories[oldCategoryId] = newMemories[oldCategoryId].filter(
       (memory) => memory.id !== id
     );
-    // Si la nouvelle catégorie n'existe pas encore, créez-la
-    if (!memories[newCategory]) {
-      memories[newCategory] = [];
-    }
-    // Ajouter le souvenir à la nouvelle catégorie
-    memories[newCategory].push({ ...memory, category: newCategory });
 
-    setMemories({ ...memories });
+    // Si la nouvelle catégorie n'existe pas encore, créez-la
+    if (!newMemories[newCategoryId]) {
+      newMemories[newCategoryId] = [];
+    }
+
+    // Ajouter le souvenir à la nouvelle catégorie
+    newMemories[newCategoryId].push({ ...memory, categoryId: newCategoryId });
+
+    // Mettez à jour l'état des memories avec la copie modifiée
+    setMemories(newMemories);
   };
 
-  const deleteMemory = async (id: string, category: string) => {
-    console.log(`Deleting memory: ${id}, ${category}`); // Ajoutez cette ligne
+  const deleteMemory = async (id: string, categoryId: string) => {
+    console.log(`Deleting memory: ${id}, ${categoryId}`);
     if (!userId) {
-      console.log("User ID not found"); // Ajoutez cette ligne
+      console.log("User ID not found");
       return;
     }
 
     try {
       await deleteDoc(doc(db, "users", userId, "memories", id));
     } catch (error) {
-      console.error("Failed to delete document:", error); // Ajoutez cette ligne
+      console.error("Failed to delete document:", error);
     }
 
-    if (!memories[category]) {
-      console.log("Category not found in memories"); // Ajoutez cette ligne
+    if (!memories[categoryId]) {
+      console.log("Category not found in memories");
       return;
     }
 
-    const newMemoriesCategory = memories[category].filter(
+    // Faire une copie de l'état des memories
+    const newMemories = { ...memories };
+
+    const newMemoriesCategory = newMemories[categoryId].filter(
       (memory) => memory.id !== id
     );
 
-    if (newMemoriesCategory.length === memories[category].length) {
-      console.log("Memory not found in category"); // Ajoutez cette ligne
+    if (newMemoriesCategory.length === newMemories[categoryId].length) {
+      console.log("Memory not found in category");
     } else {
-      memories[category] = newMemoriesCategory;
-      setMemories({ ...memories });
+      newMemories[categoryId] = newMemoriesCategory;
+      // Mettez à jour l'état des memories avec la copie modifiée
+      setMemories(newMemories);
     }
   };
 
-  const updateMemory = async (id: string, category: string, text: string) => {
+  const updateMemory = async (id: string, categoryId: string, text: string) => {
     if (!userId) return;
     const memoryRef = doc(db, "users", userId, "memories", id);
     await updateDoc(memoryRef, { text });
 
-    if (!memories[category] || !userId) return;
-    const memoryToUpdate = memories[category].find(
+    if (!memories[categoryId] || !userId) return;
+
+    // Faire une copie de l'état des memories
+    const newMemories = { ...memories };
+
+    const memoryToUpdate = newMemories[categoryId].find(
       (memory) => memory.id === id
     );
     if (memoryToUpdate) {
       memoryToUpdate.text = text;
     }
 
-    setMemories({ ...memories });
+    // Mettez à jour l'état des memories avec la copie modifiée
+    setMemories(newMemories);
   };
 
   const [editedTexts, setEditedTexts] = useState<
     Record<string, Record<string, string>>
   >({});
 
-  const onTextChange = (category: string, id: string, newText: string) => {
+  const onTextChange = (categoryId: string, id: string, newText: string) => {
     setEditedTexts((prev) => ({
       ...prev,
-      [category]: {
-        ...(prev[category] || {}),
+      [categoryId]: {
+        ...(prev[categoryId] || {}),
         [id]: newText,
       },
     }));
@@ -241,121 +283,124 @@ function ScreenManageMemory() {
           </View>
         </Modal>
 
-        {categories.map((category) => (
-          <View key={category}>
-            <Text style={styles.category}>{category}</Text>
-            {memories[category] &&
-              memories[category].map((memory, index) => (
-                <View key={memory.id}>
-                  <ListItem
-                    bottomDivider
-                    containerStyle={{
-                      backgroundColor: colors[index % colors.length],
-                      borderRadius: 10,
-                      marginBottom: 10,
-                    }}
-                  >
-                    <ListItem.Content
-                      style={{ flexDirection: "row", alignItems: "center" }}
+        {categories &&
+          categories.map((category) => (
+            <View key={category.id}>
+              <Text style={styles.category}>{category.name}</Text>
+              {memories[category.id] &&
+                memories[category.id].map((memory, index) => (
+                  <View key={memory.id}>
+                    <ListItem
+                      bottomDivider
+                      containerStyle={{
+                        backgroundColor: colors[index % colors.length],
+                        borderRadius: 10,
+                        marginBottom: 10,
+                      }}
                     >
-                      <TextInput
-                        style={[styles.itemText, { flex: 1 }]}
-                        defaultValue={memory.text}
-                        onChangeText={(newText) =>
-                          onTextChange(category, memory.id, newText)
-                        }
-                        onSubmitEditing={() =>
-                          updateMemory(
-                            category,
-                            memory.id,
-                            editedTexts[category]?.[memory.id] || memory.text
-                          )
-                        }
-                      />
-                      <View style={{ flexDirection: "row" }}>
-                        <Button
-                          icon={
-                            <MaterialCommunityIcons
-                              name="folder-move"
-                              size={24}
-                              style={styles.moveIcon}
-                            />
+                      <ListItem.Content
+                        style={{ flexDirection: "row", alignItems: "center" }}
+                      >
+                        <TextInput
+                          style={[styles.itemText, { flex: 1 }]}
+                          defaultValue={memory.text}
+                          onChangeText={(newText) =>
+                            onTextChange(category, memory.id, newText)
                           }
-                          type="clear"
-                          onPress={() => {
-                            setSelectedMemory({
-                              id: memory.id,
+                          onSubmitEditing={() =>
+                            updateMemory(
                               category,
-                              text: memory.text,
-                            });
-                            setModalVisibleReassign(true);
-                          }}
-                        />
-
-                        <Button
-                          icon={
-                            <MaterialCommunityIcons
-                              name="trash-can"
-                              size={24}
-                              style={styles.deleteIcon}
-                            />
+                              memory.id,
+                              editedTexts[category]?.[memory.id] || memory.text
+                            )
                           }
-                          type="clear"
-                          onPress={() => deleteMemory(category, memory.id)}
                         />
-                      </View>
-                    </ListItem.Content>
-                  </ListItem>
-
-                  <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={modalVisibleReassign}
-                    onRequestClose={() => setModalVisibleReassign(false)}
-                  >
-                    <View style={styles.centeredView}>
-                      <View style={styles.modalView}>
-                        <Text style={styles.modalText}>
-                          Choisissez une nouvelle catégorie
-                        </Text>
-                        {categories.map((category) => (
-                          <TouchableOpacity
-                            key={category}
+                        <View style={{ flexDirection: "row" }}>
+                          <Button
+                            icon={
+                              <MaterialCommunityIcons
+                                name="folder-move"
+                                size={24}
+                                style={styles.moveIcon}
+                              />
+                            }
+                            type="clear"
                             onPress={() => {
-                              if (selectedMemory) {
-                                reassignMemory(
-                                  selectedMemory.id,
-                                  selectedMemory.category,
-                                  category
-                                );
-                                setSelectedMemory(null);
-                              }
-                              setModalVisibleReassign(false);
+                              setSelectedMemory({
+                                id: memory.id,
+                                category: category.id, // Utilisez l'identifiant de la catégorie au lieu du nom de la catégorie
+                                text: memory.text,
+                              });
+                              setModalVisibleReassign(true);
                             }}
-                          >
-                            <Text>{category}</Text>
-                          </TouchableOpacity>
-                        ))}
-                      </View>
-                    </View>
-                  </Modal>
-                </View>
-              ))}
+                          />
 
-            <TextInput
-              style={styles.input}
-              placeholder={`Ajouter un souvenir à ${category}`}
-              value={inputTexts[category]}
-              onChangeText={(text) =>
-                setInputTexts((prev) => ({ ...prev, [category]: text }))
-              }
-              onSubmitEditing={() => {
-                addMemory(category, inputTexts[category]);
-                setInputTexts((prev) => ({ ...prev, [category]: "" }));
-              }}
-            />
-          </View>
-        ))}
+                          <Button
+                            icon={
+                              <MaterialCommunityIcons
+                                name="trash-can"
+                                size={24}
+                                style={styles.deleteIcon}
+                              />
+                            }
+                            type="clear"
+                            onPress={() => deleteMemory(memory.id, category.id)}
+                          />
+                        </View>
+                      </ListItem.Content>
+                    </ListItem>
+
+                    <Modal
+                      animationType="slide"
+                      transparent={true}
+                      visible={modalVisibleReassign}
+                      onRequestClose={() => setModalVisibleReassign(false)}
+                    >
+                      <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                          <Text style={styles.modalText}>
+                            Choisissez une nouvelle catégorie
+                          </Text>
+                          {categories.map((category) => (
+                            <TouchableOpacity
+                              key={category.id}
+                              onPress={() => {
+                                if (selectedMemory) {
+                                  reassignMemory(
+                                    selectedMemory.id,
+                                    selectedMemory.category,
+                                    category.id
+                                  );
+                                  setSelectedMemory(null);
+                                }
+                                setModalVisibleReassign(false);
+                              }}
+                            >
+                              <Text>{category.name}</Text>
+                            </TouchableOpacity>
+                          ))}
+                        </View>
+                      </View>
+                    </Modal>
+                  </View>
+                ))}
+
+              <TextInput
+                style={styles.input}
+                placeholder={`Ajouter un souvenir à ${category.name}`}
+                value={inputTexts[category.id]}
+                onChangeText={
+                  (text) =>
+                    setInputTexts((prev) => ({ ...prev, [category.id]: text })) // utilisez category.id pour la clé
+                }
+                onSubmitEditing={() => {
+                  console.log(category.id, inputTexts[category.id]);
+                  addMemory(category.id, inputTexts[category.id]);
+                  setInputTexts((prev) => ({ ...prev, [category.id]: "" })); // utilisez category.id pour la clé
+                }}
+              />
+            </View>
+          ))}
       </ScrollView>
       <View style={styles.footer}>
         <TouchableOpacity onPress={() => setModalVisibleManage(true)}>
