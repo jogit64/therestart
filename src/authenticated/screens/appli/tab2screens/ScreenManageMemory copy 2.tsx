@@ -34,6 +34,8 @@ function ScreenManageMemory() {
     category: string;
     text: string;
   } | null>(null);
+  // Utilisez cet état pour créer un état React pour les inputs
+  //const [inputTexts, setInputTexts] = useState(initialInputState);
 
   const [inputTexts, setInputTexts] = useState({});
 
@@ -63,6 +65,29 @@ function ScreenManageMemory() {
   const [modalVisible, setModalVisible] = useState(false);
 
   const [memories, setMemories] = useState<Memories>({});
+
+  // useEffect(() => {
+  //   const fetchMemories = async () => {
+  //     if (!userId) return;
+
+  //     const memoriesRef = collection(db, "users", userId, "memories");
+  //     const memoriesQuery = query(memoriesRef, where("userId", "==", userId));
+  //     const querySnapshot = await getDocs(memoriesQuery);
+
+  //     const newMemories: Memory[] = [];
+  //     querySnapshot.forEach((doc) => {
+  //       newMemories.push({
+  //         id: doc.id,
+  //         category: doc.data().category,
+  //         text: doc.data().text,
+  //       });
+  //     });
+
+  //     setMemories(newMemories);
+  //   };
+
+  //   fetchMemories();
+  // }, [userId]);
 
   useEffect(() => {
     const fetchMemories = async () => {
@@ -96,6 +121,49 @@ function ScreenManageMemory() {
 
     fetchMemories();
   }, [userId]);
+
+  // const reassignMemory = async (id: string, newCategory: string) => {
+  //   const memory = memories.find((memory) => memory.id === id);
+  //   if (!memory || !userId) return;
+
+  //   // Mettre à jour le champ 'category' du document de ce souvenir
+  //   const memoryRef = doc(db, "users", userId, "memories", id);
+  //   await updateDoc(memoryRef, { category: newCategory });
+
+  //   // Actualisez le state des mémoires
+  //   const updatedMemories = memories.map((memory) =>
+  //     memory.id === id ? { ...memory, category: newCategory } : memory
+  //   );
+  //   setMemories(updatedMemories);
+  // };
+
+  // const addMemory = async (category: string, text: string) => {
+  //   if (!userId) return;
+  //   const docRef = await addDoc(collection(db, "users", userId, "memories"), {
+  //     category,
+  //     text,
+  //   });
+
+  //   setMemories((prev) => [...prev, { id: docRef.id, category, text }]);
+  // };
+
+  // const deleteMemory = async (id: string) => {
+  //   if (!userId) return;
+  //   await deleteDoc(doc(db, "users", userId, "memories", id));
+
+  //   setMemories((prev) => prev.filter((memory) => memory.id !== id));
+  // };
+
+  // const updateMemory = async (id: string, text: string) => {
+  //   if (!userId) return;
+  //   const memoryRef = doc(db, "users", userId, "memories", id);
+  //   await updateDoc(memoryRef, { text });
+
+  //   const updatedMemories = memories.map((memory) =>
+  //     memory.id === id ? { ...memory, text } : memory
+  //   );
+  //   setMemories(updatedMemories);
+  // };
 
   const addMemory = async (category: string, text: string) => {
     if (!userId) return;
@@ -141,6 +209,18 @@ function ScreenManageMemory() {
 
     setMemories({ ...memories });
   };
+
+  // const deleteMemory = async (id: string, category: string) => {
+  //   if (!userId) return;
+  //   await deleteDoc(doc(db, "users", userId, "memories", id));
+
+  //   if (!memories[category] || !userId) return;
+  //   memories[category] = memories[category].filter(
+  //     (memory) => memory.id !== id
+  //   );
+
+  //   setMemories({ ...memories });
+  // };
 
   const deleteMemory = async (id: string, category: string) => {
     console.log(`Deleting memory: ${id}, ${category}`); // Ajoutez cette ligne
@@ -240,6 +320,12 @@ function ScreenManageMemory() {
             </View>
           </View>
         </Modal>
+
+        {/* {categories.map((category) => (
+          <View key={category}>
+            <Text style={styles.category}>{category}</Text>
+            {memories[category] &&
+              memories[category].map((memory, index) => ( */}
 
         {categories.map((category) => (
           <View key={category}>
@@ -341,6 +427,21 @@ function ScreenManageMemory() {
                   </Modal>
                 </View>
               ))}
+            {/* <TextInput
+              style={styles.input}
+              placeholder={`Ajouter un souvenir à ${category}`}
+              value={inputTexts[category]}
+              onChangeText={(text) =>
+                setInputTexts((prev) => ({ ...prev, [category]: text }))
+              }
+              onSubmitEditing={() =>
+                updateMemory(
+                  memory.id,
+                  category,
+                  editedTexts[category]?.[memory.id] || memory.text
+                )
+              }
+            /> */}
 
             <TextInput
               style={styles.input}

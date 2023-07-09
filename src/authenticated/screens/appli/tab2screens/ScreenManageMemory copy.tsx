@@ -34,6 +34,8 @@ function ScreenManageMemory() {
     category: string;
     text: string;
   } | null>(null);
+  // Utilisez cet état pour créer un état React pour les inputs
+  //const [inputTexts, setInputTexts] = useState(initialInputState);
 
   const [inputTexts, setInputTexts] = useState({});
 
@@ -63,6 +65,29 @@ function ScreenManageMemory() {
   const [modalVisible, setModalVisible] = useState(false);
 
   const [memories, setMemories] = useState<Memories>({});
+
+  // useEffect(() => {
+  //   const fetchMemories = async () => {
+  //     if (!userId) return;
+
+  //     const memoriesRef = collection(db, "users", userId, "memories");
+  //     const memoriesQuery = query(memoriesRef, where("userId", "==", userId));
+  //     const querySnapshot = await getDocs(memoriesQuery);
+
+  //     const newMemories: Memory[] = [];
+  //     querySnapshot.forEach((doc) => {
+  //       newMemories.push({
+  //         id: doc.id,
+  //         category: doc.data().category,
+  //         text: doc.data().text,
+  //       });
+  //     });
+
+  //     setMemories(newMemories);
+  //   };
+
+  //   fetchMemories();
+  // }, [userId]);
 
   useEffect(() => {
     const fetchMemories = async () => {
@@ -97,6 +122,21 @@ function ScreenManageMemory() {
     fetchMemories();
   }, [userId]);
 
+  const reassignMemory = async (id: string, newCategory: string) => {
+    const memory = memories.find((memory) => memory.id === id);
+    if (!memory || !userId) return;
+
+    // Mettre à jour le champ 'category' du document de ce souvenir
+    const memoryRef = doc(db, "users", userId, "memories", id);
+    await updateDoc(memoryRef, { category: newCategory });
+
+    // Actualisez le state des mémoires
+    const updatedMemories = memories.map((memory) =>
+      memory.id === id ? { ...memory, category: newCategory } : memory
+    );
+    setMemories(updatedMemories);
+  };
+
   const addMemory = async (category: string, text: string) => {
     if (!userId) return;
     const docRef = await addDoc(collection(db, "users", userId, "memories"), {
@@ -104,88 +144,25 @@ function ScreenManageMemory() {
       text,
     });
 
-    // Si la catégorie de ce souvenir n'existe pas encore dans memories, créez-la
-    if (!memories[category]) {
-      memories[category] = [];
-    }
-
-    // Ajoutez ce souvenir à sa catégorie correspondante
-    memories[category].push({ id: docRef.id, category, text });
-
-    setMemories({ ...memories });
+    setMemories((prev) => [...prev, { id: docRef.id, category, text }]);
   };
 
-  const reassignMemory = async (
-    id: string,
-    oldCategory: string,
-    newCategory: string
-  ) => {
-    if (!memories[oldCategory] || !userId) return;
-    const memory = memories[oldCategory].find((memory) => memory.id === id);
-    if (!memory) return;
+  const deleteMemory = async (id: string) => {
+    if (!userId) return;
+    await deleteDoc(doc(db, "users", userId, "memories", id));
 
-    // Mettre à jour le champ 'category' du document de ce souvenir
-    const memoryRef = doc(db, "users", userId, "memories", id);
-    await updateDoc(memoryRef, { category: newCategory });
-
-    // Retirer le souvenir de l'ancienne catégorie
-    memories[oldCategory] = memories[oldCategory].filter(
-      (memory) => memory.id !== id
-    );
-    // Si la nouvelle catégorie n'existe pas encore, créez-la
-    if (!memories[newCategory]) {
-      memories[newCategory] = [];
-    }
-    // Ajouter le souvenir à la nouvelle catégorie
-    memories[newCategory].push({ ...memory, category: newCategory });
-
-    setMemories({ ...memories });
+    setMemories((prev) => prev.filter((memory) => memory.id !== id));
   };
 
-  const deleteMemory = async (id: string, category: string) => {
-    console.log(`Deleting memory: ${id}, ${category}`); // Ajoutez cette ligne
-    if (!userId) {
-      console.log("User ID not found"); // Ajoutez cette ligne
-      return;
-    }
-
-    try {
-      await deleteDoc(doc(db, "users", userId, "memories", id));
-    } catch (error) {
-      console.error("Failed to delete document:", error); // Ajoutez cette ligne
-    }
-
-    if (!memories[category]) {
-      console.log("Category not found in memories"); // Ajoutez cette ligne
-      return;
-    }
-
-    const newMemoriesCategory = memories[category].filter(
-      (memory) => memory.id !== id
-    );
-
-    if (newMemoriesCategory.length === memories[category].length) {
-      console.log("Memory not found in category"); // Ajoutez cette ligne
-    } else {
-      memories[category] = newMemoriesCategory;
-      setMemories({ ...memories });
-    }
-  };
-
-  const updateMemory = async (id: string, category: string, text: string) => {
+  const updateMemory = async (id: string, text: string) => {
     if (!userId) return;
     const memoryRef = doc(db, "users", userId, "memories", id);
     await updateDoc(memoryRef, { text });
 
-    if (!memories[category] || !userId) return;
-    const memoryToUpdate = memories[category].find(
-      (memory) => memory.id === id
+    const updatedMemories = memories.map((memory) =>
+      memory.id === id ? { ...memory, text } : memory
     );
-    if (memoryToUpdate) {
-      memoryToUpdate.text = text;
-    }
-
-    setMemories({ ...memories });
+    setMemories(updatedMemories);
   };
 
   const [editedTexts, setEditedTexts] = useState<
@@ -324,8 +301,8 @@ function ScreenManageMemory() {
                             onPress={() => {
                               if (selectedMemory) {
                                 reassignMemory(
-                                  selectedMemory.id,
                                   selectedMemory.category,
+                                  selectedMemory.id,
                                   category
                                 );
                                 setSelectedMemory(null);
@@ -341,7 +318,6 @@ function ScreenManageMemory() {
                   </Modal>
                 </View>
               ))}
-
             <TextInput
               style={styles.input}
               placeholder={`Ajouter un souvenir à ${category}`}
