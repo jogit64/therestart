@@ -272,6 +272,10 @@ function ScreenManageMemory() {
           <View style={styles.titleContainer}>
             <Text style={styles.title}>Mes graines de joie</Text>
           </View>
+
+          <View style={styles.badge}>
+            <Text style={styles.text}>Votre message ici</Text>
+          </View>
         </View>
 
         <Modal
@@ -521,6 +525,19 @@ const styles = StyleSheet.create({
   footerText: {
     color: "black",
     fontSize: 18,
+  },
+
+  badge: {
+    backgroundColor: "#ccc",
+    padding: 10,
+    borderBottomEndRadius: 30,
+    borderBottomStartRadius: 10,
+    borderTopStartRadius: 10,
+    borderTopEndRadius: 30,
+  },
+  text: {
+    fontSize: 20,
+    color: "#333",
   },
 });
 
