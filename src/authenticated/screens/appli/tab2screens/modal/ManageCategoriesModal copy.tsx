@@ -19,6 +19,7 @@ interface Props {
   onClose: () => void;
   selectedCategory: Category | null;
   setSelectedCategory: (category: Category | null) => void;
+  //memories: Memory[];
   memories: Record<string, Memory[]>;
 }
 
@@ -153,8 +154,9 @@ const ManageCategoriesModal: React.FC<Props> = ({
                     <Text style={styles.buttonText}>Renommer</Text>
                   </TouchableOpacity>
 
-                  {memories[category.id] &&
-                  memories[category.id].length === 0 ? (
+                  {memories.filter(
+                    (memory) => memory.categoryId === category.id
+                  ).length === 0 ? (
                     <TouchableOpacity
                       style={styles.button}
                       onPress={() => {

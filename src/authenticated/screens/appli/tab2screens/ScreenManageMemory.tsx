@@ -22,11 +22,14 @@ import {
 } from "firebase/firestore";
 import { auth } from "../../../../../utils/firebase.js";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Memory, Category } from "./../../../../../utils/types";
+import { Memory, Category, Memories } from "./../../../../../utils/types";
 import ManageCategoriesModal from "./modal/ManageCategoriesModal";
 
 function ScreenManageMemory() {
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
+    null
+  );
+
   const [modalVisibleReassign, setModalVisibleReassign] = useState(false);
   const [modalVisibleManage, setModalVisibleManage] = useState(false);
   const userId = auth.currentUser?.uid;
@@ -72,7 +75,7 @@ function ScreenManageMemory() {
       const userRef = doc(db, "users", userId);
       const userDoc = await getDoc(userRef);
       if (userDoc.exists()) {
-        setCategories(userDoc.data().categories || []); // utilisez une valeur par défaut si aucune catégorie n'est définie pour l'utilisateur
+        setCategories(userDoc.data().categories || []);
       }
 
       // Fetch user memories
@@ -103,7 +106,8 @@ function ScreenManageMemory() {
     };
 
     fetchUserData();
-  }, [userId, categories]);
+    // }, [userId, categories]);
+  }, [userId]);
 
   const addMemory = async (categoryId: string, text: string) => {
     if (!userId) return;
@@ -116,7 +120,7 @@ function ScreenManageMemory() {
     }
 
     const docRef = await addDoc(collection(db, "users", userId, "memories"), {
-      categoryId, // use categoryId instead of category name
+      categoryId,
       text,
     });
 
@@ -243,6 +247,10 @@ function ScreenManageMemory() {
       },
     }));
   };
+  console.log(
+    "In parent component, setSelectedCategory is: ",
+    setSelectedCategory
+  );
 
   return (
     <View style={{ flex: 1 }}>
@@ -328,7 +336,7 @@ function ScreenManageMemory() {
                             onPress={() => {
                               setSelectedMemory({
                                 id: memory.id,
-                                category: category.id, // Utilisez l'identifiant de la catégorie au lieu du nom de la catégorie
+                                category: category.id,
                                 text: memory.text,
                               });
                               setModalVisibleReassign(true);
@@ -389,14 +397,13 @@ function ScreenManageMemory() {
                 style={styles.input}
                 placeholder={`Ajouter un souvenir à ${category.name}`}
                 value={inputTexts[category.id]}
-                onChangeText={
-                  (text) =>
-                    setInputTexts((prev) => ({ ...prev, [category.id]: text })) // utilisez category.id pour la clé
+                onChangeText={(text) =>
+                  setInputTexts((prev) => ({ ...prev, [category.id]: text }))
                 }
                 onSubmitEditing={() => {
                   console.log(category.id, inputTexts[category.id]);
                   addMemory(category.id, inputTexts[category.id]);
-                  setInputTexts((prev) => ({ ...prev, [category.id]: "" })); // utilisez category.id pour la clé
+                  setInputTexts((prev) => ({ ...prev, [category.id]: "" }));
                 }}
               />
             </View>
@@ -411,9 +418,11 @@ function ScreenManageMemory() {
       <ManageCategoriesModal
         visible={modalVisibleManage}
         categories={categories}
+        setCategories={setCategories}
         memories={memories}
         onClose={() => setModalVisibleManage(false)}
-        // ici, vous pouvez passer les autres props nécessaires
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
       />
     </View>
   );
@@ -475,7 +484,7 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     alignItems: "center",
-    marginTop: -20, // margin négatif pour rapprocher les deux lignes
+    marginTop: -20,
   },
 
   modalView: {
@@ -492,15 +501,15 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    height: "80%", // Pour définir la hauteur de votre modal
+    height: "80%",
   },
 
   footer: {
     position: "absolute",
     bottom: 0,
     width: "100%",
-    height: 50, // Ajustez selon vos besoins
-    backgroundColor: "red", // Choisissez une couleur
+    height: 50,
+    backgroundColor: "red",
     opacity: 0.95,
     justifyContent: "center",
     alignItems: "center",

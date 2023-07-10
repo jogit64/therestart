@@ -26,3 +26,5 @@ export interface Memory {
   text: string;
   categoryId: string;
 }
+
+export type Memories = Record<string, Memory[]>;
