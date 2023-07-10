@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Modal,
   TouchableOpacity,
+  SafeAreaView,
 } from "react-native";
 import { ListItem, Button, Icon, Text } from "react-native-elements";
 import {
@@ -253,8 +254,11 @@ function ScreenManageMemory() {
   );
 
   return (
-    <View style={{ flex: 1 }}>
-      <ScrollView style={styles.container}>
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={{ paddingBottom: 100 }}
+      >
         <View style={styles.header}>
           <View style={styles.iconContainer}>
             <TouchableOpacity onPress={() => setModalVisible(true)}>
@@ -424,7 +428,7 @@ function ScreenManageMemory() {
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
       />
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -469,7 +473,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
     marginBottom: 50,
-    marginTop: 15,
+    marginTop: 5,
     backgroundColor: "#f0f0ff",
     height: 50,
     paddingLeft: 15,
@@ -509,13 +513,13 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: "100%",
     height: 50,
-    backgroundColor: "red",
-    opacity: 0.95,
+    backgroundColor: "yellow",
+    opacity: 0.65,
     justifyContent: "center",
     alignItems: "center",
   },
   footerText: {
-    color: "white",
+    color: "black",
     fontSize: 18,
   },
 });

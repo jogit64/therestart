@@ -7,6 +7,7 @@ import {
   Button,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from "react-native";
 import { doc, updateDoc, collection, addDoc } from "firebase/firestore";
 import { db, auth } from "../../../../../../utils/firebase.js";
@@ -46,6 +47,32 @@ const ManageCategoriesModal: React.FC<Props> = ({
     return null;
   }
 
+  // const handleAddCategory = async () => {
+  //   if (!userId) {
+  //     console.error("userId is undefined");
+  //     return;
+  //   }
+
+  //   const newCategory: Category = {
+  //     id: Date.now().toString(),
+  //     name: newCategoryName,
+  //   };
+  //   const updatedCategories = [...categories, newCategory];
+  //   setCategories(updatedCategories);
+  //   setNewCategoryName("");
+
+  //   // Mise à jour des catégories de l'utilisateur dans Firestore
+  //   try {
+  //     const userRef = doc(db, "users", userId); // assurez-vous que userId est correctement défini
+  //     await updateDoc(userRef, {
+  //       categories: updatedCategories,
+  //     });
+  //     console.log("User document updated with new category");
+  //   } catch (e) {
+  //     console.error("Error updating user document: ", e);
+  //   }
+  // };
+
   const handleAddCategory = async () => {
     if (!userId) {
       console.error("userId is undefined");
@@ -67,25 +94,102 @@ const ManageCategoriesModal: React.FC<Props> = ({
         categories: updatedCategories,
       });
       console.log("User document updated with new category");
+
+      // Ici, affichez une alerte pour informer l'utilisateur de la réussite de l'opération
+      Alert.alert(
+        "Catégorie créée",
+        "La catégorie a été créée avec succès. Voulez-vous rester ici ou retourner à la gestion des souvenirs?",
+        [
+          {
+            text: "Rester ici",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel",
+          },
+          {
+            text: "Gérer les souvenirs",
+            onPress: () => onClose(), // Ferme la fenêtre modale
+          },
+        ],
+        { cancelable: false }
+      );
     } catch (e) {
       console.error("Error updating user document: ", e);
     }
   };
 
-  const handleUpdateCategory = (category: Category) => {
+  const handleUpdateCategory = async (category: Category) => {
     setCategories((prevCategories) =>
       prevCategories.map((item) =>
         item.id === category.id ? { ...item, name: updatedCategoryName } : item
       )
     );
     setUpdatedCategoryName("");
+
+    const updatedCategories = categories.map((item) =>
+      item.id === category.id ? { ...item, name: updatedCategoryName } : item
+    );
+
+    try {
+      const userRef = doc(db, "users", userId);
+      await updateDoc(userRef, {
+        categories: updatedCategories,
+      });
+      console.log("User document updated with new category name");
+
+      Alert.alert(
+        "Mise à jour de la catégorie",
+        "Le nom de la catégorie a été mis à jour avec succès.",
+        [
+          {
+            text: "Fermer la modale",
+            onPress: onClose,
+          },
+          {
+            text: "Continuer à gérer les catégories",
+            style: "cancel",
+          },
+        ],
+        { cancelable: false }
+      );
+    } catch (e) {
+      console.error("Error updating user document: ", e);
+    }
   };
 
-  const handleDeleteCategory = (category: Category) => {
-    setCategories((prevCategories) =>
-      prevCategories.filter((item) => item.id !== category.id)
+  const handleDeleteCategory = async (category: Category) => {
+    const updatedCategories = categories.filter(
+      (item) => item.id !== category.id
     );
+    setCategories(updatedCategories);
+
+    try {
+      const userRef = doc(db, "users", userId);
+      await updateDoc(userRef, {
+        categories: updatedCategories,
+      });
+      console.log("User document updated after category deletion");
+
+      Alert.alert(
+        "Suppression de la catégorie",
+        "La catégorie a été supprimée avec succès.",
+        [
+          {
+            text: "Fermer la modale",
+            onPress: onClose,
+          },
+          {
+            text: "Continuer à gérer les catégories",
+            style: "cancel",
+          },
+        ],
+        { cancelable: false }
+      );
+    } catch (e) {
+      console.error("Error updating user document: ", e);
+    }
   };
+
+  console.log("par ici memories : ", memories);
 
   return (
     <Modal
@@ -153,7 +257,7 @@ const ManageCategoriesModal: React.FC<Props> = ({
                     <Text style={styles.buttonText}>Renommer</Text>
                   </TouchableOpacity>
 
-                  {memories[category.id] &&
+                  {memories[category.id] === undefined ||
                   memories[category.id].length === 0 ? (
                     <TouchableOpacity
                       style={styles.button}

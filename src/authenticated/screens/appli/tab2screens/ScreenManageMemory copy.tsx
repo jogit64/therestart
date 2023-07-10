@@ -66,29 +66,6 @@ function ScreenManageMemory() {
 
   const [memories, setMemories] = useState<Memories>({});
 
-  // useEffect(() => {
-  //   const fetchMemories = async () => {
-  //     if (!userId) return;
-
-  //     const memoriesRef = collection(db, "users", userId, "memories");
-  //     const memoriesQuery = query(memoriesRef, where("userId", "==", userId));
-  //     const querySnapshot = await getDocs(memoriesQuery);
-
-  //     const newMemories: Memory[] = [];
-  //     querySnapshot.forEach((doc) => {
-  //       newMemories.push({
-  //         id: doc.id,
-  //         category: doc.data().category,
-  //         text: doc.data().text,
-  //       });
-  //     });
-
-  //     setMemories(newMemories);
-  //   };
-
-  //   fetchMemories();
-  // }, [userId]);
-
   useEffect(() => {
     const fetchMemories = async () => {
       if (!userId) return;
@@ -137,14 +114,36 @@ function ScreenManageMemory() {
     setMemories(updatedMemories);
   };
 
+  // const addMemory = async (category: string, text: string) => {
+  //   if (!userId) return;
+  //   const docRef = await addDoc(collection(db, "users", userId, "memories"), {
+  //     category,
+  //     text,
+  //   });
+
+  //   setMemories((prev) => [...prev, { id: docRef.id, category, text }]);
+  // };
+
   const addMemory = async (category: string, text: string) => {
     if (!userId) return;
-    const docRef = await addDoc(collection(db, "users", userId, "memories"), {
-      category,
-      text,
-    });
 
-    setMemories((prev) => [...prev, { id: docRef.id, category, text }]);
+    try {
+      const docRef = await addDoc(collection(db, "users", userId, "memories"), {
+        category,
+        text,
+      });
+
+      setMemories((prev) => {
+        const newMemories = { ...prev };
+        if (!newMemories[category]) {
+          newMemories[category] = [];
+        }
+        newMemories[category].push({ id: docRef.id, category, text });
+        return newMemories;
+      });
+    } catch (error) {
+      console.error("Error adding memory: ", error);
+    }
   };
 
   const deleteMemory = async (id: string) => {
