@@ -190,6 +190,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255,255,255,1)",
     flexDirection: "column",
     justifyContent: "space-around",
+    paddingTop: 20,
   },
 
   lowerSection: {
@@ -222,12 +223,12 @@ const styles = StyleSheet.create({
   bonjour1: {
     fontFamily: "roboto",
     color: "rgba(50,56,106,1)",
-    fontSize: 18,
+    fontSize: 20,
   },
   souda: {
     fontFamily: "roboto700",
     color: "rgba(50,56,106,1)",
-    fontSize: 18,
+    fontSize: 20,
     marginLeft: 4, // Créer de l'espace entre les Text
   },
   bonjour1Stack: {

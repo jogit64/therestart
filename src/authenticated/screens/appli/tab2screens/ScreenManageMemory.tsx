@@ -42,14 +42,16 @@ function ScreenManageMemory() {
 
   const db = getFirestore();
   const colors = [
-    "#21becd",
+    "#20c2cd",
     "#5b5da7",
     "#a4c763",
+    "#bc6047",
     "#4ca9e4",
+    "#2baa8c",
     "#404295",
     "#3a86a8",
-    "#2baa8c",
   ];
+  const [memoryColors, setMemoryColors] = useState<Record<string, string>>({});
 
   const [inputTexts, setInputTexts] = useState<Record<string, string>>({
     "1": "",
@@ -86,12 +88,13 @@ function ScreenManageMemory() {
 
       // C'est ici que vous allez regrouper vos souvenirs par catégorie
       const groupedMemories: Record<string, Memory[]> = {};
+      const fetchedMemoryColors: Record<string, string> = {};
 
       querySnapshot.forEach((doc) => {
         const memory = {
           id: doc.id,
           text: doc.data().text,
-          categoryId: doc.data().categoryId, // Utilisez categoryId à la place de category
+          categoryId: doc.data().categoryId,
         };
 
         // Si la catégorie de ce souvenir n'existe pas encore dans groupedMemories, créez-la
@@ -101,9 +104,20 @@ function ScreenManageMemory() {
 
         // Ajoutez ce souvenir à sa catégorie correspondante
         groupedMemories[memory.categoryId].push(memory);
+
+        console.log(`Assigning color to Memory ID: ${doc.id}`); // Log before assigning color
+
+        // // Assigner une couleur aléatoire à chaque souvenir récupéré
+        // fetchedMemoryColors[doc.id] =
+        //   colors[Math.floor(Math.random() * colors.length)];
+        // console.log(
+        //   `Memory ID: ${doc.id}, Color: ${fetchedMemoryColors[doc.id]}`
+        // ); // Log the color
       });
 
       setMemories(groupedMemories);
+      // Mettre à jour l'état des memoryColors avec les couleurs récupérées
+      setMemoryColors(fetchedMemoryColors);
     };
 
     fetchUserData();
@@ -135,6 +149,12 @@ function ScreenManageMemory() {
 
     // Ajoutez ce souvenir à sa catégorie correspondante
     newMemories[categoryId].push({ id: docRef.id, categoryId, text }); // use categoryId instead of category name
+
+    // Attribuer une couleur aléatoire au nouveau souvenir
+    const newMemoryColors = { ...memoryColors };
+    newMemoryColors[docRef.id] =
+      colors[Math.floor(Math.random() * colors.length)];
+    setMemoryColors(newMemoryColors);
 
     // Mettez à jour l'état des memories avec la copie modifiée
     setMemories(newMemories);
@@ -274,7 +294,11 @@ function ScreenManageMemory() {
           </View>
 
           <View style={styles.badge}>
-            <Text style={styles.text}>Votre message ici</Text>
+            <Text style={styles.textIntro}>
+              Commencez à organiser vos souvenirs ! Utilisez cet écran pour
+              créer, éditer et gérer vos souvenirs et catégories. Faites-en
+              votre espace personnel de réflexion et de joie.
+            </Text>
           </View>
         </View>
 
@@ -298,6 +322,22 @@ function ScreenManageMemory() {
             </View>
           </View>
         </Modal>
+
+        {/* {categories &&
+          categories.map((category) => (
+            <View key={category.id}>
+              <Text style={styles.category}>{category.name}</Text>
+              {memories[category.id] &&
+                memories[category.id].map((memory, index) => (
+                  <View key={memory.id}>
+                    <ListItem
+                      bottomDivider
+                      containerStyle={{
+                        backgroundColor: colors[index % colors.length],
+                        borderRadius: 10,
+                        marginBottom: 10,
+                      }}
+                    > */}
 
         {categories &&
           categories.map((category) => (
@@ -448,9 +488,11 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textAlign: "center",
     marginBottom: 20,
+    color: "rgba(50,56,106,1)",
   },
   category: {
     fontFamily: "roboto500",
+    color: "rgba(50,56,106,1)",
     fontSize: 20,
     marginTop: 10,
     marginBottom: 10,
@@ -478,7 +520,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ccc",
     marginBottom: 50,
     marginTop: 5,
-    backgroundColor: "#f0f0ff",
+    backgroundColor: "#fff",
     height: 50,
     paddingLeft: 15,
   },
@@ -518,7 +560,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 50,
     backgroundColor: "yellow",
-    opacity: 0.65,
+    opacity: 0.4,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -528,16 +570,29 @@ const styles = StyleSheet.create({
   },
 
   badge: {
-    backgroundColor: "#ccc",
+    backgroundColor: "#f7f7ff",
     padding: 10,
-    borderBottomEndRadius: 30,
-    borderBottomStartRadius: 10,
-    borderTopStartRadius: 10,
-    borderTopEndRadius: 30,
+    borderRadius: 5,
+    shadowColor: "#6e77bc", // Couleur de l'ombre
+    shadowOffset: {
+      width: 0, // Décalage horizontal de l'ombre
+      height: 2, // Décalage vertical de l'ombre
+    },
+    shadowOpacity: 0.25, // Opacité de l'ombre
+    shadowRadius: 3.84, // Le flou de l'ombre
+    elevation: 5, // Pour Android
+    marginBottom: 30,
   },
-  text: {
-    fontSize: 20,
-    color: "#333",
+
+  textIntro: {
+    fontFamily: "roboto",
+    color: "rgba(151,155,180,1)",
+    // width: 300,
+    // height: 60,
+    textAlign: "center",
+    lineHeight: 20,
+    // marginTop: 15,
+    fontSize: 14,
   },
 });
 
