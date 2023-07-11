@@ -40,6 +40,7 @@ const ManageCategoriesModal: React.FC<Props> = ({
   const [newCategoryName, setNewCategoryName] = useState("");
   const [updatedCategoryName, setUpdatedCategoryName] = useState("");
   const userId = auth.currentUser?.uid;
+  const [categoryNameValid, setCategoryNameValid] = useState(true);
 
   // Vérification de setSelectedCategory
   if (!setSelectedCategory) {
@@ -78,6 +79,18 @@ const ManageCategoriesModal: React.FC<Props> = ({
       console.error("userId is undefined");
       return;
     }
+
+    if (newCategoryName.trim() === "") {
+      setCategoryNameValid(false);
+      return;
+    }
+
+    setCategoryNameValid(true);
+    // Ajout de la condition ici
+    // if (newCategoryName.trim() === "") {
+    //   console.error("Cannot add an empty category");
+    //   return;
+    // }
 
     const newCategory: Category = {
       id: Date.now().toString(),
@@ -118,6 +131,13 @@ const ManageCategoriesModal: React.FC<Props> = ({
   };
 
   const handleUpdateCategory = async (category: Category) => {
+    if (updatedCategoryName.trim() === "") {
+      setCategoryNameValid(false);
+      return;
+    }
+
+    setCategoryNameValid(true);
+
     setCategories((prevCategories) =>
       prevCategories.map((item) =>
         item.id === category.id ? { ...item, name: updatedCategoryName } : item
@@ -141,7 +161,7 @@ const ManageCategoriesModal: React.FC<Props> = ({
         "Le nom de la catégorie a été mis à jour avec succès.",
         [
           {
-            text: "Fermer la modale",
+            text: "Revenirs aux souvenirs",
             onPress: onClose,
           },
           {
@@ -204,9 +224,18 @@ const ManageCategoriesModal: React.FC<Props> = ({
           <TextInput
             placeholder="Nouveau nom de catégorie"
             value={newCategoryName}
-            onChangeText={setNewCategoryName}
+            onChangeText={(text) => {
+              setNewCategoryName(text);
+              setCategoryNameValid(text.trim() !== ""); // Mettre à jour l'état de validation lors de la modification du texte
+            }}
             style={styles.input}
           />
+          {!categoryNameValid && (
+            <Text style={{ color: "red", fontSize: 12 }}>
+              Le nom de la catégorie est requis
+            </Text>
+          )}
+
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
@@ -293,56 +322,69 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22,
+    backgroundColor: "rgba(0,0,0,0.5)", // Ajouter un arrière-plan semi-transparent pour mieux distinguer la modal
   },
   modalView: {
     width: "90%",
-    backgroundColor: "white",
-    borderRadius: 20,
+    backgroundColor: "#f8fcff", // Utiliser la même couleur d'arrière-plan que vos autres écrans
+    borderRadius: 14, // Utiliser le même borderRadius que vos autres éléments
     padding: 20,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+    shadowOpacity: 0.35,
+    shadowRadius: 5,
+    elevation: 12,
   },
   modalText: {
-    fontSize: 24,
-    marginBottom: 20,
-    textAlign: "center",
     fontFamily: "roboto700",
+    color: "rgba(50,56,106,1)",
+    fontSize: 22,
+    textAlign: "center",
+    marginBottom: 20,
   },
   categoryText: {
-    fontSize: 18,
     fontFamily: "roboto500",
+    color: "rgba(50,56,106,1)",
+    fontSize: 18,
     textAlign: "left",
     marginTop: 10,
   },
   selectedCategory: {
     backgroundColor: "#ddd",
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingBottom: 20,
+    borderRadius: 10,
   },
   button: {
     width: "100%",
+    height: 44,
     marginTop: 10,
-    backgroundColor: "#2196F3",
+    backgroundColor: "#6f78bd",
     padding: 10,
     alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
   },
   buttonText: {
-    color: "white",
-    fontSize: 18,
+    color: "#fff",
+    fontSize: 15,
+    fontFamily: "roboto",
   },
   input: {
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    marginTop: 10,
-    marginBottom: 10,
+    fontFamily: "roboto",
+    color: "#121212",
+    height: 55,
     width: "100%",
+    backgroundColor: "rgba(255,255,255,1)",
+    borderWidth: 2,
+    borderColor: "rgba(220,222,235,1)",
+    borderRadius: 14,
     padding: 10,
+    marginTop: 10,
   },
 });
 
