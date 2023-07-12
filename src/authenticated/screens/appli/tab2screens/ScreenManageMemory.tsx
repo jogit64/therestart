@@ -559,13 +559,13 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: "100%",
     height: 50,
-    backgroundColor: "yellow",
-    opacity: 0.4,
+    backgroundColor: "rgba(111,120,189,1)",
+    //opacity: 0.4,
     justifyContent: "center",
     alignItems: "center",
   },
   footerText: {
-    color: "black",
+    color: "#fff",
     fontSize: 18,
   },
 

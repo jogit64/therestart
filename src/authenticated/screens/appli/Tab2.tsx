@@ -15,10 +15,14 @@ import rondVertAnimation from "./../../../../assets/animations/rondvert.json";
 import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-export default function Tab2() {
-  const navigation = useNavigation();
+import { StackNavigationProp } from "@react-navigation/stack";
+import { TabParamList } from "../../../../utils/navigationTypes";
 
-  const firstName = "utilisateur"; // Utilisez le prénom de l'utilisateur ici
+export default function Tab2() {
+  //const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<TabParamList, "Tab2">>();
+
+  //const firstName = "utilisateur"; // Utilisez le prénom de l'utilisateur ici
 
   return (
     <View style={styles.mainContainer}>
