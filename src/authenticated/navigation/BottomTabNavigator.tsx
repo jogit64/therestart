@@ -27,7 +27,7 @@ const BottomTabNavigator = () => {
             case "Accueil":
               iconName = focused ? "ios-home" : "ios-home-outline";
               break;
-            case "Emotions":
+            case "Graines":
               iconName = focused ? "ios-heart-half" : "ios-heart-half-outline";
               break;
             case "Désidentification":
@@ -56,7 +56,7 @@ const BottomTabNavigator = () => {
         options={{ headerShown: false }} // Cacher l'en-tête pour l'écran HomeTab
       />
       <Tab.Screen
-        name="Emotions"
+        name="Graines"
         component={Tab2}
         options={{ headerShown: false }}
       />
