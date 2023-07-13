@@ -309,7 +309,7 @@ function ScreenManageMemory() {
           onRequestClose={() => setModalVisible(false)}
         >
           <View style={styles.centeredView}>
-            <View style={styles.modalView}>
+            <View style={styles.modalViewFaq}>
               <Text style={styles.modalText}>
                 Ici vous pouvez afficher vos FAQ
               </Text>
@@ -593,6 +593,49 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     // marginTop: 15,
     fontSize: 14,
+  },
+
+  buttonClose: {
+    width: "100%",
+    height: 44,
+    marginTop: 10,
+    backgroundColor: "#6f78bd", // La même couleur que votre autre bouton
+    padding: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+  },
+  textStyle: {
+    color: "#fff", // Le même texte blanc que votre autre bouton
+    fontSize: 15,
+    fontFamily: "roboto", // La même police que votre autre bouton
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.5)", // Ajouter un arrière-plan semi-transparent pour mieux distinguer la modal
+  },
+  modalViewFaq: {
+    width: "90%",
+    backgroundColor: "#f8fcff", // Utiliser la même couleur d'arrière-plan que vos autres écrans
+    borderRadius: 14, // Utiliser le même borderRadius que vos autres éléments
+    padding: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.35,
+    shadowRadius: 5,
+    elevation: 12,
+  },
+  modalText: {
+    fontFamily: "roboto700",
+    color: "rgba(50,56,106,1)",
+    fontSize: 22,
+    textAlign: "center",
+    marginBottom: 20,
   },
 });
 

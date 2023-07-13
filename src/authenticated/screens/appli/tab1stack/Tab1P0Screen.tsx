@@ -141,6 +141,7 @@ function Tab1() {
             <UserGreeting firstName={firstName} />
             <SettingsButton onPress={() => navigation.navigate("Settings")} />
           </View>
+          <Text>Coucou ici</Text>
           <ImageBackground
             style={{
               ...styles.rondUsercontour1,

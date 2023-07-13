@@ -54,10 +54,9 @@ export default function Tab2() {
         <View style={styles.blocContainer}>
           <Text style={styles.sstitle}>Revivez vos moments magiques</Text>
           <Text style={styles.textIntro}>
-            Cliquez ici pour faire revivre aléatoirement l'un de vos précieux
-            souvenirs. Laissez-vous emporter par les sentiments de joie et
-            d'émerveillement qu'ils suscitent, comme si vous les viviez de
-            nouveau.
+            Cliquez ici pour faire revivre aléatoirement vos précieux souvenirs.
+            Laissez-vous emporter par les sentiments de joie et d'émerveillement
+            qu'ils suscitent, comme si vous les viviez de nouveau.
           </Text>
           <View style={styles.iconContainer}>
             <TouchableOpacity
