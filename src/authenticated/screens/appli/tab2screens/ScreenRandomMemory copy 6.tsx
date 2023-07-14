@@ -75,8 +75,6 @@ function ScreenRandomMemory() {
   }, []);
 
   useEffect(() => {
-    shuffleArray(colors);
-
     const fetchUserData = async () => {
       if (!userId) return;
 
@@ -256,11 +254,10 @@ function ScreenRandomMemory() {
             />
             <MaterialCommunityIcons
               name="watering-can-outline"
-              size={20}
+              size={40}
               color="#fff"
             />
           </TouchableOpacity>
-          <Text style={styles.verbe}>Arroser</Text>
         </View>
         <View style={styles.iconContainer}>
           <TouchableOpacity
@@ -272,9 +269,8 @@ function ScreenRandomMemory() {
               autoPlay
               style={styles.animation}
             />
-            <MaterialCommunityIcons name="shovel" size={20} color="#fff" />
+            <MaterialCommunityIcons name="shovel" size={40} color="#fff" />
           </TouchableOpacity>
-          <Text style={styles.verbe}>Planter</Text>
         </View>
       </View>
     </SafeAreaView>
@@ -306,11 +302,11 @@ const styles = StyleSheet.create({
   },
 
   bottomBar: {
-    height: 90, // Changer la hauteur si nécessaire
+    height: 100, // Changer la hauteur si nécessaire
     flexDirection: "row",
     justifyContent: "space-around",
-    alignItems: "flex-end",
-    //backgroundColor: "red", // Changer la couleur de fond si nécessaire
+    alignItems: "center",
+    // backgroundColor: "red", // Changer la couleur de fond si nécessaire
   },
   iconContainer: {
     justifyContent: "center",
@@ -323,8 +319,8 @@ const styles = StyleSheet.create({
   },
   animation: {
     position: "absolute",
-    width: 150,
-    height: 150,
+    width: 250,
+    height: 250,
   },
   overlay: {
     position: "absolute",
@@ -366,14 +362,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     //marginBottom: 10,
     color: "rgba(50,56,106,1)",
-  },
-  verbe: {
-    fontFamily: "roboto",
-    fontSize: 16,
-    textAlign: "center",
-    marginBottom: 10,
-    color: "rgba(50,56,106,1)",
-    marginTop: 10,
   },
 });
 

@@ -75,8 +75,6 @@ function ScreenRandomMemory() {
   }, []);
 
   useEffect(() => {
-    shuffleArray(colors);
-
     const fetchUserData = async () => {
       if (!userId) return;
 
@@ -163,14 +161,13 @@ function ScreenRandomMemory() {
     };
 
     fetchUserData();
-    //   const unsubscribe = navigation.addListener("focus", () => {
-    //     fetchUserData();
-    //   });
+    const unsubscribe = navigation.addListener("focus", () => {
+      fetchUserData();
+    });
 
-    //   // Nettoyage lors de l'annulation de l'inscription
-    //   return unsubscribe;
-    // }, [navigation, userId]);
-  }, [userId]);
+    // Nettoyage lors de l'annulation de l'inscription
+    return unsubscribe;
+  }, [navigation, userId]);
 
   const addMemory = async (categoryId: string, text: string) => {
     if (!userId) return;
@@ -210,8 +207,7 @@ function ScreenRandomMemory() {
         keyExtractor={(item, index) =>
           item.isSeparator ? `sep-${index}` : `${item.memory.id}-${index}`
         }
-        renderItem={({ item, index }) => {
-          // notez l'ajout de 'index' ici
+        renderItem={({ item }) => {
           if (item.isSeparator) {
             // This is a separator, make it occupy the whole row
             return <View style={{ width: "100%", height: 0 }} />;
@@ -222,8 +218,11 @@ function ScreenRandomMemory() {
               <ListItem
                 bottomDivider
                 containerStyle={{
-                  ...styles.itemContainer,
-                  backgroundColor: colors[index % colors.length], // l'utilisation de 'index' ici pour déterminer la couleur
+                  backgroundColor:
+                    colors[item.memory.categoryId % colors.length],
+                  borderRadius: 10,
+                  marginBottom: 10,
+                  padding: 10,
                   position: "relative",
                 }}
               >
@@ -232,7 +231,7 @@ function ScreenRandomMemory() {
                 >
                   <Text
                     style={[styles.itemText, { flex: 1 }]}
-                    numberOfLines={2}
+                    numberOfLines={2} // Vous pouvez ajuster ceci pour changer le nombre maximum de lignes
                   >
                     {item.memory.text}
                   </Text>
@@ -247,7 +246,7 @@ function ScreenRandomMemory() {
         <View style={styles.iconContainer}>
           <TouchableOpacity
             style={styles.lottieButton}
-            onPress={() => navigation.push("ScreenRandomMemory")}
+            onPress={() => navigation.navigate("ScreenRandomMemory")}
           >
             <LottieView
               source={rondBleuAnimation}
@@ -256,11 +255,10 @@ function ScreenRandomMemory() {
             />
             <MaterialCommunityIcons
               name="watering-can-outline"
-              size={20}
+              size={40}
               color="#fff"
             />
           </TouchableOpacity>
-          <Text style={styles.verbe}>Arroser</Text>
         </View>
         <View style={styles.iconContainer}>
           <TouchableOpacity
@@ -272,9 +270,8 @@ function ScreenRandomMemory() {
               autoPlay
               style={styles.animation}
             />
-            <MaterialCommunityIcons name="shovel" size={20} color="#fff" />
+            <MaterialCommunityIcons name="shovel" size={40} color="#fff" />
           </TouchableOpacity>
-          <Text style={styles.verbe}>Planter</Text>
         </View>
       </View>
     </SafeAreaView>
@@ -306,11 +303,11 @@ const styles = StyleSheet.create({
   },
 
   bottomBar: {
-    height: 90, // Changer la hauteur si nécessaire
+    height: 100, // Changer la hauteur si nécessaire
     flexDirection: "row",
     justifyContent: "space-around",
-    alignItems: "flex-end",
-    //backgroundColor: "red", // Changer la couleur de fond si nécessaire
+    alignItems: "center",
+    // backgroundColor: "red", // Changer la couleur de fond si nécessaire
   },
   iconContainer: {
     justifyContent: "center",
@@ -323,8 +320,8 @@ const styles = StyleSheet.create({
   },
   animation: {
     position: "absolute",
-    width: 150,
-    height: 150,
+    width: 250,
+    height: 250,
   },
   overlay: {
     position: "absolute",
@@ -334,17 +331,9 @@ const styles = StyleSheet.create({
   },
   gridItem: {
     flex: 1,
-    margin: 0, // Assurez-vous qu'il n'y a pas de marge
-    height: Dimensions.get("window").width / 2, // Ajustez la hauteur selon vos préférences
+    margin: 4,
+    height: Dimensions.get("window").width / 3, // Changez ceci en fonction de la hauteur que vous souhaitez
   },
-  itemContainer: {
-    backgroundColor: "transparent",
-    borderRadius: 0,
-    margin: 0,
-    padding: 10,
-    height: "100%", // Ajoutez cette ligne pour fixer la hauteur
-  },
-
   categoryName: {
     fontSize: 12,
     //fontWeight: "bold",
@@ -366,14 +355,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     //marginBottom: 10,
     color: "rgba(50,56,106,1)",
-  },
-  verbe: {
-    fontFamily: "roboto",
-    fontSize: 16,
-    textAlign: "center",
-    marginBottom: 10,
-    color: "rgba(50,56,106,1)",
-    marginTop: 10,
   },
 });
 

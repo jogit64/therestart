@@ -27,6 +27,12 @@ export default function Tab2() {
   return (
     <View style={styles.mainContainer}>
       <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.seedContainer}>
+          <Image
+            source={require("./../../../../assets/images/logoReStart.png")}
+            style={{ width: 50, height: 50 }} // ajustez la taille de l'image selon vos besoins
+          />
+        </View>
         <Text style={styles.title}>Cultivez vos graines de joie !</Text>
         {/* <View style={styles.seedContainer}>
           <MaterialCommunityIcons
@@ -45,12 +51,7 @@ export default function Tab2() {
             color="rgba(151,155,180,1)"
           />
         </View> */}
-        <View style={styles.seedContainer}>
-          <Image
-            source={require("./../../../../assets/images/logoReStart.png")}
-            style={{ width: 50, height: 50 }} // ajustez la taille de l'image selon vos besoins
-          />
-        </View>
+
         <View style={styles.blocContainer}>
           <Text style={styles.sstitle}>Revivez vos moments magiques</Text>
           <Text style={styles.textIntro}>
@@ -117,7 +118,7 @@ export default function Tab2() {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    paddingTop: 50,
+    paddingTop: 20,
   },
   container: {
     flexGrow: 1,
@@ -150,7 +151,7 @@ const styles = StyleSheet.create({
     fontFamily: "roboto700",
     fontSize: 24,
     textAlign: "center",
-    //marginBottom: 20,
+    marginBottom: 20,
     color: "rgba(50,56,106,1)",
   },
   sstitle: {
@@ -183,8 +184,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 25,
-    marginTop: 20,
+    marginBottom: 15,
+    //marginTop: 20,
   },
   iconContainer: {
     flexDirection: "row",
