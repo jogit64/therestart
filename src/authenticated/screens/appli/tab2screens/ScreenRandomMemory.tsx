@@ -8,10 +8,12 @@ import {
   TouchableOpacity,
   Dimensions,
   FlatList,
+  Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useFocusEffect } from "@react-navigation/native";
 import { ListItem, Button, Icon, Text } from "react-native-elements";
+import Svg, { Path } from "react-native-svg";
 import {
   getFirestore,
   collection,
@@ -201,6 +203,12 @@ function ScreenRandomMemory() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.seedContainer}>
+        <Image
+          source={require("./../../../../../assets/images/logoReStart.png")}
+          style={{ width: 35, height: 35 }} // ajustez la taille de l'image selon vos besoins
+        />
+      </View>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Mon jardin</Text>
       </View>
@@ -217,6 +225,7 @@ function ScreenRandomMemory() {
             return <View style={{ width: "100%", height: 0 }} />;
           }
           // This is a memory, display it normally
+          const isFirstRow = index < 2; // Ajuster cette condition en fonction de combien de colonnes vous avez
           return (
             <View style={styles.gridItem}>
               <ListItem
@@ -225,6 +234,8 @@ function ScreenRandomMemory() {
                   ...styles.itemContainer,
                   backgroundColor: colors[index % colors.length], // l'utilisation de 'index' ici pour déterminer la couleur
                   position: "relative",
+                  borderTopLeftRadius: isFirstRow && index % 2 === 0 ? 10 : 0, // Appliquer le borderRadius sur le premier élément de la première ligne
+                  borderTopRightRadius: isFirstRow && index % 2 !== 0 ? 10 : 0, // Appliquer le borderRadius sur le second élément de la première ligne
                 }}
               >
                 <ListItem.Content
@@ -352,7 +363,9 @@ const styles = StyleSheet.create({
     bottom: 2,
     right: 5,
   },
-
+  titleContainer: {
+    marginBottom: 20,
+  },
   title: {
     fontFamily: "roboto700",
     fontSize: 24,
@@ -374,6 +387,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     color: "rgba(50,56,106,1)",
     marginTop: 10,
+  },
+  seedContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 15,
+    //marginTop: 20,
   },
 });
 
