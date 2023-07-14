@@ -6,11 +6,8 @@ import {
   StyleSheet,
   Modal,
   TouchableOpacity,
-  Dimensions,
-  FlatList,
+  SafeAreaView,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useFocusEffect } from "@react-navigation/native";
 import { ListItem, Button, Icon, Text } from "react-native-elements";
 import {
   getFirestore,
@@ -58,21 +55,6 @@ function ScreenRandomMemory() {
   const db = getFirestore();
   const [memories, setMemories] = useState<Memories>({});
   const [categories, setCategories] = useState<Category[]>([]);
-
-  const memoriesWithCategoryInfo = categories.reduce((result, category) => {
-    const memoriesForCategory = memories[category.id] || [];
-    const pairs = [];
-    for (let i = 0; i < memoriesForCategory.length; i += 2) {
-      pairs.push(memoriesForCategory.slice(i, i + 2));
-    }
-    pairs.forEach((pair, index) => {
-      result.push(
-        ...pair.map((memory) => ({ categoryName: category.name, memory }))
-      );
-      if (index < pairs.length - 1) result.push({ isSeparator: true });
-    });
-    return result;
-  }, []);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -141,33 +123,11 @@ function ScreenRandomMemory() {
         }
       }
 
-      // Create a new array to store all memories, each with its associated category name
-      const allMemories: { categoryName: string; memory: Memory }[] = [];
-
-      // Iterate over each category in groupedMemories
-      for (const categoryId in groupedMemories) {
-        const category = categories.find((c) => c.id === categoryId);
-        if (!category) continue;
-
-        // Add each memory in this category to allMemories
-        for (const memory of groupedMemories[categoryId]) {
-          allMemories.push({ categoryName: category.name, memory });
-        }
-      }
-
-      setMemories(allMemories);
-
       setMemories(randomMemories);
     };
 
     fetchUserData();
-    const unsubscribe = navigation.addListener("focus", () => {
-      fetchUserData();
-    });
-
-    // Nettoyage lors de l'annulation de l'inscription
-    return unsubscribe;
-  }, [navigation, userId]);
+  }, [userId]);
 
   const addMemory = async (categoryId: string, text: string) => {
     if (!userId) return;
@@ -197,51 +157,67 @@ function ScreenRandomMemory() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>Mon jardin</Text>
-      </View>
-      <FlatList
-        data={memoriesWithCategoryInfo}
-        numColumns={2}
-        keyExtractor={(item, index) =>
-          item.isSeparator ? `sep-${index}` : `${item.memory.id}-${index}`
-        }
-        renderItem={({ item }) => {
-          if (item.isSeparator) {
-            // This is a separator, make it occupy the whole row
-            return <View style={{ width: "100%", height: 0 }} />;
-          }
-          // This is a memory, display it normally
-          return (
-            <View style={styles.gridItem}>
-              <ListItem
-                bottomDivider
-                containerStyle={{
-                  backgroundColor:
-                    colors[item.memory.categoryId % colors.length],
-                  borderRadius: 10,
-                  marginBottom: 10,
-                  padding: 10,
-                  position: "relative",
-                }}
-              >
-                <ListItem.Content
-                  style={{ flexDirection: "row", alignItems: "center" }}
-                >
-                  <Text
-                    style={[styles.itemText, { flex: 1 }]}
-                    numberOfLines={2} // Vous pouvez ajuster ceci pour changer le nombre maximum de lignes
-                  >
-                    {item.memory.text}
-                  </Text>
-                  <Text style={styles.categoryName}>{item.categoryName}</Text>
-                </ListItem.Content>
-              </ListItem>
-            </View>
-          );
-        }}
-      />
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={{ paddingBottom: 100 }}
+      >
+        {categories &&
+          categories.map((category) => {
+            // Initialiser un tableau avec les souvenirs pour cette catégorie ou un tableau vide si la catégorie n'a pas de souvenirs
+            let memoriesForCategory = memories[category.id] || [];
+
+            // S'il y a moins de 2 souvenirs, ajouter "(Pas de donnée)" jusqu'à ce qu'il y ait 2 éléments
+            while (memoriesForCategory.length < 2) {
+              memoriesForCategory.push({ text: "(Pas de donnée)", id: "N/A" });
+            }
+
+            // Mélangeons les souvenirs pour cette catégorie
+            let shuffledMemories = shuffleArray(memoriesForCategory);
+
+            return (
+              <View key={category.id}>
+                <Text style={styles.category}>{category.name}</Text>
+                {shuffledMemories.slice(0, 2).map((memory, index) => (
+                  <View key={index}>
+                    <ListItem
+                      bottomDivider
+                      containerStyle={{
+                        backgroundColor: colors[index % colors.length],
+                        borderRadius: 10,
+                        marginBottom: 10,
+                      }}
+                    >
+                      <ListItem.Content
+                        style={{ flexDirection: "row", alignItems: "center" }}
+                      >
+                        <TextInput
+                          style={[styles.itemText, { flex: 1 }]}
+                          defaultValue={memory.text}
+                          onChangeText={(newText) =>
+                            memory.id !== "N/A"
+                              ? onTextChange(category, memory.id, newText)
+                              : null
+                          }
+                          onSubmitEditing={() =>
+                            memory.id !== "N/A"
+                              ? updateMemory(
+                                  category,
+                                  memory.id,
+                                  editedTexts[category]?.[memory.id] ||
+                                    memory.text
+                                )
+                              : null
+                          }
+                        />
+                      </ListItem.Content>
+                    </ListItem>
+                  </View>
+                ))}
+              </View>
+            );
+          })}
+      </ScrollView>
       <View style={styles.bottomBar}>
         <View style={styles.iconContainer}>
           <TouchableOpacity
@@ -282,23 +258,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    paddingTop: 35,
-    //backgroundColor: "red",
+    paddingTop: 50,
+    backgroundColor: "#fff",
   },
 
   category: {
     fontFamily: "roboto500",
     color: "rgba(50,56,106,1)",
     fontSize: 20,
-    //marginTop: 20,
+    marginTop: 10,
     marginBottom: 10,
   },
   itemText: {
     fontFamily: "roboto",
     fontSize: 16,
-    lineHeight: 25,
-    paddingBottom: 20,
-    //marginVertical: 5,
+    marginVertical: 10,
     color: "white",
   },
 
@@ -307,7 +281,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    // backgroundColor: "red", // Changer la couleur de fond si nécessaire
+    backgroundColor: "red", // Changer la couleur de fond si nécessaire
   },
   iconContainer: {
     justifyContent: "center",
@@ -328,33 +302,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     zIndex: 1, // Assurez-vous que les icônes apparaissent au-dessus de l'animation
-  },
-  gridItem: {
-    flex: 1,
-    margin: 4,
-    height: Dimensions.get("window").width / 3, // Changez ceci en fonction de la hauteur que vous souhaitez
-  },
-  categoryName: {
-    fontSize: 12,
-    //fontWeight: "bold",
-    position: "absolute",
-    bottom: 2,
-    right: 5,
-  },
-
-  title: {
-    fontFamily: "roboto700",
-    fontSize: 24,
-    textAlign: "center",
-    marginBottom: 20,
-    color: "rgba(50,56,106,1)",
-  },
-  sstitle: {
-    fontFamily: "roboto500",
-    fontSize: 20,
-    textAlign: "center",
-    //marginBottom: 10,
-    color: "rgba(50,56,106,1)",
   },
 });
 

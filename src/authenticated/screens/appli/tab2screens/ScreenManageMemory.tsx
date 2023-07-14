@@ -27,6 +27,8 @@ import { Memory, Category, Memories } from "./../../../../../utils/types";
 import ManageCategoriesModal from "./modal/ManageCategoriesModal";
 
 function ScreenManageMemory() {
+  //navigation.navigate("ScreenRandomMemory", { refresh: true });
+
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null
   );
@@ -235,8 +237,10 @@ function ScreenManageMemory() {
   };
 
   const updateMemory = async (id: string, categoryId: string, text: string) => {
+    console.log(`Updating memory: ${id}, ${categoryId}`); // Log before starting update
     if (!userId) return;
     const memoryRef = doc(db, "users", userId, "memories", id);
+    console.log(`Memory reference: ${memoryRef.path}`); // Log the path of memory reference
     await updateDoc(memoryRef, { text });
 
     if (!memories[categoryId] || !userId) return;
@@ -251,7 +255,7 @@ function ScreenManageMemory() {
       memoryToUpdate.text = text;
     }
 
-    // Mettez à jour l'état des memories avec la copie modifiée
+    // Mettre à jour l'état des memories
     setMemories(newMemories);
   };
 
@@ -309,7 +313,7 @@ function ScreenManageMemory() {
           onRequestClose={() => setModalVisible(false)}
         >
           <View style={styles.centeredView}>
-            <View style={styles.modalViewFaq}>
+            <View style={styles.modalView}>
               <Text style={styles.modalText}>
                 Ici vous pouvez afficher vos FAQ
               </Text>
@@ -359,18 +363,22 @@ function ScreenManageMemory() {
                       >
                         <TextInput
                           style={[styles.itemText, { flex: 1 }]}
-                          defaultValue={memory.text}
+                          value={
+                            editedTexts[category.id]?.[memory.id] || memory.text
+                          }
                           onChangeText={(newText) =>
-                            onTextChange(category, memory.id, newText)
+                            onTextChange(category.id, memory.id, newText)
                           }
                           onSubmitEditing={() =>
                             updateMemory(
-                              category,
-                              memory.id,
-                              editedTexts[category]?.[memory.id] || memory.text
+                              memory.id, // changé pour être le premier argument
+                              category.id, // changé pour être le deuxième argument
+                              editedTexts[category.id]?.[memory.id] ||
+                                memory.text
                             )
                           }
                         />
+
                         <View style={{ flexDirection: "row" }}>
                           <Button
                             icon={
@@ -445,6 +453,7 @@ function ScreenManageMemory() {
                 style={styles.input}
                 placeholder={`Ajouter un souvenir à ${category.name}`}
                 value={inputTexts[category.id]}
+                maxLength={30}
                 onChangeText={(text) =>
                   setInputTexts((prev) => ({ ...prev, [category.id]: text }))
                 }
