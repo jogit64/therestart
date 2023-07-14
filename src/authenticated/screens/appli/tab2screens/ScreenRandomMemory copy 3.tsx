@@ -22,6 +22,7 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { auth } from "../../../../../utils/firebase.js";
+//import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Memory, Category, Memories } from "./../../../../../utils/types";
 import { useNavigation } from "@react-navigation/native";
 
@@ -41,18 +42,20 @@ const colors = [
   "#3a86a8",
 ];
 
-function shuffleArray(array: any[]) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}
-
 function ScreenRandomMemory() {
-  const navigation = useNavigation();
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
+    null
+  );
+
   const userId = auth.currentUser?.uid;
+  const [selectedMemory, setSelectedMemory] = useState<{
+    id: string;
+    category: string;
+    text: string;
+  } | null>(null);
+
   const db = getFirestore();
+
   const [memories, setMemories] = useState<Memories>({});
   const [categories, setCategories] = useState<Category[]>([]);
 
@@ -72,8 +75,9 @@ function ScreenRandomMemory() {
       const memoriesQuery = query(memoriesRef);
       const querySnapshot = await getDocs(memoriesQuery);
 
-      // Group memories by category
+      // C'est ici que vous allez regrouper vos souvenirs par catégorie
       const groupedMemories: Record<string, Memory[]> = {};
+      const fetchedMemoryColors: Record<string, string> = {};
 
       querySnapshot.forEach((doc) => {
         const memory = {
@@ -82,51 +86,24 @@ function ScreenRandomMemory() {
           categoryId: doc.data().categoryId,
         };
 
-        // If this memory's category does not exist in groupedMemories yet, create it
+        // Si la catégorie de ce souvenir n'existe pas encore dans groupedMemories, créez-la
         if (!groupedMemories[memory.categoryId]) {
           groupedMemories[memory.categoryId] = [];
         }
 
-        // Add this memory to its corresponding category
+        // Ajoutez ce souvenir à sa catégorie correspondante
         groupedMemories[memory.categoryId].push(memory);
+
+        console.log(`Assigning color to Memory ID: ${doc.id}`); // Log before assigning color
       });
 
-      // Create a new object to store the randomly selected memories
-      const randomMemories: Record<string, Memory[]> = {};
-
-      // Iterate over each category in groupedMemories
-      for (const categoryId in groupedMemories) {
-        randomMemories[categoryId] = [];
-
-        // If this category has at least one memory, randomly select one
-        if (groupedMemories[categoryId].length >= 1) {
-          const randomIndex = Math.floor(
-            Math.random() * groupedMemories[categoryId].length
-          );
-          const selectedMemory = groupedMemories[categoryId].splice(
-            randomIndex,
-            1
-          )[0];
-          randomMemories[categoryId].push(selectedMemory);
-        }
-
-        // If this category has at least one more memory, randomly select another one
-        if (groupedMemories[categoryId].length >= 1) {
-          const randomIndex = Math.floor(
-            Math.random() * groupedMemories[categoryId].length
-          );
-          const selectedMemory = groupedMemories[categoryId].splice(
-            randomIndex,
-            1
-          )[0];
-          randomMemories[categoryId].push(selectedMemory);
-        }
-      }
-
-      setMemories(randomMemories);
+      setMemories(groupedMemories);
+      // Mettre à jour l'état des memoryColors avec les couleurs récupérées
+      setMemoryColors(fetchedMemoryColors);
     };
 
     fetchUserData();
+    // }, [userId, categories]);
   }, [userId]);
 
   const addMemory = async (categoryId: string, text: string) => {
@@ -163,23 +140,12 @@ function ScreenRandomMemory() {
         contentContainerStyle={{ paddingBottom: 100 }}
       >
         {categories &&
-          categories.map((category) => {
-            // Initialiser un tableau avec les souvenirs pour cette catégorie ou un tableau vide si la catégorie n'a pas de souvenirs
-            let memoriesForCategory = memories[category.id] || [];
-
-            // S'il y a moins de 2 souvenirs, ajouter "(Pas de donnée)" jusqu'à ce qu'il y ait 2 éléments
-            while (memoriesForCategory.length < 2) {
-              memoriesForCategory.push({ text: "(Pas de donnée)", id: "N/A" });
-            }
-
-            // Mélangeons les souvenirs pour cette catégorie
-            let shuffledMemories = shuffleArray(memoriesForCategory);
-
-            return (
-              <View key={category.id}>
-                <Text style={styles.category}>{category.name}</Text>
-                {shuffledMemories.slice(0, 2).map((memory, index) => (
-                  <View key={index}>
+          categories.map((category) => (
+            <View key={category.id}>
+              <Text style={styles.category}>{category.name}</Text>
+              {memories[category.id] &&
+                memories[category.id].map((memory, index) => (
+                  <View key={memory.id}>
                     <ListItem
                       bottomDivider
                       containerStyle={{
@@ -195,28 +161,22 @@ function ScreenRandomMemory() {
                           style={[styles.itemText, { flex: 1 }]}
                           defaultValue={memory.text}
                           onChangeText={(newText) =>
-                            memory.id !== "N/A"
-                              ? onTextChange(category, memory.id, newText)
-                              : null
+                            onTextChange(category, memory.id, newText)
                           }
                           onSubmitEditing={() =>
-                            memory.id !== "N/A"
-                              ? updateMemory(
-                                  category,
-                                  memory.id,
-                                  editedTexts[category]?.[memory.id] ||
-                                    memory.text
-                                )
-                              : null
+                            updateMemory(
+                              category,
+                              memory.id,
+                              editedTexts[category]?.[memory.id] || memory.text
+                            )
                           }
                         />
                       </ListItem.Content>
                     </ListItem>
                   </View>
                 ))}
-              </View>
-            );
-          })}
+            </View>
+          ))}
       </ScrollView>
       <View style={styles.bottomBar}>
         <View style={styles.iconContainer}>
