@@ -305,7 +305,7 @@ function ScreenRandomMemory() {
               color="#fff"
             />
           </TouchableOpacity>
-          <Text style={styles.verbe}>Arroser</Text>
+          <Text style={styles.verbe}>Arrosez</Text>
         </View>
         <View style={styles.iconContainer}>
           <TouchableOpacity
@@ -319,7 +319,7 @@ function ScreenRandomMemory() {
             />
             <MaterialCommunityIcons name="shovel" size={20} color="#fff" />
           </TouchableOpacity>
-          <Text style={styles.verbe}>Planter</Text>
+          <Text style={styles.verbe}>Plantez</Text>
         </View>
       </View>
     </SafeAreaView>
@@ -463,7 +463,7 @@ const styles = StyleSheet.create({
     color: "rgba(151,155,180,1)",
     // width: 300,
     // height: 60,
-    textAlign: "center",
+    //textAlign: "center",
     lineHeight: 25,
     // marginTop: 15,
     paddingHorizontal: 10,

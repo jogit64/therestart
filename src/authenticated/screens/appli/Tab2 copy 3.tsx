@@ -81,6 +81,15 @@ export default function Tab2() {
       case "second":
         return (
           <ScrollView contentContainerStyle={styles.blocContainer}>
+            <Text style={styles.sstitle}>
+              Plantez vos graines d'enchantement
+            </Text>
+            <Text style={styles.textIntro}>
+              N'avez-vous pas encore planté vos graines de joie ? Ces graines
+              sont vos souvenirs d'enfance, empreints de magie et d'insouciance.
+              Ajoutez-les à votre jardin personnel et regardez-les grandir
+              chaque fois que vous les visitez.
+            </Text>
             <View style={styles.iconContainer}>
               <TouchableOpacity
                 style={styles.lottieButton}
@@ -94,28 +103,6 @@ export default function Tab2() {
                 <MaterialCommunityIcons name="shovel" size={40} color="#fff" />
               </TouchableOpacity>
             </View>
-            <Text style={styles.sstitle}>
-              Plantez vos graines d'enchantement
-            </Text>
-            <Text style={styles.textTab}>
-              N'avez-vous pas encore planté vos graines de joie ? Ces graines
-              sont vos souvenirs d'enfance, empreints de magie et d'insouciance.
-              Ajoutez-les à votre jardin personnel et regardez-les grandir
-              chaque fois que vous les visitez.
-            </Text>
-            <View style={styles.interblocContainer}>
-              <Text style={styles.sstitle}>Principes</Text>
-              <View style={styles.listItem}>
-                <Text style={styles.bullet}>•</Text>
-                <Text style={styles.textTab}>
-                  Les émotions positives sont bénéfiques pour votre santé et
-                  votre bien-être. En vous concentrant sur les aspects joyeux de
-                  la vie plutôt que sur les aspects négatifs ou pessimistes,
-                  vous pouvez améliorer votre qualité de vie.
-                </Text>
-              </View>
-              {/* Répétez cette structure pour chaque élément de la liste */}
-            </View>
           </ScrollView>
         );
       default:
@@ -128,7 +115,7 @@ export default function Tab2() {
       <View style={styles.seedContainer}>
         <Image
           source={require("./../../../../assets/images/logoReStart.png")}
-          style={{ width: 35, height: 35 }}
+          style={{ width: 35, height: 35 }} // ajustez la taille de l'image selon vos besoins
         />
         <Text style={styles.title}>Cultivez vos graines</Text>
         <Text style={styles.title}>de joie !</Text>
@@ -152,18 +139,26 @@ export default function Tab2() {
         renderTabBar={(props) => (
           <TabBar
             {...props}
+            // indicatorStyle={{ backgroundColor: "blue" }}
+            // indicatorStyle={{ backgroundColor: "transparent" }}
             indicatorStyle={{
               backgroundColor: "rgba(50,56,106,1)",
               height: 4,
+              //width: 140,
+
               borderRadius: 2,
+
+              //top: 0,
             }}
-            style={styles.tabBar}
+            style={styles.tabBar} // utilisez votre style tabBar ici
             renderLabel={({ route, focused, color }) => (
               <View
                 style={{
                   flex: 1,
                   justifyContent: "center",
                   alignItems: "center",
+
+                  // backgroundColor: focused ? "lightgrey" : "transparent",
                 }}
               >
                 <Text
@@ -178,6 +173,33 @@ export default function Tab2() {
           />
         )}
       />
+
+      {/* <ScrollView style={styles.mainContainer}>
+       
+
+        <View style={styles.blocContainer}>
+          <Text style={styles.sstitle}>Plantez vos graines d'enchantement</Text>
+          <Text style={styles.textIntro}>
+            N'avez-vous pas encore planté vos graines de joie ? Ces graines sont
+            vos souvenirs d'enfance, empreints de magie et d'insouciance.
+            Ajoutez-les à votre jardin personnel et regardez-les grandir chaque
+            fois que vous les visitez.
+          </Text>
+          <View style={styles.iconContainer}>
+            <TouchableOpacity
+              style={styles.lottieButton}
+              onPress={() => navigation.navigate("ScreenManageMemory")}
+            >
+              <LottieView
+                source={rondVertAnimation}
+                autoPlay
+                style={styles.animation}
+              />
+              <MaterialCommunityIcons name="shovel" size={40} color="#fff" />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ScrollView> */}
     </View>
   );
 }

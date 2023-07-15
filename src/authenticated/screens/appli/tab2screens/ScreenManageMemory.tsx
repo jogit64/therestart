@@ -304,9 +304,8 @@ function ScreenManageMemory() {
             resizeMode="cover"
           >
             <Text style={styles.textIntro}>
-              Utilisez cet écran pour créer, éditer et gérer vos souvenirs et
-              catégories. Faites-en votre espace personnel de réflexion et de
-              joie !
+              Editer et gérer vos souvenirs et catégories. Faites-en votre
+              espace personnel de réflexion et de joie !
             </Text>
           </ImageBackground>
         </View>
@@ -596,7 +595,7 @@ const styles = StyleSheet.create({
     color: "rgba(151,155,180,1)",
     // width: 300,
     // height: 60,
-    textAlign: "center",
+    //textAlign: "center",
     lineHeight: 25,
     // marginTop: 15,
     paddingHorizontal: 10,
