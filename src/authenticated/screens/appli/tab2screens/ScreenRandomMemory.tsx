@@ -9,6 +9,7 @@ import {
   Dimensions,
   FlatList,
   Image,
+  ImageBackground,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useFocusEffect } from "@react-navigation/native";
@@ -221,11 +222,21 @@ function ScreenRandomMemory() {
           source={require("./../../../../../assets/images/logoReStart.png")}
           style={{ width: 35, height: 35 }} // ajustez la taille de l'image selon vos besoins
         />
-      </View>
 
-      <View style={styles.titleContainer}>
         <Text style={styles.title}>Mon jardin</Text>
       </View>
+
+      <ImageBackground
+        source={require("./../../../../../assets/images/fronton.png")}
+        style={styles.frontonImage}
+        resizeMode="cover"
+      >
+        <Text style={styles.textIntro}>
+          Réveillez vos souvenirs heureux, arrosez-les et voyez comment ils
+          égayent votre journée !
+        </Text>
+      </ImageBackground>
+
       <FlatList
         data={memoriesWithCategoryInfo}
         numColumns={2}
@@ -320,7 +331,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     paddingTop: 35,
-    //backgroundColor: "red",
+    backgroundColor: "white",
   },
 
   // category: {
@@ -395,8 +406,9 @@ const styles = StyleSheet.create({
     fontFamily: "roboto700",
     fontSize: 24,
     textAlign: "center",
-    marginBottom: 20,
+    //marginBottom: 25,
     color: "rgba(50,56,106,1)",
+    paddingLeft: 10,
   },
   sstitle: {
     fontFamily: "roboto500",
@@ -420,15 +432,42 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     //marginTop: 20,
   },
-
-  containerb: {
-    width: "100%",
-    padding: 15,
-    borderRadius: 5,
-    marginBottom: 10,
+  frontonContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 15,
+    //marginTop: 20,
   },
-  text: {
-    color: "black",
+
+  // containerb: {
+  //   width: "100%",
+  //   padding: 15,
+  //   borderRadius: 5,
+  //   marginBottom: 10,
+  // },
+  // text: {
+  //   color: "black",
+  // },
+
+  frontonImage: {
+    width: "100%",
+    height: 120,
+    justifyContent: "center", // Pour le centrage vertical
+    alignItems: "center", // Pour le centrage horizontal
+    marginBottom: 20,
+  },
+
+  textIntro: {
+    fontFamily: "roboto",
+    color: "rgba(151,155,180,1)",
+    // width: 300,
+    // height: 60,
+    textAlign: "center",
+    lineHeight: 25,
+    // marginTop: 15,
+    paddingHorizontal: 10,
+    fontSize: 16,
   },
 });
 

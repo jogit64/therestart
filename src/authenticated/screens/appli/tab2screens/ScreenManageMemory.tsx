@@ -7,6 +7,7 @@ import {
   Modal,
   TouchableOpacity,
   SafeAreaView,
+  ImageBackground,
 } from "react-native";
 import { ListItem, Button, Icon, Text } from "react-native-elements";
 import {
@@ -297,13 +298,17 @@ function ScreenManageMemory() {
             <Text style={styles.title}>Mes graines de joie</Text>
           </View>
 
-          <View style={styles.badge}>
+          <ImageBackground
+            source={require("./../../../../../assets/images/fronton.png")}
+            style={styles.frontonImage}
+            resizeMode="cover"
+          >
             <Text style={styles.textIntro}>
-              Commencez à organiser vos souvenirs ! Utilisez cet écran pour
-              créer, éditer et gérer vos souvenirs et catégories. Faites-en
-              votre espace personnel de réflexion et de joie.
+              Utilisez cet écran pour créer, éditer et gérer vos souvenirs et
+              catégories. Faites-en votre espace personnel de réflexion et de
+              joie !
             </Text>
-          </View>
+          </ImageBackground>
         </View>
 
         <Modal
@@ -578,19 +583,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
 
-  badge: {
-    backgroundColor: "#f7f7ff",
-    padding: 10,
-    borderRadius: 5,
-    shadowColor: "#6e77bc", // Couleur de l'ombre
-    shadowOffset: {
-      width: 0, // Décalage horizontal de l'ombre
-      height: 2, // Décalage vertical de l'ombre
-    },
-    shadowOpacity: 0.25, // Opacité de l'ombre
-    shadowRadius: 3.84, // Le flou de l'ombre
-    elevation: 5, // Pour Android
-    marginBottom: 30,
+  frontonImage: {
+    width: "100%",
+    height: 120,
+    justifyContent: "center", // Pour le centrage vertical
+    alignItems: "center", // Pour le centrage horizontal
+    marginBottom: 20,
   },
 
   textIntro: {
@@ -599,9 +597,10 @@ const styles = StyleSheet.create({
     // width: 300,
     // height: 60,
     textAlign: "center",
-    lineHeight: 20,
+    lineHeight: 25,
     // marginTop: 15,
-    fontSize: 14,
+    paddingHorizontal: 10,
+    fontSize: 16,
   },
 
   buttonClose: {
