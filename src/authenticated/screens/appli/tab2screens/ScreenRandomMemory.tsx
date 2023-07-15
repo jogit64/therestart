@@ -36,15 +36,28 @@ import rondBleuAnimation from "./../../../../../assets/animations/rondbleu.json"
 import rondVertAnimation from "./../../../../../assets/animations/rondvert.json";
 
 const colors = [
-  "#20c2cd",
-  "#5b5da7",
+  "#ffb7a8",
+
+  "#c0d935",
+  "#feda62",
+  "#0078ff",
+  "#f65857",
+  "#ffb248",
+  "#c0d935",
   "#a4c763",
-  "#bc6047",
-  "#4ca9e4",
-  "#2baa8c",
-  "#404295",
-  "#3a86a8",
+  "#5b5da7",
+  "#3bc0c9",
 ];
+// const colors = [
+//   "#20c2cd",
+//   "#5b5da7",
+//   "#a4c763",
+//   "#bc6047",
+//   "#4ca9e4",
+//   "#2baa8c",
+//   "#404295",
+//   "#3a86a8",
+// ];
 
 function shuffleArray(array: any[]) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -209,6 +222,7 @@ function ScreenRandomMemory() {
           style={{ width: 35, height: 35 }} // ajustez la taille de l'image selon vos besoins
         />
       </View>
+
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Mon jardin</Text>
       </View>
@@ -239,15 +253,24 @@ function ScreenRandomMemory() {
                 }}
               >
                 <ListItem.Content
-                  style={{ flexDirection: "row", alignItems: "center" }}
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    position: "absolute", // Ajouter cette ligne
+                    bottom: 0, // Ajouter cette ligne
+                    width: "100%", // Ajouter cette ligne
+                  }}
                 >
                   <Text
-                    style={[styles.itemText, { flex: 1 }]}
+                    style={[styles.itemText, { flex: 1, textAlign: "center" }]} // ajout de textAlign: 'center'
                     numberOfLines={2}
                   >
                     {item.memory.text}
                   </Text>
-                  <Text style={styles.categoryName}>{item.categoryName}</Text>
+                  <Text style={[styles.categoryName, { textAlign: "center" }]}>
+                    {item.categoryName}
+                  </Text>
                 </ListItem.Content>
               </ListItem>
             </View>
@@ -258,7 +281,7 @@ function ScreenRandomMemory() {
         <View style={styles.iconContainer}>
           <TouchableOpacity
             style={styles.lottieButton}
-            onPress={() => navigation.push("ScreenRandomMemory")}
+            onPress={() => navigation.replace("ScreenRandomMemory")}
           >
             <LottieView
               source={rondBleuAnimation}
@@ -300,18 +323,19 @@ const styles = StyleSheet.create({
     //backgroundColor: "red",
   },
 
-  category: {
-    fontFamily: "roboto500",
-    color: "rgba(50,56,106,1)",
-    fontSize: 20,
-    //marginTop: 20,
-    marginBottom: 10,
-  },
+  // category: {
+  //   fontFamily: "roboto500",
+  //   color: "rgba(50,56,106,1)",
+  //   fontSize: 20,
+  //   //marginTop: 20,
+  //   marginBottom: 10,
+  // },
   itemText: {
     fontFamily: "roboto",
     fontSize: 16,
     lineHeight: 25,
-    paddingBottom: 20,
+    paddingBottom: 45,
+    paddingHorizontal: 10,
     //marginVertical: 5,
     color: "white",
   },
@@ -346,7 +370,7 @@ const styles = StyleSheet.create({
   gridItem: {
     flex: 1,
     margin: 0, // Assurez-vous qu'il n'y a pas de marge
-    height: Dimensions.get("window").width / 2, // Ajustez la hauteur selon vos préférences
+    height: Dimensions.get("window").width / 3, // Ajustez la hauteur selon vos préférences
   },
   itemContainer: {
     backgroundColor: "transparent",
@@ -360,9 +384,10 @@ const styles = StyleSheet.create({
     fontSize: 12,
     //fontWeight: "bold",
     position: "absolute",
-    bottom: 2,
-    right: 5,
+    bottom: 5,
+    right: 1,
   },
+
   titleContainer: {
     marginBottom: 20,
   },
@@ -394,6 +419,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 15,
     //marginTop: 20,
+  },
+
+  containerb: {
+    width: "100%",
+    padding: 15,
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  text: {
+    color: "black",
   },
 });
 
