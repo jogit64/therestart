@@ -27,16 +27,9 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Memory, Category, Memories } from "./../../../../../utils/types";
 import ManageCategoriesModal from "./modal/ManageCategoriesModal";
 
-import { useNavigation } from "@react-navigation/native";
-
-import LottieView from "lottie-react-native";
-//import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import rondBleuAnimation from "./../../../../../assets/animations/rondbleu.json";
-import rondVertAnimation from "./../../../../../assets/animations/rondvert.json";
-
 function ScreenManageMemory() {
   //navigation.navigate("ScreenRandomMemory", { refresh: true });
-  const navigation = useNavigation();
+
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null
   );
@@ -479,47 +472,11 @@ function ScreenManageMemory() {
             </View>
           ))}
       </ScrollView>
-
-      <View style={styles.bottomBar}>
-        <View style={styles.iconBar}>
-          <TouchableOpacity
-            style={styles.lottieButton}
-            onPress={() => navigation.replace("ScreenRandomMemory")}
-          >
-            <LottieView
-              source={rondBleuAnimation}
-              autoPlay
-              style={styles.animation}
-            />
-            <MaterialCommunityIcons
-              name="watering-can-outline"
-              size={20}
-              color="#fff"
-            />
-          </TouchableOpacity>
-          <Text style={styles.verbe}>Arrosez</Text>
-        </View>
-        <View style={styles.iconBar}>
-          <TouchableOpacity
-            style={styles.lottieButton}
-            onPress={() => navigation.navigate("ScreenManageMemory")}
-          >
-            <LottieView
-              source={rondVertAnimation}
-              autoPlay
-              style={styles.animation}
-            />
-            <MaterialCommunityIcons name="cog" size={20} color="#fff" />
-          </TouchableOpacity>
-          <Text style={styles.verbe}>Catégories</Text>
-        </View>
-      </View>
-
-      {/* <View style={styles.footer}>
+      <View style={styles.footer}>
         <TouchableOpacity onPress={() => setModalVisibleManage(true)}>
           <Text style={styles.footerText}>Gérer les catégories</Text>
         </TouchableOpacity>
-      </View> */}
+      </View>
 
       <ManageCategoriesModal
         visible={modalVisibleManage}
@@ -692,44 +649,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
     marginBottom: 20,
-  },
-
-  bottomBar: {
-    height: 90, // Changer la hauteur si nécessaire
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "flex-end",
-    //backgroundColor: "red", // Changer la couleur de fond si nécessaire
-  },
-
-  iconBar: {
-    justifyContent: "center",
-    alignItems: "center",
-    //marginBottom: 80,
-  },
-
-  lottieButton: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  animation: {
-    position: "absolute",
-    width: 150,
-    height: 150,
-  },
-  overlay: {
-    position: "absolute",
-    justifyContent: "center",
-    alignItems: "center",
-    zIndex: 1, // Assurez-vous que les icônes apparaissent au-dessus de l'animation
-  },
-  verbe: {
-    fontFamily: "roboto",
-    fontSize: 16,
-    textAlign: "center",
-    marginBottom: 10,
-    color: "rgba(50,56,106,1)",
-    marginTop: 10,
   },
 });
 

@@ -36,6 +36,8 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import rondBleuAnimation from "./../../../../../assets/animations/rondbleu.json";
 import rondVertAnimation from "./../../../../../assets/animations/rondvert.json";
 
+import { ActivityIndicator } from "react-native";
+
 const colors = [
   "#ffb7a8",
 
@@ -74,6 +76,7 @@ function ScreenRandomMemory() {
   const db = getFirestore();
   const [memories, setMemories] = useState<Memories>({});
   const [categories, setCategories] = useState<Category[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const memoriesWithCategoryInfo = categories.reduce((result, category) => {
     const memoriesForCategory = memories[category.id] || [];
@@ -91,6 +94,7 @@ function ScreenRandomMemory() {
   }, []);
 
   useEffect(() => {
+    setIsLoading(true);
     shuffleArray(colors);
 
     const fetchUserData = async () => {
@@ -173,6 +177,7 @@ function ScreenRandomMemory() {
       shuffleArray(randomMemories);
 
       setMemories(randomMemories);
+      setIsLoading(false);
     };
 
     fetchUserData();
@@ -205,7 +210,11 @@ function ScreenRandomMemory() {
     newMemories[categoryId].push({ id: docRef.id, categoryId, text }); // use categoryId instead of category name
   };
 
-  return (
+  return isLoading ? (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <ActivityIndicator size="large" color="rgba(50,56,106,1)" />
+    </View>
+  ) : (
     <SafeAreaView style={styles.container}>
       <View style={styles.seedContainer}>
         <Image
@@ -215,7 +224,6 @@ function ScreenRandomMemory() {
 
         <Text style={styles.title}>Mon jardin</Text>
       </View>
-
       <ImageBackground
         source={require("./../../../../../assets/images/fronton.png")}
         style={styles.frontonImage}
