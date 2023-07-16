@@ -444,7 +444,9 @@ function ScreenManageMemory() {
                                 setModalVisibleReassign(false);
                               }}
                             >
-                              <Text>{category.name}</Text>
+                              <Text style={styles.categoryText}>
+                                {category.name}
+                              </Text>
                             </TouchableOpacity>
                           ))}
                         </View>
@@ -640,7 +642,14 @@ const styles = StyleSheet.create({
   modalText: {
     fontFamily: "roboto700",
     color: "rgba(50,56,106,1)",
-    fontSize: 22,
+    fontSize: 20,
+    textAlign: "center",
+    marginBottom: 20,
+  },
+  categoryText: {
+    fontFamily: "roboto",
+    color: "rgba(50,56,106,1)",
+    fontSize: 16,
     textAlign: "center",
     marginBottom: 20,
   },
