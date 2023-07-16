@@ -62,19 +62,50 @@ export default function Tab2() {
               d'émerveillement qu'ils suscitent, comme si vous les viviez de
               nouveau.
             </Text>
-
             <View style={styles.interblocContainer}>
               <Text style={styles.sstitle}>Principes</Text>
               <View style={styles.listItem}>
                 <Text style={styles.bullet}>•</Text>
                 <Text style={styles.textTab}>
-                  Les émotions positives sont bénéfiques pour votre santé et
-                  votre bien-être. En vous concentrant sur les aspects joyeux de
-                  la vie plutôt que sur les aspects négatifs ou pessimistes,
-                  vous pouvez améliorer votre qualité de vie.
+                  Concentrez-vous sur les joies de la vie pour améliorer votre
+                  bien-être.
                 </Text>
               </View>
-              {/* Répétez cette structure pour chaque élément de la liste */}
+              <View style={styles.listItem}>
+                <Text style={styles.bullet}>•</Text>
+                <Text style={styles.textTab}>
+                  Visitez vos souvenirs plusieurs fois par jour pour cultiver
+                  les émotions positives.
+                </Text>
+              </View>
+              <View style={styles.listItem}>
+                <Text style={styles.bullet}>•</Text>
+                <Text style={styles.textTab}>
+                  N'hésitez pas à ajouter de nouveaux souvenirs à mesure qu'ils
+                  surgissent.
+                </Text>
+              </View>
+              <View style={styles.listItem}>
+                <Text style={styles.bullet}>•</Text>
+                <Text style={styles.textTab}>
+                  En cultivant la joie, vous enrichissez non seulement votre
+                  vie, mais aussi le monde entier.
+                </Text>
+              </View>
+              <View style={styles.listItem}>
+                <Text style={styles.bullet}>•</Text>
+                <Text style={styles.textTab}>
+                  Exercer l'émerveillement favorise la santé, la créativité et
+                  l'appréciation de l'infini.
+                </Text>
+              </View>
+              <View style={styles.listItem}>
+                <Text style={styles.bullet}>•</Text>
+                <Text style={styles.textTab}>
+                  Chaque souvenir joyeux que vous cultivez diffuse de la
+                  positivité dans le cosmos.
+                </Text>
+              </View>
             </View>
           </ScrollView>
         );
@@ -108,13 +139,38 @@ export default function Tab2() {
               <View style={styles.listItem}>
                 <Text style={styles.bullet}>•</Text>
                 <Text style={styles.textTab}>
-                  Les émotions positives sont bénéfiques pour votre santé et
-                  votre bien-être. En vous concentrant sur les aspects joyeux de
-                  la vie plutôt que sur les aspects négatifs ou pessimistes,
-                  vous pouvez améliorer votre qualité de vie.
+                  Plantez uniquement des souvenirs qui éveillent un sentiment
+                  d'émerveillement.
                 </Text>
               </View>
-              {/* Répétez cette structure pour chaque élément de la liste */}
+              <View style={styles.listItem}>
+                <Text style={styles.bullet}>•</Text>
+                <Text style={styles.textTab}>
+                  Catégorisez vos souvenirs, mais sentez-vous libre de créer vos
+                  propres catégories.
+                </Text>
+              </View>
+              <View style={styles.listItem}>
+                <Text style={styles.bullet}>•</Text>
+                <Text style={styles.textTab}>
+                  Utilisez des titres évocateurs comme des signes indicateurs
+                  pour stimuler l'émotion.
+                </Text>
+              </View>
+              <View style={styles.listItem}>
+                <Text style={styles.bullet}>•</Text>
+                <Text style={styles.textTab}>
+                  Ne décrivez pas le souvenir, évoquez-le. (taille limitée à 30
+                  caractères)
+                </Text>
+              </View>
+              <View style={styles.listItem}>
+                <Text style={styles.bullet}>•</Text>
+                <Text style={styles.textTab}>
+                  Cultivez régulièrement votre jardin de souvenirs pour faire
+                  grandir vos émotions positives.
+                </Text>
+              </View>
             </View>
           </ScrollView>
         );
@@ -232,6 +288,7 @@ const styles = StyleSheet.create({
     //marginBottom: 10,
     color: "rgba(50,56,106,1)",
     marginTop: 10,
+    marginBottom: 5,
   },
   textTab: {
     fontFamily: "roboto",
