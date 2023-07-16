@@ -484,7 +484,8 @@ function ScreenManageMemory() {
         <View style={styles.iconBar}>
           <TouchableOpacity
             style={styles.lottieButton}
-            onPress={() => navigation.replace("ScreenRandomMemory")}
+            onPress={() => navigation.navigate("ScreenRandomMemory")}
+            // onPress={() => navigation.replace("ScreenRandomMemory")}
           >
             <LottieView
               source={rondBleuAnimation}
@@ -502,7 +503,7 @@ function ScreenManageMemory() {
         <View style={styles.iconBar}>
           <TouchableOpacity
             style={styles.lottieButton}
-            onPress={() => navigation.navigate("ScreenManageMemory")}
+            onPress={() => setModalVisibleManage(true)}
           >
             <LottieView
               source={rondVertAnimation}
