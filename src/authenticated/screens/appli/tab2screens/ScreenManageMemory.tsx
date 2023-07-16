@@ -293,7 +293,10 @@ function ScreenManageMemory() {
       >
         <View style={styles.header}>
           <View style={styles.iconContainer}>
-            <TouchableOpacity onPress={() => setModalVisible(true)}>
+            <TouchableOpacity
+              onPress={() => setModalVisible(true)}
+              style={{ padding: 10 }}
+            >
               <MaterialCommunityIcons
                 name="help-circle"
                 size={34}
@@ -325,9 +328,64 @@ function ScreenManageMemory() {
         >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <Text style={styles.modalText}>
-                Ici vous pouvez afficher vos FAQ
-              </Text>
+              <Text style={styles.modalTitle}>Foire aux questions</Text>
+              <ScrollView style={styles.modalScrollContainer}>
+                <Text style={styles.question}>
+                  Pourquoi devrais-je enregistrer mes souvenirs ?
+                </Text>
+                <Text style={styles.answer}>
+                  L'enregistrement de vos souvenirs vous permet de ne pas les
+                  oublier avec le temps. L'application est spécialement conçue
+                  pour vous aider à garder une trace de ces précieux moments.
+                  Prenez un instant pour noter un souvenir merveilleux dès qu'il
+                  vous revient à l'esprit.
+                </Text>
+
+                <Text style={styles.question}>
+                  Quel type de souvenir devrais-je enregistrer ?
+                </Text>
+                <Text style={styles.answer}>
+                  L'objectif est d'enregistrer les souvenirs qui font resurgir
+                  des émotions d'enchantement, des moments de magie. Pensez à
+                  ces instants qui vous ont fait ressentir de la joie et de
+                  l'émerveillement, comme si vous étiez à nouveau un enfant.
+                </Text>
+
+                <Text style={styles.question}>
+                  Combien de souvenirs sont affichés à la fois ?
+                </Text>
+                <Text style={styles.answer}>
+                  Chaque fois que vous cliquez sur "Arroser", votre jardin se
+                  renouvelle et affiche deux souvenirs aléatoires pour chaque
+                  catégorie.
+                </Text>
+
+                <Text style={styles.question}>
+                  Puis-je supprimer ou modifier des souvenirs ou des catégories
+                  ?
+                </Text>
+                <Text style={styles.answer}>
+                  Oui, absolument. Vous pouvez supprimer des souvenirs en
+                  cliquant sur l'icône de la corbeille. Si vous souhaitez
+                  modifier le titre d'un souvenir ou le déplacer vers une autre
+                  catégorie, cliquez simplement sur l'icône du dossier avec la
+                  flèche.
+                </Text>
+
+                <Text style={styles.question}>
+                  Pourquoi le souvenir est-il limité à 30 caractères ?
+                </Text>
+                <Text style={styles.answer}>
+                  La limite de 30 caractères est là pour des raisons de
+                  lisibilité sur l'écran, mais elle a aussi un autre but. Nous
+                  voulons que votre souvenir soit comme un panneau indicateur :
+                  il est là pour vous aider à évoquer les pensées et les
+                  émotions associées, pas pour raconter toute l'histoire. Ici,
+                  les souvenirs sont des points d'ancrage, des graines qui vous
+                  aident à vous reconnecter facilement avec un sentiment
+                  merveilleux quand vous en avez besoin.
+                </Text>
+              </ScrollView>
               <TouchableOpacity
                 style={styles.buttonClose}
                 onPress={() => setModalVisible(!modalVisible)}
@@ -731,6 +789,34 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     color: "rgba(50,56,106,1)",
     marginTop: 10,
+  },
+
+  modalTitle: {
+    fontFamily: "roboto700",
+    fontSize: 24,
+    textAlign: "center",
+    marginBottom: 20,
+    color: "rgba(50,56,106,1)",
+  },
+
+  modalScrollContainer: {
+    maxHeight: "100%", // Ajustez en fonction de la taille de votre modal
+    width: "100%",
+  },
+
+  question: {
+    fontFamily: "roboto500",
+    color: "rgba(50,56,106,1)",
+    fontSize: 20,
+    marginTop: 20,
+    marginBottom: 10,
+  },
+
+  answer: {
+    fontFamily: "roboto",
+    fontSize: 16,
+    marginVertical: 10,
+    color: "rgba(50,56,106,1)",
   },
 });
 
