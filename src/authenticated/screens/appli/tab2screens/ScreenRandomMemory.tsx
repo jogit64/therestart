@@ -127,65 +127,55 @@ function ScreenRandomMemory() {
         groupedMemories[memory.categoryId].push(memory);
       });
 
-      // Create a new object to store the randomly selected memories
-      const randomMemories: Record<string, Memory[]> = {};
+      // Create a new array to store the randomly selected memories
+      const randomMemories: { categoryName: string; memory: Memory }[] = [];
 
-      // Iterate over each category in groupedMemories
-      for (const categoryId in groupedMemories) {
-        randomMemories[categoryId] = [];
-
-        // If this category has at least one memory, randomly select one
-        if (groupedMemories[categoryId].length >= 1) {
+      for (const category of userDoc.data().categories || []) {
+        if (
+          groupedMemories[category.id] &&
+          groupedMemories[category.id].length > 0
+        ) {
+          // Si cette catégorie a au moins un souvenir, sélectionnez-en un au hasard
           const randomIndex = Math.floor(
-            Math.random() * groupedMemories[categoryId].length
+            Math.random() * groupedMemories[category.id].length
           );
-          const selectedMemory = groupedMemories[categoryId].splice(
+          const selectedMemory = groupedMemories[category.id].splice(
             randomIndex,
             1
           )[0];
-          randomMemories[categoryId].push(selectedMemory);
-        }
 
-        // If this category has at least one more memory, randomly select another one
-        if (groupedMemories[categoryId].length >= 1) {
-          const randomIndex = Math.floor(
-            Math.random() * groupedMemories[categoryId].length
-          );
-          const selectedMemory = groupedMemories[categoryId].splice(
-            randomIndex,
-            1
-          )[0];
-          randomMemories[categoryId].push(selectedMemory);
-        }
-      }
+          // Ajoutez le souvenir sélectionné à randomMemories
+          randomMemories.push({
+            categoryName: category.name,
+            memory: selectedMemory,
+          });
 
-      // Create a new array to store all memories, each with its associated category name
-      const allMemories: { categoryName: string; memory: Memory }[] = [];
+          // Si cette catégorie a encore un souvenir, sélectionnez-en un autre au hasard
+          if (groupedMemories[category.id].length > 0) {
+            const randomIndex = Math.floor(
+              Math.random() * groupedMemories[category.id].length
+            );
+            const selectedMemory = groupedMemories[category.id].splice(
+              randomIndex,
+              1
+            )[0];
 
-      // Iterate over each category in groupedMemories
-      for (const categoryId in groupedMemories) {
-        const category = categories.find((c) => c.id === categoryId);
-        if (!category) continue;
-
-        // Add each memory in this category to allMemories
-        for (const memory of groupedMemories[categoryId]) {
-          allMemories.push({ categoryName: category.name, memory });
+            // Ajoutez le souvenir sélectionné à randomMemories
+            randomMemories.push({
+              categoryName: category.name,
+              memory: selectedMemory,
+            });
+          }
         }
       }
 
-      setMemories(allMemories);
+      // Mélangez les souvenirs sélectionnés
+      shuffleArray(randomMemories);
 
       setMemories(randomMemories);
     };
 
     fetchUserData();
-    //   const unsubscribe = navigation.addListener("focus", () => {
-    //     fetchUserData();
-    //   });
-
-    //   // Nettoyage lors de l'annulation de l'inscription
-    //   return unsubscribe;
-    // }, [navigation, userId]);
   }, [userId]);
 
   const addMemory = async (categoryId: string, text: string) => {
@@ -238,7 +228,8 @@ function ScreenRandomMemory() {
       </ImageBackground>
 
       <FlatList
-        data={memoriesWithCategoryInfo}
+        //data={memoriesWithCategoryInfo}
+        data={memories}
         numColumns={2}
         keyExtractor={(item, index) =>
           item.isSeparator ? `sep-${index}` : `${item.memory.id}-${index}`

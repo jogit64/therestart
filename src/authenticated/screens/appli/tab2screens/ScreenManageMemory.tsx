@@ -595,11 +595,8 @@ const styles = StyleSheet.create({
   textIntro: {
     fontFamily: "roboto",
     color: "rgba(151,155,180,1)",
-    // width: 300,
-    // height: 60,
-    //textAlign: "center",
     lineHeight: 25,
-    // marginTop: 15,
+
     paddingHorizontal: 10,
     fontSize: 16,
   },
