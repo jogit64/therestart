@@ -15,7 +15,6 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { TabParamList } from "../../../../utils/navigationTypes";
-import { Surface } from "@react-native-material/core";
 
 export default function Tab2() {
   const navigation = useNavigation<StackNavigationProp<TabParamList, "Tab2">>();

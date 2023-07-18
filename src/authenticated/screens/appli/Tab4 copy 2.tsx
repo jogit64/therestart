@@ -1,4 +1,4 @@
-// Tab3.tsx
+// Tab4.tsx
 import React from "react";
 import { View, Text, Image, ImageBackground, StyleSheet } from "react-native";
 
@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { TabParamList } from "../../../../utils/navigationTypes";
 
-export default function Tab3() {
+export default function Tab2() {
   const navigation = useNavigation<StackNavigationProp<TabParamList, "Tab2">>();
 
   return (
@@ -16,7 +16,7 @@ export default function Tab3() {
           source={require("./../../../../assets/images/logoReStart.png")}
           style={{ width: 35, height: 35 }}
         />
-        <Text style={styles.title}>Désherbez !</Text>
+        <Text style={styles.title}>Rêvez !</Text>
       </View>
 
       <ImageBackground
@@ -26,6 +26,9 @@ export default function Tab3() {
       >
         <Text style={styles.textIntro}>Voici outils blabla..</Text>
       </ImageBackground>
+      <View style={styles.dreamContainer}>
+        <Text style={styles.textIntro}>Rêvez ici</Text>
+      </View>
     </View>
   );
 }
@@ -65,5 +68,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 15,
     flexWrap: "wrap",
+  },
+
+  dreamContainer: {
+    flexGrow: 1,
+    justifyContent: "center",
+    padding: 20,
+    marginTop: 25,
+    backgroundColor: "white",
   },
 });

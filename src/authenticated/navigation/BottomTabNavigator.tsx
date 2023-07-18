@@ -29,7 +29,7 @@ const BottomTabNavigator = () => {
             case "Bonjour":
               return (
                 <MaterialCommunityIcons
-                  name="hand-back-left"
+                  name="hand-clap"
                   size={28}
                   color={focused ? "#5b5da7" : "#b8b8b8"}
                 />
