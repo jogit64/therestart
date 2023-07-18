@@ -40,6 +40,17 @@ const initialAffirmations = [
   "Je possède déjà ce que je désire mais je ne m'y suis pas encore connecté",
 ];
 
+const colors = [
+  "#20c2cd",
+  "#5b5da7",
+  "#a4c763",
+  "#bc6047",
+  "#4ca9e4",
+  "#2baa8c",
+  "#404295",
+  "#3a86a8",
+];
+
 // Fonction pour mélanger un tableau
 function shuffleArray(array) {
   let currentIndex = array.length,
@@ -57,17 +68,44 @@ function shuffleArray(array) {
 
   return array;
 }
+// Fonction pour obtenir une couleur aléatoire
+function getRandomColor(colors) {
+  return colors[Math.floor(Math.random() * colors.length)];
+}
+
+// function Affirmations({ affirmations }) {
+//   return (
+//     <View style={styles.affirmationsContainer}>
+//       <Text style={styles.affirmationsTitle}>Affirmations positives</Text>
+//       <FlatList
+//         data={affirmations}
+//         horizontal={true}
+//         keyExtractor={(item, index) => "key" + index}
+//         renderItem={({ item }) => (
+//           <View style={styles.affirmationItem}>
+//             <Text style={styles.affirmationText}>{item}</Text>
+//           </View>
+//         )}
+//       />
+//     </View>
+//   );
+// }
 
 function Affirmations({ affirmations }) {
   return (
     <View style={styles.affirmationsContainer}>
-      <Text style={styles.affirmationsTitle}>Affirmations positives</Text>
+      {/* <Text style={styles.affirmationsTitle}>Je suis..</Text> */}
       <FlatList
         data={affirmations}
         horizontal={true}
         keyExtractor={(item, index) => "key" + index}
         renderItem={({ item }) => (
-          <View style={styles.affirmationItem}>
+          <View
+            style={[
+              styles.affirmationItem,
+              { backgroundColor: getRandomColor(colors) },
+            ]}
+          >
             <Text style={styles.affirmationText}>{item}</Text>
           </View>
         )}
@@ -260,11 +298,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   affirmationsTitle: {
-    marginBottom: 10,
+    fontFamily: "roboto500",
+    fontSize: 16,
+    marginBottom: 50,
+    color: "rgba(50,56,106,1)",
+    alignSelf: "center",
   },
 
   affirmationItem: {
-    backgroundColor: "rgba(50,56,106,1)",
+    //backgroundColor: "rgba(50,56,106,1)",
+    // backgroundColor: "red",
     width: 180, // Largeur fixe
     height: 150, // Hauteur fixe
     marginRight: 20, // Espacement à droite
