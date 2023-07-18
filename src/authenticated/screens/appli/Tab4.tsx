@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -17,12 +17,76 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { TabParamList } from "../../../../utils/navigationTypes";
 import { Surface } from "@react-native-material/core";
 
+// Une liste d'affirmations. Vous pouvez en ajouter autant que vous voulez ici.
+const initialAffirmations = [
+  "Je suis parfait et sans faute dans ma nature essentielle",
+  "Je détermine ma biologie par mes croyances",
+  "Je suis en premier lieu déterminé par ce que je crois",
+  "Je change qui je suis en changeant mes croyances",
+  "Je suis mes croyances et non mes cellules",
+  "Je soutiens mes comportements avec mes modèles de pensée",
+  "Je suis une partie de l'intelligence infinie de Dieu",
+  "Je possède une capacité de grandeur qui transcende tout ce qu'on m'a appris à croire",
+  "Je suis une partie du divin",
+  "Je suis tout ce que je choisis d'être",
+  "Je peux modifier les infirmités de mon corps en modifiant mes croyances",
+  "Je peux guérir n'importe quoi en guérissant d'abord mes pensées",
+  "Je donne la première place à mes croyances et refuse de blâmer le monde matériel",
+  "Je suis parfaitement capable de vaincre le conditionnement précoce",
+  "Je peux déprogrammer tout ce qui a été programmé en moi",
+  "Je commence maintenant car j'en ai la capacité",
+  "Je suis plus puissant que les anciens programmes et virus de l'esprit",
+  "Je comprends que mes pensées sont un système énergétique",
+  "Je possède déjà ce que je désire mais je ne m'y suis pas encore connecté",
+];
+
+// Fonction pour mélanger un tableau
+function shuffleArray(array) {
+  let currentIndex = array.length,
+    randomIndex;
+
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+
+  return array;
+}
+
+function Affirmations({ affirmations }) {
+  return (
+    <View style={styles.affirmationsContainer}>
+      <Text style={styles.affirmationsTitle}>Affirmations positives</Text>
+      <FlatList
+        data={affirmations}
+        horizontal={true}
+        keyExtractor={(item, index) => "key" + index}
+        renderItem={({ item }) => (
+          <View style={styles.affirmationItem}>
+            <Text style={styles.affirmationText}>{item}</Text>
+          </View>
+        )}
+      />
+    </View>
+  );
+}
+
 export default function Tab2() {
   const navigation = useNavigation<StackNavigationProp<TabParamList, "Tab2">>();
 
   const [newDream, setNewDream] = useState("");
   const [dreams, setDreams] = useState([]);
   const [affirmations, setAffirmations] = useState([]);
+
+  useEffect(() => {
+    setAffirmations(shuffleArray(initialAffirmations));
+  }, []);
+
   const [editMode, setEditMode] = useState(false);
 
   const handleAddDream = () => {
@@ -30,11 +94,6 @@ export default function Tab2() {
 
     setNewDream("");
     setEditMode(false);
-  };
-
-  const handleViewAllAffirmations = () => {
-    // Vous devez implémenter cette fonction
-    // en fonction de votre configuration de navigation
   };
 
   const handleDeleteDream = (index) => {
@@ -100,19 +159,7 @@ export default function Tab2() {
           )}
         </View>
 
-        <View style={styles.affirmationsContainer}>
-          <Text style={styles.affirmationsTitle}>Affirmations positives</Text>
-          <FlatList
-            data={affirmations}
-            horizontal={true}
-            renderItem={({ item }) => (
-              <View style={styles.affirmationItem}>
-                <Text>{item}</Text>
-              </View>
-            )}
-          />
-          <Button title="Voir toutes" onPress={handleViewAllAffirmations} />
-        </View>
+        <Affirmations affirmations={affirmations} />
       </ScrollView>
     </View>
   );
@@ -204,7 +251,7 @@ const styles = StyleSheet.create({
   },
   affirmationsContainer: {
     marginTop: 20,
-    backgroundColor: "grey",
+    //backgroundColor: "grey",
     minHeight: 200,
     marginVertical: 20,
     paddingVertical: 25,
@@ -214,5 +261,25 @@ const styles = StyleSheet.create({
   },
   affirmationsTitle: {
     marginBottom: 10,
+  },
+
+  affirmationItem: {
+    backgroundColor: "rgba(50,56,106,1)",
+    width: 180, // Largeur fixe
+    height: 150, // Hauteur fixe
+    marginRight: 20, // Espacement à droite
+    padding: 10, // Padding pour donner de l'espace autour du texte
+    borderRadius: 5, // Coins arrondis
+    justifyContent: "center", // Centrer le contenu verticalement
+    alignItems: "center", // Centrer le contenu horizontalement
+  },
+
+  affirmationText: {
+    fontFamily: "roboto",
+    fontSize: 12,
+    color: "white",
+    flexWrap: "wrap", // Faire en sorte que le texte aille à la ligne si nécessaire
+    //flex: 1, // Permet au texte de prendre toute la largeur du parent
+    lineHeight: 20,
   },
 });
