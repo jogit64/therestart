@@ -30,36 +30,36 @@ const BottomTabNavigator = () => {
               return (
                 <MaterialCommunityIcons
                   name="hand-back-left"
-                  size={24}
-                  color={focused ? "rgba(50,56,106,1)" : "grey"}
+                  size={28}
+                  color={focused ? "#5b5da7" : "#b8b8b8"}
                 />
               );
 
               break;
-            case "Cultive":
+            case "Cultivez":
               return (
                 <MaterialCommunityIcons
                   name="watering-can"
-                  size={24}
-                  color={focused ? "rgba(50,56,106,1)" : "grey"}
+                  size={28}
+                  color={focused ? "#5b5da7" : "#b8b8b8"}
                 />
               );
               break;
-            case "Désherbe":
+            case "Désherbez":
               return (
                 <MaterialCommunityIcons
                   name="rake"
-                  size={24}
-                  color={focused ? "rgba(50,56,106,1)" : "grey"}
+                  size={28}
+                  color={focused ? "#5b5da7" : "#b8b8b8"}
                 />
               );
               break;
-            case "Rêve":
+            case "Rêvez":
               return (
                 <MaterialCommunityIcons
                   name="thought-bubble"
-                  size={24}
-                  color={focused ? "rgba(50,56,106,1)" : "grey"}
+                  size={28}
+                  color={focused ? "#5b5da7" : "#b8b8b8"}
                 />
               );
               break;
@@ -75,6 +75,7 @@ const BottomTabNavigator = () => {
         tabBarActiveTintColor: "#6f78bd", // Couleur de l'icône du tab actif
         tabBarInactiveTintColor: "#b8b8b8", // Couleur de l'icône du tab inactif
         tabBarStyle: { display: "flex" }, // Styles appliqués à la barre de tabs
+        tabBarLabelStyle: { fontSize: 11 },
       })}
     >
       <Tab.Screen
@@ -83,17 +84,17 @@ const BottomTabNavigator = () => {
         options={{ headerShown: false }} // Cacher l'en-tête pour l'écran HomeTab
       />
       <Tab.Screen
-        name="Cultive"
+        name="Cultivez"
         component={Tab2}
         options={{ headerShown: false }}
       />
       <Tab.Screen
-        name="Désherbe"
+        name="Désherbez"
         component={Tab3}
         options={{ headerShown: false }}
       />
       <Tab.Screen
-        name="Rêve"
+        name="Rêvez"
         component={Tab4}
         options={{ headerShown: false }}
       />
