@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+
 import {
   View,
   Text,
@@ -6,23 +7,23 @@ import {
   TouchableOpacity,
   Image,
   ImageBackground,
-  FlatList,
-  ScrollView,
   StyleSheet,
+  FlatList,
+  Button,
+  ScrollView,
 } from "react-native";
+
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { TabParamList } from "../../../../utils/navigationTypes";
+import { Surface } from "@react-native-material/core";
+
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import {
-  collection,
-  addDoc,
-  getDocs,
-  doc,
-  deleteDoc,
-} from "firebase/firestore";
-import { db, auth } from "../../../../utils/firebase.js";
+import { collection, addDoc, getDocs } from "firebase/firestore";
+import { query, onSnapshot } from "firebase/firestore";
+
+import { db } from "../../../../utils/firebase.js";
 import UserContext from "../../../../utils/UserContext";
 
 // Une liste d'affirmations. Vous pouvez en ajouter autant que vous voulez ici.
@@ -125,6 +126,7 @@ function Affirmations({ affirmations }) {
 
 export default function Tab4() {
   const navigation = useNavigation<StackNavigationProp<TabParamList, "4">>();
+  const { user } = useContext(UserContext);
 
   const [newDream, setNewDream] = useState("");
   const [dreams, setDreams] = useState([]);
@@ -141,52 +143,30 @@ export default function Tab4() {
   const [editMode, setEditMode] = useState(false);
 
   const handleAddDream = async () => {
-    console.log("User ID from context: ", auth.currentUser?.uid); // Modifier cette ligne
-    try {
-      const userDreamsCollection = collection(
-        db,
-        `users/${auth.currentUser?.uid}/dreams`
-      ); // Modifier cette ligne
-      const docRef = await addDoc(userDreamsCollection, { dream: newDream });
-      setDreams([...dreams, { id: docRef.id, dream: newDream }]);
-      setNewDream("");
-      setEditMode(false);
-    } catch (error) {
-      console.error("Error adding dream: ", error);
-    }
+    const userDreamsCollection = collection(db, `users/${user.id}/dreams`);
+    await addDoc(userDreamsCollection, { dream: newDream });
+    setDreams([...dreams, newDream]);
+    setNewDream("");
+    setEditMode(false);
   };
 
   useEffect(() => {
     const fetchDreams = async () => {
-      console.log("User ID from context: ", auth.currentUser?.uid); // Modifier cette ligne
-      try {
-        const userDreamsCollection = collection(
-          db,
-          `users/${auth.currentUser?.uid}/dreams`
-        ); // Modifier cette ligne
-        const userDreamsSnapshot = await getDocs(userDreamsCollection);
-        const loadedDreams = userDreamsSnapshot.docs.map((doc) => ({
-          id: doc.id,
-          dream: doc.data().dream,
-        }));
-        setDreams(loadedDreams);
-      } catch (error) {
-        console.error("Error fetching dreams: ", error);
-      }
+      const userDreamsCollection = collection(db, `users/${user.id}/dreams`);
+      const userDreamsSnapshot = await getDocs(userDreamsCollection);
+      const loadedDreams = userDreamsSnapshot.docs.map(
+        (doc) => doc.data().dream
+      );
+      setDreams(loadedDreams);
     };
 
-    if (auth.currentUser) {
-      fetchDreams();
-    }
+    fetchDreams();
   }, []);
 
-  const handleDeleteDream = async (id) => {
-    try {
-      await deleteDoc(doc(db, `users/${auth.currentUser?.uid}/dreams`, id)); // Modifier cette ligne
-      setDreams(dreams.filter((dream) => dream.id !== id));
-    } catch (error) {
-      console.error("Error deleting dream: ", error);
-    }
+  const handleDeleteDream = (index) => {
+    const newDreams = [...dreams];
+    newDreams.splice(index, 1);
+    setDreams(newDreams);
   };
 
   return (
@@ -212,10 +192,10 @@ export default function Tab4() {
 
       <ScrollView>
         <View style={styles.dreamContainer}>
-          {dreams.map((dream) => (
-            <View style={styles.dreamItemLine} key={dream.id}>
+          {dreams.map((dream, index) => (
+            <View style={styles.dreamItemLine} key={index}>
               <Text style={styles.dreamText} onPress={() => setEditMode(true)}>
-                {dream.dream}
+                {dream}
               </Text>
 
               {editMode && (
