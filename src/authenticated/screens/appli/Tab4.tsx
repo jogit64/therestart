@@ -17,6 +17,8 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { TabParamList } from "../../../../utils/navigationTypes";
 import { Surface } from "@react-native-material/core";
 
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 // Une liste d'affirmations. Vous pouvez en ajouter autant que vous voulez ici.
 const initialAffirmations = [
   "Je suis parfait et sans faute dans ma nature essentielle",
@@ -93,7 +95,8 @@ function getRandomColor(colors) {
 
 function Affirmations({ affirmations }) {
   return (
-    <View style={styles.affirmationsContainer}>
+    // <View style={styles.affirmationsContainer}>
+    <View>
       {/* <Text style={styles.affirmationsTitle}>Je suis..</Text> */}
       <FlatList
         data={affirmations}
@@ -114,12 +117,16 @@ function Affirmations({ affirmations }) {
   );
 }
 
-export default function Tab2() {
-  const navigation = useNavigation<StackNavigationProp<TabParamList, "Tab2">>();
+export default function Tab4() {
+  const navigation = useNavigation<StackNavigationProp<TabParamList, "4">>();
 
   const [newDream, setNewDream] = useState("");
   const [dreams, setDreams] = useState([]);
   const [affirmations, setAffirmations] = useState([]);
+
+  const shuffleAffirmations = () => {
+    setAffirmations(shuffleArray([...initialAffirmations]));
+  };
 
   useEffect(() => {
     setAffirmations(shuffleArray(initialAffirmations));
@@ -196,8 +203,18 @@ export default function Tab2() {
             </TouchableOpacity>
           )}
         </View>
-
-        <Affirmations affirmations={affirmations} />
+        <View style={styles.affirmationsContainer}>
+          <Affirmations affirmations={affirmations} />
+          <TouchableOpacity onPress={shuffleAffirmations}>
+            <View style={styles.viewReload}>
+              <MaterialCommunityIcons
+                name="reload-alert"
+                size={54}
+                color="rgba(50,56,106,1)"
+              />
+            </View>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </View>
   );
@@ -263,7 +280,8 @@ const styles = StyleSheet.create({
   addDreamText: {
     fontFamily: "roboto500",
     fontSize: 16,
-    marginBottom: 10,
+    //marginBottom: 10,
+    marginTop: 20,
     color: "rgba(50,56,106,1)",
     alignSelf: "center",
   },
@@ -288,22 +306,32 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   affirmationsContainer: {
-    marginTop: 20,
+    marginTop: 40,
     //backgroundColor: "grey",
-    minHeight: 200,
-    marginVertical: 20,
-    paddingVertical: 25,
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    //minHeight: 200,
+    //marginVertical: 20,
+    //paddingVertical: 25,
+    //paddingBottom: 10,
+    //flex: 1,
+    // flexDirection: "column",
+    // justifyContent: "center",
+    //alignItems: "center",
   },
-  affirmationsTitle: {
-    fontFamily: "roboto500",
-    fontSize: 16,
-    marginBottom: 50,
-    color: "rgba(50,56,106,1)",
+  viewReload: {
+    paddingVertical: 25,
+    //flex: 1,
+    // flexDirection: "column",
+    // justifyContent: "center",
+    //alignItems: "center",
     alignSelf: "center",
   },
+  // affirmationsTitle: {
+  //   fontFamily: "roboto500",
+  //   fontSize: 16,
+  //   marginBottom: 50,
+  //   color: "rgba(50,56,106,1)",
+  //   alignSelf: "center",
+  // },
 
   affirmationItem: {
     //backgroundColor: "rgba(50,56,106,1)",
@@ -319,7 +347,7 @@ const styles = StyleSheet.create({
 
   affirmationText: {
     fontFamily: "roboto",
-    fontSize: 12,
+    fontSize: 16,
     color: "white",
     flexWrap: "wrap", // Faire en sorte que le texte aille à la ligne si nécessaire
     //flex: 1, // Permet au texte de prendre toute la largeur du parent
