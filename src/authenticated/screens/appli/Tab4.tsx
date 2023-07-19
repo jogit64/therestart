@@ -156,6 +156,11 @@ export default function Tab4() {
     }
   };
 
+  const handleCancelDream = () => {
+    setNewDream("");
+    setEditMode(false);
+  };
+
   useEffect(() => {
     const fetchDreams = async () => {
       console.log("User ID from context: ", auth.currentUser?.uid); // Modifier cette ligne
@@ -190,7 +195,7 @@ export default function Tab4() {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.seedContainer}>
         <Image
           source={require("./../../../../assets/images/logoReStart.png")}
@@ -210,55 +215,53 @@ export default function Tab4() {
         </Text>
       </ImageBackground>
 
-      <ScrollView>
-        <View style={styles.dreamContainer}>
-          {dreams.map((dream) => (
-            <View style={styles.dreamItemLine} key={dream.id}>
-              <Text style={styles.dreamText} onPress={() => setEditMode(true)}>
-                {dream.dream}
-              </Text>
+      <View style={styles.dreamContainer}>
+        {dreams.map((dream) => (
+          <View style={styles.dreamItemLine} key={dream.id}>
+            <Text style={styles.dreamText} onPress={() => setEditMode(true)}>
+              {dream.dream}
+            </Text>
 
-              {editMode && (
-                <TouchableOpacity onPress={() => handleDeleteDream(index)}>
-                  <Text style={styles.deleteButton}>✕</Text>
-                </TouchableOpacity>
-              )}
-            </View>
-          ))}
-
-          {editMode ? (
-            <View style={styles.inputContainer}>
-              <TextInput
-                value={newDream}
-                onChangeText={setNewDream}
-                style={styles.textInput}
-                onSubmitEditing={handleAddDream}
-                autoFocus={true}
-              />
-              <TouchableOpacity onPress={handleAddDream}>
-                <Text style={styles.addButton}>✕</Text>
+            {editMode && (
+              <TouchableOpacity onPress={() => handleDeleteDream(dream.id)}>
+                <Text style={styles.deleteButton}>✕</Text>
               </TouchableOpacity>
-            </View>
-          ) : (
-            <TouchableOpacity onPress={() => setEditMode(true)}>
-              <Text style={styles.addDreamText}>+ Ajouter un rêve</Text>
+            )}
+          </View>
+        ))}
+
+        {editMode ? (
+          <View style={styles.inputContainer}>
+            <TextInput
+              value={newDream}
+              onChangeText={setNewDream}
+              style={styles.textInput}
+              onSubmitEditing={handleAddDream}
+              autoFocus={true}
+            />
+            <TouchableOpacity onPress={handleCancelDream}>
+              <Text style={styles.deleteButton}>✕</Text>
             </TouchableOpacity>
-          )}
-        </View>
-        <View style={styles.affirmationsContainer}>
-          <Affirmations affirmations={affirmations} />
-          <TouchableOpacity onPress={shuffleAffirmations}>
-            <View style={styles.viewReload}>
-              <MaterialCommunityIcons
-                name="reload-alert"
-                size={54}
-                color="rgba(50,56,106,1)"
-              />
-            </View>
+          </View>
+        ) : (
+          <TouchableOpacity onPress={() => setEditMode(true)}>
+            <Text style={styles.addDreamText}>+ Ajouter un rêve</Text>
           </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </View>
+        )}
+      </View>
+      <View style={styles.affirmationsContainer}>
+        <Affirmations affirmations={affirmations} />
+        <TouchableOpacity onPress={shuffleAffirmations}>
+          <View style={styles.viewReload}>
+            <MaterialCommunityIcons
+              name="reload-alert"
+              size={54}
+              color="rgba(50,56,106,1)"
+            />
+          </View>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -314,16 +317,19 @@ const styles = StyleSheet.create({
     height: 40,
     width: "80%",
     marginBottom: 10,
+    backgroundColor: "#f8f8f8", // Une couleur très claire
+    borderBottomColor: "lightgrey",
+    borderBottomWidth: 1,
   },
   addButton: {
     fontSize: 18,
-    color: "red",
+    color: "green",
   },
   addDreamText: {
     fontFamily: "roboto500",
-    fontSize: 16,
-    //marginBottom: 10,
+    fontSize: 20, // Augmentez la taille de la police pour rendre le touchable plus grand
     marginTop: 20,
+    padding: 5, // Ajoutez du padding pour rendre le touchable plus grand
     color: "rgba(50,56,106,1)",
     alignSelf: "center",
   },
@@ -332,8 +338,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 10,
-    //paddingLeft: 30,
-    backgroundColor: "green",
+    paddingHorizontal: 15, // Ajoutez du padding pour rendre le touchable plus grand
+    paddingVertical: 5, // Ajoutez du padding pour rendre le touchable plus grand
+    lineHeight: 40,
+    //backgroundColor: "green",
   },
   dreamText: {
     fontFamily: "roboto",
@@ -341,8 +349,9 @@ const styles = StyleSheet.create({
     color: "rgba(50,56,106,1)",
   },
   deleteButton: {
-    fontSize: 16,
+    fontSize: 24, // Augmentez la taille de la police pour rendre le touchable plus grand
     color: "rgba(50,56,106,1)",
+    padding: 5, // Ajoutez du padding pour rendre le touchable plus grand
   },
   dreamList: {
     marginBottom: 20,
