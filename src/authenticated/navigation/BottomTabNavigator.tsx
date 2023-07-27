@@ -29,7 +29,7 @@ const BottomTabNavigator = () => {
             case "Bonjour":
               return (
                 <MaterialCommunityIcons
-                  name="hand-clap"
+                  name="gesture-tap"
                   size={28}
                   color={focused ? "#5b5da7" : "#b8b8b8"}
                 />
@@ -45,10 +45,10 @@ const BottomTabNavigator = () => {
                 />
               );
               break;
-            case "Désherbez":
+            case "Perspective!":
               return (
                 <MaterialCommunityIcons
-                  name="rake"
+                  name="telescope"
                   size={28}
                   color={focused ? "#5b5da7" : "#b8b8b8"}
                 />
@@ -84,13 +84,13 @@ const BottomTabNavigator = () => {
         options={{ headerShown: false }} // Cacher l'en-tête pour l'écran HomeTab
       />
       <Tab.Screen
-        name="Cultivez"
-        component={Tab2}
+        name="Perspective!"
+        component={Tab3}
         options={{ headerShown: false }}
       />
       <Tab.Screen
-        name="Désherbez"
-        component={Tab3}
+        name="Cultivez"
+        component={Tab2}
         options={{ headerShown: false }}
       />
       <Tab.Screen
