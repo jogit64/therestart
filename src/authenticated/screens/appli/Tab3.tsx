@@ -104,12 +104,6 @@ export default function Tab3() {
               >
                 <Text style={styles.titleBoard}>{item.title}</Text>
                 <Text style={styles.textBoard}>{item.text}</Text>
-                {/* <TouchableOpacity
-                  style={styles.doneButton}
-                  onPress={() => setModalVisible(false)}
-                >
-                  <Text style={styles.doneButtonText}>Done</Text>
-                </TouchableOpacity> */}
               </View>
             );
           }}
@@ -118,6 +112,8 @@ export default function Tab3() {
           onDone={() => setModalVisible(false)}
         />
       </Modal>
+      <Text style={styles.sstitle}>Votre préoccupation concerne plutôt :</Text>
+      <Text style={styles.textIntro}>(3 thèmes max)</Text>
     </View>
   );
 }
@@ -153,6 +149,16 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "rgba(50,56,106,1)",
     paddingLeft: 10,
+  },
+
+  sstitle: {
+    fontFamily: "roboto500",
+    fontSize: 18,
+    textAlign: "center",
+    //marginBottom: 10,
+    color: "rgba(50,56,106,1)",
+    marginTop: 20,
+    marginBottom: 5,
   },
 
   textIntro: {
