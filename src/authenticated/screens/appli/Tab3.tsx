@@ -16,6 +16,7 @@ import { TabParamList } from "../../../../utils/navigationTypes";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import AppIntroSlider from "react-native-app-intro-slider";
+import { ScrollView } from "react-native-gesture-handler";
 
 const slides = [
   {
@@ -52,68 +53,163 @@ export default function Tab3() {
   const navigation = useNavigation<StackNavigationProp<TabParamList, "Tab2">>();
   const [modalVisible, setModalVisible] = useState(false);
 
+  // La liste de vos éléments. Vous pouvez y mettre n'importe quel type de données.
+  const items = [
+    {
+      id: 1,
+      name: "Item 1",
+      phrases: [
+        "Phrase 1.1",
+        "Phrase 1.2",
+        "Phrase 1.3",
+        "Phrase 1.4",
+        "Phrase 1.5",
+      ],
+    },
+    {
+      id: 2,
+      name: "Item 2",
+      phrases: [
+        "Phrase 2.1",
+        "Phrase 2.2",
+        "Phrase 2.3",
+        "Phrase 2.4",
+        "Phrase 2.5",
+      ],
+    },
+    // etc.
+  ];
+
+  // Etat initial pour savoir quels éléments sont sélectionnés
+  const [selectedItems, setSelectedItems] = useState([]);
+
+  // Fonction pour gérer la sélection d'un élément
+  const handleSelectItem = (item) => {
+    setSelectedItems((prevSelectedItems) => {
+      if (prevSelectedItems.includes(item.id)) {
+        // Si l'élément est déjà sélectionné, on l'enlève de la liste
+        return prevSelectedItems.filter((itemId) => itemId !== item.id);
+      } else {
+        // Limiter le nombre d'éléments sélectionnés à trois
+        return prevSelectedItems.length < 3
+          ? [...prevSelectedItems, item.id]
+          : prevSelectedItems;
+      }
+    });
+  };
+
+  const getRandomPhrases = (phrases) => {
+    // Mélanger les phrases
+    const shuffled = phrases.sort(() => 0.5 - Math.random());
+    // Retourner les trois premières phrases
+    return shuffled.slice(0, 3);
+  };
+
+  const handleShowSelectedItems = () => {
+    // Vérifier si au moins un élément est sélectionné
+    if (selectedItems.length === 0) {
+      // Vous pouvez afficher un toast ici
+      return;
+    }
+
+    // Trouver les phrases pour chaque élément sélectionné
+    const selectedItemsPhrases = items
+      .filter((item) => selectedItems.includes(item.id))
+      .flatMap((item) => getRandomPhrases(item.phrases));
+
+    // Afficher une alerte avec les phrases des éléments sélectionnés
+    alert(`Les phrases sélectionnées sont: ${selectedItemsPhrases.join(", ")}`);
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.seedContainer}>
-        <Image
-          source={require("./../../../../assets/images/logoReStart.png")}
-          style={{ width: 35, height: 35 }}
-        />
-        <Text style={styles.title}>Perspectives!</Text>
-      </View>
-
-      <ImageBackground
-        source={require("./../../../../assets/images/fronton.png")}
-        style={styles.frontonImage}
-        resizeMode="cover"
-      >
-        <Text style={styles.textIntro}>
-          Découvrez des perspectives novatrices pour éclairer et apaiser votre
-          esprit !
-        </Text>
-      </ImageBackground>
-      <Text style={styles.textIntro}>
-        Commencez par la visite guidée pour une meilleure exploration de
-        l'application.
-      </Text>
-
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => setModalVisible(true)}
-      >
-        <View style={styles.visiteBtnContainer}>
-          <MaterialCommunityIcons
-            name="book-open-page-variant"
-            size={24}
-            color="white"
+      <ScrollView>
+        <View style={styles.seedContainer}>
+          <Image
+            source={require("./../../../../assets/images/logoReStart.png")}
+            style={{ width: 35, height: 35 }}
           />
-
-          <Text style={styles.buttonText}>Visite guidée</Text>
+          <Text style={styles.title}>Perspectives!</Text>
         </View>
-      </TouchableOpacity>
-      <Modal visible={modalVisible} transparent={false}>
-        <AppIntroSlider
-          data={slides}
-          renderItem={({ item }) => {
-            return (
-              <View
-                style={[
-                  styles.slide,
-                  { backgroundColor: item.backgroundColor },
-                ]}
-              >
-                <Text style={styles.titleBoard}>{item.title}</Text>
-                <Text style={styles.textBoard}>{item.text}</Text>
-              </View>
-            );
-          }}
-          renderNextButton={_renderNextButton}
-          renderDoneButton={_renderDoneButton}
-          onDone={() => setModalVisible(false)}
-        />
-      </Modal>
-      <Text style={styles.sstitle}>Votre préoccupation concerne plutôt :</Text>
-      <Text style={styles.textIntro}>(3 thèmes max)</Text>
+
+        <ImageBackground
+          source={require("./../../../../assets/images/fronton.png")}
+          style={styles.frontonImage}
+          resizeMode="cover"
+        >
+          <Text style={styles.textIntro}>
+            Découvrez des perspectives novatrices pour éclairer et apaiser votre
+            esprit !
+          </Text>
+        </ImageBackground>
+        <Text style={styles.textIntro}>
+          Commencez par la visite guidée pour une meilleure exploration de
+          l'application.
+        </Text>
+
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => setModalVisible(true)}
+        >
+          <View style={styles.visiteBtnContainer}>
+            <MaterialCommunityIcons
+              name="book-open-page-variant"
+              size={24}
+              color="white"
+            />
+
+            <Text style={styles.buttonText}>Visite guidée</Text>
+          </View>
+        </TouchableOpacity>
+        <Modal visible={modalVisible} transparent={false}>
+          <AppIntroSlider
+            data={slides}
+            renderItem={({ item }) => {
+              return (
+                <View
+                  style={[
+                    styles.slide,
+                    { backgroundColor: item.backgroundColor },
+                  ]}
+                >
+                  <Text style={styles.titleBoard}>{item.title}</Text>
+                  <Text style={styles.textBoard}>{item.text}</Text>
+                </View>
+              );
+            }}
+            renderNextButton={_renderNextButton}
+            renderDoneButton={_renderDoneButton}
+            onDone={() => setModalVisible(false)}
+          />
+        </Modal>
+        <Text style={styles.sstitle}>
+          Votre préoccupation concerne plutôt :
+        </Text>
+        <Text style={styles.textIntro}>(3 thèmes max)</Text>
+
+        <View style={styles.containerList}>
+          {items.map((item) => (
+            <TouchableOpacity
+              key={item.id}
+              style={[
+                styles.item,
+                {
+                  backgroundColor: selectedItems.includes(item.id)
+                    ? "skyblue"
+                    : "white",
+                },
+              ]}
+              onPress={() => handleSelectItem(item)}
+            >
+              <Text style={styles.itemText}>{item.name}</Text>
+            </TouchableOpacity>
+          ))}
+
+          <TouchableOpacity onPress={handleShowSelectedItems}>
+            <Text style={styles.lancerBtn}>cliquez ici</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -133,6 +229,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 15,
     flexWrap: "wrap",
+  },
+
+  containerList: {
+    flex: 1,
+    //justifyContent: "center",
+    alignItems: "center",
+    // backgroundColor: "white",
+    //paddingHorizontal: 20,
+    marginTop: 20,
   },
 
   frontonImage: {
@@ -229,7 +334,25 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  buttonText: {
-    color: "white",
+  // buttonText: {
+  //   color: "white",
+  // },
+  item: {
+    width: "80%",
+    padding: 10,
+    margin: 10,
+    borderWidth: 1,
+    borderColor: "gray",
+    borderRadius: 5,
+  },
+  itemText: {
+    fontSize: 18,
+    color: "black",
+  },
+  lancerBtn: {
+    fontSize: 18,
+    color: "black",
+    marginTop: 25,
+    marginBottom: 55,
   },
 });
