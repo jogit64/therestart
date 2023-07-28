@@ -6,11 +6,11 @@ import {
 import { useBackHandler } from "@react-native-community/hooks";
 import { BackHandler } from "react-native";
 
-import { Tab1ParamList } from "../../../utils/navigationTypes";
-import Tab1P0Screen from "../screens/appli/tab1stack/Tab3P0Screen";
-import Tab1P1Screen from "../screens/appli/tab1stack/Tab3P1Screen";
+import { Tab3ParamList } from "../../../utils/navigationTypes";
+import Tab3P0Screen from "../screens/appli/tab3stack/Tab3P0Screen";
+import Tab3P1Screen from "../screens/appli/tab3stack/Tab3P1Screen";
 
-const Tab3Stack = createStackNavigator<Tab1ParamList>();
+const Tab3Stack = createStackNavigator<Tab3ParamList>();
 
 function Tab3Navigator() {
   // useBackHandler(() => {
@@ -35,7 +35,7 @@ function Tab3Navigator() {
         }}
       />
 
-      <Tab3Stack.Screen name="Tab1P1" component={Tab1P1Screen} />
+      <Tab3Stack.Screen name="Tab3P1" component={Tab3P1Screen} />
     </Tab3Stack.Navigator>
   );
 }

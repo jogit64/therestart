@@ -12,7 +12,7 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { TabParamList } from "../../../../utils/navigationTypes";
+import { TabParamList } from "../../../../../utils/navigationTypes";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import AppIntroSlider from "react-native-app-intro-slider";
@@ -117,8 +117,8 @@ export default function Tab3() {
       .filter((item) => selectedItems.includes(item.id))
       .flatMap((item) => getRandomPhrases(item.phrases));
 
-    // Afficher une alerte avec les phrases des éléments sélectionnés
-    alert(`Les phrases sélectionnées sont: ${selectedItemsPhrases.join(", ")}`);
+    // Naviguer vers Tab3P1Screen avec les phrases des éléments sélectionnés
+    navigation.navigate("Tab3P1", { selectedItemsPhrases });
   };
 
   return (
@@ -126,14 +126,14 @@ export default function Tab3() {
       <ScrollView>
         <View style={styles.seedContainer}>
           <Image
-            source={require("./../../../../assets/images/logoReStart.png")}
+            source={require("./../../../../../assets/images/logoReStart.png")}
             style={{ width: 35, height: 35 }}
           />
           <Text style={styles.title}>Perspectives!</Text>
         </View>
 
         <ImageBackground
-          source={require("./../../../../assets/images/fronton.png")}
+          source={require("./../../../../../assets/images/fronton.png")}
           style={styles.frontonImage}
           resizeMode="cover"
         >

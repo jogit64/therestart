@@ -5,11 +5,13 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import Tab2 from "../screens/appli/Tab2";
-import Tab3 from "../screens/appli/Tab3";
 import Tab4 from "../screens/appli/Tab4";
 
 //import Tab1 from "../screens/appli/Tab1";
 import Tab1Navigator from "./Tab1Navigator";
+
+//import Tab3 from "../screens/appli/Tab3";
+import Tab3Navigator from "./Tab3Navigator";
 
 //import { StatusBarCustom } from "components/StatusBarCustom";
 
@@ -85,7 +87,7 @@ const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name="Perspective!"
-        component={Tab3}
+        component={Tab3Navigator}
         options={{ headerShown: false }}
       />
       <Tab.Screen
