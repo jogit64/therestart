@@ -57,7 +57,7 @@ export default function Tab3() {
   const items = [
     {
       id: 1,
-      name: "Item 1",
+      name: "Un récit sur soi",
       phrases: [
         "Phrase 1.1",
         "Phrase 1.2",
@@ -68,7 +68,40 @@ export default function Tab3() {
     },
     {
       id: 2,
-      name: "Item 2",
+      name: "Un récit sur l'autre",
+      phrases: [
+        "Phrase 2.1",
+        "Phrase 2.2",
+        "Phrase 2.3",
+        "Phrase 2.4",
+        "Phrase 2.5",
+      ],
+    },
+    {
+      id: 3,
+      name: "Un récit sur la possession matérielle",
+      phrases: [
+        "Phrase 2.1",
+        "Phrase 2.2",
+        "Phrase 2.3",
+        "Phrase 2.4",
+        "Phrase 2.5",
+      ],
+    },
+    {
+      id: 4,
+      name: "Un récit sur l'idée d'avoir, de manquer de la considération, d'amour",
+      phrases: [
+        "Phrase 2.1",
+        "Phrase 2.2",
+        "Phrase 2.3",
+        "Phrase 2.4",
+        "Phrase 2.5",
+      ],
+    },
+    {
+      id: 5,
+      name: "Un récit avec du temps, du passé, du futur, de la durée",
       phrases: [
         "Phrase 2.1",
         "Phrase 2.2",
@@ -131,57 +164,61 @@ export default function Tab3() {
           />
           <Text style={styles.title}>Perspectives!</Text>
         </View>
-
-        <ImageBackground
-          source={require("./../../../../../assets/images/fronton.png")}
-          style={styles.frontonImage}
-          resizeMode="cover"
-        >
+        <View style={styles.firstPartContainer}>
+          <ImageBackground
+            source={require("./../../../../../assets/images/fronton.png")}
+            style={styles.frontonImage}
+            resizeMode="cover"
+          >
+            <Text style={styles.textIntro}>
+              Découvrez des perspectives novatrices pour éclairer et apaiser
+              votre esprit !
+            </Text>
+          </ImageBackground>
           <Text style={styles.textIntro}>
-            Découvrez des perspectives novatrices pour éclairer et apaiser votre
-            esprit !
+            Commencez par la visite guidée pour une meilleure exploration de
+            l'application.
           </Text>
-        </ImageBackground>
-        <Text style={styles.textIntro}>
-          Commencez par la visite guidée pour une meilleure exploration de
-          l'application.
-        </Text>
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => setModalVisible(true)}
-        >
-          <View style={styles.visiteBtnContainer}>
-            <MaterialCommunityIcons
-              name="book-open-page-variant"
-              size={24}
-              color="white"
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => setModalVisible(true)}
+          >
+            <View style={styles.visiteBtnContainer}>
+              <MaterialCommunityIcons
+                name="book-open-page-variant"
+                size={24}
+                color="white"
+              />
+
+              <Text style={styles.buttonText}>Visite guidée</Text>
+            </View>
+          </TouchableOpacity>
+          <Modal visible={modalVisible} transparent={false}>
+            <AppIntroSlider
+              data={slides}
+              renderItem={({ item }) => {
+                return (
+                  <View
+                    style={[
+                      styles.slide,
+                      { backgroundColor: item.backgroundColor },
+                    ]}
+                  >
+                    <Text style={styles.titleBoard}>{item.title}</Text>
+                    <Text style={styles.textBoard}>{item.text}</Text>
+                  </View>
+                );
+              }}
+              renderNextButton={_renderNextButton}
+              renderDoneButton={_renderDoneButton}
+              onDone={() => setModalVisible(false)}
             />
+          </Modal>
+        </View>
 
-            <Text style={styles.buttonText}>Visite guidée</Text>
-          </View>
-        </TouchableOpacity>
-        <Modal visible={modalVisible} transparent={false}>
-          <AppIntroSlider
-            data={slides}
-            renderItem={({ item }) => {
-              return (
-                <View
-                  style={[
-                    styles.slide,
-                    { backgroundColor: item.backgroundColor },
-                  ]}
-                >
-                  <Text style={styles.titleBoard}>{item.title}</Text>
-                  <Text style={styles.textBoard}>{item.text}</Text>
-                </View>
-              );
-            }}
-            renderNextButton={_renderNextButton}
-            renderDoneButton={_renderDoneButton}
-            onDone={() => setModalVisible(false)}
-          />
-        </Modal>
+        <View style={styles.separator} />
+
         <Text style={styles.sstitle}>
           Votre préoccupation concerne plutôt :
         </Text>
@@ -192,11 +229,11 @@ export default function Tab3() {
             <TouchableOpacity
               key={item.id}
               style={[
-                styles.item,
+                styles.itemContainer,
                 {
                   backgroundColor: selectedItems.includes(item.id)
-                    ? "skyblue"
-                    : "white",
+                    ? "#feda62"
+                    : "#f2f7fb",
                 },
               ]}
               onPress={() => handleSelectItem(item)}
@@ -219,8 +256,17 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     backgroundColor: "white",
-    paddingHorizontal: 20,
+    //paddingHorizontal: 20,
     paddingTop: 50,
+  },
+
+  firstPartContainer: {
+    flex: 1,
+    // justifyContent: "flex-start",
+    //backgroundColor: "white",
+    //paddingHorizontal: 20,
+    //paddingTop: 50,
+    paddingHorizontal: 20,
   },
 
   seedContainer: {
@@ -245,7 +291,11 @@ const styles = StyleSheet.create({
     height: 120,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 20,
+    // marginBottom: 20,
+    // marginRight: 10,
+    // paddingRight: 20,
+    // marginLeft: 20,
+    // paddingLeft: 5,
   },
 
   title: {
@@ -278,6 +328,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
   },
+
   button: {
     backgroundColor: "#6f78bd",
     padding: 10,
@@ -317,14 +368,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 
-  doneButton: {
-    backgroundColor: "#008CBA",
-    padding: 10,
-    position: "absolute", // new
-    bottom: 50, // new
-    alignSelf: "center", // new
-    alignItems: "center",
-  },
+  // doneButton: {
+  //   backgroundColor: "#008CBA",
+  //   padding: 10,
+  //   position: "absolute", // new
+  //   bottom: 50, // new
+  //   alignSelf: "center", // new
+  //   alignItems: "center",
+  // },
 
   buttonCircle: {
     width: 90,
@@ -337,22 +388,36 @@ const styles = StyleSheet.create({
   // buttonText: {
   //   color: "white",
   // },
-  item: {
+  itemContainer: {
     width: "80%",
     padding: 10,
     margin: 10,
-    borderWidth: 1,
-    borderColor: "gray",
-    borderRadius: 5,
+    // borderWidth: 1,
+    // borderColor: "#f2f7fb",
+
+    //backgroundColor: "rgba(0, 0, 0, .2)",
+    borderRadius: 15,
   },
   itemText: {
-    fontSize: 18,
-    color: "black",
+    fontFamily: "roboto",
+    //color: "rgba(151,155,180,1)",
+    //backgroundColor: "rgba(0, 0, 0, .2)",
+    color: "rgba(50,56,106,1)",
+    lineHeight: 25,
+    paddingHorizontal: 10,
+    fontSize: 16,
   },
   lancerBtn: {
     fontSize: 18,
     color: "black",
     marginTop: 25,
     marginBottom: 55,
+  },
+  separator: {
+    borderBottomColor: "black",
+    borderBottomWidth: 13,
+    marginVertical: 20,
+    width: "80%",
+    alignItems: "center",
   },
 });
