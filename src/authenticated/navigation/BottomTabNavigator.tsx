@@ -38,7 +38,7 @@ const BottomTabNavigator = () => {
               );
 
               break;
-            case "Cultivez":
+            case "Graines":
               return (
                 <MaterialCommunityIcons
                   name="watering-can"
@@ -47,19 +47,21 @@ const BottomTabNavigator = () => {
                 />
               );
               break;
-            case "Perspective!":
+            case "Antidote":
               return (
                 <MaterialCommunityIcons
-                  name="telescope"
+                  //name="flask"
+                  name="test-tube"
                   size={28}
                   color={focused ? "#5b5da7" : "#b8b8b8"}
                 />
               );
               break;
-            case "Rêvez":
+            case "Dreamlist":
               return (
                 <MaterialCommunityIcons
                   name="thought-bubble"
+                  // name="star"
                   size={28}
                   color={focused ? "#5b5da7" : "#b8b8b8"}
                 />
@@ -86,17 +88,17 @@ const BottomTabNavigator = () => {
         options={{ headerShown: false }} // Cacher l'en-tête pour l'écran HomeTab
       />
       <Tab.Screen
-        name="Perspective!"
+        name="Antidote"
         component={Tab3Navigator}
         options={{ headerShown: false }}
       />
       <Tab.Screen
-        name="Cultivez"
+        name="Graines"
         component={Tab2}
         options={{ headerShown: false }}
       />
       <Tab.Screen
-        name="Rêvez"
+        name="Dreamlist"
         component={Tab4}
         options={{ headerShown: false }}
       />
