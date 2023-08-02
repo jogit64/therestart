@@ -147,12 +147,12 @@ export default function Tab3() {
     }
 
     // Trouver les phrases pour chaque élément sélectionné
-    // const selectedItemsPhrases = items
-    //   .filter((item) => selectedItems.includes(item.id))
-    //   .flatMap((item) => getRandomPhrases(item.phrases));
+    const selectedItemsPhrases = items
+      .filter((item) => selectedItems.includes(item.id))
+      .flatMap((item) => getRandomPhrases(item.phrases));
 
     // Naviguer vers Tab3P1Screen avec les phrases des éléments sélectionnés
-    // navigation.navigate("Tab3P1", { selectedItemsPhrases });
+    navigation.navigate("Tab3P1", { selectedItemsPhrases });
   };
 
   return (
@@ -226,14 +226,10 @@ export default function Tab3() {
           <Text style={styles.textIntro}>
             Sélectionnez jusqu'à 3 thème et lancez l'affichage.
           </Text>
-
-          <TouchableOpacity onPress={() => navigation.navigate("Tab3P1")}>
-            <Text style={styles.lancerBtn}>Sélectionnez vos thèmes</Text>
-          </TouchableOpacity>
           {/* </View>
 
         <View style={styles.containerList}> */}
-          {/* {items.map((item) => (
+          {items.map((item) => (
             <TouchableOpacity
               key={item.id}
               style={[
@@ -252,7 +248,7 @@ export default function Tab3() {
 
           <TouchableOpacity onPress={handleShowSelectedItems}>
             <Text style={styles.lancerBtn}>cliquez ici</Text>
-          </TouchableOpacity> */}
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
