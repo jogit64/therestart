@@ -221,13 +221,14 @@ export default function Tab3() {
         </View>
 
         {/* <View style={styles.separator} /> */}
+        <View style={styles.secondPartContainer}>
+          <Text style={styles.sstitle}>Approchez le détachement</Text>
+          <Text style={styles.textIntro}>
+            Sélectionnez jusqu'à 3 thème et lancez l'affichage.
+          </Text>
+          {/* </View>
 
-        <Text style={styles.sstitle}>
-          Votre préoccupation concerne plutôt :
-        </Text>
-        <Text style={styles.textIntro}>(3 thèmes max)</Text>
-
-        <View style={styles.containerList}>
+        <View style={styles.containerList}> */}
           {items.map((item) => (
             <TouchableOpacity
               key={item.id}
@@ -270,6 +271,16 @@ const styles = StyleSheet.create({
     //paddingHorizontal: 20,
     //paddingTop: 50,
     paddingHorizontal: 20,
+  },
+
+  secondPartContainer: {
+    flex: 1,
+    // justifyContent: "flex-start",
+    //backgroundColor: "white",
+    //paddingHorizontal: 20,
+    //paddingTop: 50,
+    paddingHorizontal: 20,
+    marginTop: 10,
   },
 
   seedContainer: {
@@ -397,9 +408,12 @@ const styles = StyleSheet.create({
   //   color: "white",
   // },
   itemContainer: {
-    width: "80%",
+    width: "100%",
+    height: 80,
     padding: 10,
-    margin: 10,
+    //margin: 10,
+    marginTop: 10,
+    justifyContent: "center",
     // borderWidth: 1,
     // borderColor: "#f2f7fb",
 
