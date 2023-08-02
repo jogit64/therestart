@@ -14,6 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { TabParamList } from "../../../../../utils/navigationTypes";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 
 import AppIntroSlider from "react-native-app-intro-slider";
 import { ScrollView } from "react-native-gesture-handler";
@@ -171,27 +172,29 @@ export default function Tab3() {
             resizeMode="cover"
           >
             <Text style={styles.textIntro}>
-              Découvrez des perspectives novatrices pour éclairer et apaiser
-              votre esprit !
+              Désactivez vos étiquettes, renversez vos émotions négatives et
+              revitalisez vos besoins intérieurs !
             </Text>
           </ImageBackground>
-          <Text style={styles.textIntro}>
+          {/* <Text style={styles.textIntro}>
             Commencez par la visite guidée pour une meilleure exploration de
             l'application.
-          </Text>
-
+          </Text> */}
+          <Text style={styles.sstitle}>Idées générales</Text>
           <TouchableOpacity
             style={styles.button}
             onPress={() => setModalVisible(true)}
           >
             <View style={styles.visiteBtnContainer}>
-              <MaterialCommunityIcons
+              {/* <MaterialCommunityIcons
                 name="book-open-page-variant"
                 size={24}
                 color="white"
-              />
-
-              <Text style={styles.buttonText}>Visite guidée</Text>
+              /> */}
+              <Feather name="info" size={36} color="white" />
+              <Text style={styles.buttonText}>
+                Découvrez les idées clés {"\n"} et inspirez-vous des hypothèses
+              </Text>
             </View>
           </TouchableOpacity>
           <Modal visible={modalVisible} transparent={false}>
@@ -217,7 +220,7 @@ export default function Tab3() {
           </Modal>
         </View>
 
-        <View style={styles.separator} />
+        {/* <View style={styles.separator} /> */}
 
         <Text style={styles.sstitle}>
           Votre préoccupation concerne plutôt :
@@ -309,7 +312,7 @@ const styles = StyleSheet.create({
   sstitle: {
     fontFamily: "roboto500",
     fontSize: 18,
-    textAlign: "center",
+    //textAlign: "center",
     //marginBottom: 10,
     color: "rgba(50,56,106,1)",
     marginTop: 20,
@@ -326,24 +329,29 @@ const styles = StyleSheet.create({
 
   visiteBtnContainer: {
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "flex-start",
+    alignItems: "center",
   },
 
   button: {
-    backgroundColor: "#6f78bd",
+    backgroundColor: "#20c2cd",
     padding: 10,
-    alignSelf: "center",
-    alignItems: "center",
+    paddingLeft: 20,
+    justifyContent: "center",
+    //alignSelf: "center",
+    ///alignItems: "center",
     //marginBottom: 20,
     //marginVertical: 20,
-    marginTop: 30,
-    borderRadius: 5,
-    width: "60%",
+    marginTop: 15,
+    borderRadius: 15,
+    width: "100%",
+    height: 80,
   },
   buttonText: {
     color: "white",
-    fontSize: 18,
-    marginLeft: 8,
+    fontSize: 15,
+    marginLeft: 22,
+    lineHeight: 22,
     //backgroundColor: "#6f78bd",
   },
   slide: {
