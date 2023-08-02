@@ -162,7 +162,7 @@ export default function Tab3() {
             source={require("./../../../../../assets/images/logoReStart.png")}
             style={{ width: 35, height: 35 }}
           />
-          <Text style={styles.title}>Perspectives!</Text>
+          <Text style={styles.title}>Antidotes</Text>
         </View>
         <View style={styles.firstPartContainer}>
           <ImageBackground
