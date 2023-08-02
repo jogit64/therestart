@@ -31,7 +31,7 @@ const BottomTabNavigator = () => {
             case "Bonjour":
               return (
                 <MaterialCommunityIcons
-                  name="gesture-tap"
+                  name="hand-wave"
                   size={28}
                   color={focused ? "#5b5da7" : "#b8b8b8"}
                 />

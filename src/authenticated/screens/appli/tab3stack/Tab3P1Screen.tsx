@@ -163,61 +163,7 @@ export default function Tab3p1() {
             source={require("./../../../../../assets/images/logoReStart.png")}
             style={{ width: 35, height: 35 }}
           />
-          <Text style={styles.title}>Antidotes</Text>
-        </View>
-        <View style={styles.firstPartContainer}>
-          <ImageBackground
-            source={require("./../../../../../assets/images/fronton.png")}
-            style={styles.frontonImage}
-            resizeMode="cover"
-          >
-            <Text style={styles.textIntro}>
-              Désactivez vos étiquettes, renversez vos émotions négatives et
-              revitalisez vos besoins intérieurs !
-            </Text>
-          </ImageBackground>
-          {/* <Text style={styles.textIntro}>
-            Commencez par la visite guidée pour une meilleure exploration de
-            l'application.
-          </Text> */}
-          <Text style={styles.sstitle}>Idées générales</Text>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => setModalVisible(true)}
-          >
-            <View style={styles.visiteBtnContainer}>
-              {/* <MaterialCommunityIcons
-                name="book-open-page-variant"
-                size={24}
-                color="white"
-              /> */}
-              <Feather name="info" size={36} color="white" />
-              <Text style={styles.buttonText}>
-                Découvrez les idées clés {"\n"} et inspirez-vous des hypothèses
-              </Text>
-            </View>
-          </TouchableOpacity>
-          <Modal visible={modalVisible} transparent={false}>
-            <AppIntroSlider
-              data={slides}
-              renderItem={({ item }) => {
-                return (
-                  <View
-                    style={[
-                      styles.slide,
-                      { backgroundColor: item.backgroundColor },
-                    ]}
-                  >
-                    <Text style={styles.titleBoard}>{item.title}</Text>
-                    <Text style={styles.textBoard}>{item.text}</Text>
-                  </View>
-                );
-              }}
-              renderNextButton={_renderNextButton}
-              renderDoneButton={_renderDoneButton}
-              onDone={() => setModalVisible(false)}
-            />
-          </Modal>
+          <Text style={styles.title}>Détachement</Text>
         </View>
 
         {/* <View style={styles.separator} /> */}
@@ -338,58 +284,58 @@ const styles = StyleSheet.create({
     fontFamily: "roboto",
     color: "rgba(151,155,180,1)",
     lineHeight: 25,
-    paddingHorizontal: 10,
+    //paddingHorizontal: 10,
     fontSize: 16,
   },
 
-  visiteBtnContainer: {
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "center",
-  },
+  // visiteBtnContainer: {
+  //   flexDirection: "row",
+  //   justifyContent: "flex-start",
+  //   alignItems: "center",
+  // },
 
-  button: {
-    backgroundColor: "#20c2cd",
-    padding: 10,
-    paddingLeft: 20,
-    justifyContent: "center",
-    //alignSelf: "center",
-    ///alignItems: "center",
-    //marginBottom: 20,
-    //marginVertical: 20,
-    marginTop: 15,
-    borderRadius: 15,
-    width: "100%",
-    height: 80,
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 15,
-    marginLeft: 22,
-    lineHeight: 22,
-    //backgroundColor: "#6f78bd",
-  },
-  slide: {
-    flex: 1,
-    justifyContent: "flex-start",
-    alignItems: "center",
-    padding: 20,
-  },
-  titleBoard: {
-    fontFamily: "roboto700",
-    fontSize: 24,
-    textAlign: "center",
-    color: "rgba(50,56,106,1)",
-    paddingLeft: 10,
-    marginVertical: 25,
-  },
-  textBoard: {
-    fontFamily: "roboto",
-    color: "rgba(151,155,180,1)",
-    lineHeight: 25,
-    paddingHorizontal: 10,
-    fontSize: 16,
-  },
+  // button: {
+  //   backgroundColor: "#20c2cd",
+  //   padding: 10,
+  //   paddingLeft: 20,
+  //   justifyContent: "center",
+  //   //alignSelf: "center",
+  //   ///alignItems: "center",
+  //   //marginBottom: 20,
+  //   //marginVertical: 20,
+  //   marginTop: 15,
+  //   borderRadius: 15,
+  //   width: "100%",
+  //   height: 80,
+  // },
+  // buttonText: {
+  //   color: "green",
+  //   fontSize: 15,
+  //   marginLeft: 22,
+  //   lineHeight: 22,
+  //   //backgroundColor: "#6f78bd",
+  // },
+  // slide: {
+  //   flex: 1,
+  //   justifyContent: "flex-start",
+  //   alignItems: "center",
+  //   padding: 20,
+  // },
+  // titleBoard: {
+  //   fontFamily: "roboto700",
+  //   fontSize: 24,
+  //   textAlign: "center",
+  //   color: "rgba(50,56,106,1)",
+  //   paddingLeft: 10,
+  //   marginVertical: 25,
+  // },
+  // textBoard: {
+  //   fontFamily: "roboto",
+  //   color: "rgba(151,155,180,1)",
+  //   lineHeight: 25,
+  //   paddingHorizontal: 10,
+  //   fontSize: 16,
+  // },
 
   // doneButton: {
   //   backgroundColor: "#008CBA",
@@ -434,10 +380,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   lancerBtn: {
+    fontFamily: "roboto",
     fontSize: 18,
     color: "black",
     marginTop: 25,
-    marginBottom: 55,
+    marginBottom: 5,
+    // justifyContent: "center",
+    // alignItems: "center",
+    alignSelf: "center",
   },
   separator: {
     borderBottomColor: "black",

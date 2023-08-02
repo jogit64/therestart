@@ -182,10 +182,10 @@ export default function Tab3() {
           </Text> */}
           <Text style={styles.sstitle}>Idées générales</Text>
           <TouchableOpacity
-            style={styles.button}
+            style={styles.buttonIdees}
             onPress={() => setModalVisible(true)}
           >
-            <View style={styles.visiteBtnContainer}>
+            <View style={styles.BtnContainer}>
               {/* <MaterialCommunityIcons
                 name="book-open-page-variant"
                 size={24}
@@ -224,35 +224,51 @@ export default function Tab3() {
         <View style={styles.secondPartContainer}>
           <Text style={styles.sstitle}>Approchez le détachement</Text>
           <Text style={styles.textIntro}>
-            Sélectionnez jusqu'à 3 thème et lancez l'affichage.
+            Pourrez-vous désactiver vos étiquettes et vos croyances ?
           </Text>
+          <TouchableOpacity
+            style={styles.buttonDetach}
+            onPress={() => navigation.navigate("Tab3P1")}
+          >
+            <View style={styles.BtnContainer}>
+              <MaterialCommunityIcons
+                name="gesture-tap"
+                size={36}
+                color="white"
+              />
+              {/* <Feather name="gesture-tap" size={36} color="white" /> */}
 
-          <TouchableOpacity onPress={() => navigation.navigate("Tab3P1")}>
-            <Text style={styles.lancerBtn}>Sélectionnez vos thèmes</Text>
+              <Text style={styles.buttonText}>
+                Sélectionnez jusqu'à 3 thème
+                {/* {"\n"} et désactivez étiquettes et
+                croyances */}
+              </Text>
+            </View>
           </TouchableOpacity>
-          {/* </View>
+        </View>
+        <View style={styles.thirdPartContainer}>
+          <Text style={styles.sstitle}>Inverser vos émotions</Text>
+          <Text style={styles.textIntro}>
+            Cliquez sur l'émotion et recherchez à faire émerger un sentiment
+            inverse
+          </Text>
+          <TouchableOpacity
+            style={styles.buttonEmotion}
+            // onPress={() => navigation.navigate("Tab3P1")}
+          >
+            <View style={styles.BtnContainer}>
+              <MaterialCommunityIcons
+                name="gesture-tap"
+                size={36}
+                color="white"
+              />
+              {/* <Feather name="gesture-tap" size={36} color="white" /> */}
 
-        <View style={styles.containerList}> */}
-          {/* {items.map((item) => (
-            <TouchableOpacity
-              key={item.id}
-              style={[
-                styles.itemContainer,
-                {
-                  backgroundColor: selectedItems.includes(item.id)
-                    ? "#feda62"
-                    : "#f2f7fb",
-                },
-              ]}
-              onPress={() => handleSelectItem(item)}
-            >
-              <Text style={styles.itemText}>{item.name}</Text>
-            </TouchableOpacity>
-          ))}
-
-          <TouchableOpacity onPress={handleShowSelectedItems}>
-            <Text style={styles.lancerBtn}>cliquez ici</Text>
-          </TouchableOpacity> */}
+              {/* <Text style={styles.buttonText}>
+                Sélectionnez jusqu'à 3 thème
+              </Text> */}
+            </View>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
@@ -278,6 +294,15 @@ const styles = StyleSheet.create({
   },
 
   secondPartContainer: {
+    flex: 1,
+    // justifyContent: "flex-start",
+    //backgroundColor: "white",
+    //paddingHorizontal: 20,
+    //paddingTop: 50,
+    paddingHorizontal: 20,
+    marginTop: 10,
+  },
+  thirdPartContainer: {
     flex: 1,
     // justifyContent: "flex-start",
     //backgroundColor: "white",
@@ -342,13 +367,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 
-  visiteBtnContainer: {
+  BtnContainer: {
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
   },
 
-  button: {
+  buttonIdees: {
     backgroundColor: "#20c2cd",
     padding: 10,
     paddingLeft: 20,
@@ -361,6 +386,28 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     width: "100%",
     height: 80,
+  },
+
+  buttonDetach: {
+    backgroundColor: "#d8b04e",
+    padding: 10,
+    paddingLeft: 20,
+    justifyContent: "center",
+    marginTop: 15,
+    borderRadius: 15,
+    width: "100%",
+    height: 80,
+  },
+
+  buttonEmotion: {
+    backgroundColor: "#d8b04e",
+    padding: 10,
+    //paddingLeft: 20,
+    justifyContent: "center",
+    marginTop: 15,
+    borderRadius: 80,
+    width: "20%",
+    //height: 80,
   },
   buttonText: {
     color: "white",
