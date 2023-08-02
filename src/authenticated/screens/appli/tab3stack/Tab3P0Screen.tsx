@@ -16,6 +16,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { TabParamList } from "../../../../../utils/navigationTypes";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
+import Icon from "react-native-vector-icons/Ionicons";
 
 import AppIntroSlider from "react-native-app-intro-slider";
 import { ScrollView } from "react-native-gesture-handler";
@@ -51,11 +52,22 @@ function _renderDoneButton() {
   );
 }
 
-const FormeCliquable = ({ emotion, couleurArround, couleurFull, onClic }) => (
+const FormeCliquable = ({ emotion, arround, full, onClic, iconName }) => (
   <TouchableOpacity onPress={onClic} style={styles.emotionContainer}>
     <View style={styles.formeContainer}>
-      <View style={[styles.arround, { backgroundColor: couleurArround }]}>
-        <View style={[styles.full, { backgroundColor: couleurFull }]}></View>
+      <View style={[styles.arround, { backgroundColor: arround }]}>
+        <View
+          style={[
+            styles.full,
+            {
+              backgroundColor: full,
+              justifyContent: "center",
+              alignItems: "center",
+            },
+          ]}
+        >
+          <Icon name={iconName} size={30} color="white" />
+        </View>
       </View>
     </View>
     <Text style={styles.emotionText}>{emotion}</Text>
@@ -71,62 +83,79 @@ export default function Tab3() {
       emotion: "Triste",
       arround: "rgba(65,105,225,1)",
       full: "rgba(100,149,237,1)",
+      iconName: "md-sad",
     },
-    { emotion: "Enragé", arround: "rgba(255,0,0,1)", full: "rgba(139,0,0,1)" },
+    {
+      emotion: "Enragé",
+      arround: "rgba(255,0,0,1)",
+      full: "rgba(139,0,0,1)",
+      iconName: "md-flame",
+    },
     {
       emotion: "Effrayé",
       arround: "rgba(255,165,0,1)",
       full: "rgba(255,140,0,1)",
+      iconName: "md-flash",
     },
     {
       emotion: "Frustré",
       arround: "rgba(255,69,0,1)",
       full: "rgba(255,99,71,1)",
+      iconName: "md-close-circle",
     },
     {
       emotion: "Déçu",
       arround: "rgba(176,196,222,1)",
       full: "rgba(135,206,250,1)",
+      iconName: "md-thumbs-down",
     },
     {
       emotion: "Honteux",
       arround: "rgba(255,20,147,1)",
       full: "rgba(255,105,180,1)",
+      iconName: "md-eye-off",
     },
     {
       emotion: "Jaloux",
       arround: "rgba(107,142,35,1)",
       full: "rgba(124,252,0,1)",
+      iconName: "md-heart-dislike",
     },
     {
       emotion: "Confus",
       arround: "rgba(255,215,0,1)",
       full: "rgba(255,255,0,1)",
+      iconName: "md-help-circle",
     },
     {
       emotion: "Déprimé",
       arround: "rgba(72,61,139,1)",
       full: "rgba(106,90,205,1)",
+      iconName: "md-cloudy",
     },
     {
       emotion: "Anxieux",
       arround: "rgba(255,105,180,1)",
       full: "rgba(219,112,147,1)",
+      iconName: "md-pulse",
     },
     {
       emotion: "Isolé",
       arround: "rgba(192,192,192,1)",
       full: "rgba(211,211,211,1)",
+      iconName: "md-person",
     },
     {
       emotion: "Apathique",
       arround: "rgba(128,128,128,1)",
       full: "rgba(105,105,105,1)",
+      iconName: "md-remove-circle",
     },
     {
       emotion: "Ressentiment",
       arround: "rgba(85,107,47,1)",
       full: "rgba(154,205,50,1)",
+      iconName: "md-flash-off",
     },
   ];
 
@@ -246,8 +275,9 @@ export default function Tab3() {
               <FormeCliquable
                 key={index}
                 emotion={item.emotion}
-                couleurArround={item.arround}
-                couleurFull={item.full}
+                arround={item.arround}
+                full={item.full}
+                iconName={item.iconName} // Ajoute cette ligne
                 onClic={() =>
                   Alert.alert(`Emotion sélectionnée : ${item.emotion}`)
                 }
