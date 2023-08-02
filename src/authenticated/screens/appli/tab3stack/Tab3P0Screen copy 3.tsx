@@ -8,7 +8,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   Modal,
-  Alert,
 } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
@@ -51,84 +50,9 @@ function _renderDoneButton() {
   );
 }
 
-const FormeCliquable = ({ emotion, couleurArround, couleurFull, onClic }) => (
-  <TouchableOpacity onPress={onClic} style={styles.emotionContainer}>
-    <View style={styles.formeContainer}>
-      <View style={[styles.arround, { backgroundColor: couleurArround }]}>
-        <View style={[styles.full, { backgroundColor: couleurFull }]}></View>
-      </View>
-    </View>
-    <Text style={styles.emotionText}>{emotion}</Text>
-  </TouchableOpacity>
-);
-
 export default function Tab3() {
   const navigation = useNavigation<StackNavigationProp<TabParamList, "Tab2">>();
   const [modalVisible, setModalVisible] = useState(false);
-
-  const emotions = [
-    {
-      emotion: "Triste",
-      arround: "rgba(65,105,225,1)",
-      full: "rgba(100,149,237,1)",
-    },
-    { emotion: "Enragé", arround: "rgba(255,0,0,1)", full: "rgba(139,0,0,1)" },
-    {
-      emotion: "Effrayé",
-      arround: "rgba(255,165,0,1)",
-      full: "rgba(255,140,0,1)",
-    },
-    {
-      emotion: "Frustré",
-      arround: "rgba(255,69,0,1)",
-      full: "rgba(255,99,71,1)",
-    },
-    {
-      emotion: "Déçu",
-      arround: "rgba(176,196,222,1)",
-      full: "rgba(135,206,250,1)",
-    },
-    {
-      emotion: "Honteux",
-      arround: "rgba(255,20,147,1)",
-      full: "rgba(255,105,180,1)",
-    },
-    {
-      emotion: "Jaloux",
-      arround: "rgba(107,142,35,1)",
-      full: "rgba(124,252,0,1)",
-    },
-    {
-      emotion: "Confus",
-      arround: "rgba(255,215,0,1)",
-      full: "rgba(255,255,0,1)",
-    },
-    {
-      emotion: "Déprimé",
-      arround: "rgba(72,61,139,1)",
-      full: "rgba(106,90,205,1)",
-    },
-    {
-      emotion: "Anxieux",
-      arround: "rgba(255,105,180,1)",
-      full: "rgba(219,112,147,1)",
-    },
-    {
-      emotion: "Isolé",
-      arround: "rgba(192,192,192,1)",
-      full: "rgba(211,211,211,1)",
-    },
-    {
-      emotion: "Apathique",
-      arround: "rgba(128,128,128,1)",
-      full: "rgba(105,105,105,1)",
-    },
-    {
-      emotion: "Ressentiment",
-      arround: "rgba(85,107,47,1)",
-      full: "rgba(154,205,50,1)",
-    },
-  ];
 
   return (
     <View style={styles.container}>
@@ -227,7 +151,7 @@ export default function Tab3() {
             Cliquez sur l'émotion et recherchez à faire émerger un sentiment
             inverse
           </Text>
-          {/* <TouchableOpacity
+          <TouchableOpacity
             style={styles.buttonEmotion}
             // onPress={() => navigation.navigate("Tab3P1")}
           >
@@ -237,23 +161,13 @@ export default function Tab3() {
                 size={36}
                 color="white"
               />
-          
-            </View>
-          </TouchableOpacity> */}
+              {/* <Feather name="gesture-tap" size={36} color="white" /> */}
 
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {emotions.map((item, index) => (
-              <FormeCliquable
-                key={index}
-                emotion={item.emotion}
-                couleurArround={item.arround}
-                couleurFull={item.full}
-                onClic={() =>
-                  Alert.alert(`Emotion sélectionnée : ${item.emotion}`)
-                }
-              />
-            ))}
-          </ScrollView>
+              {/* <Text style={styles.buttonText}>
+                Sélectionnez jusqu'à 3 thème
+              </Text> */}
+            </View>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
@@ -420,36 +334,5 @@ const styles = StyleSheet.create({
     color: "black",
     marginTop: 25,
     marginBottom: 55,
-  },
-
-  formeContainer: {
-    alignItems: "center", // Pour centrer la forme
-    justifyContent: "center", // Pour centrer la forme
-  },
-  arround: {
-    width: 141 / 2,
-    height: 134 / 2,
-    borderRadius: 100,
-    marginTop: 20,
-  },
-  full: {
-    width: 126 / 2,
-    height: 120 / 2,
-    borderRadius: 100,
-    borderWidth: 1,
-    borderColor: "rgba(255,255,255,1)",
-    marginTop: 7 / 2,
-    marginLeft: 7 / 2,
-  },
-  emotionContainer: {
-    alignItems: "center", // Pour centrer le texte et la forme
-    marginRight: 20, // Pour espacer les vues
-    marginBottom: 30,
-  },
-  emotionText: {
-    fontSize: 12,
-    color: "black",
-    marginTop: 5, // Espace entre la forme et le texte
-    textAlign: "center", // Pour centrer le texte
   },
 });

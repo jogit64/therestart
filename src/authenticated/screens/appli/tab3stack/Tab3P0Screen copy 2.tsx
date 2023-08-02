@@ -8,7 +8,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   Modal,
-  Alert,
 } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
@@ -51,84 +50,110 @@ function _renderDoneButton() {
   );
 }
 
-const FormeCliquable = ({ emotion, couleurArround, couleurFull, onClic }) => (
-  <TouchableOpacity onPress={onClic} style={styles.emotionContainer}>
-    <View style={styles.formeContainer}>
-      <View style={[styles.arround, { backgroundColor: couleurArround }]}>
-        <View style={[styles.full, { backgroundColor: couleurFull }]}></View>
-      </View>
-    </View>
-    <Text style={styles.emotionText}>{emotion}</Text>
-  </TouchableOpacity>
-);
-
 export default function Tab3() {
   const navigation = useNavigation<StackNavigationProp<TabParamList, "Tab2">>();
   const [modalVisible, setModalVisible] = useState(false);
 
-  const emotions = [
-    {
-      emotion: "Triste",
-      arround: "rgba(65,105,225,1)",
-      full: "rgba(100,149,237,1)",
-    },
-    { emotion: "Enragé", arround: "rgba(255,0,0,1)", full: "rgba(139,0,0,1)" },
-    {
-      emotion: "Effrayé",
-      arround: "rgba(255,165,0,1)",
-      full: "rgba(255,140,0,1)",
-    },
-    {
-      emotion: "Frustré",
-      arround: "rgba(255,69,0,1)",
-      full: "rgba(255,99,71,1)",
-    },
-    {
-      emotion: "Déçu",
-      arround: "rgba(176,196,222,1)",
-      full: "rgba(135,206,250,1)",
-    },
-    {
-      emotion: "Honteux",
-      arround: "rgba(255,20,147,1)",
-      full: "rgba(255,105,180,1)",
-    },
-    {
-      emotion: "Jaloux",
-      arround: "rgba(107,142,35,1)",
-      full: "rgba(124,252,0,1)",
-    },
-    {
-      emotion: "Confus",
-      arround: "rgba(255,215,0,1)",
-      full: "rgba(255,255,0,1)",
-    },
-    {
-      emotion: "Déprimé",
-      arround: "rgba(72,61,139,1)",
-      full: "rgba(106,90,205,1)",
-    },
-    {
-      emotion: "Anxieux",
-      arround: "rgba(255,105,180,1)",
-      full: "rgba(219,112,147,1)",
-    },
-    {
-      emotion: "Isolé",
-      arround: "rgba(192,192,192,1)",
-      full: "rgba(211,211,211,1)",
-    },
-    {
-      emotion: "Apathique",
-      arround: "rgba(128,128,128,1)",
-      full: "rgba(105,105,105,1)",
-    },
-    {
-      emotion: "Ressentiment",
-      arround: "rgba(85,107,47,1)",
-      full: "rgba(154,205,50,1)",
-    },
-  ];
+  // La liste de vos éléments. Vous pouvez y mettre n'importe quel type de données.
+  // const items = [
+  //   {
+  //     id: 1,
+  //     name: "Un récit sur soi",
+  //     phrases: [
+  //       "Phrase 1.1",
+  //       "Phrase 1.2",
+  //       "Phrase 1.3",
+  //       "Phrase 1.4",
+  //       "Phrase 1.5",
+  //     ],
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Un récit sur l'autre",
+  //     phrases: [
+  //       "Phrase 2.1",
+  //       "Phrase 2.2",
+  //       "Phrase 2.3",
+  //       "Phrase 2.4",
+  //       "Phrase 2.5",
+  //     ],
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Un récit sur la possession matérielle",
+  //     phrases: [
+  //       "Phrase 2.1",
+  //       "Phrase 2.2",
+  //       "Phrase 2.3",
+  //       "Phrase 2.4",
+  //       "Phrase 2.5",
+  //     ],
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Un récit sur l'idée d'avoir, de manquer de la considération, d'amour",
+  //     phrases: [
+  //       "Phrase 2.1",
+  //       "Phrase 2.2",
+  //       "Phrase 2.3",
+  //       "Phrase 2.4",
+  //       "Phrase 2.5",
+  //     ],
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "Un récit avec du temps, du passé, du futur, de la durée",
+  //     phrases: [
+  //       "Phrase 2.1",
+  //       "Phrase 2.2",
+  //       "Phrase 2.3",
+  //       "Phrase 2.4",
+  //       "Phrase 2.5",
+  //     ],
+  //   },
+  //   // etc.
+  // ];
+
+  // Etat initial pour savoir quels éléments sont sélectionnés
+  // const [selectedItems, setSelectedItems] = useState([]);
+
+  // Fonction pour gérer la sélection d'un élément
+  // const handleSelectItem = (item) => {
+  //   setSelectedItems((prevSelectedItems) => {
+  //     if (prevSelectedItems.includes(item.id)) {
+  //       // Si l'élément est déjà sélectionné, on l'enlève de la liste
+  //       return prevSelectedItems.filter((itemId) => itemId !== item.id);
+  //     } else {
+  //       // Limiter le nombre d'éléments sélectionnés à trois
+  //       return prevSelectedItems.length < 3
+  //         ? [...prevSelectedItems, item.id]
+  //         : prevSelectedItems;
+  //     }
+  //   });
+  // };
+
+  // const getRandomPhrases = (phrases) => {
+  //   // Mélanger les phrases
+  //   const shuffled = phrases.sort(() => 0.5 - Math.random());
+  //   // Retourner les trois premières phrases
+  //   return shuffled.slice(0, 3);
+  // };
+
+  // const handleShowSelectedItems = () => {
+  //   // Vérifier si au moins un élément est sélectionné
+  //   if (selectedItems.length === 0) {
+  //     // Vous pouvez afficher un toast ici
+  //     return;
+  //   }
+
+  // Trouver les phrases pour chaque élément sélectionné
+  // const selectedItemsPhrases = items
+  //   .filter((item) => selectedItems.includes(item.id))
+  //   .flatMap((item) => getRandomPhrases(item.phrases));
+
+  // Naviguer vers Tab3P1Screen avec les phrases des éléments sélectionnés
+  // navigation.navigate("Tab3P1", { selectedItemsPhrases });
+  // };
 
   return (
     <View style={styles.container}>
@@ -227,7 +252,7 @@ export default function Tab3() {
             Cliquez sur l'émotion et recherchez à faire émerger un sentiment
             inverse
           </Text>
-          {/* <TouchableOpacity
+          <TouchableOpacity
             style={styles.buttonEmotion}
             // onPress={() => navigation.navigate("Tab3P1")}
           >
@@ -237,23 +262,13 @@ export default function Tab3() {
                 size={36}
                 color="white"
               />
-          
-            </View>
-          </TouchableOpacity> */}
+              {/* <Feather name="gesture-tap" size={36} color="white" /> */}
 
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {emotions.map((item, index) => (
-              <FormeCliquable
-                key={index}
-                emotion={item.emotion}
-                couleurArround={item.arround}
-                couleurFull={item.full}
-                onClic={() =>
-                  Alert.alert(`Emotion sélectionnée : ${item.emotion}`)
-                }
-              />
-            ))}
-          </ScrollView>
+              {/* <Text style={styles.buttonText}>
+                Sélectionnez jusqu'à 3 thème
+              </Text> */}
+            </View>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
@@ -271,17 +286,28 @@ const styles = StyleSheet.create({
 
   firstPartContainer: {
     flex: 1,
+    // justifyContent: "flex-start",
+    //backgroundColor: "white",
+    //paddingHorizontal: 20,
+    //paddingTop: 50,
     paddingHorizontal: 20,
   },
 
   secondPartContainer: {
     flex: 1,
+    // justifyContent: "flex-start",
+    //backgroundColor: "white",
+    //paddingHorizontal: 20,
+    //paddingTop: 50,
     paddingHorizontal: 20,
     marginTop: 10,
   },
-
   thirdPartContainer: {
     flex: 1,
+    // justifyContent: "flex-start",
+    //backgroundColor: "white",
+    //paddingHorizontal: 20,
+    //paddingTop: 50,
     paddingHorizontal: 20,
     marginTop: 10,
   },
@@ -294,11 +320,25 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
   },
 
+  containerList: {
+    flex: 1,
+    //justifyContent: "center",
+    alignItems: "center",
+    // backgroundColor: "white",
+    //paddingHorizontal: 20,
+    marginTop: 20,
+  },
+
   frontonImage: {
     width: "100%",
     height: 120,
     justifyContent: "center",
     alignItems: "center",
+    // marginBottom: 20,
+    // marginRight: 10,
+    // paddingRight: 20,
+    // marginLeft: 20,
+    // paddingLeft: 5,
   },
 
   title: {
@@ -338,6 +378,10 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingLeft: 20,
     justifyContent: "center",
+    //alignSelf: "center",
+    ///alignItems: "center",
+    //marginBottom: 20,
+    //marginVertical: 20,
     marginTop: 15,
     borderRadius: 15,
     width: "100%",
@@ -358,16 +402,19 @@ const styles = StyleSheet.create({
   buttonEmotion: {
     backgroundColor: "#d8b04e",
     padding: 10,
+    //paddingLeft: 20,
     justifyContent: "center",
     marginTop: 15,
     borderRadius: 80,
     width: "20%",
+    //height: 80,
   },
   buttonText: {
     color: "white",
     fontSize: 15,
     marginLeft: 22,
     lineHeight: 22,
+    //backgroundColor: "#6f78bd",
   },
   slide: {
     flex: 1,
@@ -391,6 +438,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 
+  // doneButton: {
+  //   backgroundColor: "#008CBA",
+  //   padding: 10,
+  //   position: "absolute", // new
+  //   bottom: 50, // new
+  //   alignSelf: "center", // new
+  //   alignItems: "center",
+  // },
+
   buttonCircle: {
     width: 90,
     height: 40,
@@ -399,17 +455,26 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-
+  // buttonText: {
+  //   color: "white",
+  // },
   itemContainer: {
     width: "100%",
     height: 80,
     padding: 10,
+    //margin: 10,
     marginTop: 10,
     justifyContent: "center",
+    // borderWidth: 1,
+    // borderColor: "#f2f7fb",
+
+    //backgroundColor: "rgba(0, 0, 0, .2)",
     borderRadius: 15,
   },
   itemText: {
     fontFamily: "roboto",
+    //color: "rgba(151,155,180,1)",
+    //backgroundColor: "rgba(0, 0, 0, .2)",
     color: "rgba(50,56,106,1)",
     lineHeight: 25,
     paddingHorizontal: 10,
@@ -421,35 +486,11 @@ const styles = StyleSheet.create({
     marginTop: 25,
     marginBottom: 55,
   },
-
-  formeContainer: {
-    alignItems: "center", // Pour centrer la forme
-    justifyContent: "center", // Pour centrer la forme
-  },
-  arround: {
-    width: 141 / 2,
-    height: 134 / 2,
-    borderRadius: 100,
-    marginTop: 20,
-  },
-  full: {
-    width: 126 / 2,
-    height: 120 / 2,
-    borderRadius: 100,
-    borderWidth: 1,
-    borderColor: "rgba(255,255,255,1)",
-    marginTop: 7 / 2,
-    marginLeft: 7 / 2,
-  },
-  emotionContainer: {
-    alignItems: "center", // Pour centrer le texte et la forme
-    marginRight: 20, // Pour espacer les vues
-    marginBottom: 30,
-  },
-  emotionText: {
-    fontSize: 12,
-    color: "black",
-    marginTop: 5, // Espace entre la forme et le texte
-    textAlign: "center", // Pour centrer le texte
+  separator: {
+    borderBottomColor: "black",
+    borderBottomWidth: 13,
+    marginVertical: 20,
+    width: "80%",
+    alignItems: "center",
   },
 });
