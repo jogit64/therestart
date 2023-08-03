@@ -202,7 +202,7 @@ export default function Tab2() {
       </ImageBackground>
       <Image
         source={require("./../../../../assets/images/plants1.png")}
-        style={{ width: "100%", height: 120 }}
+        style={{ width: "100%", height: 120, borderRadius: 10 }}
       />
       <TabView
         navigationState={{ index, routes }}
@@ -390,6 +390,7 @@ const styles = StyleSheet.create({
     //backgroundColor: "#c3d9e4",
     backgroundColor: "#fff",
     marginBottom: 10,
+    marginTop: 5,
   },
   // tabLabelActive: {
   //   color: "#000", // couleur du titre de l'onglet actif
