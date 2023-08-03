@@ -238,7 +238,17 @@ export default function Tab3() {
         </View>
 
         {/* <View style={styles.separator} /> */}
+
         <View style={styles.secondPartContainer}>
+          <Image
+            source={require("./../../../../../assets/images/bubbles1.png")}
+            style={{
+              width: "100%",
+              height: 180,
+              borderRadius: 10,
+              marginTop: 15,
+            }}
+          />
           <Text style={styles.sstitle}>Approchez le détachement</Text>
           <Text style={styles.textInter}>
             Pourrez-vous désactiver vos étiquettes et vos croyances ?
@@ -264,6 +274,15 @@ export default function Tab3() {
           </TouchableOpacity>
         </View>
         <View style={styles.thirdPartContainer}>
+          <Image
+            source={require("./../../../../../assets/images/plants1.png")}
+            style={{
+              width: "100%",
+              height: 180,
+              borderRadius: 10,
+              marginTop: 15,
+            }}
+          />
           <Text style={styles.sstitle}>Inverser vos émotions</Text>
           <Text style={styles.textInter}>
             Cliquez sur l'émotion et recherchez à faire émerger un sentiment
