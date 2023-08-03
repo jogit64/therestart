@@ -77,6 +77,7 @@ const FormeCliquable = ({ emotion, arround, full, onClic, iconName }) => (
 export default function Tab3() {
   const navigation = useNavigation<StackNavigationProp<TabParamList, "Tab2">>();
   const [modalVisible, setModalVisible] = useState(false);
+  const [selectedEmotion, setSelectedEmotion] = useState(null);
 
   const emotions = [
     {
@@ -171,6 +172,11 @@ export default function Tab3() {
       iconName: "md-flash-off",
     },
   ];
+
+  const handleEmotionClick = (emotion) => {
+    setSelectedEmotion(emotion);
+    setModalVisible(true);
+  };
 
   return (
     <View style={styles.container}>
@@ -309,15 +315,26 @@ export default function Tab3() {
                 emotion={item.emotion}
                 arround={item.arround}
                 full={item.full}
-                iconName={item.iconName} // Ajoute cette ligne
-                onClic={() =>
-                  Alert.alert(`Emotion sélectionnée : ${item.emotion}`)
-                }
+                iconName={item.iconName}
+                onClic={() => handleEmotionClick(item)}
               />
             ))}
           </ScrollView>
         </View>
       </ScrollView>
+
+      <Modal animationType="slide" transparent={false} visible={modalVisible}>
+        <View style={styles.modalView}>
+          <Text>Emotion sélectionnée : {selectedEmotion?.emotion}</Text>
+          <Text>Emotion opposée : {selectedEmotion?.oppositeEmotion}</Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => setModalVisible(false)}
+          >
+            <Text>Fermer</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </View>
   );
 }
