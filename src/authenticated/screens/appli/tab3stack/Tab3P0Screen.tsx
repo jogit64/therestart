@@ -20,6 +20,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 import AppIntroSlider from "react-native-app-intro-slider";
 import { ScrollView } from "react-native-gesture-handler";
+import BreathingGuide from "./../../../../../components/BreathingGuide";
 
 const slides = [
   {
@@ -384,36 +385,49 @@ export default function Tab3() {
         </View>
       </ScrollView>
 
-      <Modal animationType="slide" transparent={false} visible={modalVisible2}>
-        <View style={styles.seedContainer}>
-          <Image
-            source={require("./../../../../../assets/images/logoReStart.png")}
-            style={{ width: 55, height: 55 }}
-          />
-        </View>
-        {/* <Text style={styles.title}>Antidotes</Text> */}
-        <View style={styles.modalView}>
-          <Text style={styles.sstitleAdv}>
-            Vous vous sentez {selectedEmotion?.emotionT} ?
-          </Text>
-          <Text style={styles.sstitleAdvG}>
-            Faites le plein {selectedEmotion?.oppositeEmotion} !
-          </Text>
-          {selectedEmotion?.stimul.map((text, index) => (
-            <Text key={index} style={styles.textAdvice}>
-              {text}
-            </Text>
-          ))}
-          <View style={styles.btnContainEmo}>
-            <TouchableOpacity
-              style={styles.buttonCircle}
-              onPress={() => setModalVisible2(false)}
-            >
-              <Text style={styles.textInter}>Fermer</Text>
-            </TouchableOpacity>
+      <ScrollView>
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={modalVisible2}
+        >
+          <View style={styles.seedContainer}>
+            <Image
+              source={require("./../../../../../assets/images/logoReStart.png")}
+              style={{ width: 55, height: 55 }}
+            />
           </View>
-        </View>
-      </Modal>
+          {/* <Text style={styles.title}>Antidotes</Text> */}
+          <View style={styles.modalView}>
+            <Text style={styles.sstitleAdv}>
+              Vous vous sentez {selectedEmotion?.emotionT} ?
+            </Text>
+            <Text style={styles.sstitleAdvG}>
+              Faites le plein {selectedEmotion?.oppositeEmotion} !
+            </Text>
+            {selectedEmotion?.stimul.map((text, index) => (
+              <Text key={index} style={styles.textAdvice}>
+                {text}
+              </Text>
+            ))}
+
+            <Text style={styles.textAdviceP}>
+              Prennez quelques instant pour faire émerger ce sentiment{" "}
+              {selectedEmotion?.oppositeEmotion} et respirez.
+            </Text>
+            <BreathingGuide />
+
+            <View style={styles.btnContainEmo}>
+              <TouchableOpacity
+                style={styles.buttonCircle}
+                onPress={() => setModalVisible2(false)}
+              >
+                <Text style={styles.textInter}>Fermer</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+      </ScrollView>
     </View>
   );
 }
@@ -648,7 +662,7 @@ const styles = StyleSheet.create({
   modalView: {
     flex: 1,
     //justifyContent: "center",
-    //alignItems: "center",
+    alignItems: "center",
     padding: 20,
     backgroundColor: "rgba(255,255,255,1)", // Un fond blanc pour une apparence lumineuse
   },
@@ -656,9 +670,36 @@ const styles = StyleSheet.create({
     fontFamily: "roboto",
     color: "rgba(151,155,180,1)",
     lineHeight: 35,
-    alignSelf: "center",
+    //alignSelf: "center",
     //paddingHorizontal: 10,
     fontSize: 16,
+  },
+
+  greenContain: {
+    //flexGrow: 1,
+    flex: 1,
+    flexDirection: "row",
+
+    //justifyContent: "center",
+    //alignContent: "center",
+    //alignItems: "center",
+    //alignSelf: "center",
+  },
+
+  textAdviceP: {
+    fontFamily: "roboto",
+    //color: "rgba(50,56,106,1)",
+    color: "white",
+    borderRadius: 15,
+
+    padding: 15,
+    backgroundColor: "grey",
+    //color: "green",
+    lineHeight: 20,
+    // justifyContent: "center",
+    // paddingHorizontal: 10,
+    marginTop: 15,
+    fontSize: 14,
   },
   btnContainEmo: {
     flex: 1,

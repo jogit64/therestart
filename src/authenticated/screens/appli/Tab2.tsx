@@ -288,11 +288,11 @@ const styles = StyleSheet.create({
     width: 250,
     height: 250,
   },
-  overlay: {
-    position: "absolute",
-    justifyContent: "center",
-    alignItems: "center",
-  },
+  // overlay: {
+  //   position: "absolute",
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  // },
   // text: {
   //   fontSize: 18,
   //   fontFamily: "roboto",
