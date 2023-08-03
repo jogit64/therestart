@@ -272,7 +272,8 @@ export default function Tab3() {
               /> */}
               <Feather name="info" size={36} color="white" />
               <Text style={styles.buttonText}>
-                Découvrez les idées clés {"\n"} et inspirez-vous des hypothèses
+                Découvrez les idées clés {"\n"}d'une approche absolue {"\n"}et
+                relative
               </Text>
             </View>
           </TouchableOpacity>
@@ -306,43 +307,47 @@ export default function Tab3() {
             source={require("./../../../../../assets/images/bubbles1.png")}
             style={{
               width: "100%",
-              height: 180,
+              height: 200,
               borderRadius: 10,
-              marginTop: 15,
+              marginTop: 45,
             }}
           />
           <Text style={styles.sstitle}>Approchez le détachement</Text>
           <Text style={styles.textInter}>
-            Pourrez-vous désactiver vos étiquettes et vos croyances ?
+            Pourrez-vous désactiver vos étiquettes et vos croyances et revenir
+            au moment présent ?
           </Text>
-          <TouchableOpacity
-            style={styles.buttonDetach}
-            onPress={() => navigation.navigate("Tab3P1")}
-          >
-            <View style={styles.BtnContainer}>
-              <MaterialCommunityIcons
-                name="gesture-tap"
-                size={36}
-                color="white"
-              />
-              {/* <Feather name="gesture-tap" size={36} color="white" /> */}
+          <View style={styles.lineButtonDetach}>
+            <TouchableOpacity
+              style={styles.buttonDetach}
+              onPress={() => navigation.navigate("Tab3P1")}
+            >
+              <View style={styles.BtnContainer}>
+                {/* <MaterialCommunityIcons
+                  name="directions_runexit_to_app"
+                  size={36}
+                  color="white"
+                /> */}
 
-              <Text style={styles.buttonText}>
-                Sélectionnez jusqu'à 3 thème
-                {/* {"\n"} et désactivez étiquettes et
+                <Feather name="log-out" size={36} color="white" />
+
+                <Text style={styles.buttonText}>
+                  J'essaye
+                  {/* {"\n"} et désactivez étiquettes et
                 croyances */}
-              </Text>
-            </View>
-          </TouchableOpacity>
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
         <View style={styles.thirdPartContainer}>
           <Image
-            source={require("./../../../../../assets/images/plants1.png")}
+            source={require("./../../../../../assets/images/plants2.png")}
             style={{
               width: "100%",
               height: 180,
               borderRadius: 10,
-              marginTop: 15,
+              marginTop: 45,
             }}
           />
           <Text style={styles.sstitle}>Inverser vos émotions</Text>
@@ -517,21 +522,25 @@ const styles = StyleSheet.create({
   },
 
   buttonIdees: {
-    backgroundColor: "#20c2cd",
+    backgroundColor: "#98cdd5",
     padding: 10,
     paddingLeft: 20,
     justifyContent: "center",
     marginTop: 15,
     borderRadius: 15,
     width: "100%",
-    height: 80,
+    height: 95,
   },
 
+  lineButtonDetach: {
+    flex: 1,
+  },
   buttonDetach: {
-    backgroundColor: "#d8b04e",
+    backgroundColor: "#98cdd5",
     padding: 10,
     paddingLeft: 20,
     justifyContent: "center",
+    //alignItems: "flex-end",
     marginTop: 15,
     borderRadius: 15,
     width: "100%",
