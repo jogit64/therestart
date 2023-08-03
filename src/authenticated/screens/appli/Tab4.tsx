@@ -199,10 +199,10 @@ export default function Tab4() {
       <View style={styles.seedContainer}>
         <Image
           source={require("./../../../../assets/images/logoReStart.png")}
-          style={{ width: 35, height: 35 }}
+          style={{ width: 55, height: 55 }}
         />
-        <Text style={styles.title}>Rêvez !</Text>
       </View>
+      <Text style={styles.title}>Projets enchantés</Text>
 
       <ImageBackground
         source={require("./../../../../assets/images/fronton.png")}
@@ -269,8 +269,8 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     justifyContent: "flex-start",
-    padding: 20,
-    marginTop: 25,
+    paddingHorizontal: 20,
+    paddingTop: 30,
     backgroundColor: "white",
   },
   title: {
@@ -279,13 +279,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "rgba(50,56,106,1)",
     paddingLeft: 10,
+    marginBottom: 15,
   },
   frontonImage: {
     width: "100%",
     height: 120,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 20,
+    //marginBottom: 20,
   },
   textIntro: {
     fontFamily: "roboto",
@@ -298,7 +299,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 15,
+    // marginBottom: 15,
     flexWrap: "wrap",
   },
   dreamContainer: {

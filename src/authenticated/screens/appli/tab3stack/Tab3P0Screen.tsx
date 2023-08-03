@@ -178,10 +178,10 @@ export default function Tab3() {
         <View style={styles.seedContainer}>
           <Image
             source={require("./../../../../../assets/images/logoReStart.png")}
-            style={{ width: 35, height: 35 }}
+            style={{ width: 55, height: 55 }}
           />
-          <Text style={styles.title}>Antidotes</Text>
         </View>
+        <Text style={styles.title}>Antidotes</Text>
         <View style={styles.firstPartContainer}>
           <ImageBackground
             source={require("./../../../../../assets/images/fronton.png")}
@@ -328,7 +328,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     backgroundColor: "white",
     //paddingHorizontal: 20,
-    paddingTop: 50,
+    paddingTop: 30,
   },
 
   firstPartContainer: {
@@ -352,7 +352,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 15,
+    //marginBottom: 15,
     flexWrap: "wrap",
   },
 
@@ -369,6 +369,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "rgba(50,56,106,1)",
     paddingLeft: 10,
+    marginBottom: 15,
   },
 
   sstitle: {

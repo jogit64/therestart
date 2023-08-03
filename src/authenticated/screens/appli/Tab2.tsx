@@ -184,11 +184,11 @@ export default function Tab2() {
       <View style={styles.seedContainer}>
         <Image
           source={require("./../../../../assets/images/logoReStart.png")}
-          style={{ width: 35, height: 35 }}
+          style={{ width: 55, height: 55 }}
         />
-        <Text style={styles.title}>Cultivez vos graines</Text>
-        <Text style={styles.title}>de joie !</Text>
       </View>
+      <Text style={styles.title}>Graines de joie</Text>
+      {/* <Text style={styles.title}>de joie !</Text> */}
 
       <ImageBackground
         source={require("./../../../../assets/images/fronton.png")}
@@ -242,17 +242,39 @@ export default function Tab2() {
 }
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    paddingTop: 20,
-  },
+  // mainContainer: {
+  //   flex: 1,
+  //   paddingTop: 20,
+  // },
   container: {
     flexGrow: 1,
+
     justifyContent: "center",
     //alignItems: "center",
-    padding: 20,
-    marginTop: 25,
+    paddingTop: 30,
+    //marginTop: 25,
     backgroundColor: "white",
+    paddingHorizontal: 20,
+  },
+
+  seedContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    // marginBottom: 15,
+    flexWrap: "wrap",
+
+    //marginTop: 20,
+  },
+
+  title: {
+    fontFamily: "roboto700",
+    fontSize: 24,
+    textAlign: "center",
+    // marginBottom: 20,
+    color: "rgba(50,56,106,1)",
+    paddingLeft: 10,
+    marginBottom: 15,
   },
 
   lottieButton: {
@@ -276,14 +298,7 @@ const styles = StyleSheet.create({
   //   fontFamily: "roboto",
   //   color: "#ffffff",
   // },
-  title: {
-    fontFamily: "roboto700",
-    fontSize: 24,
-    textAlign: "center",
-    // marginBottom: 20,
-    color: "rgba(50,56,106,1)",
-    paddingLeft: 10,
-  },
+
   sstitle: {
     fontFamily: "roboto500",
     fontSize: 16,
@@ -344,15 +359,6 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
 
-  seedContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 15,
-    flexWrap: "wrap",
-
-    //marginTop: 20,
-  },
   iconContainer: {
     flexDirection: "row",
     justifyContent: "center",
@@ -375,7 +381,7 @@ const styles = StyleSheet.create({
     // shadowOpacity: 0.2, // contrôle la transparence de l'ombre
     // shadowRadius: 2, // contrôle la flou de l'ombre
     // elevation: 5, // ajoute une ombre pour Android
-    padding: 15, // ajoute une marge interne pour donner un peu d'espace au contenu
+    //padding: 15, // ajoute une marge interne pour donner un peu d'espace au contenu
   },
 
   tabBar: {
