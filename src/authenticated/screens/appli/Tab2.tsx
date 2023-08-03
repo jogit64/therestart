@@ -200,7 +200,10 @@ export default function Tab2() {
           égayent votre journée !
         </Text>
       </ImageBackground>
-
+      <Image
+        source={require("./../../../../assets/images/plants1.png")}
+        style={{ width: "100%", height: 120 }}
+      />
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}
@@ -209,8 +212,8 @@ export default function Tab2() {
           <TabBar
             {...props}
             indicatorStyle={{
-              backgroundColor: "rgba(50,56,106,1)",
-              height: 4,
+              backgroundColor: "#d05e39",
+              height: 2,
               borderRadius: 2,
             }}
             style={styles.tabBar}

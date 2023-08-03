@@ -81,78 +81,91 @@ export default function Tab3() {
   const emotions = [
     {
       emotion: "Triste",
+      oppositeEmotion: "Heureux",
       arround: "rgba(65,105,225,1)",
       full: "rgba(100,149,237,1)",
       iconName: "md-sad",
     },
     {
       emotion: "Enragé",
+      oppositeEmotion: "Calme",
       arround: "rgba(255,0,0,1)",
       full: "rgba(139,0,0,1)",
       iconName: "md-flame",
     },
     {
       emotion: "Effrayé",
+      oppositeEmotion: "Rassuré",
       arround: "rgba(255,165,0,1)",
       full: "rgba(255,140,0,1)",
       iconName: "md-flash",
     },
     {
       emotion: "Frustré",
+      oppositeEmotion: "Satisfait",
       arround: "rgba(255,69,0,1)",
       full: "rgba(255,99,71,1)",
       iconName: "md-close-circle",
     },
     {
       emotion: "Déçu",
+      oppositeEmotion: "Content",
       arround: "rgba(176,196,222,1)",
       full: "rgba(135,206,250,1)",
       iconName: "md-thumbs-down",
     },
     {
       emotion: "Honteux",
+      oppositeEmotion: "Fier",
       arround: "rgba(255,20,147,1)",
       full: "rgba(255,105,180,1)",
       iconName: "md-eye-off",
     },
     {
       emotion: "Jaloux",
+      oppositeEmotion: "Admiratif",
       arround: "rgba(107,142,35,1)",
       full: "rgba(124,252,0,1)",
       iconName: "md-heart-dislike",
     },
     {
       emotion: "Confus",
+      oppositeEmotion: "Clair",
       arround: "rgba(255,215,0,1)",
       full: "rgba(255,255,0,1)",
       iconName: "md-help-circle",
     },
     {
       emotion: "Déprimé",
+      oppositeEmotion: "Énergique",
       arround: "rgba(72,61,139,1)",
       full: "rgba(106,90,205,1)",
       iconName: "md-cloudy",
     },
     {
       emotion: "Anxieux",
+      oppositeEmotion: "Paisible",
       arround: "rgba(255,105,180,1)",
       full: "rgba(219,112,147,1)",
       iconName: "md-pulse",
     },
     {
       emotion: "Isolé",
+      oppositeEmotion: "Connecté",
       arround: "rgba(192,192,192,1)",
       full: "rgba(211,211,211,1)",
       iconName: "md-person",
     },
     {
       emotion: "Apathique",
+      oppositeEmotion: "Engagé",
       arround: "rgba(128,128,128,1)",
       full: "rgba(105,105,105,1)",
       iconName: "md-remove-circle",
     },
     {
       emotion: "Ressentiment",
+      oppositeEmotion: "Reconnaissance",
       arround: "rgba(85,107,47,1)",
       full: "rgba(154,205,50,1)",
       iconName: "md-flash-off",
@@ -227,7 +240,7 @@ export default function Tab3() {
         {/* <View style={styles.separator} /> */}
         <View style={styles.secondPartContainer}>
           <Text style={styles.sstitle}>Approchez le détachement</Text>
-          <Text style={styles.textIntro}>
+          <Text style={styles.textInter}>
             Pourrez-vous désactiver vos étiquettes et vos croyances ?
           </Text>
           <TouchableOpacity
@@ -252,7 +265,7 @@ export default function Tab3() {
         </View>
         <View style={styles.thirdPartContainer}>
           <Text style={styles.sstitle}>Inverser vos émotions</Text>
-          <Text style={styles.textIntro}>
+          <Text style={styles.textInter}>
             Cliquez sur l'émotion et recherchez à faire émerger un sentiment
             inverse
           </Text>
@@ -354,6 +367,14 @@ const styles = StyleSheet.create({
     color: "rgba(151,155,180,1)",
     lineHeight: 25,
     paddingHorizontal: 10,
+    fontSize: 16,
+  },
+
+  textInter: {
+    fontFamily: "roboto",
+    color: "rgba(151,155,180,1)",
+    lineHeight: 25,
+    //paddingHorizontal: 10,
     fontSize: 16,
   },
 

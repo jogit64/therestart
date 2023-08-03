@@ -31,9 +31,9 @@ const BottomTabNavigator = () => {
             case "Bonjour":
               return (
                 <MaterialCommunityIcons
-                  name="hand-wave"
+                  name="hand-wave-outline"
                   size={28}
-                  color={focused ? "#5b5da7" : "#b8b8b8"}
+                  color={focused ? "#5b5da7" : "#cccfe0"}
                 />
               );
 
@@ -41,9 +41,9 @@ const BottomTabNavigator = () => {
             case "Graines":
               return (
                 <MaterialCommunityIcons
-                  name="watering-can"
+                  name="watering-can-outline"
                   size={28}
-                  color={focused ? "#5b5da7" : "#b8b8b8"}
+                  color={focused ? "#5b5da7" : "#cccfe0"}
                 />
               );
               break;
@@ -51,19 +51,19 @@ const BottomTabNavigator = () => {
               return (
                 <MaterialCommunityIcons
                   //name="flask"
-                  name="test-tube"
+                  name="medical-bag"
                   size={28}
-                  color={focused ? "#5b5da7" : "#b8b8b8"}
+                  color={focused ? "#5b5da7" : "#cccfe0"}
                 />
               );
               break;
             case "Dreamlist":
               return (
                 <MaterialCommunityIcons
-                  name="thought-bubble"
+                  name="thought-bubble-outline"
                   // name="star"
                   size={28}
-                  color={focused ? "#5b5da7" : "#b8b8b8"}
+                  color={focused ? "#5b5da7" : "#cccfe0"}
                 />
               );
               break;
