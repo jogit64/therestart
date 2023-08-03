@@ -76,7 +76,10 @@ const FormeCliquable = ({ emotion, arround, full, onClic, iconName }) => (
 
 export default function Tab3() {
   const navigation = useNavigation<StackNavigationProp<TabParamList, "Tab2">>();
-  const [modalVisible, setModalVisible] = useState(false);
+  //const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible1, setModalVisible1] = useState(false);
+  const [modalVisible2, setModalVisible2] = useState(false);
+
   const [selectedEmotion, setSelectedEmotion] = useState(null);
   //const paragraphs = selectedEmotion?.stimul.split(". ");
 
@@ -228,7 +231,7 @@ export default function Tab3() {
 
   const handleEmotionClick = (emotion) => {
     setSelectedEmotion(emotion);
-    setModalVisible(true);
+    setModalVisible2(true);
   };
 
   return (
@@ -259,7 +262,7 @@ export default function Tab3() {
           <Text style={styles.sstitle}>Idées générales</Text>
           <TouchableOpacity
             style={styles.buttonIdees}
-            onPress={() => setModalVisible(true)}
+            onPress={() => setModalVisible1(true)}
           >
             <View style={styles.BtnContainer}>
               {/* <MaterialCommunityIcons
@@ -273,7 +276,7 @@ export default function Tab3() {
               </Text>
             </View>
           </TouchableOpacity>
-          <Modal visible={modalVisible} transparent={false}>
+          <Modal visible={modalVisible1} transparent={false}>
             <AppIntroSlider
               data={slides}
               renderItem={({ item }) => {
@@ -291,7 +294,7 @@ export default function Tab3() {
               }}
               renderNextButton={_renderNextButton}
               renderDoneButton={_renderDoneButton}
-              onDone={() => setModalVisible(false)}
+              onDone={() => setModalVisible1(false)}
             />
           </Modal>
         </View>
@@ -376,7 +379,7 @@ export default function Tab3() {
         </View>
       </ScrollView>
 
-      <Modal animationType="slide" transparent={false} visible={modalVisible}>
+      <Modal animationType="slide" transparent={false} visible={modalVisible2}>
         <View style={styles.seedContainer}>
           <Image
             source={require("./../../../../../assets/images/logoReStart.png")}
@@ -399,7 +402,7 @@ export default function Tab3() {
           <View style={styles.btnContainEmo}>
             <TouchableOpacity
               style={styles.buttonCircle}
-              onPress={() => setModalVisible(false)}
+              onPress={() => setModalVisible2(false)}
             >
               <Text style={styles.textInter}>Fermer</Text>
             </TouchableOpacity>
