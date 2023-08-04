@@ -436,13 +436,14 @@ export default function Tab3() {
         {/* <View style={styles.separator} /> */}
 
         <View style={styles.secondPartContainer}>
+          <Text style={styles.sstitleMaj}>DESACTIVEZ VOS CROYANCES</Text>
           <Image
             source={require("./../../../../../assets/images/bubbles1.png")}
             style={{
               width: "100%",
               height: 200,
               borderRadius: 10,
-              marginTop: 45,
+              marginTop: 10,
             }}
           />
           <Text style={styles.sstitle}>Approchez le détachement</Text>
@@ -474,13 +475,14 @@ export default function Tab3() {
           </View>
         </View>
         <View style={styles.thirdPartContainer}>
+          <Text style={styles.sstitleMaj}>INVERSEZ VOS EMOTIONS</Text>
           <Image
             source={require("./../../../../../assets/images/plants2.png")}
             style={{
               width: "100%",
               height: 180,
               borderRadius: 10,
-              marginTop: 45,
+              marginTop: 10,
             }}
           />
           <Text style={styles.sstitle}>Inverser vos émotions</Text>
@@ -720,6 +722,16 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     color: "rgba(50,56,106,1)",
     marginTop: 20,
+  },
+
+  sstitleMaj: {
+    fontFamily: "roboto500",
+    fontSize: 18,
+    alignSelf: "center",
+    //textAlign: "center",
+    //marginBottom: 5,
+    color: "rgba(50,56,106,1)",
+    marginTop: 35,
   },
 
   textIntro: {
