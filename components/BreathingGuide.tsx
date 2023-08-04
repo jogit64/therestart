@@ -29,7 +29,7 @@ const BreathingGuide = () => {
     <View
       style={[
         styles.buttonRespi,
-        { backgroundColor: isInhaling ? "#ffd369" : "#98cdd5" },
+        { backgroundColor: isInhaling ? "#ffd369" : "#a4c763" },
       ]}
     >
       <Text style={styles.text}>
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 15,
     borderRadius: 15,
-    width: "100%",
+    width: "99%",
     height: 45,
   },
   text: {

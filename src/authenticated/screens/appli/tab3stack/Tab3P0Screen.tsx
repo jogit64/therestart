@@ -584,7 +584,7 @@ export default function Tab3() {
             ))}
 
             <Text style={styles.textAdviceP}>
-              Prennez quelques instant pour faire émerger ce sentiment{" "}
+              Prenez quelques instant pour faire émerger ce sentiment{" "}
               {selectedEmotion?.oppositeEmotion} et respirez.
             </Text>
             <BreathingGuide />
