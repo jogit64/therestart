@@ -75,12 +75,12 @@ const EmotionCliquable = ({ emotion, arround, full, onClic, iconName }) => (
   </TouchableOpacity>
 );
 const NeedCliquable = ({ need, arround, full, onClic, iconName }) => (
-  <TouchableOpacity onPress={onClic} style={styles.emotionContainer}>
-    <View style={styles.formeContainer}>
-      <View style={[styles.arround, { backgroundColor: arround }]}>
+  <TouchableOpacity onPress={onClic} style={styles.emotionContainerN}>
+    <View style={styles.formeContainerN}>
+      <View style={[styles.arroundN, { backgroundColor: arround }]}>
         <View
           style={[
-            styles.full,
+            styles.fullN,
             {
               backgroundColor: full,
               justifyContent: "center",
@@ -257,9 +257,10 @@ export default function Tab3() {
     {
       need: "Sécurité",
       needT: "de sécurité",
-      arround: "rgba(65,105,225,1)",
-      full: "rgba(100,149,237,1)",
-      iconName: "md-sad",
+      arround: "rgba(70,130,180,1)",
+      full: "rgba(135,206,250,1)",
+      iconName: "md-shield",
+
       stimul: [
         "Vous avez des mécanismes en place pour protéger votre bien-être physique et émotionnel, même si vous pouvez ressentir une insécurité temporaire.",
       ],
@@ -267,9 +268,10 @@ export default function Tab3() {
     {
       need: "Compréhension",
       needT: "de compréhension",
-      arround: "rgba(255,0,0,1)",
-      full: "rgba(139,0,0,1)",
-      iconName: "md-flame",
+      arround: "rgba(107,142,35,1)",
+      full: "rgba(124,252,0,1)",
+      iconName: "md-book",
+
       stimul: [
         "Même si vous pouvez vous sentir incompris, il existe des moments et des personnes qui vous comprennent, et la compréhension de soi-même est toujours accessible.",
       ],
@@ -279,7 +281,8 @@ export default function Tab3() {
       needT: "d'appartenance",
       arround: "rgba(255,165,0,1)",
       full: "rgba(255,140,0,1)",
-      iconName: "md-flash",
+      iconName: "md-people",
+
       stimul: [
         "Même si vous pouvez vous sentir isolé, il y a des communautés et des relations qui vous accueillent, et vous appartenez toujours à l'humanité.",
       ],
@@ -287,9 +290,10 @@ export default function Tab3() {
     {
       need: "Autonomie",
       needT: "d'autonomie",
-      arround: "rgba(255,69,0,1)",
-      full: "rgba(255,99,71,1)",
-      iconName: "md-close-circle",
+      arround: "rgba(255,0,0,1)",
+      full: "rgba(139,0,0,1)",
+      iconName: "md-walk",
+
       stimul: [
         "Vous prenez constamment des décisions qui affectent votre vie, même si vous pouvez vous sentir limité ou contraint.",
       ],
@@ -297,9 +301,10 @@ export default function Tab3() {
     {
       need: "Respect",
       needT: "de respect",
-      arround: "rgba(176,196,222,1)",
-      full: "rgba(135,206,250,1)",
-      iconName: "md-thumbs-down",
+      arround: "rgba(75,0,130,1)",
+      full: "rgba(128,0,128,1)",
+      iconName: "md-thumbs-up",
+
       stimul: [
         "Votre dignité intrinsèque et votre valeur en tant que personne sont toujours là, même si vous pouvez ressentir un manque de respect de la part des autres.",
       ],
@@ -309,7 +314,8 @@ export default function Tab3() {
       needT: "d'amour",
       arround: "rgba(255,20,147,1)",
       full: "rgba(255,105,180,1)",
-      iconName: "md-eye-off",
+      iconName: "md-heart",
+
       stimul: [
         "L'amour pour soi et pour les autres est une partie de vous, même si vous pouvez vous sentir déconnecté de cet amour.",
       ],
@@ -317,9 +323,10 @@ export default function Tab3() {
     {
       need: "Empathie",
       needT: "d'empathie",
-      arround: "rgba(107,142,35,1)",
-      full: "rgba(124,252,0,1)",
-      iconName: "md-heart-dislike",
+      arround: "rgba(255,215,0,1)",
+      full: "rgba(255,255,0,1)",
+      iconName: "md-people",
+
       stimul: [
         "Votre capacité à comprendre et à ressentir les émotions des autres est toujours présente, même si elle peut sembler lointaine.",
       ],
@@ -327,9 +334,10 @@ export default function Tab3() {
     {
       need: "Honnêteté",
       needT: "d'honnêteté",
-      arround: "rgba(255,215,0,1)",
-      full: "rgba(255,255,0,1)",
-      iconName: "md-help-circle",
+      arround: "rgba(218,165,32,1)",
+      full: "rgba(255,215,0,1)",
+      iconName: "md-star",
+
       stimul: [
         "Votre intégrité et votre honnêteté sont des qualités que vous portez en vous, même si vous pouvez être en conflit avec elles.",
       ],
@@ -337,9 +345,10 @@ export default function Tab3() {
     {
       need: "Repos",
       needT: "de repos",
-      arround: "rgba(72,61,139,1)",
-      full: "rgba(106,90,205,1)",
-      iconName: "md-cloudy",
+      arround: "rgba(135,206,250,1)",
+      full: "rgba(173,216,230,1)",
+      iconName: "md-bed",
+
       stimul: [
         "Votre corps et votre esprit savent comment se reposer et se régénérer, même si vous pouvez vous sentir fatigué ou épuisé.",
       ],
@@ -347,9 +356,10 @@ export default function Tab3() {
     {
       need: "Nourriture",
       needT: "de nourriture",
-      arround: "rgba(255,105,180,1)",
-      full: "rgba(219,112,147,1)",
-      iconName: "md-pulse",
+      arround: "rgba(139,69,19,1)",
+      full: "rgba(210,105,30,1)",
+      iconName: "md-restaurant",
+
       stimul: [
         "Votre corps utilise efficacement la nourriture et l'énergie disponibles, même si vous pouvez ressentir la faim ou un manque.",
       ],
@@ -519,13 +529,14 @@ export default function Tab3() {
         </View>
 
         <View style={styles.fourthPartContainer}>
+          <Text style={styles.sstitleMaj}>REMPLISSEZ VOS BESOINS</Text>
           <Image
             source={require("./../../../../../assets/images/needs1.png")}
             style={{
               width: "100%",
               height: 180,
               borderRadius: 10,
-              marginTop: 45,
+              marginTop: 10,
             }}
           />
           <Text style={styles.sstitle}>Satisfaire vos besoins</Text>
@@ -868,11 +879,38 @@ const styles = StyleSheet.create({
     marginTop: 7 / 2,
     marginLeft: 7 / 2,
   },
+
   emotionContainer: {
     alignItems: "center", // Pour centrer le texte et la forme
     marginRight: 20, // Pour espacer les vues
     marginBottom: 30,
   },
+
+  formeContainerN: {
+    alignItems: "center", // Pour centrer la forme
+    justifyContent: "center", // Pour centrer la forme
+  },
+  arroundN: {
+    width: 134,
+    height: 70,
+    borderRadius: 10, // Coins arrondis
+    marginTop: 20,
+  },
+  fullN: {
+    width: 126,
+    height: 60,
+    borderRadius: 10, // Coins arrondis
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,1)",
+    marginTop: 7 / 2,
+    marginLeft: 7 / 2,
+  },
+  emotionContainerN: {
+    alignItems: "center", // Pour centrer le texte et la forme
+    marginRight: 20, // Pour espacer les vues
+    marginBottom: 30,
+  },
+
   emotionText: {
     fontSize: 12,
     color: "black",
