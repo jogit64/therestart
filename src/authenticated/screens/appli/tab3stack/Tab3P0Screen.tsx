@@ -11,6 +11,9 @@ import {
   Alert,
 } from "react-native";
 
+import YouTube from "react-native-youtube-iframe";
+import { WebView } from "react-native-webview";
+
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { TabParamList } from "../../../../../utils/navigationTypes";
@@ -21,6 +24,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { ScrollView } from "react-native-gesture-handler";
 import BreathingGuide from "./../../../../../components/BreathingGuide";
+//import YouTubeVideo from "./../../../../../components/YouTubeVideo";
 
 const slides = [
   {
@@ -106,6 +110,8 @@ export default function Tab3() {
   const [selectedEmotion, setSelectedEmotion] = useState(null);
   const [selectedNeed, setSelectedNeed] = useState(null);
   //const paragraphs = selectedEmotion?.stimul.split(". ");
+
+  const videoId = "Bg7-T4TalO4"; // Remplacez par l'ID de votre vidéo
 
   const emotions = [
     {
@@ -257,8 +263,8 @@ export default function Tab3() {
     {
       need: "Sécurité",
       needT: "de sécurité",
-      arround: "rgba(70,130,180,1)",
-      full: "rgba(135,206,250,1)",
+      arround: "rgba(197,199,224,1)",
+      full: "rgba(173,191,222,1)",
       iconName: "md-shield",
 
       stimul: [
@@ -268,8 +274,8 @@ export default function Tab3() {
     {
       need: "Compréhension",
       needT: "de compréhension",
-      arround: "rgba(107,142,35,1)",
-      full: "rgba(124,252,0,1)",
+      arround: "rgba(202,229,248,1)",
+      full: "rgba(181,210,233,1)",
       iconName: "md-book",
 
       stimul: [
@@ -279,8 +285,8 @@ export default function Tab3() {
     {
       need: "Appartenance",
       needT: "d'appartenance",
-      arround: "rgba(255,165,0,1)",
-      full: "rgba(255,140,0,1)",
+      arround: "rgba(244,215,227,1)",
+      full: "rgba(230,188,208,1)",
       iconName: "md-people",
 
       stimul: [
@@ -290,8 +296,8 @@ export default function Tab3() {
     {
       need: "Autonomie",
       needT: "d'autonomie",
-      arround: "rgba(255,0,0,1)",
-      full: "rgba(139,0,0,1)",
+      arround: "rgba(255,240,210,1)",
+      full: "rgba(255,228,181,1)",
       iconName: "md-walk",
 
       stimul: [
@@ -301,8 +307,8 @@ export default function Tab3() {
     {
       need: "Respect",
       needT: "de respect",
-      arround: "rgba(75,0,130,1)",
-      full: "rgba(128,0,128,1)",
+      arround: "rgba(195,217,228,1)",
+      full: "rgba(175,205,208,1)",
       iconName: "md-thumbs-up",
 
       stimul: [
@@ -312,8 +318,8 @@ export default function Tab3() {
     {
       need: "Amour",
       needT: "d'amour",
-      arround: "rgba(255,20,147,1)",
-      full: "rgba(255,105,180,1)",
+      arround: "rgba(255,182,193,1)",
+      full: "rgba(251,160,174,1)",
       iconName: "md-heart",
 
       stimul: [
@@ -323,8 +329,8 @@ export default function Tab3() {
     {
       need: "Empathie",
       needT: "d'empathie",
-      arround: "rgba(255,215,0,1)",
-      full: "rgba(255,255,0,1)",
+      arround: "rgba(210,180,140,1)",
+      full: "rgba(188,160,126,1)",
       iconName: "md-people",
 
       stimul: [
@@ -334,8 +340,8 @@ export default function Tab3() {
     {
       need: "Honnêteté",
       needT: "d'honnêteté",
-      arround: "rgba(218,165,32,1)",
-      full: "rgba(255,215,0,1)",
+      arround: "rgba(216,191,216,1)",
+      full: "rgba(197,173,197,1)",
       iconName: "md-star",
 
       stimul: [
@@ -345,8 +351,8 @@ export default function Tab3() {
     {
       need: "Repos",
       needT: "de repos",
-      arround: "rgba(135,206,250,1)",
-      full: "rgba(173,216,230,1)",
+      arround: "rgba(230,230,250,1)",
+      full: "rgba(211,211,239,1)",
       iconName: "md-bed",
 
       stimul: [
@@ -356,8 +362,8 @@ export default function Tab3() {
     {
       need: "Nourriture",
       needT: "de nourriture",
-      arround: "rgba(139,69,19,1)",
-      full: "rgba(210,105,30,1)",
+      arround: "rgba(189,183,107,1)",
+      full: "rgba(173,166,100,1)",
       iconName: "md-restaurant",
 
       stimul: [
@@ -555,6 +561,15 @@ export default function Tab3() {
             ))}
           </ScrollView>
         </View>
+
+        <View style={styles.videoContainer}>
+          <WebView
+            javaScriptEnabled={true}
+            domStorageEnabled={true}
+            // style={styles.video}
+            source={{ uri: `https://www.youtube.com/embed/${videoId}` }}
+          />
+        </View>
       </ScrollView>
 
       <ScrollView>
@@ -655,6 +670,10 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     //paddingHorizontal: 20,
     paddingTop: 30,
+  },
+  videoContainer: {
+    marginVertical: 50,
+    height: 200, // Vous pouvez ajuster la hauteur et la largeur selon vos besoins
   },
 
   firstPartContainer: {
@@ -782,7 +801,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   buttonDetach: {
-    backgroundColor: "#98cdd5",
+    backgroundColor: "#5af5fe",
     padding: 10,
     paddingLeft: 20,
     justifyContent: "center",
