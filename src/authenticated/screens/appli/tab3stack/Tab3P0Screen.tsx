@@ -111,7 +111,7 @@ export default function Tab3() {
   const [selectedNeed, setSelectedNeed] = useState(null);
   //const paragraphs = selectedEmotion?.stimul.split(". ");
 
-  const videoId = "Bg7-T4TalO4"; // Remplacez par l'ID de votre vidéo
+  const videoIds = ["Bg7-T4TalO4", "Bg7-T4TalO4", "Bg7-T4TalO4", "Bg7-T4TalO4"];
 
   const emotions = [
     {
@@ -562,14 +562,18 @@ export default function Tab3() {
           </ScrollView>
         </View>
 
-        <View style={styles.videoContainer}>
-          <WebView
-            javaScriptEnabled={true}
-            domStorageEnabled={true}
-            // style={styles.video}
-            source={{ uri: `https://www.youtube.com/embed/${videoId}` }}
-          />
-        </View>
+        <ScrollView horizontal={true} style={styles.videoScroll}>
+          {videoIds.map((videoId, index) => (
+            <View key={index} style={styles.videoContainer}>
+              <WebView
+                javaScriptEnabled={true}
+                domStorageEnabled={true}
+                source={{ uri: `https://www.youtube.com/embed/${videoId}` }}
+                style={styles.video}
+              />
+            </View>
+          ))}
+        </ScrollView>
       </ScrollView>
 
       <ScrollView>
@@ -671,10 +675,6 @@ const styles = StyleSheet.create({
     //paddingHorizontal: 20,
     paddingTop: 30,
   },
-  videoContainer: {
-    marginVertical: 50,
-    height: 200, // Vous pouvez ajuster la hauteur et la largeur selon vos besoins
-  },
 
   firstPartContainer: {
     flex: 1,
@@ -698,6 +698,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginTop: 10,
   },
+
+  // videoContainer: {
+  //   flex: 1,
+  //   paddingHorizontal: 20,
+  //   marginTop: 10,
+
+  //   marginVertical: 50,
+  //   height: 150,
+  //   //width: 250,
+  //   backgroundColor: "green",
+  // },
 
   seedContainer: {
     flexDirection: "row",
@@ -984,5 +995,20 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     padding: 20,
+  },
+
+  videoScroll: {
+    flexDirection: "row",
+  },
+  videoContainer: {
+    flex: 1,
+    paddingHorizontal: 20,
+    marginTop: 10,
+    marginVertical: 50,
+    width: 250, // Vous pouvez ajuster la largeur selon vos besoins
+    backgroundColor: "#f2f7fb",
+  },
+  video: {
+    height: 150, // Vous pouvez ajuster la hauteur selon vos besoins
   },
 });
