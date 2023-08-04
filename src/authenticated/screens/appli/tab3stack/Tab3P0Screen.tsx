@@ -53,7 +53,7 @@ function _renderDoneButton() {
   );
 }
 
-const FormeCliquable = ({ emotion, arround, full, onClic, iconName }) => (
+const EmotionCliquable = ({ emotion, arround, full, onClic, iconName }) => (
   <TouchableOpacity onPress={onClic} style={styles.emotionContainer}>
     <View style={styles.formeContainer}>
       <View style={[styles.arround, { backgroundColor: arround }]}>
@@ -74,14 +74,37 @@ const FormeCliquable = ({ emotion, arround, full, onClic, iconName }) => (
     <Text style={styles.emotionText}>{emotion}</Text>
   </TouchableOpacity>
 );
+const NeedCliquable = ({ need, arround, full, onClic, iconName }) => (
+  <TouchableOpacity onPress={onClic} style={styles.emotionContainer}>
+    <View style={styles.formeContainer}>
+      <View style={[styles.arround, { backgroundColor: arround }]}>
+        <View
+          style={[
+            styles.full,
+            {
+              backgroundColor: full,
+              justifyContent: "center",
+              alignItems: "center",
+            },
+          ]}
+        >
+          <Icon name={iconName} size={30} color="white" />
+        </View>
+      </View>
+    </View>
+    <Text style={styles.emotionText}>{need}</Text>
+  </TouchableOpacity>
+);
 
 export default function Tab3() {
   const navigation = useNavigation<StackNavigationProp<TabParamList, "Tab2">>();
   //const [modalVisible, setModalVisible] = useState(false);
   const [modalVisible1, setModalVisible1] = useState(false);
   const [modalVisible2, setModalVisible2] = useState(false);
+  const [modalVisible3, setModalVisible3] = useState(false);
 
   const [selectedEmotion, setSelectedEmotion] = useState(null);
+  const [selectedNeed, setSelectedNeed] = useState(null);
   //const paragraphs = selectedEmotion?.stimul.split(". ");
 
   const emotions = [
@@ -230,9 +253,117 @@ export default function Tab3() {
     },
   ];
 
+  const need = [
+    {
+      need: "Sécurité",
+      needT: "de sécurité",
+      arround: "rgba(65,105,225,1)",
+      full: "rgba(100,149,237,1)",
+      iconName: "md-sad",
+      stimul: [
+        "Vous avez des mécanismes en place pour protéger votre bien-être physique et émotionnel, même si vous pouvez ressentir une insécurité temporaire.",
+      ],
+    },
+    {
+      need: "Compréhension",
+      needT: "de compréhension",
+      arround: "rgba(255,0,0,1)",
+      full: "rgba(139,0,0,1)",
+      iconName: "md-flame",
+      stimul: [
+        "Même si vous pouvez vous sentir incompris, il existe des moments et des personnes qui vous comprennent, et la compréhension de soi-même est toujours accessible.",
+      ],
+    },
+    {
+      need: "Appartenance",
+      needT: "d'appartenance",
+      arround: "rgba(255,165,0,1)",
+      full: "rgba(255,140,0,1)",
+      iconName: "md-flash",
+      stimul: [
+        "Même si vous pouvez vous sentir isolé, il y a des communautés et des relations qui vous accueillent, et vous appartenez toujours à l'humanité.",
+      ],
+    },
+    {
+      need: "Autonomie",
+      needT: "d'autonomie",
+      arround: "rgba(255,69,0,1)",
+      full: "rgba(255,99,71,1)",
+      iconName: "md-close-circle",
+      stimul: [
+        "Vous prenez constamment des décisions qui affectent votre vie, même si vous pouvez vous sentir limité ou contraint.",
+      ],
+    },
+    {
+      need: "Respect",
+      needT: "de respect",
+      arround: "rgba(176,196,222,1)",
+      full: "rgba(135,206,250,1)",
+      iconName: "md-thumbs-down",
+      stimul: [
+        "Votre dignité intrinsèque et votre valeur en tant que personne sont toujours là, même si vous pouvez ressentir un manque de respect de la part des autres.",
+      ],
+    },
+    {
+      need: "Amour",
+      needT: "d'amour",
+      arround: "rgba(255,20,147,1)",
+      full: "rgba(255,105,180,1)",
+      iconName: "md-eye-off",
+      stimul: [
+        "L'amour pour soi et pour les autres est une partie de vous, même si vous pouvez vous sentir déconnecté de cet amour.",
+      ],
+    },
+    {
+      need: "Empathie",
+      needT: "d'empathie",
+      arround: "rgba(107,142,35,1)",
+      full: "rgba(124,252,0,1)",
+      iconName: "md-heart-dislike",
+      stimul: [
+        "Votre capacité à comprendre et à ressentir les émotions des autres est toujours présente, même si elle peut sembler lointaine.",
+      ],
+    },
+    {
+      need: "Honnêteté",
+      needT: "d'honnêteté",
+      arround: "rgba(255,215,0,1)",
+      full: "rgba(255,255,0,1)",
+      iconName: "md-help-circle",
+      stimul: [
+        "Votre intégrité et votre honnêteté sont des qualités que vous portez en vous, même si vous pouvez être en conflit avec elles.",
+      ],
+    },
+    {
+      need: "Repos",
+      needT: "de repos",
+      arround: "rgba(72,61,139,1)",
+      full: "rgba(106,90,205,1)",
+      iconName: "md-cloudy",
+      stimul: [
+        "Votre corps et votre esprit savent comment se reposer et se régénérer, même si vous pouvez vous sentir fatigué ou épuisé.",
+      ],
+    },
+    {
+      need: "Nourriture",
+      needT: "de nourriture",
+      arround: "rgba(255,105,180,1)",
+      full: "rgba(219,112,147,1)",
+      iconName: "md-pulse",
+      stimul: [
+        "Votre corps utilise efficacement la nourriture et l'énergie disponibles, même si vous pouvez ressentir la faim ou un manque.",
+      ],
+    },
+  ];
+
   const handleEmotionClick = (emotion) => {
     setSelectedEmotion(emotion);
     setModalVisible2(true);
+  };
+
+  const handleNeedClick = (need) => {
+    setSelectedNeed(need);
+    setModalVisible3(true);
   };
 
   return (
@@ -245,6 +376,7 @@ export default function Tab3() {
           />
         </View>
         <Text style={styles.title}>Antidotes</Text>
+
         <View style={styles.firstPartContainer}>
           <ImageBackground
             source={require("./../../../../../assets/images/fronton.png")}
@@ -372,13 +504,40 @@ export default function Tab3() {
 
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {emotions.map((item, index) => (
-              <FormeCliquable
+              <EmotionCliquable
                 key={index}
                 emotion={item.emotion}
                 arround={item.arround}
                 full={item.full}
                 iconName={item.iconName}
                 onClic={() => handleEmotionClick(item)}
+              />
+            ))}
+          </ScrollView>
+        </View>
+
+        <View style={styles.fourthPartContainer}>
+          <Image
+            source={require("./../../../../../assets/images/needs1.png")}
+            style={{
+              width: "100%",
+              height: 180,
+              borderRadius: 10,
+              marginTop: 45,
+            }}
+          />
+          <Text style={styles.sstitle}>Satisfaire vos besoins</Text>
+          <Text style={styles.textInter}>Cliquez sur le besoin inverse</Text>
+
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {need.map((item, index) => (
+              <NeedCliquable
+                key={index}
+                need={item.need}
+                arround={item.arround}
+                full={item.full}
+                iconName={item.iconName}
+                onClic={() => handleNeedClick(item)}
               />
             ))}
           </ScrollView>
@@ -428,6 +587,50 @@ export default function Tab3() {
           </View>
         </Modal>
       </ScrollView>
+
+      <ScrollView>
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={modalVisible3}
+        >
+          <View style={styles.seedContainer}>
+            <Image
+              source={require("./../../../../../assets/images/logoReStart.png")}
+              style={{ width: 55, height: 55 }}
+            />
+          </View>
+          {/* <Text style={styles.title}>Antidotes</Text> */}
+          <View style={styles.modalView}>
+            <Text style={styles.sstitleAdvG}>
+              Un besoin {selectedNeed?.needT} ?
+            </Text>
+            {/* <Text style={styles.sstitleAdvG}>
+              Faites le plein {selectedEmotion?.oppositeEmotion} !
+            </Text> */}
+            {selectedNeed?.stimul.map((text, index) => (
+              <Text key={index} style={styles.textAdvice}>
+                {text}
+              </Text>
+            ))}
+
+            {/* <Text style={styles.textAdviceP}>
+              Prennez quelques instant pour faire émerger ce sentiment{" "}
+              {selectedEmotion?.oppositeEmotion} et respirez.
+            </Text>
+            <BreathingGuide /> */}
+
+            <View style={styles.btnContainEmo}>
+              <TouchableOpacity
+                style={styles.buttonCircle}
+                onPress={() => setModalVisible3(false)}
+              >
+                <Text style={styles.textInter}>Fermer</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+      </ScrollView>
     </View>
   );
 }
@@ -453,6 +656,12 @@ const styles = StyleSheet.create({
   },
 
   thirdPartContainer: {
+    flex: 1,
+    paddingHorizontal: 20,
+    marginTop: 10,
+  },
+
+  fourthPartContainer: {
     flex: 1,
     paddingHorizontal: 20,
     marginTop: 10,
