@@ -75,7 +75,7 @@ const EmotionCliquable = ({ emotion, arround, full, onClic, iconName }) => (
     <Text style={styles.emotionText}>{emotion}</Text>
   </TouchableOpacity>
 );
-const NeedCliquable = ({ need, arround, full, onClic, iconName }) => (
+const NeedCliquable = ({ need, arround, full, onClic }) => (
   <TouchableOpacity onPress={onClic} style={styles.emotionContainerN}>
     <View style={styles.formeContainerN}>
       <View style={[styles.arroundN, { backgroundColor: arround }]}>
@@ -89,11 +89,11 @@ const NeedCliquable = ({ need, arround, full, onClic, iconName }) => (
             },
           ]}
         >
-          <Icon name={iconName} size={30} color="white" />
+          {/* Ici, on remplace l'icône par le texte du besoin */}
+          <Text style={styles.textNameN}>{need}</Text>
         </View>
       </View>
     </View>
-    <Text style={styles.emotionText}>{need}</Text>
   </TouchableOpacity>
 );
 
@@ -912,13 +912,13 @@ const styles = StyleSheet.create({
     justifyContent: "center", // Pour centrer la forme
   },
   arroundN: {
-    width: 134,
+    width: 90,
     height: 70,
     borderRadius: 10, // Coins arrondis
     marginTop: 20,
   },
   fullN: {
-    width: 126,
+    width: 83,
     height: 60,
     borderRadius: 10, // Coins arrondis
     borderWidth: 1,
@@ -929,9 +929,15 @@ const styles = StyleSheet.create({
   emotionContainerN: {
     alignItems: "center", // Pour centrer le texte et la forme
     marginRight: 20, // Pour espacer les vues
-    marginBottom: 30,
+    //marginBottom: 30,
   },
 
+  textNameN: {
+    fontSize: 10,
+    color: "black",
+    marginTop: 5, // Espace entre la forme et le texte
+    textAlign: "center", // Pour centrer le texte
+  },
   emotionText: {
     fontSize: 12,
     color: "black",
