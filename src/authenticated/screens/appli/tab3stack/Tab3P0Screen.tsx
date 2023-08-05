@@ -546,31 +546,36 @@ export default function Tab3() {
           <Text style={styles.textInter}>Cliquez sur le besoin inverse</Text>
 
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {need.map((item, index) => (
-              <NeedCliquable
-                key={index}
-                need={item.need}
-                arround={item.arround}
-                full={item.full}
-                iconName={item.iconName}
-                onClic={() => handleNeedClick(item)}
-              />
-            ))}
+            <View>
+              <View style={{ flexDirection: "row" }}>
+                {need
+                  .slice(0, Math.ceil(need.length / 2))
+                  .map((item, index) => (
+                    <NeedCliquable
+                      key={index}
+                      need={item.need}
+                      arround={item.arround}
+                      full={item.full}
+                      iconName={item.iconName}
+                      onClic={() => handleNeedClick(item)}
+                    />
+                  ))}
+              </View>
+              <View style={{ flexDirection: "row" }}>
+                {need.slice(Math.ceil(need.length / 2)).map((item, index) => (
+                  <NeedCliquable
+                    key={index}
+                    need={item.need}
+                    arround={item.arround}
+                    full={item.full}
+                    iconName={item.iconName}
+                    onClic={() => handleNeedClick(item)}
+                  />
+                ))}
+              </View>
+            </View>
           </ScrollView>
         </View>
-
-        {/* <ScrollView horizontal={true} style={styles.videoScroll}>
-          {videoIds.map((videoId, index) => (
-            <View key={index} style={styles.videoContainer}>
-              <WebView
-                javaScriptEnabled={true}
-                domStorageEnabled={true}
-                source={{ uri: `https://www.youtube.com/embed/${videoId}` }}
-                style={styles.video}
-              />
-            </View>
-          ))}
-        </ScrollView> */}
       </ScrollView>
 
       <ScrollView>
@@ -695,17 +700,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginTop: 10,
   },
-
-  // videoContainer: {
-  //   flex: 1,
-  //   paddingHorizontal: 20,
-  //   marginTop: 10,
-
-  //   marginVertical: 50,
-  //   height: 150,
-  //   //width: 250,
-  //   backgroundColor: "green",
-  // },
 
   seedContainer: {
     flexDirection: "row",
