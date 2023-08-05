@@ -25,6 +25,10 @@ import Icon from "react-native-vector-icons/Entypo";
 
 import { useHardwareBackButton } from "components/useHardwareBackButton";
 
+//import YouTube from "react-native-youtube-iframe";
+import { WebView } from "react-native-webview";
+import YouTubeVideos from "./../../../../../components/YouTubeVideos";
+
 type CombinedParamList = Tab1ParamList & RootStackParamList;
 
 // * ---------------------- FONCTIONS --------------------
@@ -64,41 +68,6 @@ const UserImage = ({ imageUrl, defaultImage }) => (
   />
 );
 
-// * ----------------------MES FONCTIONS TEST --------------------------
-// function HelloWorld() {
-//   return (
-//     <View>
-//       <Text>Hello, world!</Text>
-//     </View>
-//   );
-// }
-
-function Badges() {
-  const badges = [
-    { title: "Hello", subtitle: "Subtitle 1" },
-    { title: "World", subtitle: "Subtitle 2" },
-    { title: "World", subtitle: "Subtitle 3" },
-    { title: "World", subtitle: "Subtitle 4" },
-    { title: "World", subtitle: "Subtitle 5" },
-    // Ajouter autant de badges que vous voulez
-  ];
-
-  return (
-    <View style={styles.badgesContainer}>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {badges.map((badge, index) => (
-          <View key={index} style={styles.badgeContainer}>
-            <Text style={styles.badgeText}>{badge.title}</Text>
-            <Text style={styles.badgeSubtitle}>{badge.subtitle}</Text>
-          </View>
-        ))}
-      </ScrollView>
-    </View>
-  );
-}
-
-// * ------------------------- COMPOSANT PRINCIPAL --------------------
-
 function Tab1() {
   useHardwareBackButton();
   const navigation = useNavigation<StackNavigationProp<CombinedParamList>>();
@@ -108,6 +77,8 @@ function Tab1() {
   const defaultImage = require("assets/images/userHead.png");
 
   const [isLoading, setIsLoading] = useState(true);
+
+  // const videoIds = ["Bg7-T4TalO4", "Bg7-T4TalO4", "Bg7-T4TalO4", "Bg7-T4TalO4"];
 
   useEffect(() => {
     if (userContext !== null) {
@@ -176,7 +147,11 @@ function Tab1() {
           >
             <Text style={styles.buttonText}>Go to Tab1P1</Text>
           </TouchableOpacity>
-          <Badges />
+          {/* <Badges /> */}
+
+          <ScrollView horizontal={true} style={styles.videoScroll}>
+            <YouTubeVideos />
+          </ScrollView>
         </View>
       </View>
     );
@@ -312,15 +287,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
 
-  // button: {
-  //   backgroundColor: "#6f78bd",
-  //   padding: 10,
-  //   borderRadius: 5,
-  // },
-  // buttonText: {
-  //   color: "white",
-  //   fontSize: 16,
-  // },
   buttonContainer: {
     //position: "absolute",
     bottom: 0,
@@ -334,28 +300,6 @@ const styles = StyleSheet.create({
 
   // * MES STYLES TEST -----------------
 
-  badgeContainer: {
-    backgroundColor: "#6f78bd",
-    borderRadius: 5, // Plus petit pour un look plus rectangulaire
-    paddingVertical: 3,
-    paddingHorizontal: 5,
-    marginRight: 5,
-    marginTop: 5,
-    width: 80, // Ajouter une largeur spécifique pour que tous les badges aient la même taille
-    height: 80,
-    alignItems: "center", // Centrer le contenu horizontalement
-  },
-  badgeText: {
-    color: "#fff",
-    fontSize: 12,
-    textAlign: "center", // Centrer le texte
-  },
-  badgeSubtitle: {
-    color: "#fff",
-    fontSize: 10,
-    textAlign: "center", // Centrer le texte
-  },
-
   button: {
     backgroundColor: "#6f78bd",
     padding: 10,
@@ -366,21 +310,28 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
   },
-  //...
-  badgesContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    marginBottom: 20, // donner un peu d'espace entre les badges et le bouton
-    marginTop: 40,
-    marginLeft: 20,
-    justifyContent: "center", // centrer les badges
-  },
 
   content: {
     flex: 1, // pour prendre le reste de l'espace
     justifyContent: "flex-start", // aligner le contenu à la fin
-    //marginBottom: 20, // donner un peu d'espace en bas
+
     paddingTop: 50,
+  },
+
+  videoScroll: {
+    flexDirection: "row",
+  },
+
+  videoContainer: {
+    flex: 1,
+    paddingHorizontal: 20,
+    marginTop: 10,
+    marginVertical: 50,
+    width: 250, // Vous pouvez ajuster la largeur selon vos besoins
+    backgroundColor: "#f2f7fb",
+  },
+  video: {
+    height: 150, // Vous pouvez ajuster la hauteur selon vos besoins
   },
 });
 

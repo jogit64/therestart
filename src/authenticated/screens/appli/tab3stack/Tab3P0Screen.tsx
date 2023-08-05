@@ -11,9 +11,6 @@ import {
   Alert,
 } from "react-native";
 
-import YouTube from "react-native-youtube-iframe";
-import { WebView } from "react-native-webview";
-
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { TabParamList } from "../../../../../utils/navigationTypes";
@@ -111,7 +108,7 @@ export default function Tab3() {
   const [selectedNeed, setSelectedNeed] = useState(null);
   //const paragraphs = selectedEmotion?.stimul.split(". ");
 
-  const videoIds = ["Bg7-T4TalO4", "Bg7-T4TalO4", "Bg7-T4TalO4", "Bg7-T4TalO4"];
+  //const videoIds = ["Bg7-T4TalO4", "Bg7-T4TalO4", "Bg7-T4TalO4", "Bg7-T4TalO4"];
 
   const emotions = [
     {
@@ -562,7 +559,7 @@ export default function Tab3() {
           </ScrollView>
         </View>
 
-        <ScrollView horizontal={true} style={styles.videoScroll}>
+        {/* <ScrollView horizontal={true} style={styles.videoScroll}>
           {videoIds.map((videoId, index) => (
             <View key={index} style={styles.videoContainer}>
               <WebView
@@ -573,7 +570,7 @@ export default function Tab3() {
               />
             </View>
           ))}
-        </ScrollView>
+        </ScrollView> */}
       </ScrollView>
 
       <ScrollView>
@@ -995,20 +992,5 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     padding: 20,
-  },
-
-  videoScroll: {
-    flexDirection: "row",
-  },
-  videoContainer: {
-    flex: 1,
-    paddingHorizontal: 20,
-    marginTop: 10,
-    marginVertical: 50,
-    width: 250, // Vous pouvez ajuster la largeur selon vos besoins
-    backgroundColor: "#f2f7fb",
-  },
-  video: {
-    height: 150, // Vous pouvez ajuster la hauteur selon vos besoins
   },
 });
