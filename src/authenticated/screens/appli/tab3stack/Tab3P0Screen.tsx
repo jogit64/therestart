@@ -546,7 +546,7 @@ export default function Tab3() {
           <Text style={styles.textInter}>Cliquez sur le besoin inverse</Text>
 
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View>
+            <View style={styles.needContainer}>
               <View style={{ flexDirection: "row" }}>
                 {need
                   .slice(0, Math.ceil(need.length / 2))
@@ -907,6 +907,11 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
 
+  needContainer: {
+    // alignItems: "center", // Pour centrer la forme
+    // justifyContent: "center", // Pour centrer la forme
+    marginBottom: 50,
+  },
   formeContainerN: {
     alignItems: "center", // Pour centrer la forme
     justifyContent: "center", // Pour centrer la forme
