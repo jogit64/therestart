@@ -13,6 +13,7 @@ import LottieView from "lottie-react-native";
 
 import rondBleuAnimation from "./../../../../assets/animations/rondbleu.json";
 import rondVertAnimation from "./../../../../assets/animations/rondvert.json";
+import test from "./../../../../assets/animations/test.json";
 import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -106,6 +107,21 @@ export default function Tab2() {
                   positivité dans le cosmos.
                 </Text>
               </View>
+            </View>
+
+            <View style={styles.iconContainer}>
+              <TouchableOpacity
+                style={styles.lottieButton}
+                onPress={() => navigation.navigate("ScreenRandomMemory")}
+              >
+                <LottieView source={test} autoPlay style={styles.animation} />
+                {/* <MaterialCommunityIcons
+                  name="watering-can-outline"
+                  size={40}
+                  color="#fff"
+                /> */}
+                <Text style={styles.textTab}>Plouf</Text>
+              </TouchableOpacity>
             </View>
           </ScrollView>
         );
