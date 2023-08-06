@@ -350,7 +350,8 @@ function InfosPersoScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgba(236,246,255,1)",
+    // backgroundColor: "rgba(236,246,255,1)",
+    backgroundColor: "#6f78bd",
   },
   scrollArea: {
     flex: 1,
@@ -603,7 +604,7 @@ const styles = StyleSheet.create({
     width: 290,
     height: 57,
     overflow: "visible",
-    backgroundColor: "rgba(255,255,255,1)",
+    // backgroundColor: "rgba(255,255,255,1)",
     marginTop: 12,
     marginLeft: 35,
     marginBottom: 50,
