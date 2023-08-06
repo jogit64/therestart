@@ -27,37 +27,43 @@ import { useHardwareBackButton } from "components/useHardwareBackButton";
 
 type CombinedParamList = Tab1ParamList & RootStackParamList;
 
-const UserGreeting = ({ firstName }) => (
-  <View style={styles.bonjour1Stack}>
-    <Text style={styles.textBonjour}>Bonjour,</Text>
-    <Text style={styles.textFirstname}>{firstName}!</Text>
-  </View>
-);
+// const UserImage = ({ imageUrl, defaultImage }) => (
+//   console.log("imageUrl:", imageUrl),
+//   console.log("defaultImage:", defaultImage),
+//   (
+//     <Image
+//       source={
+//         imageUrl
+//           ? { uri: `${imageUrl}?time=${new Date().getTime()}` }
+//           : defaultImage
+//       }
+//       resizeMode="cover"
+//       style={{ ...styles.photoProfil }}
+//     />
+//   )
+// );
 
-const SettingsButton = ({ onPress }) => (
-  <TouchableOpacity style={styles.buttonSettings} onPress={onPress}>
-    <View style={styles.ellipseFondIconStack}>
-      <Svg viewBox="0 0 28.77 29.34" style={styles.ellipseFondIcon}>
-        <Ellipse
-          stroke="rgba(230, 230, 230,1)"
-          strokeWidth={0}
-          //fill="rgba(255,255,255,1)"
-          fill="red"
-          cx={14}
-          cy={15}
-          rx={14}
-          ry={15}
-        />
-      </Svg>
-      <Icon name="cog" style={styles.iconCog} />
-    </View>
-  </TouchableOpacity>
-);
+// const UserImage = ({ imageUrl, defaultImage }) => {
+//   console.log("imageUrl:", imageUrl);
+//   console.log("defaultImage:", defaultImage);
+
+//   return (
+//     <Image
+//       source={
+//         imageUrl
+//           ? { uri: `${imageUrl}?time=${new Date().getTime()}` }
+//           : defaultImage
+//       }
+//       resizeMode="cover"
+//       style={{ ...styles.photoProfil }}
+//     />
+//   );
+// };
 
 const UserImage = ({ imageUrl, defaultImage }) => (
   <Image
     source={imageUrl ? { uri: imageUrl } : defaultImage}
-    resizeMode="cover"
+    resizeMode="contain"
     style={{ ...styles.photoProfil }}
   />
 );
@@ -73,6 +79,7 @@ function Tab1() {
     if (userContext !== null) {
       console.log("Le Usercontext changed:", userContext);
       console.log("Le First name:", userContext.user.basicInfo.firstName);
+      console.log("URL de l'image actuelle:", userContext.imageUrl);
       setIsLoading(false);
     }
   }, [userContext]);
@@ -89,30 +96,6 @@ function Tab1() {
     return (
       <View style={styles.mainContainer}>
         <View style={styles.headerContainer}>
-          {/* <View style={styles.bonjour1StackRow}>
-            <UserGreeting firstName={firstName} />
-            <Text> Bonjour {firstName}</Text>
-            <SettingsButton onPress={() => navigation.navigate("Settings")} />
-          </View>
-
-          <ImageBackground
-            style={{
-              ...styles.rondUsercontour1,
-              zIndex: 1,
-              position: "absolute",
-            }}
-            imageStyle={styles.rondUsercontour1_imageStyle}
-            source={require("assets/images/Gradient_jOL2tsn.png")}
-          />
-          <ImageBackground
-            style={{
-              ...styles.rondUsercontour,
-              zIndex: 2,
-              position: "absolute",
-            }}
-            imageStyle={styles.rondUsercontour_imageStyle}
-            source={require("assets/images/Gradient_jOL2tsn.png")}
-          /> */}
           <View style={styles.photoContainer}>
             <View style={styles.arround}>
               <View style={styles.full}></View>
@@ -121,6 +104,11 @@ function Tab1() {
               imageUrl={userContext.imageUrl}
               defaultImage={defaultImage}
             />
+            {/* <UserImage
+              key={userContext.imageUrl}
+              imageUrl={userContext.imageUrl}
+              defaultImage={defaultImage}
+            /> */}
           </View>
 
           <View style={styles.textBonjourContainer}>
@@ -140,12 +128,23 @@ function Tab1() {
         </View>
 
         <View style={styles.lowerSection}>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.button}
             onPress={() => navigation.navigate("Tab1P1")}
           >
             <Text style={styles.buttonText}>Go to Tab1P1</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+
+          <Image
+            source={defaultImage}
+            resizeMode="cover"
+            style={{ ...styles.photoProfil }}
+          />
+          <Image
+            source={defaultImage}
+            resizeMode="cover"
+            style={{ ...styles.photoProfil }}
+          />
         </View>
       </View>
     );
@@ -160,8 +159,6 @@ const styles = StyleSheet.create({
     //backgroundColor: "rgba(255,255,255,1)",
     backgroundColor: "#f5f6fa",
     flexDirection: "column",
-    //justifyContent: "space-around",
-    //paddingTop: 20,
   },
   headerContainer: {
     //flex: 1,
@@ -171,18 +168,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#6f78bd",
     // backgroundColor: "red",
-    //marginTop: 50,
     paddingTop: 50,
-    //paddingBottom: 25,
   },
 
   photoContainer: {
     width: 120,
     //backgroundColor: "green",
     height: 120,
-    //marginTop: 18,
-    //marginBottom: 10,
-    marginTop: 45,
+    marginTop: 52,
     marginLeft: 10,
   },
   arround: {
@@ -190,6 +183,7 @@ const styles = StyleSheet.create({
     height: 110,
     backgroundColor: "rgba(173,176,211,1)",
     borderRadius: 110 / 2,
+    zIndex: 0,
   },
   full: {
     width: 96,
@@ -200,6 +194,7 @@ const styles = StyleSheet.create({
     borderColor: "rgba(255,255,255,1)",
     marginTop: 7,
     marginLeft: 7,
+    zIndex: 0,
   },
 
   photoProfil: {
@@ -209,6 +204,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 10,
     borderRadius: 89 / 2,
+    zIndex: 1,
   },
 
   textBonjourContainer: {
@@ -225,6 +221,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginTop: 15,
   },
+
   textFirstname: {
     fontFamily: "roboto500",
     //color: "rgba(50,56,106,1)",
@@ -260,95 +257,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     //marginTop: 20, // Marge haute pour l'espacement si nécessaire
   },
-
-  bonjour1Stack: {
-    flexDirection: "row", // Placer les Text côte à côte
-    alignItems: "center", // Centrer verticalement
-    alignSelf: "flex-end",
-  },
-  buttonSettings: {
-    position: "absolute", // Positionner l'icône indépendamment
-    right: 10, // Créer de l'espace à droite
-    top: 10, // Créer de l'espace en haut
-    width: 29,
-    height: 29,
-  },
-  ellipseFondIcon: {
-    top: 0,
-    width: 29,
-    height: 29,
-    position: "absolute",
-    left: 0,
-  },
-
-  ellipseFondIconStack: {
-    width: 29,
-    height: 29,
-  },
-  bonjour1StackRow: {
-    height: 59,
-    flexDirection: "row",
-    justifyContent: "center", // Centrer horizontalement
-    //alignItems: "center",
-    marginTop: 37,
-    backgroundColor: "red",
-  },
-  rondUsercontour1: {
-    width: 112,
-    height: 105,
-    borderRadius: 100,
-    shadowColor: "rgba(220,225,244,1)",
-    shadowOffset: {
-      width: 3,
-      height: 3,
-    },
-    elevation: 66,
-    shadowOpacity: 1,
-    shadowRadius: 22,
-    overflow: "hidden",
-    marginTop: 79,
-    marginLeft: 124,
-    opacity: 0.25,
-  },
-  rondUsercontour1_imageStyle: {},
-  rondUsercontour: {
-    width: 95,
-    height: 90,
-    borderRadius: 100,
-    shadowColor: "rgba(220,225,244,1)",
-    shadowOffset: {
-      width: 3,
-      height: 3,
-    },
-    elevation: 54,
-    shadowOpacity: 1,
-    shadowRadius: 8,
-    overflow: "hidden",
-    marginTop: 86,
-    marginLeft: 133,
-    opacity: 0.5,
-  },
-  // rondUsercontour_imageStyle: {},
-  // photoProfil: {
-  //   width: 81,
-  //   height: 81,
-  //   marginTop: 50,
-  //   marginLeft: 30,
-  //   borderRadius: 50,
-  // },
-
-  buttonContainer: {
-    //position: "absolute",
-    bottom: 0,
-    right: 0,
-    left: 0,
-    top: 120,
-    justifyContent: "center",
-    alignItems: "center",
-    //backgroundColor: "red",
-  },
-
-  // * MES STYLES TEST -----------------
 
   button: {
     backgroundColor: "#6f78bd",

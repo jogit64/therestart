@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useCallback } from "react";
+import React, { Component, useEffect, useCallback, useContext } from "react";
 import {
   StyleSheet,
   View,
@@ -19,6 +19,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../../../utils/navigationTypes";
+import UserContext from "../../../../../utils/UserContext";
 
 type SettingsScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -27,8 +28,18 @@ type SettingsScreenNavigationProp = StackNavigationProp<
 
 export default function SettingsScreen() {
   useHardwareBackButton();
+  const { setUser } = useContext(UserContext);
 
   const navigation = useNavigation<SettingsScreenNavigationProp>();
+
+  // Fonction pour gérer la déconnexion
+  const handleLogout = () => {
+    // Nettoyez le contexte de l'utilisateur
+    setUser(null);
+
+    // Redirigez vers l'écran de connexion (ou l'accueil)
+    navigation.navigate("Accueil");
+  };
 
   return (
     <View style={styles.container}>
@@ -193,11 +204,7 @@ export default function SettingsScreen() {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("Accueil");
-        }}
-      >
+      <TouchableOpacity onPress={handleLogout}>
         <Text style={styles.seDeconnecter}>Se déconnecter</Text>
       </TouchableOpacity>
 

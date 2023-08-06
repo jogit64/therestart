@@ -22,6 +22,7 @@ import { RootStackParamList } from "../../../utils/navigationTypes";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 import UserContext from "../../../utils/UserContext";
+
 import { StatusBarCustom } from "components/StatusBarCustom";
 
 import LoadingSpinner from "./../../../utils/LoadingSpinner";

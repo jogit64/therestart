@@ -32,6 +32,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
       age: null,
       sex: null,
     },
+    categories: [],
   });
 
   // Ajoutez un nouvel état pour gérer imageUrl
