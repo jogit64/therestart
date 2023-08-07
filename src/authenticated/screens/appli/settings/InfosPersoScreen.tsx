@@ -149,6 +149,7 @@ function InfosPersoScreen() {
           imageUrl: userImage,
           isLoggedIn: user ? user.extraInfo.isLoggedIn : false,
         },
+        categories: user ? user.categories : [],
       });
 
       userContext?.setImageUrl(userImage);

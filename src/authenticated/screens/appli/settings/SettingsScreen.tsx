@@ -28,7 +28,7 @@ type SettingsScreenNavigationProp = StackNavigationProp<
 
 export default function SettingsScreen() {
   useHardwareBackButton();
-  const { setUser } = useContext(UserContext);
+  const { setUser, setImageUrl } = useContext(UserContext);
 
   const navigation = useNavigation<SettingsScreenNavigationProp>();
 
@@ -36,7 +36,7 @@ export default function SettingsScreen() {
   const handleLogout = () => {
     // Nettoyez le contexte de l'utilisateur
     setUser(null);
-
+    setImageUrl(null);
     // Redirigez vers l'écran de connexion (ou l'accueil)
     navigation.navigate("Accueil");
   };
