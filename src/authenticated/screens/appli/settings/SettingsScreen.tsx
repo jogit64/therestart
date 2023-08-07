@@ -603,7 +603,8 @@ const styles = StyleSheet.create({
   },
   seDeconnecter: {
     fontFamily: "roboto500",
-    color: "rgba(111,120,189,1)",
+    //color: "rgba(111,120,189,1)",
+    color: "#cccfe0",
     fontSize: 15,
     marginTop: 50,
     marginLeft: 128,
