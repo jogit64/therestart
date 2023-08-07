@@ -260,7 +260,8 @@ const styles = StyleSheet.create({
   },
   labelCompte: {
     fontFamily: "roboto",
-    color: "rgba(152,156,183,1)",
+    //color: "rgba(152,156,183,1)",
+    color: "#cccfe0",
     marginTop: 26,
     marginLeft: 23,
   },
@@ -318,7 +319,8 @@ const styles = StyleSheet.create({
   },
   labelLapplication: {
     fontFamily: "roboto",
-    color: "rgba(152,156,183,1)",
+    //color: "rgba(152,156,183,1)",
+    color: "#cccfe0",
     marginTop: 35,
     marginLeft: 21,
   },

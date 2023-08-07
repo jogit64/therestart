@@ -197,7 +197,8 @@ export default function ContactScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgba(236,246,255,1)",
+    //backgroundColor: "rgba(236,246,255,1)",
+    backgroundColor: "#6f78bd",
   },
   scrollArea: {
     width: 360,
