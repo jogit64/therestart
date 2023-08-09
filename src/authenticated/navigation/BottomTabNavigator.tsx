@@ -38,7 +38,7 @@ const BottomTabNavigator = () => {
               );
 
               break;
-            case "Graines":
+            case "Le jardin":
               return (
                 <MaterialCommunityIcons
                   name="watering-can-outline"
@@ -47,7 +47,7 @@ const BottomTabNavigator = () => {
                 />
               );
               break;
-            case "Antidote":
+            case "Le labo":
               return (
                 <MaterialCommunityIcons
                   //name="flask"
@@ -57,7 +57,7 @@ const BottomTabNavigator = () => {
                 />
               );
               break;
-            case "Dreamlist":
+            case "La cuisine":
               return (
                 <MaterialCommunityIcons
                   name="thought-bubble-outline"
@@ -88,17 +88,17 @@ const BottomTabNavigator = () => {
         options={{ headerShown: false }} // Cacher l'en-tête pour l'écran HomeTab
       />
       <Tab.Screen
-        name="Antidote"
+        name="Le labo"
         component={Tab3Navigator}
         options={{ headerShown: false }}
       />
       <Tab.Screen
-        name="Graines"
+        name="Le jardin"
         component={Tab2}
         options={{ headerShown: false }}
       />
       <Tab.Screen
-        name="Dreamlist"
+        name="La cuisine"
         component={Tab4}
         options={{ headerShown: false }}
       />
