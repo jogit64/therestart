@@ -74,6 +74,16 @@ function Tab1() {
   const userContext = useContext<UserContextInterface | null>(UserContext);
   const defaultImage = require("assets/images/userHead.png");
   const [isLoading, setIsLoading] = useState(true);
+  const colors = [
+    "#FF0000",
+    "#FF7F00",
+    "#FFFF00",
+    "#7FFF00",
+    "#00FF00",
+    "#00FF7F",
+    "#00FFFF",
+    "#0000FF",
+  ];
 
   useEffect(() => {
     if (userContext !== null) {
@@ -104,18 +114,17 @@ function Tab1() {
               imageUrl={userContext.imageUrl}
               defaultImage={defaultImage}
             />
-            {/* <UserImage
-              key={userContext.imageUrl}
-              imageUrl={userContext.imageUrl}
-              defaultImage={defaultImage}
-            /> */}
           </View>
+          {/* <Image
+            source={require("assets/images/logoAntidote.png")}
+            style={styles.logoStyle}
+          /> */}
 
           <View style={styles.textBonjourContainer}>
             <Text style={styles.textBonjour}>Bonjour</Text>
             <Text style={styles.textFirstname}> {firstName}</Text>
-            {/* <Text style={styles.textBonjour}> !</Text> */}
-            {/* <SettingsButton onPress={() => navigation.navigate("Settings")} /> */}
+            <Text style={styles.textBonjour}> !</Text>
+            {/* <Text style={styles.textName}> antidote</Text> */}
             <TouchableOpacity
               style={styles.touchableIcon}
               onPress={() => navigation.navigate("Settings")}
@@ -128,30 +137,6 @@ function Tab1() {
         </View>
 
         <View style={styles.lowerSection}>
-          {/* <View style={styles.chapeauContainer}>
-            <Image
-              source={require("assets/images/logoAntidote.png")}
-              style={styles.logoStyle}
-            />
-
-            <Text style={styles.textChapeau}>Quésako Antidote ?!</Text>
-          </View> */}
-          <View style={styles.whiteBadgeContainer}>
-            <View style={styles.chapeauContainerA}>
-              <Image
-                source={require("assets/images/logoAntidote.png")}
-                style={styles.logoStyleA}
-              />
-
-              <Text style={styles.textChapeau}>Quésako Antidote ?!</Text>
-            </View>
-            <Text style={styles.textWhiteBadge}>
-              Vous êtes nouveau ici ? Cliquez sur ce bouton pour découvrir
-              toutes les fonctionnalités de notre application. Vous apprendrez
-              comment transformer vos émotions et planifier vos rêves
-              merveilleux.
-            </Text>
-          </View>
           {/* <TouchableOpacity
             style={styles.button}
             onPress={() => navigation.navigate("Tab1P1")}
@@ -180,11 +165,9 @@ function Tab1() {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    flexDirection: "column",
-    //justifyContent: "space-evenly",
-    //alignItems: "flex-start",
     //backgroundColor: "rgba(255,255,255,1)",
     backgroundColor: "#f5f6fa",
+    flexDirection: "column",
   },
   headerContainer: {
     //flex: 1,
@@ -194,7 +177,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#6f78bd",
     // backgroundColor: "red",
-    paddingTop: 50,
+    paddingTop: 90,
   },
 
   photoContainer: {
@@ -240,6 +223,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
+  textName: {
+    fontFamily: "roboto",
+    color: "black",
+    //color: "rgba(50,56,106,1)",
+    fontSize: 20,
+    marginTop: 15,
+  },
+
   textBonjour: {
     fontFamily: "roboto",
     color: "white",
@@ -276,105 +267,29 @@ const styles = StyleSheet.create({
     fontSize: 44,
   },
 
-  // button: {
-  //   backgroundColor: "#6f78bd",
-  //   padding: 10,
-  //   borderRadius: 5,
-  //   alignSelf: "center", // centrer le bouton
-  // },
-  // buttonText: {
-  //   color: "white",
-  //   fontSize: 16,
-  // },
-
   lowerSection: {
-    // flex: 1,
-    //justifyContent: "flex-start",
+    flex: 1,
+    justifyContent: "center",
     //backgroundColor: "green",
-    //alignItems: "center",
-    //marginTop: 20, // Marge haute pour l'espacement si nécessaire
-  },
-  chapeauContainer: {
-    //flex: 1,
-    flexDirection: "row",
-    //justifyContent: "flex-start",
     alignItems: "center",
-
-    // backgroundColor: "green",
     //marginTop: 20, // Marge haute pour l'espacement si nécessaire
-    paddingTop: 65,
-    paddingBottom: 20,
-    marginLeft: 20,
   },
 
+  button: {
+    backgroundColor: "#6f78bd",
+    padding: 10,
+    borderRadius: 5,
+    alignSelf: "center", // centrer le bouton
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
+  },
   logoStyle: {
     width: 60, // Ajustez selon la taille souhaitée
     height: 60, // Ajustez selon la taille souhaitée
     resizeMode: "contain", // pour conserver les proportions de l'image
-    // marginLeft: 10, // Espacement à gauche, si nécessaire
-    transform: [{ rotate: "20deg" }],
-  },
-
-  textChapeau: {
-    fontFamily: "roboto500",
-    //color: "white",
-    color: "rgba(50,56,106,1)",
-    fontSize: 20,
-    //marginTop: 15,
-  },
-  whiteBadgeContainer: {
-    // flex: 1,
-    // flexDirection: "column",
-    // justifyContent: "flex-start",
-    backgroundColor: "white",
-    borderRadius: 20,
-    marginHorizontal: 15,
-    paddingHorizontal: 25,
-    paddingVertical: 20,
-    //height: 150,
-    marginTop: 75,
-  },
-  textWhiteBadge: {
-    fontFamily: "roboto",
-    //color: "white",
-    color: "rgba(50,56,106,1)",
-    fontSize: 14,
-    lineHeight: 25,
-    //marginTop: 15,
-  },
-
-  chapeauContainerA: {
-    //flex: 1,
-    flexDirection: "row",
-    //justifyContent: "flex-start",
-    alignItems: "center",
-
-    // backgroundColor: "green",
-    marginTop: -15, // Marge haute pour l'espacement si nécessaire
-    // paddingTop: 65,
-    //paddingBottom: 20,
-    //marginLeft: 20,
-    marginBottom: 10,
-  },
-
-  logoStyleA: {
-    width: 60, // Ajustez selon la taille souhaitée
-    height: 60, // Ajustez selon la taille souhaitée
-    resizeMode: "contain", // pour conserver les proportions de l'image
-    // marginLeft: 10, // Espacement à gauche, si nécessaire
-    transform: [{ rotate: "20deg" }],
-    marginTop: -25,
-  },
-
-  textChapeauA: {
-    fontFamily: "roboto500",
-    //color: "white",
-    color: "rgba(50,56,106,1)",
-    fontSize: 20,
-    //marginTop: 15,
-    // marginTop: -45,
-    // justifyContent: "flex-end",
-    // alignContent: "flex-end",
+    marginLeft: 10, // Espacement à gauche, si nécessaire
   },
 });
 
