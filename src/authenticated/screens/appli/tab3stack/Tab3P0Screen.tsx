@@ -470,7 +470,8 @@ export default function Tab3() {
               source={require("./../../../../../assets/images/bubbles1.png")}
               style={{
                 width: "100%",
-                height: 70,
+                height: 80,
+                resizeMode: "contain",
                 borderTopLeftRadius: 10, // pour le coin supérieur gauche
                 borderTopRightRadius: 10, // pour le coin supérieur droit
                 marginBottom: 10,
@@ -505,23 +506,27 @@ export default function Tab3() {
             </View>
           </View>
         </View>
+
         <View style={styles.thirdPartContainer}>
-          <Text style={styles.sstitleMaj}>INVERSEZ VOS EMOTIONS</Text>
-          <Image
-            source={require("./../../../../../assets/images/plants2.png")}
-            style={{
-              width: "100%",
-              height: 180,
-              borderRadius: 10,
-              marginTop: 10,
-            }}
-          />
-          <Text style={styles.sstitle}>Inverser vos émotions</Text>
-          <Text style={styles.textInter}>
-            Cliquez sur l'émotion et recherchez à faire émerger un sentiment
-            inverse
-          </Text>
-          {/* <TouchableOpacity
+          <Text style={styles.sstitle}>Inversez vos émotions</Text>
+          <View style={styles.ssSecondParContainer}>
+            <Image
+              source={require("./../../../../../assets/images/plants2.png")}
+              style={{
+                width: "100%",
+                height: 80,
+                resizeMode: "contain",
+                borderTopLeftRadius: 10, // pour le coin supérieur gauche
+                borderTopRightRadius: 10, // pour le coin supérieur droit
+                marginBottom: 10,
+              }}
+            />
+            {/* <Text style={styles.sstitle}>Inverser vos émotions</Text> */}
+            <Text style={styles.textInter}>
+              Cliquez sur l'émotion et recherchez à faire émerger un sentiment
+              inverse
+            </Text>
+            {/* <TouchableOpacity
             style={styles.buttonEmotion}
             // onPress={() => navigation.navigate("Tab3P1")}
           >
@@ -535,40 +540,56 @@ export default function Tab3() {
             </View>
           </TouchableOpacity> */}
 
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {emotions.map((item, index) => (
-              <EmotionCliquable
-                key={index}
-                emotion={item.emotion}
-                arround={item.arround}
-                full={item.full}
-                iconName={item.iconName}
-                onClic={() => handleEmotionClick(item)}
-              />
-            ))}
-          </ScrollView>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {emotions.map((item, index) => (
+                <EmotionCliquable
+                  key={index}
+                  emotion={item.emotion}
+                  arround={item.arround}
+                  full={item.full}
+                  iconName={item.iconName}
+                  onClic={() => handleEmotionClick(item)}
+                />
+              ))}
+            </ScrollView>
+          </View>
         </View>
 
         <View style={styles.fourthPartContainer}>
-          <Text style={styles.sstitleMaj}>REMPLISSEZ VOS BESOINS</Text>
-          <Image
-            source={require("./../../../../../assets/images/needs1.png")}
-            style={{
-              width: "100%",
-              height: 180,
-              borderRadius: 10,
-              marginTop: 10,
-            }}
-          />
-          <Text style={styles.sstitle}>Satisfaire vos besoins</Text>
-          <Text style={styles.textInter}>Cliquez sur le besoin inverse</Text>
+          <Text style={styles.sstitle}>Revitalisez vos besoins</Text>
+          <View style={styles.ssfourthParContainer}>
+            <Image
+              source={require("./../../../../../assets/images/needs1.png")}
+              style={{
+                width: "100%",
+                height: 80,
+                resizeMode: "cover",
+                borderTopLeftRadius: 10, // pour le coin supérieur gauche
+                borderTopRightRadius: 10, // pour le coin supérieur droit
+                marginBottom: 10,
+              }}
+            />
+            {/* <Text style={styles.sstitle}>Satisfaire vos besoins</Text> */}
+            <Text style={styles.textInter}>Cliquez sur le besoin inverse</Text>
 
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View style={styles.needContainer}>
-              <View style={{ flexDirection: "row" }}>
-                {need
-                  .slice(0, Math.ceil(need.length / 2))
-                  .map((item, index) => (
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <View style={styles.needContainer}>
+                <View style={{ flexDirection: "row" }}>
+                  {need
+                    .slice(0, Math.ceil(need.length / 2))
+                    .map((item, index) => (
+                      <NeedCliquable
+                        key={index}
+                        need={item.need}
+                        arround={item.arround}
+                        full={item.full}
+                        iconName={item.iconName}
+                        onClic={() => handleNeedClick(item)}
+                      />
+                    ))}
+                </View>
+                <View style={{ flexDirection: "row" }}>
+                  {need.slice(Math.ceil(need.length / 2)).map((item, index) => (
                     <NeedCliquable
                       key={index}
                       need={item.need}
@@ -578,21 +599,10 @@ export default function Tab3() {
                       onClic={() => handleNeedClick(item)}
                     />
                   ))}
+                </View>
               </View>
-              <View style={{ flexDirection: "row" }}>
-                {need.slice(Math.ceil(need.length / 2)).map((item, index) => (
-                  <NeedCliquable
-                    key={index}
-                    need={item.need}
-                    arround={item.arround}
-                    full={item.full}
-                    iconName={item.iconName}
-                    onClic={() => handleNeedClick(item)}
-                  />
-                ))}
-              </View>
-            </View>
-          </ScrollView>
+            </ScrollView>
+          </View>
         </View>
       </ScrollView>
 
@@ -721,7 +731,7 @@ const styles = StyleSheet.create({
   firstPartContainer: {
     flex: 1,
     paddingHorizontal: 20,
-    marginTop: 35,
+    marginTop: 25,
   },
 
   frontonImage: {
@@ -773,12 +783,7 @@ const styles = StyleSheet.create({
   },
 
   ssSecondParContainer: {
-    //flex: 1,
-    //flexDirection: "row",
-    //flexShrink: 1,
-    //paddingHorizontal: 20,
     backgroundColor: "#f5f6fa",
-    // padding: 15,
     borderRadius: 15,
     marginTop: 10,
   },
@@ -812,12 +817,25 @@ const styles = StyleSheet.create({
   thirdPartContainer: {
     flex: 1,
     paddingHorizontal: 20,
+    marginTop: 25,
+  },
+
+  ssthridParContainer: {
+    backgroundColor: "#f5f6fa",
+    borderRadius: 15,
     marginTop: 10,
   },
 
   fourthPartContainer: {
     flex: 1,
     paddingHorizontal: 20,
+    marginTop: 25,
+    marginBottom: 50,
+  },
+
+  ssfourthParContainer: {
+    backgroundColor: "#f5f6fa",
+    borderRadius: 15,
     marginTop: 10,
   },
 

@@ -197,62 +197,68 @@ export default function Tab2() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.seedContainer}>
-        <Image
-          source={require("assets/images/logoAntidote.png")}
-          style={styles.logoStyleA}
+      <View style={styles.headerContainer}>
+        <MaterialCommunityIcons
+          //name="flask"
+          //name="medical-bag"
+          name="watering-can-outline"
+          size={32}
+          color="white"
         />
-        <Text style={styles.title}>Mes graines de joie</Text>
+        <Text style={styles.titleScreen}>Le jardin</Text>
       </View>
-      {/* <Text style={styles.title}>de joie !</Text> */}
 
-      <ImageBackground
-        source={require("./../../../../assets/images/fronton.png")}
-        style={styles.frontonImage}
-        resizeMode="cover"
-      >
-        <Text style={styles.textIntro}>
-          Réveillez vos souvenirs heureux, arrosez-les et voyez comment ils
-          égayent votre journée !
-        </Text>
-      </ImageBackground>
-      <Image
+      <View style={styles.firstPartContainer}>
+        <ImageBackground
+          source={require("./../../../../assets/images/fronton.png")}
+          style={styles.frontonImage}
+          resizeMode="cover"
+        >
+          <Text style={styles.textIntro}>
+            Réveillez vos souvenirs heureux, arrosez-les et voyez comment ils
+            égayent votre journée !
+          </Text>
+        </ImageBackground>
+      </View>
+      {/* <Image
         source={require("./../../../../assets/images/plants1.png")}
         style={{ width: "100%", height: 120, borderRadius: 10 }}
-      />
-      <TabView
-        navigationState={{ index, routes }}
-        renderScene={renderScene}
-        onIndexChange={setIndex}
-        renderTabBar={(props) => (
-          <TabBar
-            {...props}
-            indicatorStyle={{
-              backgroundColor: "#d05e39",
-              height: 2,
-              borderRadius: 2,
-            }}
-            style={styles.tabBar}
-            renderLabel={({ route, focused, color }) => (
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text
-                  style={
-                    focused ? styles.activeTabTitle : styles.inactiveTabTitle
-                  }
+      /> */}
+      <View style={styles.secondPartContainer}>
+        <TabView
+          navigationState={{ index, routes }}
+          renderScene={renderScene}
+          onIndexChange={setIndex}
+          renderTabBar={(props) => (
+            <TabBar
+              {...props}
+              indicatorStyle={{
+                backgroundColor: "#d05e39",
+                height: 2,
+                borderRadius: 2,
+              }}
+              style={styles.tabBar}
+              renderLabel={({ route, focused, color }) => (
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
                 >
-                  {route.title}
-                </Text>
-              </View>
-            )}
-          />
-        )}
-      />
+                  <Text
+                    style={
+                      focused ? styles.activeTabTitle : styles.inactiveTabTitle
+                    }
+                  >
+                    {route.title}
+                  </Text>
+                </View>
+              )}
+            />
+          )}
+        />
+      </View>
     </View>
   );
 }
@@ -263,141 +269,59 @@ const styles = StyleSheet.create({
   //   paddingTop: 20,
   // },
   container: {
-    flexGrow: 1,
-
-    justifyContent: "center",
-    //alignItems: "center",
-    paddingTop: 30,
-    //marginTop: 25,
+    flex: 1,
+    justifyContent: "flex-start",
     backgroundColor: "white",
-    paddingHorizontal: 20,
   },
 
-  seedContainer: {
+  headerContainer: {
+    // flexGrow: 1,
+    //flex: 1,
+    height: 60,
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
-    flexWrap: "wrap",
-
-    marginBottom: 15,
-    //marginTop: 20,
+    //backgroundColor: "#6f78bd",
+    backgroundColor: "rgba(190,205,224,0.67)",
+    //paddingTop: 25,
+    marginTop: 20,
+    paddingLeft: 20,
   },
 
-  title: {
+  titleScreen: {
     fontFamily: "roboto700",
-    fontSize: 24,
+    fontSize: 22,
     textAlign: "center",
-    // marginBottom: 20,
     color: "rgba(50,56,106,1)",
     paddingLeft: 10,
-    marginBottom: 15,
+    //  marginBottom: 15,
   },
 
-  lottieButton: {
-    //width: "100%",
-    //height: 100,
-    justifyContent: "center",
-    alignItems: "center",
+  firstPartContainer: {
+    // flex: 1,
+    paddingHorizontal: 20,
+    marginTop: 25,
   },
-  animation: {
-    position: "absolute",
-    width: 250,
-    height: 250,
-  },
-  // overlay: {
-  //   position: "absolute",
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  // },
-  // text: {
-  //   fontSize: 18,
-  //   fontFamily: "roboto",
-  //   color: "#ffffff",
-  // },
-
-  sstitle: {
-    fontFamily: "roboto500",
-    fontSize: 16,
-    textAlign: "left",
-    //marginBottom: 10,
-    color: "rgba(50,56,106,1)",
-    marginTop: 10,
-    marginBottom: 5,
-  },
-  textTab: {
-    fontFamily: "roboto",
-    color: "rgba(151,155,180,1)",
-    // width: 300,
-    // height: 60,
-    //textAlign: "center",
-    lineHeight: 25,
-    // marginTop: 15,
-    //paddingHorizontal: 10,
-    fontSize: 16,
-    textAlign: "left",
-  },
-  // textIntro: {
-  //   fontFamily: "roboto",
-  //   //color: "rgba(151,155,180,1)",
-  //   color: "rgba(50,56,106,1)",
-  //   textAlign: "center",
-  //   lineHeight: 20,
-  //   fontSize: 14,
-  //   marginVertical: 5,
-  // },
 
   frontonImage: {
     width: "100%",
-    height: 100,
-    justifyContent: "center", // Pour le centrage vertical
-    alignItems: "center", // Pour le centrage horizontal
-    marginBottom: 20,
+    height: 120,
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   textIntro: {
     fontFamily: "roboto",
     color: "rgba(151,155,180,1)",
-    // width: 300,
-    // height: 60,
-    //textAlign: "center",
     lineHeight: 25,
-    // marginTop: 15,
     paddingHorizontal: 10,
     fontSize: 16,
   },
 
-  textPar: {
-    fontFamily: "roboto",
-    color: "rgba(151,155,180,1)",
-    //textAlign: "center",
-    lineHeight: 20,
-    fontSize: 14,
-    marginVertical: 10,
-  },
-
-  iconContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 30,
-    marginTop: 10,
-  },
-  interblocContainer: {
-    marginBottom: 65,
-    marginTop: 25,
-  },
-  blocContainer: {
-    //backgroundColor: "#c3d9e4", // utilisation de l'une des couleurs de votre palette
-    marginBottom: 35,
-    paddingBottom: 50,
-    paddingTop: 20,
-    borderRadius: 10, // arrondit les coins du bloc
-    // shadowColor: "#000", // définit la couleur de l'ombre
-    // shadowOffset: { width: 0, height: 2 }, // décale l'ombre horizontalement et verticalement
-    // shadowOpacity: 0.2, // contrôle la transparence de l'ombre
-    // shadowRadius: 2, // contrôle la flou de l'ombre
-    // elevation: 5, // ajoute une ombre pour Android
-    //padding: 15, // ajoute une marge interne pour donner un peu d'espace au contenu
+  secondPartContainer: {
+    flex: 1,
+    paddingHorizontal: 20,
+    //marginTop: 25,
   },
 
   tabBar: {
@@ -412,8 +336,169 @@ const styles = StyleSheet.create({
     //backgroundColor: "#c3d9e4",
     backgroundColor: "#fff",
     marginBottom: 10,
-    marginTop: 5,
+    // marginTop: 5,
   },
+
+  activeTabTitle: {
+    fontFamily: "roboto500",
+    fontSize: 14,
+    textAlign: "center",
+    //marginBottom: 10,
+    color: "rgba(50,56,106,1)",
+  },
+  inactiveTabTitle: {
+    color: "rgba(151,155,180,1)",
+    fontFamily: "roboto500",
+    fontSize: 14,
+    textAlign: "center",
+    //marginBottom: 10,
+  },
+  //
+  //
+  // RENDER SCENE
+
+  blocContainer: {
+    //backgroundColor: "#c3d9e4", // utilisation de l'une des couleurs de votre palette
+    marginBottom: 35,
+    paddingBottom: 50,
+    paddingTop: 20,
+    borderRadius: 10, // arrondit les coins du bloc
+    // shadowColor: "#000", // définit la couleur de l'ombre
+    // shadowOffset: { width: 0, height: 2 }, // décale l'ombre horizontalement et verticalement
+    // shadowOpacity: 0.2, // contrôle la transparence de l'ombre
+    // shadowRadius: 2, // contrôle la flou de l'ombre
+    // elevation: 5, // ajoute une ombre pour Android
+    //padding: 15, // ajoute une marge interne pour donner un peu d'espace au contenu
+  },
+
+  iconContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 30,
+    marginTop: 10,
+  },
+
+  lottieButton: {
+    //width: "100%",
+    //height: 100,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  animation: {
+    position: "absolute",
+    width: 250,
+    height: 250,
+  },
+
+  sstitle: {
+    fontFamily: "roboto500",
+    fontSize: 16,
+    textAlign: "left",
+    //marginBottom: 10,
+    color: "rgba(50,56,106,1)",
+    marginTop: 10,
+    marginBottom: 5,
+  },
+
+  textTab: {
+    fontFamily: "roboto",
+    color: "rgba(151,155,180,1)",
+    // width: 300,
+    // height: 60,
+    //textAlign: "center",
+    lineHeight: 25,
+    // marginTop: 15,
+    //paddingHorizontal: 10,
+    fontSize: 16,
+    textAlign: "left",
+  },
+
+  interblocContainer: {
+    marginBottom: 65,
+    marginTop: 25,
+  },
+
+  listItem: {
+    flexDirection: "row", // Place le bullet et le texte côte à côte
+    marginBottom: 10, // Ajoute un espace entre chaque élément de la liste
+  },
+  bullet: {
+    width: 25, // Donne de l'espace pour le bullet
+    marginLeft: 10,
+  },
+
+  // CONST ROUTE
+  title: {
+    fontFamily: "roboto700",
+    fontSize: 24,
+    textAlign: "center",
+    // marginBottom: 20,
+    color: "rgba(50,56,106,1)",
+    paddingLeft: 10,
+    marginBottom: 15,
+  },
+
+  // seedContainer: {
+  //   flexDirection: "row",
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  //   flexWrap: "wrap",
+
+  //   marginBottom: 15,
+  //   //marginTop: 20,
+  // },
+
+  // overlay: {
+  //   position: "absolute",
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  // },
+  // text: {
+  //   fontSize: 18,
+  //   fontFamily: "roboto",
+  //   color: "#ffffff",
+  // },
+
+  // textIntro: {
+  //   fontFamily: "roboto",
+  //   //color: "rgba(151,155,180,1)",
+  //   color: "rgba(50,56,106,1)",
+  //   textAlign: "center",
+  //   lineHeight: 20,
+  //   fontSize: 14,
+  //   marginVertical: 5,
+  // },
+
+  // frontonImage: {
+  //   width: "100%",
+  //   height: 100,
+  //   justifyContent: "center", // Pour le centrage vertical
+  //   alignItems: "center", // Pour le centrage horizontal
+  //   marginBottom: 20,
+  // },
+
+  // textIntro: {
+  //   fontFamily: "roboto",
+  //   color: "rgba(151,155,180,1)",
+  //   // width: 300,
+  //   // height: 60,
+  //   //textAlign: "center",
+  //   lineHeight: 25,
+  //   // marginTop: 15,
+  //   paddingHorizontal: 10,
+  //   fontSize: 16,
+  // },
+
+  // textPar: {
+  //   fontFamily: "roboto",
+  //   color: "rgba(151,155,180,1)",
+  //   //textAlign: "center",
+  //   lineHeight: 20,
+  //   fontSize: 14,
+  //   marginVertical: 10,
+  // },
+
   // tabLabelActive: {
   //   color: "#000", // couleur du titre de l'onglet actif
   //   fontSize: 16, // taille de la police
@@ -432,35 +517,12 @@ const styles = StyleSheet.create({
   //   color: "rgba(50,56,106,1)",
   // },
 
-  activeTabTitle: {
-    fontFamily: "roboto500",
-    fontSize: 14,
-    textAlign: "center",
-    //marginBottom: 10,
-    color: "rgba(50,56,106,1)",
-  },
-  inactiveTabTitle: {
-    color: "rgba(151,155,180,1)",
-    fontFamily: "roboto500",
-    fontSize: 14,
-    textAlign: "center",
-    //marginBottom: 10,
-  },
-  listItem: {
-    flexDirection: "row", // Place le bullet et le texte côte à côte
-    marginBottom: 10, // Ajoute un espace entre chaque élément de la liste
-  },
-  bullet: {
-    width: 25, // Donne de l'espace pour le bullet
-    marginLeft: 10,
-  },
-
-  logoStyleA: {
-    width: 60, // Ajustez selon la taille souhaitée
-    height: 60, // Ajustez selon la taille souhaitée
-    resizeMode: "contain", // pour conserver les proportions de l'image
-    // marginLeft: 10, // Espacement à gauche, si nécessaire
-    transform: [{ rotate: "20deg" }],
-    //marginTop: -25,
-  },
+  // logoStyleA: {
+  //   width: 60, // Ajustez selon la taille souhaitée
+  //   height: 60, // Ajustez selon la taille souhaitée
+  //   resizeMode: "contain", // pour conserver les proportions de l'image
+  //   // marginLeft: 10, // Espacement à gauche, si nécessaire
+  //   transform: [{ rotate: "20deg" }],
+  //   //marginTop: -25,
+  // },
 });
