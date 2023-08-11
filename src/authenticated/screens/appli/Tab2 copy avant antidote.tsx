@@ -11,9 +11,9 @@ import {
 } from "react-native";
 import LottieView from "lottie-react-native";
 
-import rondBleuAnimation from "./../../../../assets/animations/rondbleu.json";
-import rondVertAnimation from "./../../../../assets/animations/rondvert.json";
-import test from "./../../../../assets/animations/test.json";
+import rondBleuAnimation from "../../../../assets/animations/rondbleu.json";
+import rondVertAnimation from "../../../../assets/animations/rondvert.json";
+import test from "../../../../assets/animations/test.json";
 import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -199,11 +199,11 @@ export default function Tab2() {
     <View style={styles.container}>
       <View style={styles.seedContainer}>
         <Image
-          source={require("assets/images/logoAntidote.png")}
-          style={styles.logoStyleA}
+          source={require("./../../../../assets/images/logoReStart.png")}
+          style={{ width: 55, height: 55 }}
         />
-        <Text style={styles.title}>Mes graines de joie</Text>
       </View>
+      <Text style={styles.title}>Graines de joie</Text>
       {/* <Text style={styles.title}>de joie !</Text> */}
 
       <ImageBackground
@@ -277,9 +277,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    // marginBottom: 15,
     flexWrap: "wrap",
 
-    marginBottom: 15,
     //marginTop: 20,
   },
 
@@ -348,7 +348,7 @@ const styles = StyleSheet.create({
 
   frontonImage: {
     width: "100%",
-    height: 100,
+    height: 120,
     justifyContent: "center", // Pour le centrage vertical
     alignItems: "center", // Pour le centrage horizontal
     marginBottom: 20,
@@ -453,14 +453,5 @@ const styles = StyleSheet.create({
   bullet: {
     width: 25, // Donne de l'espace pour le bullet
     marginLeft: 10,
-  },
-
-  logoStyleA: {
-    width: 60, // Ajustez selon la taille souhaitée
-    height: 60, // Ajustez selon la taille souhaitée
-    resizeMode: "contain", // pour conserver les proportions de l'image
-    // marginLeft: 10, // Espacement à gauche, si nécessaire
-    transform: [{ rotate: "20deg" }],
-    //marginTop: -25,
   },
 });

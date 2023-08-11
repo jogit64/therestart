@@ -152,8 +152,8 @@ CGU réalisées sur http://legalplace.fr/
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //backgroundColor: "rgba(236,246,255,1)",
-    backgroundColor: "#6f78bd",
+    backgroundColor: "rgba(236,246,255,1)",
+    //backgroundColor: "#6f78bd",
   },
   goBackButtonRow: {
     height: 65,
@@ -199,10 +199,10 @@ const styles = StyleSheet.create({
   scrollArea: {
     width: 360,
     height: 789,
-    marginTop: 22,
+    //  marginTop: 22,
   },
   scrollArea_contentContainerStyle: {
-    height: 3520,
+    height: 3320,
     width: 360,
   },
 
@@ -210,13 +210,13 @@ const styles = StyleSheet.create({
     fontFamily: "roboto",
     color: "#121212",
     fontSize: 12,
-    backgroundColor: "rgba(255,255,255,1)",
-    borderWidth: 2,
-    borderColor: "rgba(220,222,235,1)",
-    borderRadius: 14,
-    marginTop: 7,
-    marginLeft: 30,
-    marginRight: 30,
-    padding: 10,
+    //backgroundColor: "rgba(255,255,255,1)",
+    //borderWidth: 2,
+    //  borderColor: "rgba(220,222,235,1)",
+    //borderRadius: 14,
+    //marginTop: 7,
+    // marginLeft: 30,
+    // marginRight: 30,
+    padding: 30,
   },
 });

@@ -18,7 +18,7 @@ const Swiper1 = () => {
     <View style={styles.container}>
       {/* <View style={styles.container}> */}
       <Text style={styles.titrePrincipal}>
-        Croyances limitantes : libérez-vous!
+        Croyances limitantes ? Libérez-vous!
       </Text>
       <Text style={styles.sousTitre}>
         Plongez dans un voyage de transformation intérieure et découvrez la
@@ -31,7 +31,8 @@ const Swiper1 = () => {
               <Ellipse
                 stroke="rgba(230, 230, 230,1)"
                 strokeWidth={0}
-                fill="rgba(220,235,254,1)"
+                //fill="rgba(220,235,254,1)"
+                fill="rgba(190,205,224,0.67)"
                 cx={30}
                 cy={30}
                 rx={30}
@@ -44,7 +45,8 @@ const Swiper1 = () => {
             >
               <Ellipse
                 strokeWidth={0}
-                fill="rgba(220,235,254,1)"
+                //fill="rgba(220,235,254,1)"
+                fill="rgba(190,205,224,0.67)"
                 cx={18}
                 cy={18}
                 rx={18}
@@ -53,7 +55,7 @@ const Swiper1 = () => {
             </Svg>
             <View style={styles.groupBoutonEmotions}>
               <MaterialButtonSuccess
-                style={styles.materialButtonSuccess}
+                style={styles.boutonEmotions}
               ></MaterialButtonSuccess>
             </View>
           </View>
@@ -67,7 +69,8 @@ const Swiper1 = () => {
           <Svg viewBox="0 0 145.95 145.95" style={styles.ellipseG}>
             <Ellipse
               strokeWidth={0}
-              fill="rgba(220,235,254,0.67)"
+              //fill="rgba(220,235,254,0.67)"
+              fill="rgba(190,205,224,0.67)"
               cx={73}
               cy={73}
               rx={73}
@@ -81,9 +84,12 @@ const Swiper1 = () => {
           </View>
           <View style={styles.groupRestart}>
             <View style={styles.re3Row}>
-              <Text style={styles.re3}>re·</Text>
+              {/* <Text style={styles.re3}>re·</Text>
               <Text style={styles.start}>start</Text>
-              <Text style={styles.re3}>!</Text>
+              <Text style={styles.re3}>!</Text> */}
+              <Text style={styles.re3}>zen·</Text>
+              <Text style={styles.start}>zones</Text>
+              <Text style={styles.re3b}>!</Text>
             </View>
           </View>
         </View>
@@ -135,7 +141,7 @@ const styles = StyleSheet.create({
     height: 116,
     position: "absolute",
   },
-  materialButtonSuccess: {
+  boutonEmotions: {
     height: 89,
     width: 100,
     transform: [
@@ -146,6 +152,9 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     marginTop: 55,
     marginLeft: 31,
+    // backgroundColor: "rgba(126,134,199,1)",
+    backgroundColor: "#009688", //
+    backgroundColor: "rgba(100,150,190,1)",
   },
   ellipseMStack: {
     top: 54,
@@ -211,7 +220,9 @@ const styles = StyleSheet.create({
         rotate: "-2.00deg",
       },
     ],
-    backgroundColor: "rgba(59,173,199,1)",
+    //backgroundColor: "rgba(59,173,199,1)",
+    backgroundColor: "rgba(140,120,170,1)",
+
     borderRadius: 16,
     marginTop: 60,
     marginLeft: -18,
@@ -226,15 +237,28 @@ const styles = StyleSheet.create({
     //alignItems: "center",
   },
   re3: {
-    fontFamily: "lemon",
+    fontFamily: "ralewayextraBold",
+    // fontFamily: "lemon",
     //color: "rgba(255,255,255,1)",
-    color: "#fdd100",
+    //color: "#fdd100",
+    color: "white",
+    fontSize: 40,
+    marginRight: 2,
+  },
+
+  re3b: {
+    fontFamily: "ralewayextraBold",
+    // fontFamily: "lemon",
+    //color: "rgba(255,255,255,1)",
+    //color: "#fdd100",
+    color: "#A89F91",
     fontSize: 40,
     marginRight: 2,
   },
   start: {
-    fontFamily: "lemon",
-    color: "#121212",
+    fontFamily: "ralewayextraBold",
+    color: "#A89F91",
+    //color: "#121212",
     fontSize: 40,
   },
   re3Row: {

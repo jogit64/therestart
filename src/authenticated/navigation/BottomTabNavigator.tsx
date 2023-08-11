@@ -28,10 +28,10 @@ const BottomTabNavigator = () => {
 
           // Définition de l'icône en fonction du nom de la route
           switch (route.name) {
-            case "Bonjour":
+            case "La réception":
               return (
                 <MaterialCommunityIcons
-                  name="hand-wave-outline"
+                  name="bell-ring-outline"
                   size={28}
                   color={focused ? "#5b5da7" : "#cccfe0"}
                 />
@@ -47,21 +47,22 @@ const BottomTabNavigator = () => {
                 />
               );
               break;
-            case "Le labo":
+            case "L'infirmerie":
               return (
                 <MaterialCommunityIcons
                   //name="flask"
-                  name="medical-bag"
+                  //name="medical-bag"
+                  name="hospital-box"
                   size={28}
                   color={focused ? "#5b5da7" : "#cccfe0"}
                 />
               );
               break;
-            case "La cuisine":
+            case "Le phare":
               return (
                 <MaterialCommunityIcons
-                  name="thought-bubble-outline"
-                  // name="star"
+                  //name="thought-bubble-outline"
+                  name="lighthouse-on"
                   size={28}
                   color={focused ? "#5b5da7" : "#cccfe0"}
                 />
@@ -83,12 +84,12 @@ const BottomTabNavigator = () => {
       })}
     >
       <Tab.Screen
-        name="Bonjour"
+        name="La réception"
         component={Tab1Navigator} // Ici vous utilisez le Stack Navigator que vous avez défini pour Tab1
         options={{ headerShown: false }} // Cacher l'en-tête pour l'écran HomeTab
       />
       <Tab.Screen
-        name="Le labo"
+        name="L'infirmerie"
         component={Tab3Navigator}
         options={{ headerShown: false }}
       />
@@ -97,8 +98,9 @@ const BottomTabNavigator = () => {
         component={Tab2}
         options={{ headerShown: false }}
       />
+
       <Tab.Screen
-        name="La cuisine"
+        name="Le phare"
         component={Tab4}
         options={{ headerShown: false }}
       />

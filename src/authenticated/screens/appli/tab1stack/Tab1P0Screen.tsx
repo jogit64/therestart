@@ -146,11 +146,17 @@ function Tab1() {
               <Text style={styles.textChapeau}>Quésako Antidote ?!</Text>
             </View>
             <Text style={styles.textWhiteBadge}>
-              Vous êtes nouveau ici ? Cliquez sur ce bouton pour découvrir
-              toutes les fonctionnalités de notre application. Vous apprendrez
-              comment transformer vos émotions et planifier vos rêves
-              merveilleux.
+              Vous êtes nouveau ici ? {"\n"}
+              Cliquez sur ce bouton pour découvrir toutes les fonctionnalités de
+              notre application. {"\n"}Pourrez-vous transformer vos pensées et
+              vos émotions ?
             </Text>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigation.navigate("Tab1P1")}
+            >
+              <Text style={styles.buttonText}>Le tour en quelques lignes</Text>
+            </TouchableOpacity>
           </View>
           {/* <TouchableOpacity
             style={styles.button}
@@ -276,16 +282,17 @@ const styles = StyleSheet.create({
     fontSize: 44,
   },
 
-  // button: {
-  //   backgroundColor: "#6f78bd",
-  //   padding: 10,
-  //   borderRadius: 5,
-  //   alignSelf: "center", // centrer le bouton
-  // },
-  // buttonText: {
-  //   color: "white",
-  //   fontSize: 16,
-  // },
+  button: {
+    backgroundColor: "#6f78bd",
+    padding: 10,
+    borderRadius: 5,
+    alignSelf: "center", // centrer le bouton
+    marginTop: 10,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
+  },
 
   lowerSection: {
     // flex: 1,
@@ -332,13 +339,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingVertical: 20,
     //height: 150,
-    marginTop: 75,
+    marginTop: 95,
   },
   textWhiteBadge: {
     fontFamily: "roboto",
     //color: "white",
     color: "rgba(50,56,106,1)",
-    fontSize: 14,
+    fontSize: 16,
     lineHeight: 25,
     //marginTop: 15,
   },

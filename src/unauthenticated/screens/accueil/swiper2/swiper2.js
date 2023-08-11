@@ -22,7 +22,7 @@ const Swiper2 = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.titrePrincipal}>
-        Souvenirs enchantés : {"\n"}Cultivez les graines de joie !
+        Souvenirs enchantés ? {"\n"}Cultivez vos graines de joie !
       </Text>
       <Text style={styles.sousTitre}>
         Plongez dans un océan de souvenirs merveilleux et cultivez les graines
@@ -34,7 +34,8 @@ const Swiper2 = () => {
             <Ellipse
               stroke="rgba(230, 230, 230,1)"
               strokeWidth={0}
-              fill="rgba(220,235,254,1)"
+              // fill="rgba(220,235,254,1)"
+              fill="rgba(190,205,224,0.67)"
               cx={30}
               cy={30}
               rx={30}
@@ -74,7 +75,8 @@ const Swiper2 = () => {
           <Svg viewBox="0 0 145.95 145.95" style={styles.ellipseG}>
             <Ellipse
               strokeWidth={0}
-              fill="rgba(220,235,254,0.67)"
+              //fill="rgba(220,235,254,0.67)"
+              fill="rgba(190,205,224,0.67)"
               cx={73}
               cy={73}
               rx={73}
@@ -83,9 +85,12 @@ const Swiper2 = () => {
           </Svg>
           <View style={styles.group1}>
             <View style={styles.re1Row}>
-              <Text style={styles.re1}>re·</Text>
+              {/* <Text style={styles.re1}>re·</Text>
               <Text style={styles.start1}>start</Text>
-              <Text style={styles.re2}>!</Text>
+              <Text style={styles.re2}>!</Text> */}
+              <Text style={styles.re3}>zen·</Text>
+              <Text style={styles.start}>zones</Text>
+              <Text style={styles.re3b}>!</Text>
             </View>
           </View>
           <Svg viewBox="0 0 68.7 68.7" style={styles.ellipseCartable3}>
@@ -107,7 +112,8 @@ const Swiper2 = () => {
           <Svg viewBox="0 0 36.82 36.82" style={styles.ellipseP}>
             <Ellipse
               strokeWidth={0}
-              fill="rgba(220,235,254,1)"
+              //fill="rgba(220,235,254,1)"
+              fill="rgba(190,205,224,0.67)"
               cx={18}
               cy={18}
               rx={18}
@@ -241,22 +247,49 @@ const styles = StyleSheet.create({
     position: "absolute",
     flexDirection: "row",
   },
-  re1: {
-    fontFamily: "lemon",
-    color: "rgba(253,209,0,1)",
+  // re1: {
+  //   fontFamily: "lemon",
+  //   color: "rgba(253,209,0,1)",
+  //   fontSize: 40,
+  // },
+  // start1: {
+  //   fontFamily: "lemon",
+  //   color: "#121212",
+  //   fontSize: 40,
+  // },
+  // re2: {
+  //   fontFamily: "lemon",
+  //   color: "rgba(253,209,0,1)",
+  //   fontSize: 40,
+  //   marginLeft: 3,
+  // },
+
+  re3: {
+    fontFamily: "ralewayextraBold",
+    // fontFamily: "lemon",
+    //color: "rgba(255,255,255,1)",
+    //color: "#fdd100",
+    color: "white",
+    fontSize: 40,
+    marginRight: 2,
+  },
+
+  re3b: {
+    fontFamily: "ralewayextraBold",
+    // fontFamily: "lemon",
+    //color: "rgba(255,255,255,1)",
+    //color: "#fdd100",
+    color: "#A89F91",
+    fontSize: 40,
+    marginRight: 2,
+  },
+  start: {
+    fontFamily: "ralewayextraBold",
+    color: "#A89F91",
+    //color: "#121212",
     fontSize: 40,
   },
-  start1: {
-    fontFamily: "lemon",
-    color: "#121212",
-    fontSize: 40,
-  },
-  re2: {
-    fontFamily: "lemon",
-    color: "rgba(253,209,0,1)",
-    fontSize: 40,
-    marginLeft: 3,
-  },
+
   re1Row: {
     height: 52,
     flexDirection: "row",

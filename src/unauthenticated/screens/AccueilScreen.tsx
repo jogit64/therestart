@@ -54,7 +54,7 @@ export default function AccueilScreen() {
             end={{ x: 0, y: 1 }}
             key="1"
           >
-            <Swiper2 />
+            <Swiper1 />
           </LinearGradient>
           <LinearGradient
             colors={[COLORS.gradientStart, COLORS.gradientEnd]}
@@ -63,7 +63,7 @@ export default function AccueilScreen() {
             end={{ x: 0, y: 1 }}
             key="3"
           >
-            <Swiper1 />
+            <Swiper2 />
           </LinearGradient>
           <LinearGradient
             colors={[COLORS.gradientStart, COLORS.gradientEnd]}

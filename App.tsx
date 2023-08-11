@@ -17,6 +17,8 @@ export default function App() {
     roboto: require("./assets/fonts/roboto-regular.ttf"),
     roboto700: require("./assets/fonts/roboto-700.ttf"),
     roboto500: require("./assets/fonts/roboto-500.ttf"),
+    ralewathin: require("./assets/fonts/Raleway-Thin.ttf"),
+    ralewayextraBold: require("./assets/fonts/Raleway-ExtraBold.ttf"),
   });
 
   useEffect(() => {
