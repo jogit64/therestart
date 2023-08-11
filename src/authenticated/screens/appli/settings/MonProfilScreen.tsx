@@ -275,7 +275,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     //backgroundColor: "rgba(255,255,255,1)",
-    backgroundColor: "#6f78bd",
+    //backgroundColor: "#6f78bd",
+    backgroundColor: "rgba(190,205,224,0.67)",
   },
   goBackButton: {
     width: 32,

@@ -240,8 +240,8 @@ function InfosPersoScreen() {
             </TouchableOpacity>
           </View>
 
-          <View>
-            {/* {loading && (
+          {/* <View>
+            {loading && (
               <View
                 style={{
                   flexDirection: "column",
@@ -252,18 +252,16 @@ function InfosPersoScreen() {
                 <LoadingSpinner />
                 <Text>Chargement...</Text>
               </View>
-            )} */}
-          </View>
+            )}
+          </View> */}
 
           <View style={styles.groupName}>
-            <View style={styles.container}>
-              <TextInput
-                placeholder="Prénom"
-                value={firstName}
-                onChangeText={setFirstName}
-                style={styles.inputName}
-              />
-            </View>
+            <TextInput
+              placeholder="Prénom"
+              value={firstName}
+              onChangeText={setFirstName}
+              style={styles.inputName}
+            />
           </View>
           <View style={styles.groupAge}>
             <Text style={styles.age}>Âge</Text>
@@ -352,7 +350,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // backgroundColor: "rgba(236,246,255,1)",
-    backgroundColor: "#6f78bd",
+    //backgroundColor: "#6f78bd",
+    backgroundColor: "rgba(190,205,224,0.67)",
   },
   scrollArea: {
     flex: 1,
@@ -449,6 +448,7 @@ const styles = StyleSheet.create({
     height: 70,
     marginTop: 27,
     marginLeft: 27,
+    //backgroundColor: "transparent",
   },
   nomDutilisateur: {
     fontFamily: "roboto500",

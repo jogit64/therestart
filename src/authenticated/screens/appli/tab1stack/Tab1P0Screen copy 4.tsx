@@ -138,10 +138,10 @@ function Tab1() {
           </View> */}
           <View style={styles.whiteBadgeContainer}>
             <View style={styles.chapeauContainerA}>
-              {/* <Image
+              <Image
                 source={require("assets/images/logoAntidote.png")}
                 style={styles.logoStyleA}
-              /> */}
+              />
 
               <Text style={styles.textChapeau}>Quésako Antidote ?!</Text>
             </View>
@@ -199,27 +199,27 @@ const styles = StyleSheet.create({
     //  justifyContent: "flex-start",
     alignItems: "center",
     //backgroundColor: "#6f78bd",
-    backgroundColor: "rgba(190,205,224,0.67)",
+    backgroundColor: "green",
     paddingTop: 50,
   },
 
   photoContainer: {
-    width: 100,
-    //backgroundColor: "yellow",
-    height: 100,
-    marginTop: 32,
-    marginLeft: 8,
+    width: 120,
+    backgroundColor: "yellow",
+    height: 120,
+    // marginTop: 52,
+    // marginLeft: 10,
   },
   arround: {
-    width: 90,
-    height: 90,
+    width: 110,
+    height: 110,
     backgroundColor: "rgba(173,176,211,1)",
     borderRadius: 110 / 2,
     zIndex: 0,
   },
   full: {
-    width: 76,
-    height: 76,
+    width: 96,
+    height: 96,
     backgroundColor: "rgba(91,93,167,1)",
     borderRadius: 96 / 2,
     borderWidth: 1,
@@ -230,8 +230,8 @@ const styles = StyleSheet.create({
   },
 
   photoProfil: {
-    width: 69,
-    height: 69,
+    width: 89,
+    height: 89,
     position: "absolute",
     marginTop: 10,
     marginLeft: 10,
@@ -244,13 +244,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     //justifyContent: "center",
     alignItems: "center",
-    // backgroundColor: "red",
+    backgroundColor: "red",
   },
 
   textBonjour: {
     fontFamily: "roboto",
-    // color: "grey",
-    color: "rgba(50,56,106,1)",
+    color: "grey",
+    //color: "rgba(50,56,106,1)",
     fontSize: 20,
     marginTop: 15,
   },
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
   textFirstname: {
     fontFamily: "roboto500",
     //color: "rgba(50,56,106,1)",
-    color: "white",
+    color: "grey",
     fontSize: 20,
     //marginLeft: 1,
     marginTop: 15,
