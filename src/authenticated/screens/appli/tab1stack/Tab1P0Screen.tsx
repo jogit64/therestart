@@ -143,19 +143,21 @@ function Tab1() {
                 style={styles.logoStyleA}
               /> */}
 
-              <Text style={styles.textChapeau}>Quésako Antidote ?!</Text>
+              {/* <Text style={styles.textChapeau}>Quésako Antidote ?!</Text> */}
             </View>
+            <View style={styles.bienvenueContainer}>
+              <Text style={styles.textBienvenue}>Bienvenue dans </Text>
+              <Text style={styles.titreApp}>ZEN·ZONES!</Text>
+            </View>
+
             <Text style={styles.textWhiteBadge}>
-              Vous êtes nouveau ici ? {"\n"}
-              Cliquez sur ce bouton pour découvrir toutes les fonctionnalités de
-              notre application. {"\n"}Pourrez-vous transformer vos pensées et
-              vos émotions ?
+              Pour un survol de l'application, c'est par ici !
             </Text>
             <TouchableOpacity
               style={styles.button}
               onPress={() => navigation.navigate("Tab1P1")}
             >
-              <Text style={styles.buttonText}>Le tour en quelques lignes</Text>
+              <Text style={styles.buttonText}>Survol</Text>
             </TouchableOpacity>
           </View>
           {/* <TouchableOpacity
@@ -330,6 +332,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     //marginTop: 15,
   },
+
   whiteBadgeContainer: {
     // flex: 1,
     // flexDirection: "column",
@@ -340,15 +343,37 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingVertical: 20,
     //height: 150,
-    marginTop: 95,
+    marginTop: 55,
   },
+
+  bienvenueContainer: {
+    //flexGrow: 1,
+    flexDirection: "row",
+    // justifyContent: "flex-start",
+  },
+
+  textBienvenue: {
+    fontFamily: "roboto",
+    //color: "white",
+    color: "rgba(50,56,106,1)",
+    fontSize: 20,
+    //marginTop: 15,
+  },
+  titreApp: {
+    fontFamily: "roboto500",
+    //color: "white",
+    color: "rgba(50,56,106,1)",
+    fontSize: 20,
+    //marginTop: 15,
+  },
+
   textWhiteBadge: {
     fontFamily: "roboto",
     //color: "white",
     color: "rgba(50,56,106,1)",
     fontSize: 16,
     lineHeight: 25,
-    //marginTop: 15,
+    paddingTop: 20,
   },
 
   chapeauContainerA: {

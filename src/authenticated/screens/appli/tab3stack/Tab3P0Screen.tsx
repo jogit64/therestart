@@ -22,6 +22,7 @@ import AppIntroSlider from "react-native-app-intro-slider";
 import { ScrollView } from "react-native-gesture-handler";
 import BreathingGuide from "./../../../../../components/BreathingGuide";
 //import YouTubeVideo from "./../../../../../components/YouTubeVideo";
+//import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const slides = [
   {
@@ -381,14 +382,25 @@ export default function Tab3() {
 
   return (
     <View style={styles.container}>
+      <View style={styles.headerContainer}>
+        <MaterialCommunityIcons
+          //name="flask"
+          //name="medical-bag"
+          name="desk-lamp"
+          size={32}
+          color="white"
+        />
+        <Text style={styles.title}>L'atelier</Text>
+      </View>
+
       <ScrollView>
-        <View style={styles.seedContainer}>
-          <Image
+        {/* <View style={styles.seedContainer}> */}
+        {/* <Image
             source={require("./../../../../../assets/images/logoReStart.png")}
             style={{ width: 55, height: 55 }}
           />
-        </View>
-        <Text style={styles.title}>Antidotes</Text>
+        </View> */}
+        {/* <Text style={styles.title}>Antidotes</Text> */}
 
         <View style={styles.firstPartContainer}>
           <ImageBackground
@@ -407,10 +419,10 @@ export default function Tab3() {
           </Text> */}
           <Text style={styles.sstitle}>Idées générales</Text>
           <TouchableOpacity
-            style={styles.buttonIdees}
+            style={styles.touchaBtnIdee}
             onPress={() => setModalVisible1(true)}
           >
-            <View style={styles.BtnContainer}>
+            <View style={styles.BtnDiscoverContainer}>
               {/* <MaterialCommunityIcons
                 name="book-open-page-variant"
                 size={24}
@@ -449,42 +461,48 @@ export default function Tab3() {
         {/* <View style={styles.separator} /> */}
 
         <View style={styles.secondPartContainer}>
-          <Text style={styles.sstitleMaj}>DESACTIVEZ VOS CROYANCES</Text>
-          <Image
-            source={require("./../../../../../assets/images/bubbles1.png")}
-            style={{
-              width: "100%",
-              height: 200,
-              borderRadius: 10,
-              marginTop: 10,
-            }}
-          />
+          {/* <Text style={styles.sstitleMaj}>DESACTIVEZ VOS CROYANCES</Text> */}
+
           <Text style={styles.sstitle}>Approchez le détachement</Text>
-          <Text style={styles.textInter}>
-            Pourrez-vous désactiver vos étiquettes et vos croyances et revenir
-            au moment présent ?
-          </Text>
-          <View style={styles.lineButtonDetach}>
-            <TouchableOpacity
-              style={styles.buttonDetach}
-              onPress={() => navigation.navigate("Tab3P1")}
-            >
-              <View style={styles.BtnContainer}>
-                {/* <MaterialCommunityIcons
+
+          <View style={styles.ssSecondParContainer}>
+            <Image
+              source={require("./../../../../../assets/images/bubbles1.png")}
+              style={{
+                width: "100%",
+                height: 70,
+                borderTopLeftRadius: 10, // pour le coin supérieur gauche
+                borderTopRightRadius: 10, // pour le coin supérieur droit
+                marginBottom: 10,
+              }}
+            />
+
+            <Text style={styles.textInter}>
+              Pourrez-vous désactiver vos étiquettes et vos croyances et revenir
+              au moment présent ?
+            </Text>
+            <View style={styles.lineButtonDetach}>
+              <TouchableOpacity
+                style={styles.buttonDetach}
+                onPress={() => navigation.navigate("Tab3P1")}
+              >
+                <View style={styles.BtnContainer}>
+                  {/* <MaterialCommunityIcons
                   name="directions_runexit_to_app"
                   size={36}
                   color="white"
                 /> */}
 
-                <Feather name="log-out" size={36} color="white" />
+                  <Feather name="log-out" size={26} color="white" />
 
-                <Text style={styles.buttonText}>
-                  J'essaye
-                  {/* {"\n"} et désactivez étiquettes et
+                  <Text style={styles.buttonText}>
+                    J'essaye
+                    {/* {"\n"} et désactivez étiquettes et
                 croyances */}
-                </Text>
-              </View>
-            </TouchableOpacity>
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
         <View style={styles.thirdPartContainer}>
@@ -675,18 +693,120 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     backgroundColor: "white",
     //paddingHorizontal: 20,
-    paddingTop: 30,
+    //paddingTop: 20,
+  },
+
+  headerContainer: {
+    flexGrow: 1,
+    height: 60,
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    //backgroundColor: "#6f78bd",
+    backgroundColor: "rgba(190,205,224,0.67)",
+    //paddingTop: 25,
+    marginTop: 20,
+    paddingLeft: 20,
+  },
+
+  title: {
+    fontFamily: "roboto700",
+    fontSize: 22,
+    textAlign: "center",
+    color: "rgba(50,56,106,1)",
+    paddingLeft: 10,
+    //  marginBottom: 15,
   },
 
   firstPartContainer: {
     flex: 1,
     paddingHorizontal: 20,
+    marginTop: 35,
+  },
+
+  frontonImage: {
+    width: "100%",
+    height: 120,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  textIntro: {
+    fontFamily: "roboto",
+    color: "rgba(151,155,180,1)",
+    lineHeight: 25,
+    paddingHorizontal: 10,
+    fontSize: 16,
+  },
+
+  sstitle: {
+    fontFamily: "roboto500",
+    fontSize: 18,
+    //alignSelf: "center",
+    //textAlign: "center",
+    //marginBottom: 5,
+    color: "rgba(50,56,106,1)",
+    marginTop: 20,
+  },
+
+  touchaBtnIdee: {
+    backgroundColor: "#98cdd5",
+    padding: 10,
+    paddingLeft: 20,
+    justifyContent: "center",
+    marginTop: 10,
+    borderRadius: 15,
+    width: "100%",
+    height: 95,
+  },
+
+  BtnDiscoverContainer: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
   },
 
   secondPartContainer: {
     flex: 1,
     paddingHorizontal: 20,
+    marginTop: 25,
+  },
+
+  ssSecondParContainer: {
+    //flex: 1,
+    //flexDirection: "row",
+    //flexShrink: 1,
+    //paddingHorizontal: 20,
+    backgroundColor: "#f5f6fa",
+    // padding: 15,
+    borderRadius: 15,
     marginTop: 10,
+  },
+
+  textInter: {
+    fontFamily: "roboto",
+    color: "rgba(151,155,180,1)",
+    lineHeight: 25,
+    paddingHorizontal: 10,
+    fontSize: 16,
+  },
+
+  lineButtonDetach: {
+    flex: 1,
+  },
+
+  buttonDetach: {
+    backgroundColor: "#98cdd5",
+    padding: 10,
+    paddingLeft: 20,
+    justifyContent: "center",
+    //alignItems: "flex-end",
+    marginTop: 15,
+    //borderRadius: 15,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    width: "100%",
+    height: 50,
   },
 
   thirdPartContainer: {
@@ -707,22 +827,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     //marginBottom: 15,
     flexWrap: "wrap",
-  },
-
-  frontonImage: {
-    width: "100%",
-    height: 120,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  title: {
-    fontFamily: "roboto700",
-    fontSize: 24,
-    textAlign: "center",
-    color: "rgba(50,56,106,1)",
-    paddingLeft: 10,
-    marginBottom: 15,
   },
 
   sstitleAdv: {
@@ -746,16 +850,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
 
-  sstitle: {
-    fontFamily: "roboto500",
-    fontSize: 18,
-    //alignSelf: "center",
-    //textAlign: "center",
-    marginBottom: 5,
-    color: "rgba(50,56,106,1)",
-    marginTop: 20,
-  },
-
   sstitleMaj: {
     fontFamily: "roboto500",
     fontSize: 18,
@@ -766,52 +860,10 @@ const styles = StyleSheet.create({
     marginTop: 35,
   },
 
-  textIntro: {
-    fontFamily: "roboto",
-    color: "rgba(151,155,180,1)",
-    lineHeight: 25,
-    paddingHorizontal: 10,
-    fontSize: 16,
-  },
-
-  textInter: {
-    fontFamily: "roboto",
-    color: "rgba(151,155,180,1)",
-    lineHeight: 25,
-    //paddingHorizontal: 10,
-    fontSize: 16,
-  },
-
   BtnContainer: {
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
-  },
-
-  buttonIdees: {
-    backgroundColor: "#98cdd5",
-    padding: 10,
-    paddingLeft: 20,
-    justifyContent: "center",
-    marginTop: 15,
-    borderRadius: 15,
-    width: "100%",
-    height: 95,
-  },
-
-  lineButtonDetach: {
-    flex: 1,
-  },
-  buttonDetach: {
-    backgroundColor: "#5af5fe",
-    padding: 10,
-    paddingLeft: 20,
-    justifyContent: "center",
-    //alignItems: "flex-end",
-    marginTop: 15,
-    borderRadius: 15,
-    width: "100%",
-    height: 80,
   },
 
   buttonEmotion: {
@@ -823,7 +875,8 @@ const styles = StyleSheet.create({
     width: "20%",
   },
   buttonText: {
-    color: "white",
+    //color: "white",
+    color: "rgba(50,56,106,1)",
     fontSize: 15,
     marginLeft: 22,
     lineHeight: 22,
