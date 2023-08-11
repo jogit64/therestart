@@ -47,12 +47,12 @@ const BottomTabNavigator = () => {
                 />
               );
               break;
-            case "L'infirmerie":
+            case "L'atelier":
               return (
                 <MaterialCommunityIcons
                   //name="flask"
                   //name="medical-bag"
-                  name="hospital-box"
+                  name="desk-lamp"
                   size={28}
                   color={focused ? "#5b5da7" : "#cccfe0"}
                 />
@@ -89,7 +89,7 @@ const BottomTabNavigator = () => {
         options={{ headerShown: false }} // Cacher l'en-tête pour l'écran HomeTab
       />
       <Tab.Screen
-        name="L'infirmerie"
+        name="L'atelier"
         component={Tab3Navigator}
         options={{ headerShown: false }}
       />
