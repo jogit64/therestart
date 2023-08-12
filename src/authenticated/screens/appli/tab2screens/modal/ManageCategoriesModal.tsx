@@ -312,6 +312,10 @@ const ManageCategoriesModal: React.FC<Props> = ({
               )}
             </TouchableOpacity>
           ))}
+
+          <TouchableOpacity style={styles.closeButton} onPress={onClose}>
+            <Text>X</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </Modal>
@@ -385,6 +389,18 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     padding: 10,
     marginTop: 10,
+  },
+
+  closeButton: {
+    position: "absolute",
+    right: 10,
+    top: 10,
+    padding: 10,
+    backgroundColor: "#e0e0e0", // une couleur de fond grise légère pour le bouton
+    borderRadius: 20, // pour rendre le bouton circulaire
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 2, // pour s'assurer qu'il apparaît au-dessus d'autres éléments
   },
 });
 

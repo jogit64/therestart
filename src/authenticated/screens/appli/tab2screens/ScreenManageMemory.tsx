@@ -554,13 +554,14 @@ function ScreenManageMemory() {
               name="watering-can-outline"
               size={30}
               color="#fff"
+              style={styles.iconRotate}
             />
           </TouchableOpacity>
           {/* <Text style={styles.verbe}>Arrosez</Text> */}
         </View>
         <View style={styles.iconBar}>
           <TouchableOpacity
-            style={styles.lottieButton}
+            style={styles.wrenchButton}
             onPress={() => setModalVisibleManage(true)}
           >
             {/* <LottieView
@@ -568,7 +569,7 @@ function ScreenManageMemory() {
               autoPlay
               style={styles.animation}
             /> */}
-            <MaterialCommunityIcons name="cog" size={30} color="#000" />
+            <MaterialCommunityIcons name="wrench" size={30} color="#fff" />
           </TouchableOpacity>
           {/* <Text style={styles.verbe}>Catégories</Text> */}
         </View>
@@ -729,12 +730,14 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontFamily: "roboto", // La même police que votre autre bouton
   },
+
   centeredView: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0,0,0,0.5)", // Ajouter un arrière-plan semi-transparent pour mieux distinguer la modal
   },
+
   modalViewFaq: {
     width: "90%",
     backgroundColor: "#f8fcff", // Utiliser la même couleur d'arrière-plan que vos autres écrans
@@ -768,8 +771,13 @@ const styles = StyleSheet.create({
     height: 90, // Changer la hauteur si nécessaire
     flexDirection: "row",
     justifyContent: "space-around",
-    alignItems: "flex-end",
+    alignItems: "center",
+    //marginBottom: 40,
     //backgroundColor: "red", // Changer la couleur de fond si nécessaire
+  },
+
+  iconRotate: {
+    transform: [{ rotate: "35deg" }], // ajustez la valeur pour obtenir l'angle de rotation souhaité
   },
 
   iconBar: {
@@ -782,17 +790,29 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+
+  wrenchButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#5b5da7", // Couleur de fond de la forme ronde
+    borderRadius: 50, // Pour rendre le fond rond
+    width: 70, // Largeur de la forme ronde
+    height: 70,
+  },
+
   animation: {
     position: "absolute",
-    width: 150,
-    height: 150,
+    width: 200,
+    height: 200,
   },
+
   overlay: {
     position: "absolute",
     justifyContent: "center",
     alignItems: "center",
-    zIndex: 1, // Assurez-vous que les icônes apparaissent au-dessus de l'animation
+    zIndex: 1,
   },
+
   verbe: {
     fontFamily: "roboto",
     fontSize: 16,
