@@ -328,7 +328,7 @@ function ScreenManageMemory() {
         >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <Text style={styles.modalTitle}>Foire aux questions</Text>
+              <Text style={styles.modalTitle}>Infos</Text>
               <ScrollView style={styles.modalScrollContainer}>
                 <Text style={styles.question}>
                   Pourquoi devrais-je enregistrer mes souvenirs ?
@@ -390,7 +390,7 @@ function ScreenManageMemory() {
                 style={styles.buttonClose}
                 onPress={() => setModalVisible(!modalVisible)}
               >
-                <Text style={styles.textStyle}>Cacher</Text>
+                <Text style={styles.textStyle}>Fermer</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -824,7 +824,7 @@ const styles = StyleSheet.create({
 
   modalTitle: {
     fontFamily: "roboto700",
-    fontSize: 24,
+    fontSize: 22,
     textAlign: "center",
     marginBottom: 20,
     color: "rgba(50,56,106,1)",
@@ -838,14 +838,14 @@ const styles = StyleSheet.create({
   question: {
     fontFamily: "roboto500",
     color: "rgba(50,56,106,1)",
-    fontSize: 20,
+    fontSize: 18,
     marginTop: 20,
     marginBottom: 10,
   },
 
   answer: {
     fontFamily: "roboto",
-    fontSize: 16,
+    fontSize: 14,
     marginVertical: 10,
     color: "rgba(50,56,106,1)",
   },
