@@ -44,8 +44,9 @@ export const authStyles = StyleSheet.create({
     alignSelf: "center",
   },
   icon: {
-    color: "rgba(253,205,1,1)",
-    fontSize: 35,
+    //color: "rgba(253,205,1,1)",
+    color: "#cddaea",
+    fontSize: 45,
     padding: 3,
   },
   titrePrincipal: {
@@ -153,6 +154,7 @@ export const authStyles = StyleSheet.create({
   eyeButton: {
     position: "absolute",
     right: 10,
+    bottom: 11,
   },
 
   linkText: {

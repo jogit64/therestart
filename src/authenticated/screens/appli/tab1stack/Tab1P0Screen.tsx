@@ -147,7 +147,12 @@ function Tab1() {
             </View>
             <View style={styles.bienvenueContainer}>
               <Text style={styles.textBienvenue}>Bienvenue dans </Text>
-              <Text style={styles.titreApp}>ZEN·ZONES!</Text>
+              {/* <Text style={styles.titreApp}>ZEN·ZONES!</Text> */}
+
+              <Text style={styles.mirroredZ}>Z</Text>
+              <Text style={styles.titreApp}>en·</Text>
+              <Text style={styles.mirroredZ}>Z</Text>
+              <Text style={styles.titreApp}>ones</Text>
             </View>
 
             <Text style={styles.textWhiteBadge}>
@@ -365,6 +370,14 @@ const styles = StyleSheet.create({
     color: "rgba(50,56,106,1)",
     fontSize: 20,
     //marginTop: 15,
+  },
+
+  mirroredZ: {
+    // transform: [{ scaleX: -1 }],
+    fontFamily: "roboto500",
+    //color: "white",
+    color: "rgba(50,56,106,1)",
+    fontSize: 20,
   },
 
   textWhiteBadge: {

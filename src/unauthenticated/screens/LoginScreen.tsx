@@ -248,7 +248,7 @@ const LoginScreen = ({
               >
                 <Icon
                   name={isPasswordVisible ? "eye-off" : "eye"}
-                  size={24}
+                  size={28}
                   color="grey"
                 />
               </TouchableOpacity>
