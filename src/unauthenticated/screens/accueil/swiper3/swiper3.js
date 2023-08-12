@@ -59,7 +59,7 @@ const Swiper3 = () => {
             {/* <Text style={styles.re1}>re·</Text>
             <Text style={styles.start1}>start</Text>
             <Text style={styles.re2}>!</Text> */}
-            <Text style={styles.re3}>zen·</Text>
+            <Text style={styles.re3}>Zen·</Text>
             <Text style={styles.start}>zones</Text>
             <Text style={styles.re3b}>!</Text>
           </View>
