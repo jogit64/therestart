@@ -390,7 +390,8 @@ export default function Tab3() {
           size={32}
           color="white"
         />
-        <Text style={styles.title}>L'atelier</Text>
+        <Text style={styles.titleScreen}>L'atelier</Text>
+        <Text style={styles.sstitleScreen}> : croyances, pensées</Text>
       </View>
 
       <ScrollView>
@@ -719,12 +720,21 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
   },
 
-  title: {
+  titleScreen: {
     fontFamily: "roboto700",
     fontSize: 22,
     textAlign: "center",
     color: "rgba(50,56,106,1)",
     paddingLeft: 10,
+    //  marginBottom: 15,
+  },
+
+  sstitleScreen: {
+    fontFamily: "roboto",
+    fontSize: 18,
+    textAlign: "center",
+    color: "rgba(50,56,106,1)",
+    //paddingLeft: 10,
     //  marginBottom: 15,
   },
 

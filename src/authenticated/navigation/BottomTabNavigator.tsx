@@ -41,7 +41,8 @@ const BottomTabNavigator = () => {
             case "Le jardin":
               return (
                 <MaterialCommunityIcons
-                  name="watering-can-outline"
+                  name="flower"
+                  //name="fence"
                   size={28}
                   color={focused ? "#5b5da7" : "#cccfe0"}
                 />

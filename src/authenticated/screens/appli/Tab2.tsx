@@ -39,7 +39,7 @@ export default function Tab2() {
       case "first":
         return (
           <ScrollView contentContainerStyle={styles.blocContainer}>
-            <View style={styles.iconContainer}>
+            {/* <View style={styles.iconContainer}>
               <TouchableOpacity
                 style={styles.lottieButton}
                 onPress={() => navigation.navigate("ScreenRandomMemory")}
@@ -55,80 +55,97 @@ export default function Tab2() {
                   color="#fff"
                 />
               </TouchableOpacity>
-            </View>
+            </View> */}
             <Text style={styles.sstitle}>Revivez vos moments magiques</Text>
-            <Text style={styles.textTab}>
-              Cliquez ici pour afficher aléatoirement vos précieux souvenirs.
-              Laissez-vous emporter par les sentiments de joie et
-              d'émerveillement qu'ils suscitent, comme si vous les viviez de
-              nouveau.
-            </Text>
+            <View style={styles.ssSecondParContainer}>
+              <Image
+                source={require("./../../../../assets/images/plants1.png")}
+                style={{
+                  width: "100%",
+                  height: 80,
+                  resizeMode: "cover",
+                  borderTopLeftRadius: 10, // pour le coin supérieur gauche
+                  borderTopRightRadius: 10, // pour le coin supérieur droit
+                  marginBottom: 10,
+                }}
+              />
+              <Text style={styles.textTab}>
+                Cliquez ici pour afficher aléatoirement vos précieux souvenirs.
+                Laissez-vous emporter par les sentiments de joie et
+                d'émerveillement qu'ils suscitent, comme si vous les viviez de
+                nouveau.
+              </Text>
+              <View style={styles.iconContainer}>
+                <TouchableOpacity
+                  style={styles.lottieButton}
+                  onPress={() => navigation.navigate("ScreenRandomMemory")}
+                >
+                  <LottieView
+                    source={rondBleuAnimation}
+                    autoPlay
+                    style={styles.animation}
+                  />
+                  <MaterialCommunityIcons
+                    name="watering-can-outline"
+                    size={40}
+                    color="#fff"
+                    style={styles.iconRotate}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+
             <View style={styles.interblocContainer}>
               <Text style={styles.sstitle}>Principes</Text>
               <View style={styles.listItem}>
                 <Text style={styles.bullet}>•</Text>
-                <Text style={styles.textTab}>
+                <Text style={styles.textPrincip}>
                   Concentrez-vous sur les joies de la vie pour améliorer votre
                   bien-être.
                 </Text>
               </View>
               <View style={styles.listItem}>
                 <Text style={styles.bullet}>•</Text>
-                <Text style={styles.textTab}>
+                <Text style={styles.textPrincip}>
                   Visitez vos souvenirs plusieurs fois par jour pour cultiver
                   les émotions positives.
                 </Text>
               </View>
               <View style={styles.listItem}>
                 <Text style={styles.bullet}>•</Text>
-                <Text style={styles.textTab}>
+                <Text style={styles.textPrincip}>
                   N'hésitez pas à ajouter de nouveaux souvenirs à mesure qu'ils
                   surgissent.
                 </Text>
               </View>
               <View style={styles.listItem}>
                 <Text style={styles.bullet}>•</Text>
-                <Text style={styles.textTab}>
+                <Text style={styles.textPrincip}>
                   En cultivant la joie, vous enrichissez non seulement votre
                   vie, mais aussi le monde entier.
                 </Text>
               </View>
               <View style={styles.listItem}>
                 <Text style={styles.bullet}>•</Text>
-                <Text style={styles.textTab}>
+                <Text style={styles.textPrincip}>
                   Exercer l'émerveillement favorise la santé, la créativité et
                   l'appréciation de l'infini.
                 </Text>
               </View>
               <View style={styles.listItem}>
                 <Text style={styles.bullet}>•</Text>
-                <Text style={styles.textTab}>
+                <Text style={styles.textPrincip}>
                   Chaque souvenir joyeux que vous cultivez diffuse de la
                   positivité dans le cosmos.
                 </Text>
               </View>
-            </View>
-
-            <View style={styles.iconContainer}>
-              <TouchableOpacity
-                style={styles.lottieButton}
-                onPress={() => navigation.navigate("ScreenRandomMemory")}
-              >
-                <LottieView source={test} autoPlay style={styles.animation} />
-                {/* <MaterialCommunityIcons
-                  name="watering-can-outline"
-                  size={40}
-                  color="#fff"
-                /> */}
-                <Text style={styles.textTab}>Plouf</Text>
-              </TouchableOpacity>
             </View>
           </ScrollView>
         );
       case "second":
         return (
           <ScrollView contentContainerStyle={styles.blocContainer}>
-            <View style={styles.iconContainer}>
+            {/* <View style={styles.iconContainer}>
               <TouchableOpacity
                 style={styles.lottieButton}
                 onPress={() => navigation.navigate("ScreenManageMemory")}
@@ -140,49 +157,79 @@ export default function Tab2() {
                 />
                 <MaterialCommunityIcons name="shovel" size={40} color="#fff" />
               </TouchableOpacity>
-            </View>
+            </View> */}
             <Text style={styles.sstitle}>
               Plantez vos graines d'enchantement
             </Text>
-            <Text style={styles.textTab}>
-              N'avez-vous pas encore planté vos graines de joie ? Ces graines
-              sont vos souvenirs d'enfance, empreints de magie et d'insouciance.
-              Ajoutez-les à votre jardin personnel et regardez-les grandir
-              chaque fois que vous les visitez.
-            </Text>
+            <View style={styles.ssSecondParContainer}>
+              <Image
+                source={require("./../../../../assets/images/seedsHand.png")}
+                style={{
+                  width: "100%",
+                  height: 80,
+                  resizeMode: "cover",
+                  borderTopLeftRadius: 10, // pour le coin supérieur gauche
+                  borderTopRightRadius: 10, // pour le coin supérieur droit
+                  marginBottom: 10,
+                }}
+              />
+              <Text style={styles.textTab}>
+                N'avez-vous pas encore planté vos graines de joie ? Ces graines
+                sont vos souvenirs d'enfance, empreints de magie et
+                d'insouciance. Ajoutez-les à votre jardin personnel et
+                regardez-les grandir chaque fois que vous les visitez.
+              </Text>
+              <View style={styles.iconContainer}>
+                <TouchableOpacity
+                  style={styles.lottieButton}
+                  onPress={() => navigation.navigate("ScreenManageMemory")}
+                >
+                  <LottieView
+                    source={rondVertAnimation}
+                    autoPlay
+                    style={styles.animation}
+                  />
+                  <MaterialCommunityIcons
+                    name="shovel"
+                    size={40}
+                    color="#fff"
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
             <View style={styles.interblocContainer}>
               <Text style={styles.sstitle}>Principes</Text>
               <View style={styles.listItem}>
                 <Text style={styles.bullet}>•</Text>
-                <Text style={styles.textTab}>
+                <Text style={styles.textPrincip}>
                   Plantez uniquement des souvenirs qui éveillent un sentiment
                   d'émerveillement.
                 </Text>
               </View>
               <View style={styles.listItem}>
                 <Text style={styles.bullet}>•</Text>
-                <Text style={styles.textTab}>
+                <Text style={styles.textPrincip}>
                   Catégorisez vos souvenirs, mais sentez-vous libre de créer vos
                   propres catégories.
                 </Text>
               </View>
               <View style={styles.listItem}>
                 <Text style={styles.bullet}>•</Text>
-                <Text style={styles.textTab}>
+                <Text style={styles.textPrincip}>
                   Utilisez des titres évocateurs comme des signes indicateurs
                   pour stimuler l'émotion.
                 </Text>
               </View>
               <View style={styles.listItem}>
                 <Text style={styles.bullet}>•</Text>
-                <Text style={styles.textTab}>
+                <Text style={styles.textPrincip}>
                   Ne décrivez pas le souvenir, évoquez-le. (taille limitée à 30
                   caractères)
                 </Text>
               </View>
               <View style={styles.listItem}>
                 <Text style={styles.bullet}>•</Text>
-                <Text style={styles.textTab}>
+                <Text style={styles.textPrincip}>
                   Cultivez régulièrement votre jardin de souvenirs pour faire
                   grandir vos émotions positives.
                 </Text>
@@ -201,11 +248,12 @@ export default function Tab2() {
         <MaterialCommunityIcons
           //name="flask"
           //name="medical-bag"
-          name="watering-can-outline"
+          name="flower"
           size={32}
           color="white"
         />
         <Text style={styles.titleScreen}>Le jardin</Text>
+        <Text style={styles.sstitleScreen}> : vos graines de joie</Text>
       </View>
 
       <View style={styles.firstPartContainer}>
@@ -220,10 +268,7 @@ export default function Tab2() {
           </Text>
         </ImageBackground>
       </View>
-      {/* <Image
-        source={require("./../../../../assets/images/plants1.png")}
-        style={{ width: "100%", height: 120, borderRadius: 10 }}
-      /> */}
+
       <View style={styles.secondPartContainer}>
         <TabView
           navigationState={{ index, routes }}
@@ -233,7 +278,7 @@ export default function Tab2() {
             <TabBar
               {...props}
               indicatorStyle={{
-                backgroundColor: "#d05e39",
+                backgroundColor: "rgba(50,56,106,1)",
                 height: 2,
                 borderRadius: 2,
               }}
@@ -297,6 +342,15 @@ const styles = StyleSheet.create({
     //  marginBottom: 15,
   },
 
+  sstitleScreen: {
+    fontFamily: "roboto",
+    fontSize: 18,
+    textAlign: "center",
+    color: "rgba(50,56,106,1)",
+    //paddingLeft: 10,
+    //  marginBottom: 15,
+  },
+
   firstPartContainer: {
     // flex: 1,
     paddingHorizontal: 20,
@@ -325,18 +379,18 @@ const styles = StyleSheet.create({
   },
 
   tabBar: {
-    shadowColor: "#fff",
+    shadowColor: "rgba(151,155,180,1)",
     shadowOffset: {
       width: 0,
       height: 2,
     },
     shadowOpacity: 0,
     shadowRadius: 3.84,
-    borderRadius: 50,
+    //borderRadius: 50,
     //backgroundColor: "#c3d9e4",
     backgroundColor: "#fff",
-    marginBottom: 10,
-    // marginTop: 5,
+    //marginBottom: 10,
+    marginTop: 5,
   },
 
   activeTabTitle: {
@@ -346,6 +400,7 @@ const styles = StyleSheet.create({
     //marginBottom: 10,
     color: "rgba(50,56,106,1)",
   },
+
   inactiveTabTitle: {
     color: "rgba(151,155,180,1)",
     fontFamily: "roboto500",
@@ -375,8 +430,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 30,
-    marginTop: 10,
+    marginTop: 45,
+    marginBottom: 55,
+  },
+
+  iconRotate: {
+    transform: [{ rotate: "35deg" }], // ajustez la valeur pour obtenir l'angle de rotation souhaité
   },
 
   lottieButton: {
@@ -393,36 +452,52 @@ const styles = StyleSheet.create({
 
   sstitle: {
     fontFamily: "roboto500",
-    fontSize: 16,
+    fontSize: 18,
     textAlign: "left",
     //marginBottom: 10,
     color: "rgba(50,56,106,1)",
-    marginTop: 10,
+    //marginTop: 10,
     marginBottom: 5,
+  },
+
+  ssSecondParContainer: {
+    backgroundColor: "#f5f6fa",
+    borderRadius: 15,
+    marginTop: 10,
+    //padding: 15,
   },
 
   textTab: {
     fontFamily: "roboto",
-    color: "rgba(151,155,180,1)",
-    // width: 300,
-    // height: 60,
-    //textAlign: "center",
-    lineHeight: 25,
-    // marginTop: 15,
-    //paddingHorizontal: 10,
     fontSize: 16,
+    color: "rgba(151,155,180,1)",
+    lineHeight: 25,
+    paddingHorizontal: 15,
     textAlign: "left",
   },
 
   interblocContainer: {
     marginBottom: 65,
     marginTop: 25,
+    paddingRight: 25,
+    marginRight: 10,
+  },
+
+  textPrincip: {
+    fontFamily: "roboto",
+    fontSize: 14,
+    color: "rgba(151,155,180,1)",
+    //color: "red",
+    lineHeight: 23,
+    //paddingRight: 10,
+    textAlign: "left",
   },
 
   listItem: {
     flexDirection: "row", // Place le bullet et le texte côte à côte
     marginBottom: 10, // Ajoute un espace entre chaque élément de la liste
   },
+
   bullet: {
     width: 25, // Donne de l'espace pour le bullet
     marginLeft: 10,
