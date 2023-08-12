@@ -114,13 +114,13 @@ const ManageCategoriesModal: React.FC<Props> = ({
         "La catégorie a été créée avec succès. Voulez-vous rester ici ou retourner à la gestion des souvenirs?",
         [
           {
+            text: "Retourner aux souvenirs",
+            onPress: () => onClose(), // Ferme la fenêtre modale
+          },
+          {
             text: "Rester ici",
             onPress: () => console.log("Cancel Pressed"),
             style: "cancel",
-          },
-          {
-            text: "Gérer les souvenirs",
-            onPress: () => onClose(), // Ferme la fenêtre modale
           },
         ],
         { cancelable: false }
@@ -165,7 +165,7 @@ const ManageCategoriesModal: React.FC<Props> = ({
             onPress: onClose,
           },
           {
-            text: "Continuer à gérer les catégories",
+            text: "Rester sur les catéroies",
             style: "cancel",
           },
         ],
@@ -194,7 +194,7 @@ const ManageCategoriesModal: React.FC<Props> = ({
         "La catégorie a été supprimée avec succès.",
         [
           {
-            text: "Fermer la modale",
+            text: "Fermer",
             onPress: onClose,
           },
           {

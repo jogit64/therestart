@@ -90,6 +90,12 @@ const Swiper1 = () => {
               <Text style={styles.re3}>zen·</Text>
               <Text style={styles.start}>zones</Text>
               <Text style={styles.re3b}>!</Text>
+              {/* <Text style={styles.z1}>Z</Text>
+              <Text style={styles.en}>en</Text>
+              <Text style={styles.p1}>·</Text>
+              <Text style={styles.z2}>Z</Text>
+              <Text style={styles.ones}>ones</Text>
+              <Text style={styles.p2}>!</Text> */}
             </View>
           </View>
         </View>
@@ -279,6 +285,61 @@ const styles = StyleSheet.create({
     height: 262,
     marginTop: -450,
     marginLeft: 34,
+  },
+
+  z1: {
+    fontFamily: "ralewayextraBold",
+    // fontFamily: "lemon",
+    //color: "rgba(255,255,255,1)",
+    //color: "#fdd100",
+    color: "#A89F91",
+    fontSize: 40,
+    marginRight: 2,
+  },
+  en: {
+    fontFamily: "ralewayextraBold",
+    // fontFamily: "lemon",
+    //color: "rgba(255,255,255,1)",
+    //color: "#fdd100",
+    color: "white",
+    fontSize: 40,
+    marginRight: 2,
+  },
+  p1: {
+    fontFamily: "ralewayextraBold",
+    // fontFamily: "lemon",
+    //color: "rgba(255,255,255,1)",
+    //color: "#fdd100",
+    color: "#A89F91",
+    fontSize: 40,
+    marginRight: 2,
+  },
+  z2: {
+    fontFamily: "ralewayextraBold",
+    // fontFamily: "lemon",
+    //color: "rgba(255,255,255,1)",
+    //color: "#fdd100",
+    color: "#A89F91",
+    fontSize: 40,
+    marginRight: 2,
+  },
+  ones: {
+    fontFamily: "ralewayextraBold",
+    // fontFamily: "lemon",
+    //color: "rgba(255,255,255,1)",
+    //color: "#fdd100",
+    color: "white",
+    fontSize: 40,
+    marginRight: 2,
+  },
+  p2: {
+    fontFamily: "ralewayextraBold",
+    // fontFamily: "lemon",
+    //color: "rgba(255,255,255,1)",
+    //color: "#fdd100",
+    color: "#A89F91",
+    fontSize: 40,
+    marginRight: 2,
   },
 });
 
