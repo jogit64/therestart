@@ -195,83 +195,151 @@ export default function Tab4() {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.seedContainer}>
-        <Image
-          source={require("./../../../../assets/images/logoReStart.png")}
-          style={{ width: 55, height: 55 }}
+    // <ScrollView contentContainerStyle={styles.container}>
+    //   <View style={styles.seedContainer}>
+    //     <Image
+    //       source={require("./../../../../assets/images/logoReStart.png")}
+    //       style={{ width: 55, height: 55 }}
+    //     />
+    //   </View>
+    //   <Text style={styles.title}>Projets enchantés</Text>
+
+    <View style={styles.container}>
+      <View style={styles.headerContainer}>
+        <MaterialCommunityIcons
+          //name="flask"
+          //name="medical-bag"
+          name="lighthouse-on"
+          size={32}
+          color="white"
         />
+        <Text style={styles.titleScreen}>Le phare</Text>
+        <Text style={styles.sstitleScreen}> : vos projets enchantés</Text>
       </View>
-      <Text style={styles.title}>Projets enchantés</Text>
-
-      <ImageBackground
-        source={require("./../../../../assets/images/fronton.png")}
-        style={styles.frontonImage}
-        resizeMode="cover"
-      >
-        <Text style={styles.textIntro}>
-          Capturez la lumière de vos projets idéaux, nourrissez-les avec votre
-          attention, et laissez leur énergie transfigurer votre quotidien!
-        </Text>
-      </ImageBackground>
-
-      <View style={styles.dreamContainer}>
-        {dreams.map((dream) => (
-          <View style={styles.dreamItemLine} key={dream.id}>
-            <Text style={styles.dreamText} onPress={() => setEditMode(true)}>
-              {dream.dream}
+      <ScrollView>
+        <View style={styles.firstPartContainer}>
+          <ImageBackground
+            source={require("./../../../../assets/images/fronton.png")}
+            style={styles.frontonImage}
+            resizeMode="cover"
+          >
+            <Text style={styles.textIntro}>
+              Capturez la lumière de vos projets idéaux, nourrissez-les avec
+              votre attention, et laissez leur énergie transfigurer votre
+              quotidien!
             </Text>
+          </ImageBackground>
+        </View>
+        <View style={styles.dreamContainer}>
+          {dreams.map((dream) => (
+            <View style={styles.dreamItemLine} key={dream.id}>
+              <Text style={styles.dreamText} onPress={() => setEditMode(true)}>
+                {dream.dream}
+              </Text>
 
-            {editMode && (
-              <TouchableOpacity onPress={() => handleDeleteDream(dream.id)}>
+              {editMode && (
+                <TouchableOpacity onPress={() => handleDeleteDream(dream.id)}>
+                  <Text style={styles.deleteButton}>✕</Text>
+                </TouchableOpacity>
+              )}
+            </View>
+          ))}
+
+          {editMode ? (
+            <View style={styles.inputContainer}>
+              <TextInput
+                value={newDream}
+                onChangeText={setNewDream}
+                style={styles.textInput}
+                onSubmitEditing={handleAddDream}
+                autoFocus={true}
+              />
+              <TouchableOpacity onPress={handleCancelDream}>
                 <Text style={styles.deleteButton}>✕</Text>
               </TouchableOpacity>
-            )}
-          </View>
-        ))}
-
-        {editMode ? (
-          <View style={styles.inputContainer}>
-            <TextInput
-              value={newDream}
-              onChangeText={setNewDream}
-              style={styles.textInput}
-              onSubmitEditing={handleAddDream}
-              autoFocus={true}
-            />
-            <TouchableOpacity onPress={handleCancelDream}>
-              <Text style={styles.deleteButton}>✕</Text>
+            </View>
+          ) : (
+            <TouchableOpacity onPress={() => setEditMode(true)}>
+              <Text style={styles.addDreamText}>+ Ajouter un rêve</Text>
             </TouchableOpacity>
-          </View>
-        ) : (
-          <TouchableOpacity onPress={() => setEditMode(true)}>
-            <Text style={styles.addDreamText}>+ Ajouter un rêve</Text>
+          )}
+        </View>
+        <View style={styles.affirmationsContainer}>
+          <Affirmations affirmations={affirmations} />
+          <TouchableOpacity onPress={shuffleAffirmations}>
+            <View style={styles.viewReload}>
+              <MaterialCommunityIcons
+                name="reload-alert"
+                size={54}
+                color="rgba(50,56,106,1)"
+              />
+            </View>
           </TouchableOpacity>
-        )}
-      </View>
-      <View style={styles.affirmationsContainer}>
-        <Affirmations affirmations={affirmations} />
-        <TouchableOpacity onPress={shuffleAffirmations}>
-          <View style={styles.viewReload}>
-            <MaterialCommunityIcons
-              name="reload-alert"
-              size={54}
-              color="rgba(50,56,106,1)"
-            />
-          </View>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+        </View>
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
+    flex: 1,
     justifyContent: "flex-start",
-    paddingHorizontal: 20,
-    paddingTop: 30,
     backgroundColor: "white",
+    //paddingHorizontal: 20,
+    //paddingTop: 20,
+  },
+
+  headerContainer: {
+    flexGrow: 1,
+    height: 60,
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    //backgroundColor: "#6f78bd",
+    backgroundColor: "rgba(190,205,224,0.67)",
+    //paddingTop: 25,
+    marginTop: 20,
+    paddingLeft: 20,
+  },
+
+  titleScreen: {
+    fontFamily: "roboto700",
+    fontSize: 22,
+    textAlign: "center",
+    color: "rgba(50,56,106,1)",
+    paddingLeft: 10,
+    //  marginBottom: 15,
+  },
+
+  sstitleScreen: {
+    fontFamily: "roboto",
+    fontSize: 18,
+    textAlign: "center",
+    color: "rgba(50,56,106,1)",
+    //paddingLeft: 10,
+    //  marginBottom: 15,
+  },
+
+  firstPartContainer: {
+    flex: 1,
+    paddingHorizontal: 20,
+    marginTop: 25,
+  },
+
+  frontonImage: {
+    width: "100%",
+    height: 120,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  textIntro: {
+    fontFamily: "roboto",
+    color: "rgba(151,155,180,1)",
+    lineHeight: 25,
+    paddingHorizontal: 10,
+    fontSize: 16,
   },
   title: {
     fontFamily: "roboto700",
@@ -281,20 +349,20 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     marginBottom: 15,
   },
-  frontonImage: {
-    width: "100%",
-    height: 120,
-    justifyContent: "center",
-    alignItems: "center",
-    //marginBottom: 20,
-  },
-  textIntro: {
-    fontFamily: "roboto",
-    color: "rgba(151,155,180,1)",
-    lineHeight: 25,
-    paddingHorizontal: 10,
-    fontSize: 16,
-  },
+  // frontonImage: {
+  //   width: "100%",
+  //   height: 120,
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  //   //marginBottom: 20,
+  // },
+  // textIntro: {
+  //   fontFamily: "roboto",
+  //   color: "rgba(151,155,180,1)",
+  //   lineHeight: 25,
+  //   paddingHorizontal: 10,
+  //   fontSize: 16,
+  // },
   seedContainer: {
     flexDirection: "row",
     justifyContent: "center",
