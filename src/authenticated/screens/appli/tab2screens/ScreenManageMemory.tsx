@@ -292,22 +292,22 @@ function ScreenManageMemory() {
         contentContainerStyle={{ paddingBottom: 100 }}
       >
         <View style={styles.header}>
+          {/* <View style={styles.titleContainer}>
+            <Text style={styles.title}>Mes graines de joie</Text>
+          </View> */}
           <View style={styles.iconContainer}>
             <TouchableOpacity
               onPress={() => setModalVisible(true)}
-              style={{ padding: 10 }}
+              style={{ paddingBottom: -40, marginTop: 40 }}
             >
               <MaterialCommunityIcons
-                name="help-circle"
-                size={34}
+                name="help-network"
+                size={44}
                 color="#5b5da7"
               />
             </TouchableOpacity>
           </View>
-          <View style={styles.titleContainer}>
-            <Text style={styles.title}>Mes graines de joie</Text>
-          </View>
-
+          <View style={styles.frontonContainer}></View>
           <ImageBackground
             source={require("./../../../../../assets/images/fronton.png")}
             style={styles.frontonImage}
@@ -552,25 +552,25 @@ function ScreenManageMemory() {
             />
             <MaterialCommunityIcons
               name="watering-can-outline"
-              size={20}
+              size={30}
               color="#fff"
             />
           </TouchableOpacity>
-          <Text style={styles.verbe}>Arrosez</Text>
+          {/* <Text style={styles.verbe}>Arrosez</Text> */}
         </View>
         <View style={styles.iconBar}>
           <TouchableOpacity
             style={styles.lottieButton}
             onPress={() => setModalVisibleManage(true)}
           >
-            <LottieView
+            {/* <LottieView
               source={rondVertAnimation}
               autoPlay
               style={styles.animation}
-            />
-            <MaterialCommunityIcons name="cog" size={20} color="#fff" />
+            /> */}
+            <MaterialCommunityIcons name="cog" size={30} color="#000" />
           </TouchableOpacity>
-          <Text style={styles.verbe}>Catégories</Text>
+          {/* <Text style={styles.verbe}>Catégories</Text> */}
         </View>
       </View>
 
@@ -597,9 +597,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    paddingTop: 50,
+    //paddingTop: 50,
     backgroundColor: "#fff",
   },
+
   title: {
     fontFamily: "roboto700",
     fontSize: 24,
@@ -643,16 +644,27 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    marginHorizontal: 10,
+    flex: 1,
+    //flexDirection: "row",
+    // justifyContent: "flex-end",
+    paddingHorizontal: 10,
   },
+
+  frontonContainer: {
+    marginTop: -40,
+    zIndex: 0,
+  },
+
   iconContainer: {
     flexDirection: "row",
     justifyContent: "flex-end",
+    zIndex: 1,
   },
-  titleContainer: {
-    alignItems: "center",
-    marginTop: -20,
-  },
+
+  // titleContainer: {
+  //   alignItems: "center",
+  //   marginTop: -20,
+  // },
 
   modalView: {
     margin: 20,
@@ -689,16 +701,14 @@ const styles = StyleSheet.create({
   frontonImage: {
     width: "100%",
     height: 120,
-    justifyContent: "center", // Pour le centrage vertical
-    alignItems: "center", // Pour le centrage horizontal
-    marginBottom: 20,
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   textIntro: {
     fontFamily: "roboto",
     color: "rgba(151,155,180,1)",
     lineHeight: 25,
-
     paddingHorizontal: 10,
     fontSize: 16,
   },
@@ -713,6 +723,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 10,
   },
+
   textStyle: {
     color: "#fff", // Le même texte blanc que votre autre bouton
     fontSize: 15,

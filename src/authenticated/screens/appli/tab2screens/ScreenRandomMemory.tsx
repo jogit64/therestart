@@ -216,7 +216,7 @@ function ScreenRandomMemory() {
     </View>
   ) : (
     <SafeAreaView style={styles.container}>
-      <View style={styles.seedContainer}>
+      {/* <View style={styles.seedContainer}>
         <Image
           source={require("./../../../../../assets/images/logoReStart.png")}
           style={{ width: 35, height: 35 }} // ajustez la taille de l'image selon vos besoins
@@ -233,7 +233,7 @@ function ScreenRandomMemory() {
           Réveillez vos souvenirs heureux, arrosez-les et voyez comment ils
           égayent votre journée !
         </Text>
-      </ImageBackground>
+      </ImageBackground> */}
 
       <FlatList
         //data={memoriesWithCategoryInfo}
@@ -300,11 +300,11 @@ function ScreenRandomMemory() {
             />
             <MaterialCommunityIcons
               name="watering-can-outline"
-              size={20}
+              size={30}
               color="#fff"
             />
           </TouchableOpacity>
-          <Text style={styles.verbe}>Arrosez</Text>
+          {/* <Text style={styles.verbe}>Arrosez</Text> */}
         </View>
         <View style={styles.iconContainer}>
           <TouchableOpacity
@@ -316,9 +316,9 @@ function ScreenRandomMemory() {
               autoPlay
               style={styles.animation}
             />
-            <MaterialCommunityIcons name="shovel" size={20} color="#fff" />
+            <MaterialCommunityIcons name="shovel" size={30} color="#fff" />
           </TouchableOpacity>
-          <Text style={styles.verbe}>Plantez</Text>
+          {/* <Text style={styles.verbe}>Plantez</Text> */}
         </View>
       </View>
     </SafeAreaView>
@@ -330,7 +330,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     paddingTop: 35,
-    backgroundColor: "white",
+    backgroundColor: "#f5f6fa",
   },
 
   // category: {
@@ -360,16 +360,18 @@ const styles = StyleSheet.create({
   iconContainer: {
     justifyContent: "center",
     alignItems: "center",
-    //marginBottom: 80,
+    marginBottom: 20,
+    //backgroundColor: "red",
   },
   lottieButton: {
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: 10,
   },
   animation: {
     position: "absolute",
-    width: 150,
-    height: 150,
+    width: 180,
+    height: 180,
   },
   overlay: {
     position: "absolute",
@@ -416,14 +418,14 @@ const styles = StyleSheet.create({
     //marginBottom: 10,
     color: "rgba(50,56,106,1)",
   },
-  verbe: {
-    fontFamily: "roboto",
-    fontSize: 16,
-    textAlign: "center",
-    marginBottom: 10,
-    color: "rgba(50,56,106,1)",
-    marginTop: 10,
-  },
+  // verbe: {
+  //   fontFamily: "roboto",
+  //   fontSize: 16,
+  //   textAlign: "center",
+  //   marginBottom: 10,
+  //   color: "rgba(50,56,106,1)",
+  //   marginTop: 10,
+  // },
   seedContainer: {
     flexDirection: "row",
     justifyContent: "center",
