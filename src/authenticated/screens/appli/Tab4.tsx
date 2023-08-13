@@ -260,7 +260,8 @@ export default function Tab4() {
             </View>
           ) : (
             <TouchableOpacity onPress={() => setEditMode(true)}>
-              <Text style={styles.addDreamText}>+ Ajouter un rêve</Text>
+              <MaterialCommunityIcons name="feather" size={30} color="#000" />
+              <Text style={styles.addDreamText}>Ajouter un rêve</Text>
             </TouchableOpacity>
           )}
         </View>
@@ -381,6 +382,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    //backgroundColor: "red",
   },
   textInput: {
     height: 40,
@@ -410,7 +412,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15, // Ajoutez du padding pour rendre le touchable plus grand
     paddingVertical: 5, // Ajoutez du padding pour rendre le touchable plus grand
     lineHeight: 40,
-    //backgroundColor: "green",
+    backgroundColor: "#ccd9e9",
+    height: 55,
+    borderRadius: 5,
   },
   dreamText: {
     fontFamily: "roboto",

@@ -418,7 +418,7 @@ export default function Tab3() {
             Commencez par la visite guidée pour une meilleure exploration de
             l'application.
           </Text> */}
-          <Text style={styles.sstitle}>Idées générales</Text>
+          {/* <Text style={styles.sstitle}>Idées générales</Text> */}
           <TouchableOpacity
             style={styles.touchaBtnIdee}
             onPress={() => setModalVisible1(true)}
@@ -429,10 +429,13 @@ export default function Tab3() {
                 size={24}
                 color="white"
               /> */}
-              <Feather name="info" size={36} color="white" />
+              <Feather name="info" size={40} color="white" />
               <Text style={styles.buttonText}>
-                Découvrez les idées clés {"\n"}d'une approche absolue {"\n"}et
-                relative
+                L'Atelier vous propose de travailler{"\n"} à travers deux
+                approches complémentaires : {"\n"}
+                <Text style={styles.boldText}>l'Observation Détachée</Text> et
+                la {"\n"}
+                <Text style={styles.boldText}>Régulation Émotionnelle.</Text>
               </Text>
             </View>
           </TouchableOpacity>
@@ -464,7 +467,7 @@ export default function Tab3() {
         <View style={styles.secondPartContainer}>
           {/* <Text style={styles.sstitleMaj}>DESACTIVEZ VOS CROYANCES</Text> */}
 
-          <Text style={styles.sstitle}>Approchez le détachement</Text>
+          <Text style={styles.sstitle}>L'observation détachée</Text>
 
           <View style={styles.ssSecondParContainer}>
             <Image
@@ -772,12 +775,12 @@ const styles = StyleSheet.create({
   touchaBtnIdee: {
     backgroundColor: "#98cdd5",
     padding: 10,
-    paddingLeft: 20,
+    paddingLeft: 15,
     justifyContent: "center",
     marginTop: 10,
     borderRadius: 15,
     width: "100%",
-    height: 95,
+    height: 150,
   },
 
   BtnDiscoverContainer: {
@@ -785,7 +788,17 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
   },
-
+  buttonText: {
+    //color: "white",
+    color: "rgba(50,56,106,1)",
+    fontSize: 15,
+    marginLeft: 18,
+    lineHeight: 22,
+    //marginVertical: 20,
+  },
+  boldText: {
+    fontWeight: "bold",
+  },
   secondPartContainer: {
     flex: 1,
     paddingHorizontal: 20,
@@ -902,13 +915,7 @@ const styles = StyleSheet.create({
     borderRadius: 80,
     width: "20%",
   },
-  buttonText: {
-    //color: "white",
-    color: "rgba(50,56,106,1)",
-    fontSize: 15,
-    marginLeft: 22,
-    lineHeight: 22,
-  },
+
   slide: {
     flex: 1,
     justifyContent: "flex-start",
