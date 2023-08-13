@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { useHardwareBackButton } from "components/useHardwareBackButton";
 
-export default function Tab3P1Screen({ route }) {
+export default function Tab3P1aScreen({ route }) {
   const { selectedItemsPhrases } = route.params;
 
   return (

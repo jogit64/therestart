@@ -151,8 +151,8 @@ export default function Tab3() {
       .filter((item) => selectedItems.includes(item.id))
       .flatMap((item) => getRandomPhrases(item.phrases));
 
-    // Naviguer vers Tab3P1Screen avec les phrases des éléments sélectionnés
-    navigation.navigate("Tab3P1", { selectedItemsPhrases });
+    // Naviguer vers Tab3P1aScreen avec les phrases des éléments sélectionnés
+    navigation.navigate("Tab3P1a", { selectedItemsPhrases });
   };
 
   return (

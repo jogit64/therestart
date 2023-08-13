@@ -50,7 +50,7 @@ function _renderDoneButton() {
   );
 }
 
-export default function Tab3p1() {
+export default function Tab3P1a() {
   const navigation = useNavigation<StackNavigationProp<TabParamList, "Tab2">>();
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -173,7 +173,7 @@ export default function Tab3p1() {
             Sélectionnez jusqu'à 3 thème et lancez l'affichage.
           </Text>
 
-          <TouchableOpacity onPress={() => navigation.navigate("Tab3P1")}>
+          <TouchableOpacity onPress={() => navigation.navigate("Tab3P1a")}>
             <Text style={styles.lancerBtn}>Sélectionnez vos thèmes</Text>
           </TouchableOpacity>
           {/* </View>

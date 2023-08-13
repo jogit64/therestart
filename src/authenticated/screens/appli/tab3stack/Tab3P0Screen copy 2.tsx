@@ -151,8 +151,8 @@ export default function Tab3() {
   //   .filter((item) => selectedItems.includes(item.id))
   //   .flatMap((item) => getRandomPhrases(item.phrases));
 
-  // Naviguer vers Tab3P1Screen avec les phrases des éléments sélectionnés
-  // navigation.navigate("Tab3P1", { selectedItemsPhrases });
+  // Naviguer vers Tab3P1aScreen avec les phrases des éléments sélectionnés
+  // navigation.navigate("Tab3P1a", { selectedItemsPhrases });
   // };
 
   return (
@@ -228,7 +228,7 @@ export default function Tab3() {
           </Text>
           <TouchableOpacity
             style={styles.buttonDetach}
-            onPress={() => navigation.navigate("Tab3P1")}
+            onPress={() => navigation.navigate("Tab3P1a")}
           >
             <View style={styles.BtnContainer}>
               <MaterialCommunityIcons
@@ -254,7 +254,7 @@ export default function Tab3() {
           </Text>
           <TouchableOpacity
             style={styles.buttonEmotion}
-            // onPress={() => navigation.navigate("Tab3P1")}
+            // onPress={() => navigation.navigate("Tab3P1a")}
           >
             <View style={styles.BtnContainer}>
               <MaterialCommunityIcons

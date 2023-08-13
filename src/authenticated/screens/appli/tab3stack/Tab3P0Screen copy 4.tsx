@@ -466,7 +466,7 @@ export default function Tab3() {
           <View style={styles.lineButtonDetach}>
             <TouchableOpacity
               style={styles.buttonDetach}
-              onPress={() => navigation.navigate("Tab3P1")}
+              onPress={() => navigation.navigate("Tab3P1a")}
             >
               <View style={styles.BtnContainer}>
                 <Feather name="log-out" size={36} color="white" />
