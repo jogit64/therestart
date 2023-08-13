@@ -9,6 +9,7 @@ import { BackHandler } from "react-native";
 import { Tab3ParamList } from "../../../utils/navigationTypes";
 import Tab3P0Screen from "../screens/appli/tab3stack/Tab3P0Screen";
 import Tab3P1aScreen from "../screens/appli/tab3stack/Tab3P1aScreen";
+import Tab3P1bScreen from "../screens/appli/tab3stack/Tab3P1bScreen";
 import Tab3P2Screen from "../screens/appli/tab3stack/Tab3P2Screen";
 
 const Tab3Stack = createStackNavigator<Tab3ParamList>();
@@ -38,6 +39,7 @@ function Tab3Navigator() {
 
       <Tab3Stack.Screen name="Tab3P1a" component={Tab3P1aScreen} />
       <Tab3Stack.Screen name="Tab3P2" component={Tab3P2Screen} />
+      <Tab3Stack.Screen name="Tab3P1b" component={Tab3P1bScreen} />
     </Tab3Stack.Navigator>
   );
 }

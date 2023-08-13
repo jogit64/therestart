@@ -12,7 +12,7 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { TabParamList } from "../../../../../utils/navigationTypes";
+import { Tab3ParamList } from "../../../../../utils/navigationTypes";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 
@@ -51,7 +51,8 @@ function _renderDoneButton() {
 }
 
 export default function Tab3P1a() {
-  const navigation = useNavigation<StackNavigationProp<TabParamList, "Tab2">>();
+  const navigation =
+    useNavigation<StackNavigationProp<Tab3ParamList, "Tab3P0">>();
   const [modalVisible, setModalVisible] = useState(false);
 
   // La liste de vos éléments. Vous pouvez y mettre n'importe quel type de données.

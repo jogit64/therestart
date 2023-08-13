@@ -98,7 +98,7 @@ const NeedCliquable = ({ need, arround, full, onClic }) => (
   </TouchableOpacity>
 );
 
-export default function Tab3() {
+export default function Tab3P1b() {
   const navigation =
     useNavigation<StackNavigationProp<Tab3ParamList, "Tab3P0">>();
   //const [modalVisible, setModalVisible] = useState(false);
@@ -383,96 +383,19 @@ export default function Tab3() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <MaterialCommunityIcons
-          //name="flask"
-          //name="medical-bag"
-          name="desk-lamp"
-          size={32}
-          color="white"
-        />
-        <Text style={styles.titleScreen}>L'atelier</Text>
-        <Text style={styles.sstitleScreen}> : croyances, pensées</Text>
-      </View>
-
       <ScrollView>
-        {/* <View style={styles.seedContainer}> */}
-        {/* <Image
-            source={require("./../../../../../assets/images/logoReStart.png")}
-            style={{ width: 55, height: 55 }}
-          />
-        </View> */}
-        {/* <Text style={styles.title}>Antidotes</Text> */}
-
         <View style={styles.firstPartContainer}>
-          <ImageBackground
-            source={require("./../../../../../assets/images/fronton.png")}
-            style={styles.frontonImage}
-            resizeMode="cover"
-          >
-            <Text style={styles.textIntro}>
-              Désactivez vos étiquettes, renversez vos émotions négatives et
-              revitalisez vos besoins intérieurs !
-            </Text>
-          </ImageBackground>
-          {/* <Text style={styles.textIntro}>
-            Commencez par la visite guidée pour une meilleure exploration de
-            l'application.
-          </Text> */}
-          {/* <Text style={styles.sstitle}>Idées générales</Text> */}
-          <TouchableOpacity
-            style={styles.touchaBtnIdee}
-            onPress={() => setModalVisible1(true)}
-          >
-            <View style={styles.BtnDiscoverContainer}>
-              {/* <MaterialCommunityIcons
-                name="book-open-page-variant"
-                size={24}
-                color="white"
-              /> */}
-              <Feather name="info" size={40} color="white" />
-              <Text style={styles.buttonText}>
-                L'Atelier vous propose de travailler{"\n"} à travers deux
-                approches complémentaires : {"\n"}
-                <Text style={styles.boldText}>l'Observation Détachée</Text> et
-                la {"\n"}
-                <Text style={styles.boldText}>Régulation Émotionnelle.</Text>
-              </Text>
-            </View>
-          </TouchableOpacity>
-          <Modal visible={modalVisible1} transparent={false}>
-            <AppIntroSlider
-              data={slides}
-              renderItem={({ item }) => {
-                return (
-                  <View
-                    style={[
-                      styles.slide,
-                      { backgroundColor: item.backgroundColor },
-                    ]}
-                  >
-                    <Text style={styles.titleBoard}>{item.title}</Text>
-                    <Text style={styles.textBoard}>{item.text}</Text>
-                  </View>
-                );
-              }}
-              renderNextButton={_renderNextButton}
-              renderDoneButton={_renderDoneButton}
-              onDone={() => setModalVisible1(false)}
-            />
-          </Modal>
+          <Text style={styles.titleScreen}>Régulation émotionnelle</Text>
+          <Text style={styles.sstitleScreen}> Text styles sstitleScreen</Text>
         </View>
 
-        {/* <View style={styles.separator} /> */}
+        <View style={styles.secondPartContainer}></View>
 
-        <View style={styles.secondPartContainer}>
-          {/* <Text style={styles.sstitleMaj}>DESACTIVEZ VOS CROYANCES</Text> */}
-
-          <Text style={styles.sstitle}>L'observation détachée</Text>
-
+        <View style={styles.thirdPartContainer}>
+          <Text style={styles.sstitle}>Inversez vos émotions</Text>
           <View style={styles.ssSecondParContainer}>
             <Image
-              source={require("./../../../../../assets/images/bubbles1.png")}
+              source={require("./../../../../../assets/images/plants2.png")}
               style={{
                 width: "100%",
                 height: 80,
@@ -482,48 +405,87 @@ export default function Tab3() {
                 marginBottom: 10,
               }}
             />
-
+            {/* <Text style={styles.sstitle}>Inverser vos émotions</Text> */}
             <Text style={styles.textInter}>
-              Pourrez-vous désactiver vos étiquettes et vos croyances et revenir
-              au moment présent ?
+              Cliquez sur l'émotion et recherchez à faire émerger un sentiment
+              inverse
             </Text>
-            <View style={styles.lineButtonDetach}>
-              <TouchableOpacity
-                style={styles.buttonDetach}
-                onPress={() => navigation.navigate("Tab3P1a")}
-              >
-                <View style={styles.BtnContainer}>
-                  {/* <MaterialCommunityIcons
-                  name="directions_runexit_to_app"
-                  size={36}
-                  color="white"
-                /> */}
-
-                  <Feather name="log-out" size={26} color="white" />
-
-                  <Text style={styles.buttonText}>
-                    J'essaye
-                    {/* {"\n"} et désactivez étiquettes et
-                croyances */}
-                  </Text>
-                </View>
-              </TouchableOpacity>
+            {/* <TouchableOpacity
+            style={styles.buttonEmotion}
+            // onPress={() => navigation.navigate("Tab3P1a")}
+          >
+            <View style={styles.BtnContainer}>
+              <MaterialCommunityIcons
+                name="gesture-tap"
+                size={36}
+                color="white"
+              />
+          
             </View>
+          </TouchableOpacity> */}
+
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {emotions.map((item, index) => (
+                <EmotionCliquable
+                  key={index}
+                  emotion={item.emotion}
+                  arround={item.arround}
+                  full={item.full}
+                  iconName={item.iconName}
+                  onClic={() => handleEmotionClick(item)}
+                />
+              ))}
+            </ScrollView>
           </View>
         </View>
 
-        <View style={styles.thirdPartContainer}>
-          <View style={styles.lineButtonDetach}>
-            <TouchableOpacity
-              style={styles.buttonDetach}
-              onPress={() => navigation.navigate("Tab3P1b")}
-            >
-              <View style={styles.BtnContainer}>
-                {/* <Feather name="log-out" size={26} color="white" /> */}
+        <View style={styles.fourthPartContainer}>
+          <Text style={styles.sstitle}>Revitalisez vos besoins</Text>
+          <View style={styles.ssfourthParContainer}>
+            <Image
+              source={require("./../../../../../assets/images/needs1.png")}
+              style={{
+                width: "100%",
+                height: 80,
+                resizeMode: "cover",
+                borderTopLeftRadius: 10, // pour le coin supérieur gauche
+                borderTopRightRadius: 10, // pour le coin supérieur droit
+                marginBottom: 10,
+              }}
+            />
+            {/* <Text style={styles.sstitle}>Satisfaire vos besoins</Text> */}
+            <Text style={styles.textInter}>Cliquez sur le besoin inverse</Text>
 
-                <Text style={styles.buttonText}>Régulation émotionnelle</Text>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <View style={styles.needContainer}>
+                <View style={{ flexDirection: "row" }}>
+                  {need
+                    .slice(0, Math.ceil(need.length / 2))
+                    .map((item, index) => (
+                      <NeedCliquable
+                        key={index}
+                        need={item.need}
+                        arround={item.arround}
+                        full={item.full}
+                        iconName={item.iconName}
+                        onClic={() => handleNeedClick(item)}
+                      />
+                    ))}
+                </View>
+                <View style={{ flexDirection: "row" }}>
+                  {need.slice(Math.ceil(need.length / 2)).map((item, index) => (
+                    <NeedCliquable
+                      key={index}
+                      need={item.need}
+                      arround={item.arround}
+                      full={item.full}
+                      iconName={item.iconName}
+                      onClic={() => handleNeedClick(item)}
+                    />
+                  ))}
+                </View>
               </View>
-            </TouchableOpacity>
+            </ScrollView>
           </View>
         </View>
       </ScrollView>

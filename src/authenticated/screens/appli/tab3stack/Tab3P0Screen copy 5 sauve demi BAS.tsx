@@ -13,14 +13,14 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { Tab3ParamList } from "../../../../../utils/navigationTypes";
+import { TabParamList } from "../../../../../utils/navigationTypes";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import AppIntroSlider from "react-native-app-intro-slider";
 import { ScrollView } from "react-native-gesture-handler";
-import BreathingGuide from "./../../../../../components/BreathingGuide";
+import BreathingGuide from "../../../../../components/BreathingGuide";
 //import YouTubeVideo from "./../../../../../components/YouTubeVideo";
 //import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -99,8 +99,7 @@ const NeedCliquable = ({ need, arround, full, onClic }) => (
 );
 
 export default function Tab3() {
-  const navigation =
-    useNavigation<StackNavigationProp<Tab3ParamList, "Tab3P0">>();
+  const navigation = useNavigation<StackNavigationProp<TabParamList, "Tab2">>();
   //const [modalVisible, setModalVisible] = useState(false);
   const [modalVisible1, setModalVisible1] = useState(false);
   const [modalVisible2, setModalVisible2] = useState(false);
@@ -513,17 +512,100 @@ export default function Tab3() {
         </View>
 
         <View style={styles.thirdPartContainer}>
-          <View style={styles.lineButtonDetach}>
-            <TouchableOpacity
-              style={styles.buttonDetach}
-              onPress={() => navigation.navigate("Tab3P1b")}
-            >
-              <View style={styles.BtnContainer}>
-                {/* <Feather name="log-out" size={26} color="white" /> */}
+          <Text style={styles.sstitle}>Inversez vos émotions</Text>
+          <View style={styles.ssSecondParContainer}>
+            <Image
+              source={require("./../../../../../assets/images/plants2.png")}
+              style={{
+                width: "100%",
+                height: 80,
+                resizeMode: "contain",
+                borderTopLeftRadius: 10, // pour le coin supérieur gauche
+                borderTopRightRadius: 10, // pour le coin supérieur droit
+                marginBottom: 10,
+              }}
+            />
+            {/* <Text style={styles.sstitle}>Inverser vos émotions</Text> */}
+            <Text style={styles.textInter}>
+              Cliquez sur l'émotion et recherchez à faire émerger un sentiment
+              inverse
+            </Text>
+            {/* <TouchableOpacity
+            style={styles.buttonEmotion}
+            // onPress={() => navigation.navigate("Tab3P1a")}
+          >
+            <View style={styles.BtnContainer}>
+              <MaterialCommunityIcons
+                name="gesture-tap"
+                size={36}
+                color="white"
+              />
+          
+            </View>
+          </TouchableOpacity> */}
 
-                <Text style={styles.buttonText}>Régulation émotionnelle</Text>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {emotions.map((item, index) => (
+                <EmotionCliquable
+                  key={index}
+                  emotion={item.emotion}
+                  arround={item.arround}
+                  full={item.full}
+                  iconName={item.iconName}
+                  onClic={() => handleEmotionClick(item)}
+                />
+              ))}
+            </ScrollView>
+          </View>
+        </View>
+
+        <View style={styles.fourthPartContainer}>
+          <Text style={styles.sstitle}>Revitalisez vos besoins</Text>
+          <View style={styles.ssfourthParContainer}>
+            <Image
+              source={require("./../../../../../assets/images/needs1.png")}
+              style={{
+                width: "100%",
+                height: 80,
+                resizeMode: "cover",
+                borderTopLeftRadius: 10, // pour le coin supérieur gauche
+                borderTopRightRadius: 10, // pour le coin supérieur droit
+                marginBottom: 10,
+              }}
+            />
+            {/* <Text style={styles.sstitle}>Satisfaire vos besoins</Text> */}
+            <Text style={styles.textInter}>Cliquez sur le besoin inverse</Text>
+
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <View style={styles.needContainer}>
+                <View style={{ flexDirection: "row" }}>
+                  {need
+                    .slice(0, Math.ceil(need.length / 2))
+                    .map((item, index) => (
+                      <NeedCliquable
+                        key={index}
+                        need={item.need}
+                        arround={item.arround}
+                        full={item.full}
+                        iconName={item.iconName}
+                        onClic={() => handleNeedClick(item)}
+                      />
+                    ))}
+                </View>
+                <View style={{ flexDirection: "row" }}>
+                  {need.slice(Math.ceil(need.length / 2)).map((item, index) => (
+                    <NeedCliquable
+                      key={index}
+                      need={item.need}
+                      arround={item.arround}
+                      full={item.full}
+                      iconName={item.iconName}
+                      onClic={() => handleNeedClick(item)}
+                    />
+                  ))}
+                </View>
               </View>
-            </TouchableOpacity>
+            </ScrollView>
           </View>
         </View>
       </ScrollView>

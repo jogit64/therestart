@@ -38,6 +38,7 @@ export type Tab1ParamList = {
 export type Tab3ParamList = {
   Tab3P0: undefined;
   Tab3P1a: undefined;
+  Tab3P1b: undefined;
   Tab3P2: undefined;
   // Settings: undefined;
   // InfosPerso: undefined;
