@@ -476,7 +476,7 @@ export default function Tab3() {
               style={{
                 width: "100%",
                 height: 80,
-                resizeMode: "contain",
+                resizeMode: "cover",
                 borderTopLeftRadius: 10, // pour le coin supérieur gauche
                 borderTopRightRadius: 10, // pour le coin supérieur droit
                 marginBottom: 10,
@@ -502,7 +502,7 @@ export default function Tab3() {
                   <Feather name="log-out" size={26} color="white" />
 
                   <Text style={styles.buttonText}>
-                    J'essaye
+                    Observation détachée
                     {/* {"\n"} et désactivez étiquettes et
                 croyances */}
                   </Text>
@@ -512,18 +512,50 @@ export default function Tab3() {
           </View>
         </View>
 
-        <View style={styles.thirdPartContainer}>
-          <View style={styles.lineButtonDetach}>
-            <TouchableOpacity
-              style={styles.buttonDetach}
-              onPress={() => navigation.navigate("Tab3P1b")}
-            >
-              <View style={styles.BtnContainer}>
-                {/* <Feather name="log-out" size={26} color="white" /> */}
+        <View style={styles.secondPartContainer}>
+          {/* <Text style={styles.sstitleMaj}>DESACTIVEZ VOS CROYANCES</Text> */}
 
-                <Text style={styles.buttonText}>Régulation émotionnelle</Text>
-              </View>
-            </TouchableOpacity>
+          <Text style={styles.sstitle}>La régulation émotionnelle</Text>
+
+          <View style={styles.ssSecondParContainer}>
+            <Image
+              source={require("./../../../../../assets/images/regulemo.png")}
+              style={{
+                width: "100%",
+                height: 80,
+                resizeMode: "cover",
+                borderTopLeftRadius: 10, // pour le coin supérieur gauche
+                borderTopRightRadius: 10, // pour le coin supérieur droit
+                marginBottom: 10,
+              }}
+            />
+
+            <Text style={styles.textInter}>
+              Pourrez-vous désactiver vos étiquettes et vos croyances et revenir
+              au moment présent ?
+            </Text>
+            <View style={styles.lineButtonDetach}>
+              <TouchableOpacity
+                style={styles.buttonDetach}
+                onPress={() => navigation.navigate("Tab3P1b")}
+              >
+                <View style={styles.BtnContainer}>
+                  {/* <MaterialCommunityIcons
+                  name="directions_runexit_to_app"
+                  size={36}
+                  color="white"
+                /> */}
+
+                  <Feather name="log-out" size={26} color="white" />
+
+                  <Text style={styles.buttonText}>
+                    Régulation émotionnelle
+                    {/* {"\n"} et désactivez étiquettes et
+                croyances */}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -742,7 +774,7 @@ const styles = StyleSheet.create({
   },
 
   buttonDetach: {
-    backgroundColor: "#98cdd5",
+    backgroundColor: "#fb6a78",
     padding: 10,
     paddingLeft: 20,
     justifyContent: "center",
