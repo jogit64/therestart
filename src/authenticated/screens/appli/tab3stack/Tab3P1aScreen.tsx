@@ -28,18 +28,26 @@ export default function Tab3P1a() {
   const items = [
     {
       id: 1,
-      name: "Un récit sur soi",
+      name: "Une autre personne",
       phrases: [
-        "Phrase 1.1",
-        "Phrase 1.2",
-        "Phrase 1.3",
-        "Phrase 1.4",
-        "Phrase 1.5",
+        "La perception que j'ai d'une autre personne est teintée par mes expériences, mon éducation et mon cadre culturel.",
+        "L'autre est un miroir dans lequel je projette souvent mes propres peurs, désirs et jugements.",
+        "La conscience que j'ai de l'autre n'est accessible que par le prisme de ma propre conscience ; je ne peux jamais connaître véritablement son expérience subjective.",
+        "Tout ce que je sais ou crois savoir sur une autre personne provient de mes propres perceptions et interprétations.",
+        "L'identification à l'ego nous pousse à percevoir les autres comme séparés de nous-mêmes, mais en réalité, il n'y a pas de séparation.",
+        "L'autre que je perçois est une manifestation de la même réalité ultime à laquelle j'appartiens.",
+        "À un niveau subatomique, il n'y a pas de frontières solides entre 'moi' et 'l'autre'.",
+        "La réalité est probabiliste, et la manière dont nous percevons une autre personne dépend de nos observations.",
+        "Toute définition ou compréhension que j'ai de l'autre est limitée et ne peut embrasser l'entièreté de son être.",
+        "Chaque interaction est une rencontre avec une infinité de perspectives et d'histoires, dont la plupart me restent inconnues.",
+        "La singularité et le référentiel de l'autre m'est fondamentalement inaccessible.",
+        "Tout jugement ou interprétation que je porte sur l'autre en dit plus sur moi que sur lui.",
+        "La notion d'une personne distincte est une construction mentale basée sur des perceptions temporaires et changeantes.",
       ],
     },
     {
       id: 2,
-      name: "Un récit sur l'autre",
+      name: "Moi-même",
       phrases: [
         "Phrase 2.1",
         "Phrase 2.2",
@@ -50,7 +58,7 @@ export default function Tab3P1a() {
     },
     {
       id: 3,
-      name: "Un récit sur la possession matérielle",
+      name: "La perception du temps",
       phrases: [
         "Phrase 2.1",
         "Phrase 2.2",
@@ -61,7 +69,7 @@ export default function Tab3P1a() {
     },
     {
       id: 4,
-      name: "Un récit sur l'idée d'avoir, de manquer de la considération, d'amour",
+      name: "Mon corps",
       phrases: [
         "Phrase 2.1",
         "Phrase 2.2",
@@ -72,7 +80,7 @@ export default function Tab3P1a() {
     },
     {
       id: 5,
-      name: "Un récit avec du temps, du passé, du futur, de la durée",
+      name: "La possession ou la perte",
       phrases: [
         "Phrase 2.1",
         "Phrase 2.2",
@@ -81,7 +89,50 @@ export default function Tab3P1a() {
         "Phrase 2.5",
       ],
     },
-    // etc.
+    {
+      id: 6,
+      name: "La reconnaissance ou le manque de reconnaissance",
+      phrases: [
+        "Phrase 2.1",
+        "Phrase 2.2",
+        "Phrase 2.3",
+        "Phrase 2.4",
+        "Phrase 2.5",
+      ],
+    },
+    {
+      id: 7,
+      name: "Le contrôle ou absence de contrôle sur les situations",
+      phrases: [
+        "Phrase 2.1",
+        "Phrase 2.2",
+        "Phrase 2.3",
+        "Phrase 2.4",
+        "Phrase 2.5",
+      ],
+    },
+    {
+      id: 8,
+      name: "Mes attentes",
+      phrases: [
+        "Phrase 2.1",
+        "Phrase 2.2",
+        "Phrase 2.3",
+        "Phrase 2.4",
+        "Phrase 2.5",
+      ],
+    },
+    {
+      id: 9,
+      name: "Autre",
+      phrases: [
+        "Phrase 2.1",
+        "Phrase 2.2",
+        "Phrase 2.3",
+        "Phrase 2.4",
+        "Phrase 2.5",
+      ],
+    },
   ];
 
   // Etat initial pour savoir quels éléments sont sélectionnés
@@ -146,8 +197,9 @@ export default function Tab3P1a() {
             <Text style={styles.sstitle}>
               Consignes :<View style={{ width: 5 }} />
               <Text style={styles.textIntro}>
-                Identifiez les composants principaux de votre pensée en
-                choisissant parmi les options suivantes
+                Sélectionnez (max. 3) les composants principaux de votre pensée
+                parmi les libellés suivants et cliquez sur "Afficher les
+                propositions".
               </Text>
             </Text>
           </View>

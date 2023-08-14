@@ -16,14 +16,14 @@ export default function Tab3P2Screen({ route }) {
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.firstPartContainer}>
-          <Text style={styles.title}>Perspectives!</Text>
+          <Text style={styles.title}>Phrases suggérées</Text>
         </View>
 
         <View style={styles.affirmContainer}>
           {selectedItemsPhrases.map((phrase, index) => (
-            <Text key={index} style={styles.textAffirm}>
-              {phrase}
-            </Text>
+            <View key={index} style={styles.phraseContainer}>
+              <Text style={styles.textAffirm}>{phrase}</Text>
+            </View>
           ))}
         </View>
       </ScrollView>
@@ -56,13 +56,13 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     //flexWrap: "wrap",
   },
-  textAffirm: {
-    fontFamily: "roboto",
-    color: "rgba(151,155,180,1)",
-    lineHeight: 25,
-    paddingHorizontal: 10,
-    fontSize: 16,
-  },
+  // textAffirm: {
+  //   fontFamily: "roboto",
+  //   color: "rgba(151,155,180,1)",
+  //   lineHeight: 25,
+  //   paddingHorizontal: 10,
+  //   fontSize: 16,
+  // },
 
   frontonImage: {
     width: "100%",
@@ -72,11 +72,41 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 
+  // title: {
+  //   fontFamily: "roboto700",
+  //   fontSize: 24,
+  //   textAlign: "center",
+  //   color: "rgba(50,56,106,1)",
+  //   paddingLeft: 10,
+  // },
+  phraseContainer: {
+    backgroundColor: "#f6f6f6", // Un fond légèrement gris
+    borderRadius: 10, // Coins arrondis
+    padding: 15,
+    marginVertical: 8,
+    marginHorizontal: 20,
+    shadowColor: "#000", // Ombre
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+
+  textAffirm: {
+    fontFamily: "roboto",
+    color: "rgba(50,56,106,1)", // couleur plus foncée pour contraster avec le fond clair
+    lineHeight: 25,
+    fontSize: 16,
+  },
+
   title: {
     fontFamily: "roboto700",
     fontSize: 24,
     textAlign: "center",
     color: "rgba(50,56,106,1)",
-    paddingLeft: 10,
+    paddingBottom: 20, // Ajout d'un espace en bas pour ne pas que le titre colle aux phrases
   },
 });
