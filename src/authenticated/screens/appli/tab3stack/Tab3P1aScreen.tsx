@@ -34,21 +34,21 @@ const slides = [
   },
 ];
 
-function _renderNextButton() {
-  return (
-    <View style={styles.buttonCircle}>
-      <Text style={styles.buttonText}>Suivant</Text>
-    </View>
-  );
-}
+// function _renderNextButton() {
+//   return (
+//     <View style={styles.buttonCircle}>
+//       <Text style={styles.buttonText}>Suivant</Text>
+//     </View>
+//   );
+// }
 
-function _renderDoneButton() {
-  return (
-    <View style={styles.buttonCircle}>
-      <Text style={styles.buttonText}>Terminé</Text>
-    </View>
-  );
-}
+// function _renderDoneButton() {
+//   return (
+//     <View style={styles.buttonCircle}>
+//       <Text style={styles.buttonText}>Terminé</Text>
+//     </View>
+//   );
+// }
 
 export default function Tab3P1a() {
   const navigation =
@@ -159,12 +159,17 @@ export default function Tab3P1a() {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <View style={styles.seedContainer}>
-          <Image
-            source={require("./../../../../../assets/images/logoReStart.png")}
-            style={{ width: 35, height: 35 }}
-          />
-          <Text style={styles.title}>Détachement</Text>
+        <View style={styles.firstPartContainer}>
+          <TouchableOpacity onPress={() => navigation.navigate("Tab3P0")}>
+            <View style={styles.backButtonContainer}>
+              <MaterialCommunityIcons
+                name="arrow-left"
+                size={24}
+                color="#000"
+              />
+            </View>
+          </TouchableOpacity>
+          <Text style={styles.titleScreen}>Observation détachée</Text>
         </View>
 
         {/* <View style={styles.separator} /> */}
@@ -217,11 +222,28 @@ const styles = StyleSheet.create({
 
   firstPartContainer: {
     flex: 1,
-    // justifyContent: "flex-start",
-    //backgroundColor: "white",
-    //paddingHorizontal: 20,
-    //paddingTop: 50,
+    flexDirection: "row", // Ajoutez cette ligne
+    alignItems: "center", // Centrez les éléments verticalement
     paddingHorizontal: 20,
+  },
+
+  titleScreen: {
+    fontFamily: "roboto700",
+    fontSize: 22,
+    textAlign: "center",
+    color: "rgba(50,56,106,1)",
+    paddingLeft: 10,
+    //  marginBottom: 15,
+  },
+
+  backButtonContainer: {
+    width: 40, // Taille du cercle
+    height: 40,
+    borderRadius: 20, // Arrondi pour rendre le cercle parfait
+    backgroundColor: "#f5f6fa",
+    justifyContent: "center", // Centrez l'icône horizontalement
+    alignItems: "center", // Centrez l'icône verticalement
+    marginRight: 15, // Espace entre le bouton et le texte
   },
 
   secondPartContainer: {

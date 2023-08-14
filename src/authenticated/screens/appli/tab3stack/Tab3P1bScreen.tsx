@@ -385,11 +385,22 @@ export default function Tab3P1b() {
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.firstPartContainer}>
+          <TouchableOpacity onPress={() => navigation.navigate("Tab3P0")}>
+            <View style={styles.backButtonContainer}>
+              <MaterialCommunityIcons
+                name="arrow-left"
+                size={24}
+                color="#000"
+              />
+            </View>
+          </TouchableOpacity>
           <Text style={styles.titleScreen}>Régulation émotionnelle</Text>
-          <Text style={styles.sstitleScreen}> Text styles sstitleScreen</Text>
         </View>
 
-        <View style={styles.secondPartContainer}></View>
+        {/* <View style={styles.secondPartContainer}>
+          <Text style={styles.sstitleScreen}> Text styles sstitleScreen</Text>
+
+        </View> */}
 
         <View style={styles.thirdPartContainer}>
           <Text style={styles.sstitle}>Inversez vos émotions</Text>
@@ -588,19 +599,14 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     //paddingHorizontal: 20,
     //paddingTop: 20,
+    marginTop: 35,
   },
 
-  headerContainer: {
-    flexGrow: 1,
-    height: 60,
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    //backgroundColor: "#6f78bd",
-    backgroundColor: "rgba(190,205,224,0.67)",
-    //paddingTop: 25,
-    marginTop: 20,
-    paddingLeft: 20,
+  firstPartContainer: {
+    flex: 1,
+    flexDirection: "row", // Ajoutez cette ligne
+    alignItems: "center", // Centrez les éléments verticalement
+    paddingHorizontal: 20,
   },
 
   titleScreen: {
@@ -612,6 +618,16 @@ const styles = StyleSheet.create({
     //  marginBottom: 15,
   },
 
+  backButtonContainer: {
+    width: 40, // Taille du cercle
+    height: 40,
+    borderRadius: 20, // Arrondi pour rendre le cercle parfait
+    backgroundColor: "#f5f6fa",
+    justifyContent: "center", // Centrez l'icône horizontalement
+    alignItems: "center", // Centrez l'icône verticalement
+    marginRight: 15, // Espace entre le bouton et le texte
+  },
+
   sstitleScreen: {
     fontFamily: "roboto",
     fontSize: 18,
@@ -621,27 +637,6 @@ const styles = StyleSheet.create({
     //  marginBottom: 15,
   },
 
-  firstPartContainer: {
-    flex: 1,
-    paddingHorizontal: 20,
-    marginTop: 25,
-  },
-
-  frontonImage: {
-    width: "100%",
-    height: 120,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  textIntro: {
-    fontFamily: "roboto",
-    color: "rgba(151,155,180,1)",
-    lineHeight: 25,
-    paddingHorizontal: 10,
-    fontSize: 16,
-  },
-
   sstitle: {
     fontFamily: "roboto500",
     fontSize: 18,
@@ -649,25 +644,9 @@ const styles = StyleSheet.create({
     //textAlign: "center",
     //marginBottom: 5,
     color: "rgba(50,56,106,1)",
-    marginTop: 20,
+    //  marginTop: 20,
   },
 
-  touchaBtnIdee: {
-    backgroundColor: "#98cdd5",
-    padding: 10,
-    paddingLeft: 15,
-    justifyContent: "center",
-    marginTop: 10,
-    borderRadius: 15,
-    width: "100%",
-    height: 150,
-  },
-
-  BtnDiscoverContainer: {
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "center",
-  },
   buttonText: {
     //color: "white",
     color: "rgba(50,56,106,1)",
@@ -676,13 +655,11 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     //marginVertical: 20,
   },
-  boldText: {
-    fontWeight: "bold",
-  },
+
   secondPartContainer: {
     flex: 1,
     paddingHorizontal: 20,
-    marginTop: 25,
+    //marginTop: 25,
   },
 
   ssSecondParContainer: {
