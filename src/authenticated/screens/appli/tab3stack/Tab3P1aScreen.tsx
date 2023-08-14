@@ -19,37 +19,6 @@ import { Feather } from "@expo/vector-icons";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { ScrollView } from "react-native-gesture-handler";
 
-const slides = [
-  {
-    key: "one",
-    title: "Bienvenue dans l'onglet Perspectives!",
-    text: "Nous avons rassemblé quelques thèmes clés qui peuvent être sources de préoccupations, et nous vous invitons à les explorer avec un regard neuf, curieux et ludique ! \n\nEssayez de trouver des clés pour déverrouiller de nouvelles façons de percevoir votre réalité.\n\nLes affirmations et questions présentées ici sont conçues pour vous aider à vous détacher des schémas de pensée restrictifs et à élargir votre vision.Choisissez jusqu’à 3 thèmes qui résonnent avec votre préoccupation du moment et voyez si les perspectives vous mènent dans un endroit plus confortable.",
-    backgroundColor: "#fff",
-  },
-  {
-    key: "two",
-    title: "Thème 1",
-    text: "Description du thème 1.",
-    backgroundColor: "#febe29",
-  },
-];
-
-// function _renderNextButton() {
-//   return (
-//     <View style={styles.buttonCircle}>
-//       <Text style={styles.buttonText}>Suivant</Text>
-//     </View>
-//   );
-// }
-
-// function _renderDoneButton() {
-//   return (
-//     <View style={styles.buttonCircle}>
-//       <Text style={styles.buttonText}>Terminé</Text>
-//     </View>
-//   );
-// }
-
 export default function Tab3P1a() {
   const navigation =
     useNavigation<StackNavigationProp<Tab3ParamList, "Tab3P0">>();
@@ -198,7 +167,7 @@ export default function Tab3P1a() {
                 styles.itemContainer,
                 {
                   backgroundColor: selectedItems.includes(item.id)
-                    ? "#feda62"
+                    ? "#f6e482"
                     : "#f2f7fb",
                 },
               ]}
@@ -227,9 +196,25 @@ export default function Tab3P1a() {
         </View>
       </ScrollView>
 
-      <View style={styles.lancerBtnContainer}>
+      <View
+        style={[
+          styles.lancerBtnContainer,
+          {
+            backgroundColor: selectedItems.length > 0 ? "#f6e482" : "#f2f7fb",
+          },
+        ]}
+      >
         <TouchableOpacity onPress={handleShowSelectedItems}>
-          <Text style={styles.lancerBtn}>Afficher les propositions</Text>
+          <Text
+            style={[
+              styles.lancerBtn,
+              {
+                opacity: selectedItems.length > 0 ? 1 : 0.2,
+              },
+            ]}
+          >
+            Afficher les propositions
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -421,20 +406,17 @@ const styles = StyleSheet.create({
   },
 
   lancerBtnContainer: {
-    //flex: 1,
     flexDirection: "column",
-    backgroundColor: "#f6e482",
-
     justifyContent: "center",
     alignItems: "center",
-    // alignSelf: "center",
-    //height: 20,
-    //marginBottom: 20,
+    //  borderColor: "#f6e482", // Ajout d'une couleur de bordure
+    //borderWidth: 2, // Largeur de la bordure
+    borderRadius: 10, // Arrondissement de la bordure
   },
 
   lancerBtn: {
     fontFamily: "roboto",
-    fontSize: 18,
+    fontSize: 16,
     color: "black",
     //marginTop: 25,
     //marginBottom: 5,
