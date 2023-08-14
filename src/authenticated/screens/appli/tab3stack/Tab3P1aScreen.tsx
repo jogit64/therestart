@@ -173,10 +173,20 @@ export default function Tab3P1a() {
         </View>
 
         <View style={styles.secondPartContainer}>
-          <Text style={styles.sstitle}>Approchez le détachement</Text>
-          <Text style={styles.textIntro}>
-            Sélectionnez jusqu'à 3 thème et lancez l'affichage.
-          </Text>
+          <View style={styles.sssecondPartContainer}>
+            <Text style={styles.sstitle}>
+              Consignes :<View style={{ width: 5 }} />
+              <Text style={styles.textIntro}>
+                Identifiez les composants principaux de votre pensée en
+                choisissant parmi les options suivantes
+              </Text>
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.thirdPartContainer}>
+          {/* </View>
+//        
 
           {/* </View>
 
@@ -197,12 +207,29 @@ export default function Tab3P1a() {
               <Text style={styles.itemText}>{item.name}</Text>
             </TouchableOpacity>
           ))}
+          {/* {items.map((item) => (
+            <TouchableOpacity
+              key={item.id}
+              style={[
+                styles.itemContainer,
+                {
+                  borderColor: selectedItems.includes(item.id)
+                    ? "#f6e482"
+                    : "#f2f7fb",
+                },
+                
+              ]}
+              onPress={() => handleSelectItem(item)}
+            >
+              <Text style={styles.itemText}>{item.name}</Text>
+            </TouchableOpacity>
+          ))} */}
         </View>
       </ScrollView>
 
       <View style={styles.lancerBtnContainer}>
         <TouchableOpacity onPress={handleShowSelectedItems}>
-          <Text style={styles.lancerBtn}>cliquez ici</Text>
+          <Text style={styles.lancerBtn}>Afficher les propositions</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -251,55 +278,24 @@ const styles = StyleSheet.create({
     //paddingHorizontal: 20,
     //paddingTop: 50,
     paddingHorizontal: 20,
-    marginTop: 10,
-    marginBottom: 30,
+    //marginTop: 10,
+    marginBottom: 20,
   },
 
-  seedContainer: {
+  sssecondPartContainer: {
     flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 15,
-    flexWrap: "wrap",
-  },
-
-  containerList: {
-    flex: 1,
-    //justifyContent: "center",
-    alignItems: "center",
-    // backgroundColor: "white",
+    marginTop: 15,
     //paddingHorizontal: 20,
-    marginTop: 20,
-  },
-
-  frontonImage: {
-    width: "100%",
-    height: 120,
-    justifyContent: "center",
-    alignItems: "center",
-    // marginBottom: 20,
-    // marginRight: 10,
-    // paddingRight: 20,
-    // marginLeft: 20,
-    // paddingLeft: 5,
-  },
-
-  title: {
-    fontFamily: "roboto700",
-    fontSize: 24,
-    textAlign: "center",
-    color: "rgba(50,56,106,1)",
-    paddingLeft: 10,
   },
 
   sstitle: {
     fontFamily: "roboto500",
-    fontSize: 18,
+    fontSize: 16,
     //textAlign: "center",
     //marginBottom: 10,
     color: "rgba(50,56,106,1)",
-    marginTop: 20,
-    marginBottom: 5,
+    // marginTop: 20,
+    // marginBottom: 5,
   },
 
   textIntro: {
@@ -308,6 +304,28 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     //paddingHorizontal: 10,
     fontSize: 16,
+    marginLeft: 10,
+  },
+
+  thirdPartContainer: {
+    flex: 1,
+    paddingHorizontal: 20,
+    //marginTop: 10,
+    marginBottom: 30,
+  },
+
+  containerList: {
+    flex: 1,
+    alignItems: "center",
+    marginTop: 20,
+  },
+
+  title: {
+    fontFamily: "roboto700",
+    fontSize: 24,
+    textAlign: "center",
+    color: "rgba(50,56,106,1)",
+    paddingLeft: 10,
   },
 
   // visiteBtnContainer: {
@@ -386,7 +404,7 @@ const styles = StyleSheet.create({
     //margin: 10,
     marginTop: 10,
     justifyContent: "center",
-    // borderWidth: 1,
+    //borderWidth: 1,
     // borderColor: "#f2f7fb",
 
     //backgroundColor: "rgba(0, 0, 0, .2)",

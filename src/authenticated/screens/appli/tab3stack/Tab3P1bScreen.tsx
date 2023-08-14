@@ -598,8 +598,8 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     backgroundColor: "white",
     //paddingHorizontal: 20,
-    //paddingTop: 20,
-    marginTop: 35,
+    paddingTop: 50,
+    //marginTop: 35,
   },
 
   firstPartContainer: {

@@ -15,19 +15,10 @@ export default function Tab3P2Screen({ route }) {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <View style={styles.seedContainer}>
-          <Image
-            source={require("./../../../../../assets/images/logoReStart.png")}
-            style={{ width: 35, height: 35 }}
-          />
-          {/* <Text style={styles.title}>Perspectives!</Text> */}
+        <View style={styles.firstPartContainer}>
+          <Text style={styles.title}>Perspectives!</Text>
         </View>
 
-        {/* <ImageBackground
-          source={require("./../../../../../assets/images/fronton.png")}
-          style={styles.frontonImage}
-          resizeMode="cover"
-        ></ImageBackground> */}
         <View style={styles.affirmContainer}>
           {selectedItemsPhrases.map((phrase, index) => (
             <Text key={index} style={styles.textAffirm}>
@@ -43,18 +34,20 @@ export default function Tab3P2Screen({ route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
+    backgroundColor: "white",
+    //paddingHorizontal: 20,
+    paddingTop: 50,
+    //marginTop: 35,
   },
-  seedContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 50,
-    marginBottom: 15,
-    flexWrap: "wrap",
+
+  firstPartContainer: {
+    // flex: 1,
+    // flexDirection: "row", // Ajoutez cette ligne
+    // alignItems: "center", // Centrez les éléments verticalement
+    paddingHorizontal: 20,
   },
+
   affirmContainer: {
     // flexDirection: "row",
     // justifyContent: "center",
