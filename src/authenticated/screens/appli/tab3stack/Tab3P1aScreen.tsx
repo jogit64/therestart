@@ -172,16 +172,12 @@ export default function Tab3P1a() {
           <Text style={styles.titleScreen}>Observation détachée</Text>
         </View>
 
-        {/* <View style={styles.separator} /> */}
         <View style={styles.secondPartContainer}>
           <Text style={styles.sstitle}>Approchez le détachement</Text>
           <Text style={styles.textIntro}>
             Sélectionnez jusqu'à 3 thème et lancez l'affichage.
           </Text>
 
-          <TouchableOpacity onPress={() => navigation.navigate("Tab3P1a")}>
-            <Text style={styles.lancerBtn}>Sélectionnez vos thèmes</Text>
-          </TouchableOpacity>
           {/* </View>
 
         <View style={styles.containerList}> */}
@@ -201,12 +197,14 @@ export default function Tab3P1a() {
               <Text style={styles.itemText}>{item.name}</Text>
             </TouchableOpacity>
           ))}
-
-          <TouchableOpacity onPress={handleShowSelectedItems}>
-            <Text style={styles.lancerBtn}>cliquez ici</Text>
-          </TouchableOpacity>
         </View>
       </ScrollView>
+
+      <View style={styles.lancerBtnContainer}>
+        <TouchableOpacity onPress={handleShowSelectedItems}>
+          <Text style={styles.lancerBtn}>cliquez ici</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -254,6 +252,7 @@ const styles = StyleSheet.create({
     //paddingTop: 50,
     paddingHorizontal: 20,
     marginTop: 10,
+    marginBottom: 30,
   },
 
   seedContainer: {
@@ -402,21 +401,28 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     fontSize: 16,
   },
+
+  lancerBtnContainer: {
+    //flex: 1,
+    flexDirection: "column",
+    backgroundColor: "#f6e482",
+
+    justifyContent: "center",
+    alignItems: "center",
+    // alignSelf: "center",
+    //height: 20,
+    //marginBottom: 20,
+  },
+
   lancerBtn: {
     fontFamily: "roboto",
     fontSize: 18,
     color: "black",
-    marginTop: 25,
-    marginBottom: 5,
+    //marginTop: 25,
+    //marginBottom: 5,
     // justifyContent: "center",
     // alignItems: "center",
-    alignSelf: "center",
-  },
-  separator: {
-    borderBottomColor: "black",
-    borderBottomWidth: 13,
-    marginVertical: 20,
-    width: "80%",
-    alignItems: "center",
+    //alignSelf: "center",
+    paddingVertical: 15,
   },
 });
