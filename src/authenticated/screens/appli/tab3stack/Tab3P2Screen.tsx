@@ -90,7 +90,7 @@ export default function Tab3P2Screen({ route }) {
                 color="#000"
               />
             </View>
-            <Text style={styles.titleScreen}>Pratique</Text>
+            <Text style={styles.titleScreen}>Pratiquez</Text>
             <View style={styles.arrowCircle}>
               <MaterialCommunityIcons
                 name="arrow-down"
