@@ -32,7 +32,6 @@ export default function Tab3P2Screen({ route }) {
               />
             </View>
           </TouchableOpacity>
-          <Text style={styles.titleScreen}>Pratiquez</Text>
         </View>
 
         <View style={styles.secondPartContainer}>
@@ -82,12 +81,33 @@ export default function Tab3P2Screen({ route }) {
           </View>
         </View>
 
-        <View style={styles.affirmContainer}>
-          {selectedItemsPhrases.map((phrase, index) => (
-            <View key={index} style={styles.phraseContainer}>
-              <Text style={styles.textAffirm}>{phrase}</Text>
+        <View style={styles.thirdPartContainer}>
+          <View style={styles.arrowContainer}>
+            <View style={styles.arrowCircle}>
+              <MaterialCommunityIcons
+                name="arrow-down"
+                size={24}
+                color="#000"
+              />
             </View>
-          ))}
+            <Text style={styles.titleScreen}>Pratique</Text>
+            <View style={styles.arrowCircle}>
+              <MaterialCommunityIcons
+                name="arrow-down"
+                size={24}
+                color="#000"
+              />
+            </View>
+          </View>
+        </View>
+        <View>
+          <View style={styles.affirmContainer}>
+            {selectedItemsPhrases.map((phrase, index) => (
+              <View key={index} style={styles.phraseContainer}>
+                <Text style={styles.textAffirm}>{phrase}</Text>
+              </View>
+            ))}
+          </View>
         </View>
       </ScrollView>
     </View>
@@ -109,16 +129,7 @@ const styles = StyleSheet.create({
     flexDirection: "row", // Ajoutez cette ligne
     alignItems: "center", // Centrez les éléments verticalement
     paddingHorizontal: 20,
-    marginBottom: 30,
-  },
-
-  titleScreen: {
-    fontFamily: "roboto700",
-    fontSize: 22,
-    textAlign: "center",
-    color: "rgba(50,56,106,1)",
-    paddingLeft: 10,
-    //  marginBottom: 15,
+    marginBottom: 20,
   },
 
   backButtonContainer: {
@@ -165,11 +176,40 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 
+  thirdPartContainer: {
+    // padding: 20,
+    // backgroundColor: "#f5f5f5",
+    // borderRadius: 10,
+    alignItems: "center",
+  },
+
+  titleScreen: {
+    fontFamily: "roboto700",
+    fontSize: 22,
+    textAlign: "center",
+    color: "rgba(50,56,106,1)",
+    marginHorizontal: 15,
+    marginVertical: 20,
+  },
+
+  arrowContainer: {
+    flexDirection: "row", // Ligne horizontale pour les éléments enfants
+    alignItems: "center", // Aligner les éléments verticalement au centre
+  },
+  arrowCircle: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: "#f6e482",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
   affirmContainer: {
     // flexDirection: "row",
     // justifyContent: "center",
     // alignItems: "center",
-    marginTop: 50,
+    //marginTop: 50,
     marginBottom: 15,
     //flexWrap: "wrap",
   },
