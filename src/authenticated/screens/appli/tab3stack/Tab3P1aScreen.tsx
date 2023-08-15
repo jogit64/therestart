@@ -30,8 +30,9 @@ export default function Tab3P1a() {
       id: 1,
       name: "Une autre personne",
       phrases: [
-        "La perception que j'ai d'une autre personne est teintée par mes expériences, mon éducation et mon cadre culturel.",
-        "L'autre est un miroir dans lequel je projette souvent mes propres peurs, désirs et jugements.",
+        "La représentation que j'ai d'une autre personne est un produit mental et n'existe que pour moi",
+        "L'autre est une représentation produite à partir de mon référentiel qui est le fruit de ma constitution (puissance de ma méoire..) et de mes expériences (éducation, culture..)",
+        "L'autre, comme représentation mentale, est l'extension de ce que je suis, dans laquelle je projette mes jugements, mes peurs, mes désirs..je pourrais remplacer son prénom par : moi.'son prénom'.",
         "La conscience que j'ai de l'autre n'est accessible que par le prisme de ma propre conscience ; je ne peux jamais connaître véritablement son expérience subjective.",
         "Tout ce que je sais ou crois savoir sur une autre personne provient de mes propres perceptions et interprétations.",
         "L'identification à l'ego nous pousse à percevoir les autres comme séparés de nous-mêmes, mais en réalité, il n'y a pas de séparation.",
@@ -198,8 +199,8 @@ export default function Tab3P1a() {
               Consignes :<View style={{ width: 5 }} />
               <Text style={styles.textIntro}>
                 Sélectionnez (max. 3) les composants principaux de votre pensée
-                parmi les libellés suivants et cliquez sur "Afficher les
-                propositions".
+                perturbatrice parmi les libellés suivants et cliquez sur
+                "Afficher les propositions".
               </Text>
             </Text>
           </View>
