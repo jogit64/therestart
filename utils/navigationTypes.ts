@@ -18,7 +18,7 @@ export type TabParamList = {
   Accueil: undefined;
   Tab2: undefined;
   //Tab3: undefined;
-  Tab4: undefined;
+  // Tab4: undefined;
   ScreenRandomMemory: undefined;
   ScreenManageMemory: undefined;
 };
@@ -47,4 +47,8 @@ export type Tab3ParamList = {
   // Faq: undefined;
   // Tutoriel: undefined;
   // ChangePassword: undefined;
+};
+export type Tab4ParamList = {
+  Tab4P0: undefined;
+  //Tab3P1a: undefined;
 };

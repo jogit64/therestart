@@ -5,13 +5,15 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import Tab2 from "../screens/appli/Tab2";
-import Tab4 from "../screens/appli/Tab4";
 
 //import Tab1 from "../screens/appli/Tab1";
 import Tab1Navigator from "./Tab1Navigator";
 
 //import Tab3 from "../screens/appli/Tab3";
 import Tab3Navigator from "./Tab3Navigator";
+
+//import Tab4 from "../screens/appli/tab4stack/Tab4P0Screen";
+import Tab4Navigator from "./Tab4Navigator";
 
 //import { StatusBarCustom } from "components/StatusBarCustom";
 
@@ -102,7 +104,7 @@ const BottomTabNavigator = () => {
 
       <Tab.Screen
         name="Le phare"
-        component={Tab4}
+        component={Tab4Navigator}
         options={{ headerShown: false }}
       />
     </Tab.Navigator>
