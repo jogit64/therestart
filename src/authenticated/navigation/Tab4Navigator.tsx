@@ -1,7 +1,7 @@
 import React from "react";
 import {
   createStackNavigator,
-  TransitionPresets,
+  CardStyleInterpolators,
 } from "@react-navigation/stack";
 import { useBackHandler } from "@react-native-community/hooks";
 import { BackHandler } from "react-native";
@@ -23,7 +23,7 @@ function Tab4Navigator() {
       initialRouteName="Tab4P0"
       screenOptions={{
         headerShown: false,
-        ...TransitionPresets.SlideFromRightIOS,
+        cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, // Animation fade
       }}
     >
       <Tab4Stack.Screen
@@ -31,7 +31,7 @@ function Tab4Navigator() {
         component={Tab4P0Screen}
         options={{
           headerShown: false,
-          animationEnabled: false,
+          animationEnabled: true,
         }}
       />
 
