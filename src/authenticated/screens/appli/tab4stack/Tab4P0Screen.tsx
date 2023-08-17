@@ -130,6 +130,7 @@ export default function Tab4() {
 
   const [dreams, setDreams] = useState([]);
   const [affirmations, setAffirmations] = useState([]);
+  const [lastAffirmation, setLastAffirmation] = useState(null);
 
   // // Mélanger les affirmations initiales.
   // const shuffleAffirmations = () => {
@@ -141,7 +142,14 @@ export default function Tab4() {
   // }, []);
 
   const shuffleAffirmations = () => {
+    setLastAffirmation(affirmations);
     setAffirmations(getRandomElement(initialAffirmations));
+  };
+
+  const revertToLastAffirmation = () => {
+    if (lastAffirmation) {
+      setAffirmations(lastAffirmation);
+    }
   };
 
   useEffect(() => {
@@ -230,7 +238,7 @@ export default function Tab4() {
         </View>
 
         <View style={styles.btnSelectMContainer}>
-          <TouchableOpacity onPress={shuffleAffirmations}>
+          <TouchableOpacity onPress={revertToLastAffirmation}>
             <View style={styles.viewReload}>
               <Ionicons name="caret-back-outline" size={25} color="#7e86c7" />
             </View>
@@ -240,7 +248,7 @@ export default function Tab4() {
           </TouchableOpacity>
           <TouchableOpacity onPress={shuffleAffirmations}>
             <View style={styles.viewReload}>
-              <Ionicons name="arrow-redo-outline" size={25} color="#7e86c7" />
+              <Ionicons name="arrow-redo" size={25} color="#7e86c7" />
             </View>
           </TouchableOpacity>
         </View>
