@@ -16,6 +16,7 @@ import { Tab4ParamList } from "../../../../../utils/navigationTypes";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as Progress from "react-native-progress";
+import { Ionicons } from "@expo/vector-icons";
 
 import {
   collection,
@@ -28,21 +29,21 @@ import { db, auth } from "../../../../../utils/firebase.js";
 
 // Une liste d'affirmations.
 const initialAffirmations = [
-  "Vous avez le pouvoir de choisir de vivre selon vos propres intentions, plutôt que selon les attentes des autres.",
-  "Chaque pensée que nous choisissons de penser est un grain semé pour notre futur.",
-  "Il n'y a aucune restriction à ce que vous pouvez réaliser, sauf celles que vous décidez d'adopter.",
-  "Lorsque vous changez la façon de regarder les choses, les choses que vous regardez changent.",
-  "L'univers ne crée rien d'incomplet. Tout ce dont vous rêvez est possible pour vous.",
-  "L'abondance n'est pas quelque chose que nous obtenons, mais plutôt quelque chose que nous accordons.",
-  "Vous ne pouvez être solitaire que si vous vous éloignez de vous-même.",
-  "Il y a une force en vous qui est plus grande que n'importe quel obstacle que vous pourriez rencontrer.",
-  "Chaque expérience est une opportunité pour vous rappeler votre grandeur.",
-  "Le moment présent, maintenant, est le seul moment que vous avez. Servez-vous-en pour créer le monde que vous voulez.",
-  "Vos projets merveilleux sont le reflet de votre potentiel illimité.",
-  "Ce que vous pensez de vous-même est bien plus important que ce que les autres pensent de vous.",
-  "Ne soyez pas prisonnier du passé. Concentrez-vous sur ce que vous pouvez créer ici et maintenant.",
-  "Il n'est jamais trop tard pour commencer quelque chose de nouveau. L'univers entier conspirera à vous aider à réussir.",
-  "Votre véritable passion est votre passeport pour un avenir épanouissant.",
+  "J'ai le pouvoir de choisir de vivre selon mes propres intentions, plutôt que selon les attentes des autres.",
+  "Chaque pensée que je choisis de penser est un grain semé pour mon futur.",
+  "Il n'y a aucune restriction à ce que je peux réaliser, sauf celles que je décide d'adopter.",
+  "Lorsque je change la façon de regarder les choses, les choses que je regarde changent.",
+  "L'univers ne crée rien d'incomplet. Tout ce dont je rêve est possible pour moi.",
+  "L'abondance n'est pas quelque chose que j'obtiens, mais plutôt quelque chose que je m'accorde.",
+  "Je ne peux être solitaire que si je m'éloigne de moi-même.",
+  "Il y a une force en moi qui est plus grande que n'importe quel obstacle que je pourrais rencontrer.",
+  "Chaque expérience est une opportunité pour me rappeler ma grandeur.",
+  "Le moment présent, maintenant, est le seul moment que j'ai. Je m'en sers pour créer le monde que je veux.",
+  "Mes projets merveilleux sont le reflet de mon potentiel illimité.",
+  "Ce que je pense de moi-même est bien plus important que ce que les autres pensent de moi.",
+  "Je ne suis pas prisonnier du passé. Je me concentre sur ce que je peux créer ici et maintenant.",
+  "Il n'est jamais trop tard pour commencer quelque chose de nouveau. L'univers entier conspire à m'aider à réussir.",
+  "Ma véritable passion est mon passeport pour un avenir épanouissant.",
 ];
 
 const colors = [
@@ -57,23 +58,27 @@ const colors = [
 ];
 
 // Fonction pour mélanger aléatoirement un tableau.
-function shuffleArray(array) {
-  let currentIndex = array.length,
-    randomIndex;
+// function shuffleArray(array) {
+//   let currentIndex = array.length,
+//     randomIndex;
 
-  // Tant qu'il reste des éléments à mélanger...
-  while (currentIndex !== 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
+//   // Tant qu'il reste des éléments à mélanger...
+//   while (currentIndex !== 0) {
+//     randomIndex = Math.floor(Math.random() * currentIndex);
+//     currentIndex--;
 
-    // On échange l'élément actuel avec un élément aléatoire.
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex],
-      array[currentIndex],
-    ];
-  }
+//     // On échange l'élément actuel avec un élément aléatoire.
+//     [array[currentIndex], array[randomIndex]] = [
+//       array[randomIndex],
+//       array[currentIndex],
+//     ];
+//   }
 
-  return array;
+//   return array;
+// }
+
+function getRandomElement(array) {
+  return array[Math.floor(Math.random() * array.length)];
 }
 
 // Fonction pour obtenir une couleur aléatoire à partir d'un tableau de couleurs.
@@ -82,24 +87,37 @@ function getRandomColor(colors) {
 }
 
 // Composant d'affirmation pour afficher une liste d'affirmations.
-function Affirmations({ affirmations }) {
+// function Affirmations({ affirmations }) {
+//   return (
+//     <View>
+//       <FlatList
+//         data={affirmations}
+//         horizontal={true}
+//         keyExtractor={(item, index) => "key" + index}
+//         renderItem={({ item }) => (
+//           <View
+//             style={[
+//               styles.affirmationItem,
+//               { backgroundColor: getRandomColor(colors) },
+//             ]}
+//           >
+//             <Text style={styles.affirmationText}>{item}</Text>
+//           </View>
+//         )}
+//       />
+//     </View>
+//   );
+// }
+
+function Affirmations({ affirmation }) {
   return (
-    <View>
-      <FlatList
-        data={affirmations}
-        horizontal={true}
-        keyExtractor={(item, index) => "key" + index}
-        renderItem={({ item }) => (
-          <View
-            style={[
-              styles.affirmationItem,
-              { backgroundColor: getRandomColor(colors) },
-            ]}
-          >
-            <Text style={styles.affirmationText}>{item}</Text>
-          </View>
-        )}
-      />
+    <View
+      style={[
+        styles.affirmationItem,
+        // { backgroundColor: getRandomColor(colors) },
+      ]}
+    >
+      <Text style={styles.affirmationText}>{affirmation}</Text>
     </View>
   );
 }
@@ -113,13 +131,21 @@ export default function Tab4() {
   const [dreams, setDreams] = useState([]);
   const [affirmations, setAffirmations] = useState([]);
 
-  // Mélanger les affirmations initiales.
+  // // Mélanger les affirmations initiales.
+  // const shuffleAffirmations = () => {
+  //   setAffirmations(shuffleArray([...initialAffirmations]));
+  // };
+
+  // useEffect(() => {
+  //   setAffirmations(shuffleArray(initialAffirmations));
+  // }, []);
+
   const shuffleAffirmations = () => {
-    setAffirmations(shuffleArray([...initialAffirmations]));
+    setAffirmations(getRandomElement(initialAffirmations));
   };
 
   useEffect(() => {
-    setAffirmations(shuffleArray(initialAffirmations));
+    setAffirmations(getRandomElement(initialAffirmations));
   }, []);
 
   const [setEditMode] = useState(false);
@@ -171,6 +197,7 @@ export default function Tab4() {
             </Text>
           </ImageBackground>
         </View>
+
         <View style={styles.dreamContainer}>
           {dreams.map((dream, index) => (
             <View style={styles.dreamItemLine} key={dream.id}>
@@ -184,31 +211,39 @@ export default function Tab4() {
 
         <View>
           <TouchableOpacity onPress={() => navigation.navigate("Tab4P1")}>
-            <View style={styles.btnContainer}>
-              <Text style={styles.btnText}>Mettre à jour</Text>
+            <View style={styles.btnMContainer}>
+              <Text style={styles.btnText}>Mettre à jour mes projets</Text>
             </View>
           </TouchableOpacity>
         </View>
 
-        <View style={styles.testContainer}>
+        {/* <View style={styles.testContainer}>
           <Progress.Bar progress={0.3} width={120} />
         </View>
         <View style={styles.testContainer}>
           <Progress.Circle progress={0.4} size={50} />
+        </View> */}
+
+        <View style={styles.affirmationsContainer}>
+          {/* <Affirmations affirmations={affirmations} /> */}
+          <Affirmations affirmation={affirmations} />
         </View>
 
-        {/* <View style={styles.affirmationsContainer}>
-          <Affirmations affirmations={affirmations} />
+        <View style={styles.btnSelectMContainer}>
           <TouchableOpacity onPress={shuffleAffirmations}>
             <View style={styles.viewReload}>
-              <MaterialCommunityIcons
-                name="reload-alert"
-                size={54}
-                color="rgba(50,56,106,1)"
-              />
+              <Ionicons name="caret-back-outline" size={25} color="#7e86c7" />
             </View>
           </TouchableOpacity>
-        </View> */}
+          <TouchableOpacity>
+            <Text style={styles.btnText}>Celle-ci me plait</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={shuffleAffirmations}>
+            <View style={styles.viewReload}>
+              <Ionicons name="arrow-redo-outline" size={25} color="#7e86c7" />
+            </View>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </View>
   );
@@ -271,21 +306,10 @@ const styles = StyleSheet.create({
   dreamContainer: {
     flex: 1,
     justifyContent: "flex-start",
-    //marginTop: 20,
     marginHorizontal: 15,
     paddingHorizontal: 25,
     paddingTop: 25,
-    //backgroundColor: "rgba(190,205,224,0.67)",
-    //backgroundColor: "red",
-    borderRadius: 10,
-    // shadowColor: "#000",
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 2,
-    // },
-    // shadowOpacity: 0.25,
-    // shadowRadius: 3.84,
-    //elevation: 5, // pour Android
+    //backgroundColor: "gold",
   },
 
   dreamItemLine: {
@@ -297,7 +321,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     //backgroundColor: "rgba(255,255,255,0.8)", // Arrière-plan dégradé
     //backgroundColor: "red", // Arrière-plan dégradé
-    borderRadius: 8,
+    //borderRadius: 8,
   },
 
   dreamText: {
@@ -307,108 +331,69 @@ const styles = StyleSheet.create({
     marginLeft: 15, // Espacement entre l'icône et le texte
   },
 
-  btnContainer: {
+  btnMContainer: {
     //backgroundColor: "#d8b04e",
     padding: 10,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 35,
+  },
+
+  btnSelectMContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+
+    //backgroundColor: "#d8b04e",
+    padding: 10,
+    alignItems: "center",
+    marginBottom: 35,
+    //marginTop: 10,
     //borderRadius: 80,
     //width: "20%",
     //marginHorizontal: 60,
+  },
+
+  viewReload: {
+    backgroundColor: "rgba(190,205,224,0.67)",
+    width: 35, // ou la taille que vous souhaitez pour votre cercle
+    height: 35, // assurez-vous que c'est la même taille que la largeur pour obtenir un cercle
+    borderRadius: 25, // la moitié de la taille de votre cercle
+    justifyContent: "center", // centrer l'icône verticalement
+    alignItems: "center", // centrer l'icône horizontalement
+    margin: 10, // espace autour du cercle, ajustez selon vos besoins
   },
 
   btnText: {
     fontFamily: "roboto500",
     color: "#7e86c7",
     lineHeight: 25,
-    paddingHorizontal: 10,
+    //paddingHorizontal: 10,
     fontSize: 16,
   },
 
-  // STYLE DE L'AFFICHE
-
-  // dreamContainer: {
-  //   flex: 1,
-  //   justifyContent: "flex-start",
-  //   marginTop: 20,
-  //   marginHorizontal: 15,
-  //   paddingHorizontal: 25,
-  //   paddingTop: 25,
-  //   backgroundColor: "rgba(190,205,224,0.67)",
-  //   borderRadius: 10,
-  //   shadowColor: "#000",
-  //   shadowOffset: {
-  //     width: 0,
-  //     height: 2,
-  //   },
-  //   shadowOpacity: 0.25,
-  //   shadowRadius: 3.84,
-  //   elevation: 5, // pour Android
-  // },
-
-  // dreamItemLine: {
-  //   flexDirection: "row",
-  //   justifyContent: "flex-start",
-  //   alignItems: "center",
-  //   marginBottom: 15,
-  //   paddingHorizontal: 15,
-  //   paddingVertical: 10,
-  //   backgroundColor: "rgba(255,255,255,0.8)", // Arrière-plan dégradé
-  //   borderRadius: 8,
-  // },
-
-  // dreamText: {
-  //   fontFamily: "roboto",
-  //   fontSize: 14, // Augmentation de la taille de la police
-  //   color: "rgba(50,56,106,1)",
-  //   marginLeft: 15, // Espacement entre l'icône et le texte
-  // },
-
-  // FIN STYLE AFFICHE
-
   affirmationsContainer: {
-    marginTop: 40,
-  },
-
-  viewReload: {
-    paddingVertical: 25,
-    alignSelf: "center",
+    flex: 1,
+    justifyContent: "center",
+    marginTop: 35,
+    //backgroundColor: "red",
+    height: 100,
   },
 
   affirmationItem: {
-    width: 180,
-    height: 150,
-    marginRight: 20,
-    padding: 10,
-    borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
+    //width: "100%",
+    //height: 100,
+    //marginRight: 20,
+    paddingHorizontal: 25,
+    //borderRadius: 5,
   },
 
   affirmationText: {
     fontFamily: "roboto",
     fontSize: 16,
-    color: "white",
+    color: "#7e86c7",
     flexWrap: "wrap",
-    lineHeight: 20,
-  },
-
-  buttonDetach: {
-    backgroundColor: "#98cdd5",
-    padding: 10,
-    paddingLeft: 20,
-    justifyContent: "center",
-    marginTop: 15,
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
-    width: "100%",
-    height: 50,
-  },
-
-  testContainer: {
-    flex: 1,
-    paddingHorizontal: 20,
-    marginVertical: 45,
+    lineHeight: 25,
   },
 });
