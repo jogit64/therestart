@@ -421,19 +421,6 @@ export default function Tab3P1b() {
               Cliquez sur l'émotion et recherchez à faire émerger un sentiment
               inverse
             </Text>
-            {/* <TouchableOpacity
-            style={styles.buttonEmotion}
-            // onPress={() => navigation.navigate("Tab3P1a")}
-          >
-            <View style={styles.BtnContainer}>
-              <MaterialCommunityIcons
-                name="gesture-tap"
-                size={36}
-                color="white"
-              />
-          
-            </View>
-          </TouchableOpacity> */}
 
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               {emotions.map((item, index) => (
@@ -756,12 +743,6 @@ const styles = StyleSheet.create({
     //marginBottom: 5,
     color: "rgba(50,56,106,1)",
     marginTop: 35,
-  },
-
-  BtnContainer: {
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "center",
   },
 
   buttonEmotion: {

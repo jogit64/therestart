@@ -15,7 +15,6 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { Tab4ParamList } from "../../../../../utils/navigationTypes";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import * as Progress from "react-native-progress";
 
 import {
   collection,
@@ -190,14 +189,7 @@ export default function Tab4() {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.testContainer}>
-          <Progress.Bar progress={0.3} width={120} />
-        </View>
-        <View style={styles.testContainer}>
-          <Progress.Circle progress={0.4} size={50} />
-        </View>
-
-        {/* <View style={styles.affirmationsContainer}>
+        <View style={styles.affirmationsContainer}>
           <Affirmations affirmations={affirmations} />
           <TouchableOpacity onPress={shuffleAffirmations}>
             <View style={styles.viewReload}>
@@ -208,7 +200,7 @@ export default function Tab4() {
               />
             </View>
           </TouchableOpacity>
-        </View> */}
+        </View>
       </ScrollView>
     </View>
   );
@@ -268,24 +260,42 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 
+  btnContainer: {
+    backgroundColor: "#d8b04e",
+    padding: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 35,
+    borderRadius: 80,
+    //width: "20%",
+    marginHorizontal: 60,
+  },
+
+  btnText: {
+    fontFamily: "roboto",
+    color: "white",
+    lineHeight: 25,
+    paddingHorizontal: 10,
+    fontSize: 16,
+  },
+
   dreamContainer: {
     flex: 1,
     justifyContent: "flex-start",
-    //marginTop: 20,
+    marginTop: 20,
     marginHorizontal: 15,
     paddingHorizontal: 25,
     paddingTop: 25,
-    //backgroundColor: "rgba(190,205,224,0.67)",
-    //backgroundColor: "red",
+    backgroundColor: "rgba(190,205,224,0.67)",
     borderRadius: 10,
-    // shadowColor: "#000",
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 2,
-    // },
-    // shadowOpacity: 0.25,
-    // shadowRadius: 3.84,
-    //elevation: 5, // pour Android
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5, // pour Android
   },
 
   dreamItemLine: {
@@ -295,8 +305,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     paddingHorizontal: 15,
     paddingVertical: 10,
-    //backgroundColor: "rgba(255,255,255,0.8)", // Arrière-plan dégradé
-    //backgroundColor: "red", // Arrière-plan dégradé
+    backgroundColor: "rgba(255,255,255,0.8)", // Arrière-plan dégradé
     borderRadius: 8,
   },
 
@@ -306,66 +315,6 @@ const styles = StyleSheet.create({
     color: "rgba(50,56,106,1)",
     marginLeft: 15, // Espacement entre l'icône et le texte
   },
-
-  btnContainer: {
-    //backgroundColor: "#d8b04e",
-    padding: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 35,
-    //borderRadius: 80,
-    //width: "20%",
-    //marginHorizontal: 60,
-  },
-
-  btnText: {
-    fontFamily: "roboto500",
-    color: "#7e86c7",
-    lineHeight: 25,
-    paddingHorizontal: 10,
-    fontSize: 16,
-  },
-
-  // STYLE DE L'AFFICHE
-
-  // dreamContainer: {
-  //   flex: 1,
-  //   justifyContent: "flex-start",
-  //   marginTop: 20,
-  //   marginHorizontal: 15,
-  //   paddingHorizontal: 25,
-  //   paddingTop: 25,
-  //   backgroundColor: "rgba(190,205,224,0.67)",
-  //   borderRadius: 10,
-  //   shadowColor: "#000",
-  //   shadowOffset: {
-  //     width: 0,
-  //     height: 2,
-  //   },
-  //   shadowOpacity: 0.25,
-  //   shadowRadius: 3.84,
-  //   elevation: 5, // pour Android
-  // },
-
-  // dreamItemLine: {
-  //   flexDirection: "row",
-  //   justifyContent: "flex-start",
-  //   alignItems: "center",
-  //   marginBottom: 15,
-  //   paddingHorizontal: 15,
-  //   paddingVertical: 10,
-  //   backgroundColor: "rgba(255,255,255,0.8)", // Arrière-plan dégradé
-  //   borderRadius: 8,
-  // },
-
-  // dreamText: {
-  //   fontFamily: "roboto",
-  //   fontSize: 14, // Augmentation de la taille de la police
-  //   color: "rgba(50,56,106,1)",
-  //   marginLeft: 15, // Espacement entre l'icône et le texte
-  // },
-
-  // FIN STYLE AFFICHE
 
   affirmationsContainer: {
     marginTop: 40,
@@ -404,11 +353,5 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 10,
     width: "100%",
     height: 50,
-  },
-
-  testContainer: {
-    flex: 1,
-    paddingHorizontal: 20,
-    marginVertical: 45,
   },
 });
