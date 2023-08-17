@@ -36,7 +36,7 @@ const LoginScreen = ({
 
   const userContext = useContext(UserContext)!; // Récupération du contexte complet
 
-  const { setUser } = userContext; // Destructuration pour obtenir setUser
+  const { setUser, setSelectedAffirmation } = userContext; // Destructuration pour obtenir setUser
 
   const handleLogin = async () => {
     Keyboard.dismiss(); // ferme le clavier
@@ -68,11 +68,17 @@ const LoginScreen = ({
               imageUrl: userData.extraInfo.imageUrl || "",
               age: userData.extraInfo.age || null,
               sex: userData.extraInfo.sex || null,
+              selectedAffirmation:
+                userData.extraInfo.hasOwnProperty("selectedAffirmation") &&
+                userData.extraInfo.selectedAffirmation !== undefined
+                  ? userData.extraInfo.selectedAffirmation
+                  : "Vous n'avez pas encore sélectionné de phrase dans tab1p0",
             },
           });
 
           // Mettre à jour l'image de l'utilisateur dans le contexte
           userContext.setImageUrl(userData.extraInfo.imageUrl || "");
+
           navigation.navigate("BottomTabNavigator", { screen: "Accueil" });
         }
       } else {

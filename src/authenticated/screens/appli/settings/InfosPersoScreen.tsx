@@ -13,9 +13,11 @@ import Svg, { Ellipse } from "react-native-svg";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
+
 import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import UserContext from "./../../../../../utils/UserContext";
+import { User } from "./../../../../../utils/types";
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useHardwareBackButton } from "components/useHardwareBackButton";
@@ -24,8 +26,6 @@ import { StatusBarCustom } from "components/StatusBarCustom";
 import * as ImagePicker from "expo-image-picker";
 import Toast from "react-native-root-toast";
 import { useNavigation } from "@react-navigation/native";
-
-import { User } from "./../../../../../utils/types";
 
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../../../utils/navigationTypes";

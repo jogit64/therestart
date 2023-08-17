@@ -28,7 +28,8 @@ type SettingsScreenNavigationProp = StackNavigationProp<
 
 export default function SettingsScreen() {
   useHardwareBackButton();
-  const { setUser, setImageUrl } = useContext(UserContext);
+  const { setUser, setImageUrl, setSelectedAffirmation } =
+    useContext(UserContext);
 
   const navigation = useNavigation<SettingsScreenNavigationProp>();
 
@@ -37,6 +38,8 @@ export default function SettingsScreen() {
     // Nettoyez le contexte de l'utilisateur
     setUser(null);
     setImageUrl(null);
+    setSelectedAffirmation(null); // Réinitialisation de l'affirmation
+
     // Redirigez vers l'écran de connexion (ou l'accueil)
     navigation.navigate("Accueil");
   };
@@ -606,8 +609,8 @@ const styles = StyleSheet.create({
   },
   seDeconnecter: {
     fontFamily: "roboto500",
-    //color: "rgba(111,120,189,1)",
-    color: "#cccfe0",
+    color: "rgba(111,120,189,1)",
+    //color: "#cccfe0",
     fontSize: 15,
     marginTop: 50,
     marginLeft: 128,

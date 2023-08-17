@@ -27,39 +27,6 @@ import { useHardwareBackButton } from "components/useHardwareBackButton";
 
 type CombinedParamList = Tab1ParamList & RootStackParamList;
 
-// const UserImage = ({ imageUrl, defaultImage }) => (
-//   console.log("imageUrl:", imageUrl),
-//   console.log("defaultImage:", defaultImage),
-//   (
-//     <Image
-//       source={
-//         imageUrl
-//           ? { uri: `${imageUrl}?time=${new Date().getTime()}` }
-//           : defaultImage
-//       }
-//       resizeMode="cover"
-//       style={{ ...styles.photoProfil }}
-//     />
-//   )
-// );
-
-// const UserImage = ({ imageUrl, defaultImage }) => {
-//   console.log("imageUrl:", imageUrl);
-//   console.log("defaultImage:", defaultImage);
-
-//   return (
-//     <Image
-//       source={
-//         imageUrl
-//           ? { uri: `${imageUrl}?time=${new Date().getTime()}` }
-//           : defaultImage
-//       }
-//       resizeMode="cover"
-//       style={{ ...styles.photoProfil }}
-//     />
-//   );
-// };
-
 const UserImage = ({ imageUrl, defaultImage }) => (
   <Image
     source={imageUrl ? { uri: imageUrl } : defaultImage}
@@ -74,7 +41,9 @@ function Tab1() {
   const userContext = useContext<UserContextInterface | null>(UserContext);
   const defaultImage = require("assets/images/userHead.png");
   const [isLoading, setIsLoading] = useState(true);
+
   //const { user } = useContext(UserContext);
+  console.log("Au chargement de Tab1, UserContext est:", userContext);
 
   useEffect(() => {
     if (userContext !== null) {
@@ -88,14 +57,22 @@ function Tab1() {
   // if (isLoading) {
   //   return <Text>Loading...</Text>; // Ou un autre indicateur de chargement
   // }
+  useEffect(() => {
+    console.log("Affirmation mise à jour:", userContext.selectedAffirmation);
+  }, [userContext.selectedAffirmation]);
 
   const renderAffirmation = () => {
+    console.log(
+      "Début de renderAffirmation. Affirmation:",
+      userContext.selectedAffirmation
+    );
     if (!userContext.selectedAffirmation) {
       return "Vous n'avez pas encore sélectionné de phrase.";
     }
     console.log("Affirmation actuelle:", userContext.selectedAffirmation);
     return userContext.selectedAffirmation;
   };
+  console.log("Rendu de Tab1");
 
   if (userContext) {
     const { user } = userContext;
@@ -113,18 +90,11 @@ function Tab1() {
               imageUrl={userContext.imageUrl}
               defaultImage={defaultImage}
             />
-            {/* <UserImage
-              key={userContext.imageUrl}
-              imageUrl={userContext.imageUrl}
-              defaultImage={defaultImage}
-            /> */}
           </View>
 
           <View style={styles.textBonjourContainer}>
             <Text style={styles.textBonjour}>Bonjour,</Text>
             <Text style={styles.textFirstname}> {firstName}</Text>
-            {/* <Text style={styles.textBonjour}> !</Text> */}
-            {/* <SettingsButton onPress={() => navigation.navigate("Settings")} /> */}
             <TouchableOpacity
               style={styles.touchableIcon}
               onPress={() => navigation.navigate("Settings")}
@@ -137,27 +107,10 @@ function Tab1() {
         </View>
 
         <View style={styles.lowerSection}>
-          {/* <View style={styles.chapeauContainer}>
-            <Image
-              source={require("assets/images/logoAntidote.png")}
-              style={styles.logoStyle}
-            />
-
-            <Text style={styles.textChapeau}>Quésako Antidote ?!</Text>
-          </View> */}
           <View style={styles.whiteBadgeContainer}>
-            <View style={styles.chapeauContainerA}>
-              {/* <Image
-                source={require("assets/images/logoAntidote.png")}
-                style={styles.logoStyleA}
-              /> */}
-
-              {/* <Text style={styles.textChapeau}>Quésako Antidote ?!</Text> */}
-            </View>
+            <View style={styles.chapeauContainerA}></View>
             <View style={styles.bienvenueContainer}>
               <Text style={styles.textBienvenue}>Bienvenue dans </Text>
-              {/* <Text style={styles.titreApp}>ZEN·ZONES!</Text> */}
-
               <Text style={styles.mirroredZ}>Z</Text>
               <Text style={styles.titreApp}>en·</Text>
               <Text style={styles.mirroredZ}>Z</Text>
@@ -181,13 +134,12 @@ function Tab1() {
             Bienvenue, {user.basicInfo.firstName}!
           </Text>
           <Text style={styles.affirmation}>{renderAffirmation()}</Text>
-          {/* Autres éléments de l'écran d'accueil */}
         </View>
       </View>
     );
   }
 
-  return null; // ou vous pouvez renvoyer un autre élément en cas d'erreur
+  return null;
 }
 
 const styles = StyleSheet.create({
@@ -240,8 +192,8 @@ const styles = StyleSheet.create({
     width: 69,
     height: 69,
     position: "absolute",
-    marginTop: 10,
-    marginLeft: 10,
+    marginTop: 10.5,
+    marginLeft: 10.5,
     borderRadius: 89 / 2,
     zIndex: 1,
   },

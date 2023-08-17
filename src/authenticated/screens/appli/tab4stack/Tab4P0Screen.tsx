@@ -18,15 +18,12 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as Progress from "react-native-progress";
 import { Ionicons } from "@expo/vector-icons";
 
-import {
-  collection,
-  addDoc,
-  getDocs,
-  doc,
-  deleteDoc,
-} from "firebase/firestore";
+import { collection, addDoc, getDocs, deleteDoc } from "firebase/firestore";
 import { db, auth } from "../../../../../utils/firebase.js";
 import UserContext from "../../../../../utils/UserContext";
+
+import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 // Une liste d'affirmations.
 const initialAffirmations = [
@@ -47,37 +44,6 @@ const initialAffirmations = [
   "Ma véritable passion est mon passeport pour un avenir épanouissant.",
 ];
 
-const colors = [
-  "#20c2cd",
-  "#5b5da7",
-  "#a4c763",
-  "#bc6047",
-  "#4ca9e4",
-  "#2baa8c",
-  "#404295",
-  "#3a86a8",
-];
-
-// Fonction pour mélanger aléatoirement un tableau.
-// function shuffleArray(array) {
-//   let currentIndex = array.length,
-//     randomIndex;
-
-//   // Tant qu'il reste des éléments à mélanger...
-//   while (currentIndex !== 0) {
-//     randomIndex = Math.floor(Math.random() * currentIndex);
-//     currentIndex--;
-
-//     // On échange l'élément actuel avec un élément aléatoire.
-//     [array[currentIndex], array[randomIndex]] = [
-//       array[randomIndex],
-//       array[currentIndex],
-//     ];
-//   }
-
-//   return array;
-// }
-
 function getRandomElement(array) {
   return array[Math.floor(Math.random() * array.length)];
 }
@@ -87,37 +53,9 @@ function getRandomColor(colors) {
   return colors[Math.floor(Math.random() * colors.length)];
 }
 
-// Composant d'affirmation pour afficher une liste d'affirmations.
-// function Affirmations({ affirmations }) {
-//   return (
-//     <View>
-//       <FlatList
-//         data={affirmations}
-//         horizontal={true}
-//         keyExtractor={(item, index) => "key" + index}
-//         renderItem={({ item }) => (
-//           <View
-//             style={[
-//               styles.affirmationItem,
-//               { backgroundColor: getRandomColor(colors) },
-//             ]}
-//           >
-//             <Text style={styles.affirmationText}>{item}</Text>
-//           </View>
-//         )}
-//       />
-//     </View>
-//   );
-// }
-
 function Affirmations({ affirmation }) {
   return (
-    <View
-      style={[
-        styles.affirmationItem,
-        // { backgroundColor: getRandomColor(colors) },
-      ]}
-    >
+    <View style={[styles.affirmationItem]}>
       <Text style={styles.affirmationText}>{affirmation}</Text>
     </View>
   );
@@ -129,18 +67,37 @@ export default function Tab4() {
   const navigation =
     useNavigation<StackNavigationProp<Tab4ParamList, "Tab4P0">>();
 
+  const db = getFirestore();
+  const auth = getAuth();
+  const userId = auth.currentUser?.uid; // Assurez-vous d'avoir accès à userId
+
   const [dreams, setDreams] = useState([]);
   const [affirmations, setAffirmations] = useState([]);
   const [lastAffirmation, setLastAffirmation] = useState(null);
   const userContext = useContext(UserContext);
-  // // Mélanger les affirmations initiales.
-  // const shuffleAffirmations = () => {
-  //   setAffirmations(shuffleArray([...initialAffirmations]));
-  // };
 
-  // useEffect(() => {
-  //   setAffirmations(shuffleArray(initialAffirmations));
-  // }, []);
+  if (!userId) {
+    console.error("No user ID available");
+    return;
+  }
+
+  const updateSelectedAffirmation = async (affirmation: string) => {
+    if (!userId) {
+      console.error("No user ID available");
+      return;
+    }
+
+    const userRef = doc(db, "users", userId);
+
+    try {
+      await updateDoc(userRef, {
+        selectedAffirmation: affirmation,
+      });
+      console.log("Updated affirmation in Firestore successfully");
+    } catch (error) {
+      console.error("Error updating affirmation in Firestore:", error);
+    }
+  };
 
   const shuffleAffirmations = () => {
     setLastAffirmation(affirmations);
@@ -246,13 +203,17 @@ export default function Tab4() {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => {
+            onPress={async () => {
+              // 1. Mise à jour du contexte avec l'affirmation choisie.
               userContext?.setSelectedAffirmation(affirmations);
               console.log("Affirmation sélectionnée TAB4:", affirmations);
               console.log(
                 "Affirmation dans le contexte depuis TAB4:",
                 userContext?.selectedAffirmation
               );
+
+              // 2. Enregistrement de l'affirmation dans Firestore.
+              await updateSelectedAffirmation(affirmations);
             }}
           >
             <Text style={styles.btnText}>Celle-ci me plait</Text>
