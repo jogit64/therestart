@@ -5,8 +5,10 @@ import { User } from "./types";
 export interface UserContextInterface {
   user: User;
   setUser: React.Dispatch<React.SetStateAction<User>>;
-  imageUrl: string | null; // Ajoutez cette ligne
-  setImageUrl: React.Dispatch<React.SetStateAction<string | null>>; // Ajoutez cette ligne
+  imageUrl: string | null;
+  setImageUrl: React.Dispatch<React.SetStateAction<string | null>>;
+  selectedAffirmation: string | null;
+  setSelectedAffirmation: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 // Créer le contexte avec une valeur initiale
@@ -37,6 +39,9 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 
   // Ajoutez un nouvel état pour gérer imageUrl
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [selectedAffirmation, setSelectedAffirmation] = useState<string | null>(
+    null
+  );
 
   // Renvoyer le provider de contexte. Les valeurs qui peuvent être utilisées par
   // les composants enfants sont passées au provider via la prop value.
@@ -45,8 +50,10 @@ export const UserProvider = ({ children }: UserProviderProps) => {
       value={{
         user,
         setUser,
-        imageUrl, // Ajoutez cette ligne
-        setImageUrl, // Ajoutez cette ligne
+        imageUrl,
+        setImageUrl,
+        selectedAffirmation, // Ajoutez cette ligne
+        setSelectedAffirmation, // Ajoutez cette ligne
       }}
     >
       {children}

@@ -74,6 +74,7 @@ function Tab1() {
   const userContext = useContext<UserContextInterface | null>(UserContext);
   const defaultImage = require("assets/images/userHead.png");
   const [isLoading, setIsLoading] = useState(true);
+  //const { user } = useContext(UserContext);
 
   useEffect(() => {
     if (userContext !== null) {
@@ -87,6 +88,14 @@ function Tab1() {
   // if (isLoading) {
   //   return <Text>Loading...</Text>; // Ou un autre indicateur de chargement
   // }
+
+  const renderAffirmation = () => {
+    if (!userContext.selectedAffirmation) {
+      return "Vous n'avez pas encore sélectionné de phrase.";
+    }
+    console.log("Affirmation actuelle:", userContext.selectedAffirmation);
+    return userContext.selectedAffirmation;
+  };
 
   if (userContext) {
     const { user } = userContext;
@@ -165,23 +174,14 @@ function Tab1() {
               <Text style={styles.buttonText}>Survol</Text>
             </TouchableOpacity>
           </View>
-          {/* <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate("Tab1P1")}
-          >
-            <Text style={styles.buttonText}>Go to Tab1P1</Text>
-          </TouchableOpacity> */}
+        </View>
 
-          {/* <Image
-            source={defaultImage}
-            resizeMode="cover"
-            style={{ ...styles.photoProfil }}
-          />
-          <Image
-            source={defaultImage}
-            resizeMode="cover"
-            style={{ ...styles.photoProfil }}
-          /> */}
+        <View style={styles.container}>
+          <Text style={styles.title}>
+            Bienvenue, {user.basicInfo.firstName}!
+          </Text>
+          <Text style={styles.affirmation}>{renderAffirmation()}</Text>
+          {/* Autres éléments de l'écran d'accueil */}
         </View>
       </View>
     );
@@ -421,6 +421,21 @@ const styles = StyleSheet.create({
     // marginTop: -45,
     // justifyContent: "flex-end",
     // alignContent: "flex-end",
+  },
+
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 16,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 16,
+  },
+  affirmation: {
+    fontSize: 18,
   },
 });
 

@@ -13,7 +13,8 @@ export interface ExtraUserInfo {
 export interface User {
   basicInfo: BasicUserInfo;
   extraInfo: ExtraUserInfo;
-  categories: Category[]; // Nouveau champ
+  categories: Category[];
+  selectedAffirmation?: string;
 }
 
 export interface Category {

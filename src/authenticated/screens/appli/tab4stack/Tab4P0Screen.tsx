@@ -26,6 +26,7 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { db, auth } from "../../../../../utils/firebase.js";
+import UserContext from "../../../../../utils/UserContext";
 
 // Une liste d'affirmations.
 const initialAffirmations = [
@@ -131,7 +132,7 @@ export default function Tab4() {
   const [dreams, setDreams] = useState([]);
   const [affirmations, setAffirmations] = useState([]);
   const [lastAffirmation, setLastAffirmation] = useState(null);
-
+  const userContext = useContext(UserContext);
   // // Mélanger les affirmations initiales.
   // const shuffleAffirmations = () => {
   //   setAffirmations(shuffleArray([...initialAffirmations]));
@@ -243,9 +244,20 @@ export default function Tab4() {
               <Ionicons name="caret-back-outline" size={25} color="#7e86c7" />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              userContext?.setSelectedAffirmation(affirmations);
+              console.log("Affirmation sélectionnée TAB4:", affirmations);
+              console.log(
+                "Affirmation dans le contexte depuis TAB4:",
+                userContext?.selectedAffirmation
+              );
+            }}
+          >
             <Text style={styles.btnText}>Celle-ci me plait</Text>
           </TouchableOpacity>
+
           <TouchableOpacity onPress={shuffleAffirmations}>
             <View style={styles.viewReload}>
               <Ionicons name="arrow-redo" size={25} color="#7e86c7" />
