@@ -125,7 +125,7 @@ function Affirmations({ affirmations }) {
 
 export default function Tab4P1() {
   const navigation =
-    useNavigation<StackNavigationProp<TabParamList, "Tab4P0">>();
+    useNavigation<StackNavigationProp<TabParamList, "Tab4P1">>();
 
   const [newDream, setNewDream] = useState("");
   const [dreams, setDreams] = useState([]);

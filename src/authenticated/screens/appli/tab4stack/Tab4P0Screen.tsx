@@ -115,54 +115,33 @@ export default function Tab4P0() {
   }, []);
 
   const [setEditMode] = useState(false);
+  const fetchDreams = async () => {
+    console.log("User ID from context: ", auth.currentUser?.uid);
+    try {
+      const userDreamsCollection = collection(
+        db,
+        `users/${auth.currentUser?.uid}/dreams`
+      );
+      const userDreamsSnapshot = await getDocs(userDreamsCollection);
+      const loadedDreams = userDreamsSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        dream: doc.data().dream,
+      }));
+      setDreams(loadedDreams);
+    } catch (error) {
+      console.error("Error fetching dreams: ", error);
+    }
+  };
 
   useEffect(() => {
-    // Fonction pour récupérer les rêves de l'utilisateur à partir de la base de données.
-    const fetchDreams = async () => {
-      console.log("User ID from context: ", auth.currentUser?.uid);
-      try {
-        const userDreamsCollection = collection(
-          db,
-          `users/${auth.currentUser?.uid}/dreams`
-        );
-        const userDreamsSnapshot = await getDocs(userDreamsCollection);
-        const loadedDreams = userDreamsSnapshot.docs.map((doc) => ({
-          id: doc.id,
-          dream: doc.data().dream,
-        }));
-        setDreams(loadedDreams);
-      } catch (error) {
-        console.error("Error fetching dreams: ", error);
-      }
-    };
-
     if (auth.currentUser) {
       fetchDreams();
     }
   }, []);
 
   useEffect(() => {
-    const fetchDreams = async () => {
-      console.log("User ID from context: ", auth.currentUser?.uid);
-      try {
-        const userDreamsCollection = collection(
-          db,
-          `users/${auth.currentUser?.uid}/dreams`
-        );
-        const userDreamsSnapshot = await getDocs(userDreamsCollection);
-        const loadedDreams = userDreamsSnapshot.docs.map((doc) => ({
-          id: doc.id,
-          dream: doc.data().dream,
-        }));
-        setDreams(loadedDreams);
-      } catch (error) {
-        console.error("Error fetching dreams: ", error);
-      }
-    };
-
     const unsubscribe = navigation.addListener("focus", fetchDreams);
 
-    // Assurez-vous de vous désabonner de l'écouteur lorsque le composant est démonté
     return unsubscribe;
   }, [navigation]);
 
