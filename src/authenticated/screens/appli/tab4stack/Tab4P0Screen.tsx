@@ -62,7 +62,7 @@ function Affirmations({ affirmation }) {
 }
 
 // Composant principal.
-export default function Tab4() {
+export default function Tab4P0() {
   // Initialisation des hooks et des états.
   const navigation =
     useNavigation<StackNavigationProp<Tab4ParamList, "Tab4P0">>();
@@ -140,6 +140,31 @@ export default function Tab4() {
       fetchDreams();
     }
   }, []);
+
+  useEffect(() => {
+    const fetchDreams = async () => {
+      console.log("User ID from context: ", auth.currentUser?.uid);
+      try {
+        const userDreamsCollection = collection(
+          db,
+          `users/${auth.currentUser?.uid}/dreams`
+        );
+        const userDreamsSnapshot = await getDocs(userDreamsCollection);
+        const loadedDreams = userDreamsSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          dream: doc.data().dream,
+        }));
+        setDreams(loadedDreams);
+      } catch (error) {
+        console.error("Error fetching dreams: ", error);
+      }
+    };
+
+    const unsubscribe = navigation.addListener("focus", fetchDreams);
+
+    // Assurez-vous de vous désabonner de l'écouteur lorsque le composant est démonté
+    return unsubscribe;
+  }, [navigation]);
 
   // Rendu du composant.
   return (
@@ -239,7 +264,7 @@ const styles = StyleSheet.create({
   },
 
   headerContainer: {
-    flexGrow: 1,
+    //flexGrow: 1,
     height: 60,
     flexDirection: "row",
     justifyContent: "flex-start",

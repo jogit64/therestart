@@ -123,7 +123,7 @@ function Affirmations({ affirmations }) {
   );
 }
 
-export default function Tab4() {
+export default function Tab4P1() {
   const navigation =
     useNavigation<StackNavigationProp<TabParamList, "Tab4P0">>();
 
@@ -206,17 +206,6 @@ export default function Tab4() {
     //   <Text style={styles.title}>Projets enchantés</Text>
 
     <View style={styles.container}>
-      {/* <View style={styles.headerContainer}>
-        <MaterialCommunityIcons
-          //name="flask"
-          //name="medical-bag"
-          name="lighthouse-on"
-          size={32}
-          color="white"
-        />
-        <Text style={styles.titleScreen}>Le phare</Text>
-        <Text style={styles.sstitleScreen}> : vos projets enchantés</Text>
-      </View> */}
       <ScrollView>
         <View style={styles.firstPartContainer}>
           <TouchableOpacity onPress={() => navigation.navigate("Tab4P0")}>
@@ -228,7 +217,7 @@ export default function Tab4() {
               />
             </View>
           </TouchableOpacity>
-          <Text style={styles.titleScreen}>Observation détachée</Text>
+          {/* <Text style={styles.titleScreen}>Observation détachée</Text> */}
         </View>
         <View style={styles.dreamContainer}>
           {dreams.map((dream) => (
@@ -261,22 +250,12 @@ export default function Tab4() {
           ) : (
             <TouchableOpacity onPress={() => setEditMode(true)}>
               {/* <MaterialCommunityIcons name="feather" size={30} color="#000" /> */}
-              <Text style={styles.addDreamText}>Ajouter un rêve</Text>
+              <Text style={styles.addDreamText}>
+                Ajouter / modifier / supprimer un projet
+              </Text>
             </TouchableOpacity>
           )}
         </View>
-        {/* <View style={styles.affirmationsContainer}>
-          <Affirmations affirmations={affirmations} />
-          <TouchableOpacity onPress={shuffleAffirmations}>
-            <View style={styles.viewReload}>
-              <MaterialCommunityIcons
-                name="reload-alert"
-                size={54}
-                color="rgba(50,56,106,1)"
-              />
-            </View>
-          </TouchableOpacity>
-        </View> */}
       </ScrollView>
     </View>
   );
