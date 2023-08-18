@@ -44,14 +44,41 @@ const initialAffirmations = [
   "Ma véritable passion est mon passeport pour un avenir épanouissant.",
 ];
 
+const rainbowColors = [
+  "#FF0000",
+  "#FF7F00",
+  "#FFFF00",
+  "#7FFF00",
+  "#00FF00",
+  "#00FF7F",
+  "#00FFFF",
+  "#007FFF",
+  "#0000FF",
+  "#7F00FF",
+  "#FF00FF",
+  "#FF007F",
+];
+
+let lastColor = "";
+
+function getRandomColor(excludedColor) {
+  let newColor;
+  do {
+    newColor = rainbowColors[Math.floor(Math.random() * rainbowColors.length)];
+  } while (newColor === excludedColor);
+
+  lastColor = newColor;
+  return newColor;
+}
+
 function getRandomElement(array) {
   return array[Math.floor(Math.random() * array.length)];
 }
 
 // Fonction pour obtenir une couleur aléatoire à partir d'un tableau de couleurs.
-function getRandomColor(colors) {
-  return colors[Math.floor(Math.random() * colors.length)];
-}
+// function getRandomColor(colors) {
+//   return colors[Math.floor(Math.random() * colors.length)];
+// }
 
 function Affirmations({ affirmation }) {
   return (
@@ -171,9 +198,11 @@ export default function Tab4P0() {
         <View style={styles.dreamContainer}>
           {dreams.map((dream, index) => (
             <View style={styles.dreamItemLine} key={dream.id}>
-              {/* Icône de médaille */}
-              <MaterialCommunityIcons name="cloud" size={24} color="#7e86c7" />
-
+              <MaterialCommunityIcons
+                name="cloud"
+                size={24}
+                color={getRandomColor(lastColor)}
+              />
               <Text style={styles.dreamText}>{dream.dream}</Text>
             </View>
           ))}
@@ -186,13 +215,6 @@ export default function Tab4P0() {
             </View>
           </TouchableOpacity>
         </View>
-
-        {/* <View style={styles.testContainer}>
-          <Progress.Bar progress={0.3} width={120} />
-        </View>
-        <View style={styles.testContainer}>
-          <Progress.Circle progress={0.4} size={50} />
-        </View> */}
 
         <View style={styles.affirmationsContainer}>
           {/* <Affirmations affirmations={affirmations} /> */}
