@@ -68,17 +68,17 @@ const LoginScreen = ({
               imageUrl: userData.extraInfo.imageUrl || "",
               age: userData.extraInfo.age || null,
               sex: userData.extraInfo.sex || null,
-              selectedAffirmation:
-                userData.extraInfo.hasOwnProperty("selectedAffirmation") &&
-                userData.extraInfo.selectedAffirmation !== undefined
-                  ? userData.extraInfo.selectedAffirmation
-                  : "Vous n'avez pas encore sélectionné de phrase dans tab1p0",
             },
+            categories: userData.categories || [],
           });
-
+          console.log(
+            "HEY JO userData.selectedAffirmation:",
+            userData.selectedAffirmation
+          );
           // Mettre à jour l'image de l'utilisateur dans le contexte
           userContext.setImageUrl(userData.extraInfo.imageUrl || "");
-
+          // Mettre à jour selectedAffirmation dans le contexte
+          setSelectedAffirmation(userData.selectedAffirmation || null);
           navigation.navigate("BottomTabNavigator", { screen: "Accueil" });
         }
       } else {

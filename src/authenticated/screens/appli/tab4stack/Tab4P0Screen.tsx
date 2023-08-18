@@ -206,6 +206,7 @@ export default function Tab4() {
             onPress={async () => {
               // 1. Mise à jour du contexte avec l'affirmation choisie.
               userContext?.setSelectedAffirmation(affirmations);
+
               console.log("Affirmation sélectionnée TAB4:", affirmations);
               console.log(
                 "Affirmation dans le contexte depuis TAB4:",

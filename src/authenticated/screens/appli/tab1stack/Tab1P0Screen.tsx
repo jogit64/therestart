@@ -43,13 +43,14 @@ function Tab1() {
   const [isLoading, setIsLoading] = useState(true);
 
   //const { user } = useContext(UserContext);
-  console.log("Au chargement de Tab1, UserContext est:", userContext);
+  //console.log("Au chargement de Tab1, UserContext est:", userContext);
 
   useEffect(() => {
     if (userContext !== null) {
-      console.log("Le Usercontext changed:", userContext);
-      console.log("Le First name:", userContext.user.basicInfo.firstName);
-      console.log("URL de l'image actuelle:", userContext.imageUrl);
+      //console.log("Le Usercontext changed:", userContext);
+      console.log("HEY JO ICI ICI :", userContext.user.selectedAffirmation);
+      //console.log("Le First name:", userContext.user.basicInfo.firstName);
+      //console.log("URL de l'image actuelle:", userContext.imageUrl);
       setIsLoading(false);
     }
   }, [userContext]);
@@ -58,21 +59,43 @@ function Tab1() {
   //   return <Text>Loading...</Text>; // Ou un autre indicateur de chargement
   // }
   useEffect(() => {
-    console.log("Affirmation mise à jour:", userContext.selectedAffirmation);
-  }, [userContext.selectedAffirmation]);
+    if (userContext) {
+      console.log(
+        "Affirmation mise à jour PAR JO:",
+        userContext.selectedAffirmation
+      );
+    }
+  }, [userContext?.selectedAffirmation]);
+
+  // useEffect(() => {
+  //   if (userContext) {
+  //     console.log(
+  //       "Affirmation mise à jour PAR JO:",
+  //       userContext.user.selectedAffirmation
+  //     );
+  //   }
+  // }, [userContext?.user.selectedAffirmation]);
 
   const renderAffirmation = () => {
-    console.log(
-      "Début de renderAffirmation. Affirmation:",
-      userContext.selectedAffirmation
-    );
-    if (!userContext.selectedAffirmation) {
+    // Affichez le contenu complet de userContext
+    console.log("Contenu de userContext:", userContext);
+
+    // Si userContext existe, affichez le contenu de userContext.user
+    if (userContext) {
+      console.log("Contenu de userContext.user:", userContext.user);
+    }
+
+    const affirmation = userContext?.selectedAffirmation;
+
+    //console.log("Début de renderAffirmation. Affirmation:", affirmation);
+
+    if (!affirmation) {
       return "Vous n'avez pas encore sélectionné de phrase.";
     }
-    console.log("Affirmation actuelle:", userContext.selectedAffirmation);
-    return userContext.selectedAffirmation;
+
+    console.log("Affirmation actuelle:", affirmation);
+    return affirmation;
   };
-  console.log("Rendu de Tab1");
 
   if (userContext) {
     const { user } = userContext;

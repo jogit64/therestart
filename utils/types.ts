@@ -14,7 +14,6 @@ export interface User {
   basicInfo: BasicUserInfo;
   extraInfo: ExtraUserInfo;
   categories: Category[];
-  selectedAffirmation?: string;
 }
 
 export interface Category {
