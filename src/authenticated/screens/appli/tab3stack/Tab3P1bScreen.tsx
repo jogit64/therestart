@@ -408,8 +408,10 @@ export default function Tab3P1b() {
             Cliquez sur l'émotion et recherchez à faire émerger un sentiment
             inverse
           </Text>
-          <View style={styles.ssSecondParContainer}>
-            {/* <Image
+        </View>
+
+        <View style={styles.ssSecondParContainer}>
+          {/* <Image
               source={require("./../../../../../assets/images/plants2.png")}
               style={{
                 width: "100%",
@@ -420,32 +422,32 @@ export default function Tab3P1b() {
                 marginBottom: 10,
               }}
             /> */}
-            {/* <Text style={styles.sstitle}>Inverser vos émotions</Text> */}
-            {/* <Text style={styles.textInter}>
+          {/* <Text style={styles.sstitle}>Inverser vos émotions</Text> */}
+          {/* <Text style={styles.textInter}>
               Cliquez sur l'émotion et recherchez à faire émerger un sentiment
               inverse
             </Text> */}
 
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {emotions.map((item, index) => (
-                <EmotionCliquable
-                  key={index}
-                  emotion={item.emotion}
-                  arround={item.arround}
-                  full={item.full}
-                  iconName={item.iconName}
-                  onClic={() => handleEmotionClick(item)}
-                />
-              ))}
-            </ScrollView>
-          </View>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {emotions.map((item, index) => (
+              <EmotionCliquable
+                key={index}
+                emotion={item.emotion}
+                arround={item.arround}
+                full={item.full}
+                iconName={item.iconName}
+                onClic={() => handleEmotionClick(item)}
+              />
+            ))}
+          </ScrollView>
         </View>
 
         <View style={styles.fourthPartContainer}>
           <Text style={styles.sstitle}>Revitalisez vos besoins</Text>
           <Text style={styles.textInter}>Cliquez sur le besoin inverse</Text>
-          <View style={styles.ssfourthParContainer}>
-            {/* <Image
+        </View>
+        <View style={styles.ssfourthParContainer}>
+          {/* <Image
               source={require("./../../../../../assets/images/needs1.png")}
               style={{
                 width: "100%",
@@ -456,27 +458,15 @@ export default function Tab3P1b() {
                 marginBottom: 10,
               }}
             /> */}
-            {/* <Text style={styles.sstitle}>Satisfaire vos besoins</Text> */}
-            {/* <Text style={styles.textInter}>Cliquez sur le besoin inverse</Text> */}
+          {/* <Text style={styles.sstitle}>Satisfaire vos besoins</Text> */}
+          {/* <Text style={styles.textInter}>Cliquez sur le besoin inverse</Text> */}
 
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <View style={styles.needContainer}>
-                <View style={{ flexDirection: "row" }}>
-                  {need
-                    .slice(0, Math.ceil(need.length / 2))
-                    .map((item, index) => (
-                      <NeedCliquable
-                        key={index}
-                        need={item.need}
-                        arround={item.arround}
-                        full={item.full}
-                        iconName={item.iconName}
-                        onClic={() => handleNeedClick(item)}
-                      />
-                    ))}
-                </View>
-                <View style={{ flexDirection: "row" }}>
-                  {need.slice(Math.ceil(need.length / 2)).map((item, index) => (
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <View style={styles.needContainer}>
+              <View style={{ flexDirection: "row" }}>
+                {need
+                  .slice(0, Math.ceil(need.length / 2))
+                  .map((item, index) => (
                     <NeedCliquable
                       key={index}
                       need={item.need}
@@ -486,10 +476,21 @@ export default function Tab3P1b() {
                       onClic={() => handleNeedClick(item)}
                     />
                   ))}
-                </View>
               </View>
-            </ScrollView>
-          </View>
+              <View style={{ flexDirection: "row" }}>
+                {need.slice(Math.ceil(need.length / 2)).map((item, index) => (
+                  <NeedCliquable
+                    key={index}
+                    need={item.need}
+                    arround={item.arround}
+                    full={item.full}
+                    iconName={item.iconName}
+                    onClic={() => handleNeedClick(item)}
+                  />
+                ))}
+              </View>
+            </View>
+          </ScrollView>
         </View>
       </ScrollView>
 
@@ -599,6 +600,7 @@ const styles = StyleSheet.create({
     flexDirection: "row", // Ajoutez cette ligne
     alignItems: "center", // Centrez les éléments verticalement
     paddingHorizontal: 20,
+    marginBottom: 15,
   },
 
   titleScreen: {
@@ -656,8 +658,9 @@ const styles = StyleSheet.create({
 
   ssSecondParContainer: {
     backgroundColor: "#f5f6fa",
-    borderRadius: 15,
+    //borderRadius: 15,
     marginTop: 10,
+    paddingLeft: 15,
   },
 
   textInter: {
@@ -692,23 +695,24 @@ const styles = StyleSheet.create({
     marginTop: 25,
   },
 
-  ssthridParContainer: {
-    backgroundColor: "#f5f6fa",
-    borderRadius: 15,
-    marginTop: 10,
-  },
+  // ssthridParContainer: {
+  //   backgroundColor: "#f5f6fa",
+  //   borderRadius: 15,
+  //   marginTop: 10,
+  // },
 
   fourthPartContainer: {
     flex: 1,
     paddingHorizontal: 20,
-    marginTop: 25,
-    marginBottom: 50,
+    marginTop: 35,
+    marginBottom: 15,
   },
 
   ssfourthParContainer: {
     backgroundColor: "#f5f6fa",
-    borderRadius: 15,
-    marginTop: 10,
+    //borderRadius: 15,
+    //marginTop: 10,
+    paddingLeft: 15,
   },
 
   seedContainer: {
@@ -841,7 +845,7 @@ const styles = StyleSheet.create({
   needContainer: {
     // alignItems: "center", // Pour centrer la forme
     // justifyContent: "center", // Pour centrer la forme
-    marginBottom: 50,
+    // marginBottom: 50,
   },
   formeContainerN: {
     alignItems: "center", // Pour centrer la forme

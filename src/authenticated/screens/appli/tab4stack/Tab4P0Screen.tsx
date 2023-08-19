@@ -24,6 +24,7 @@ import UserContext from "../../../../../utils/UserContext";
 
 import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import Toast from "react-native-root-toast";
 
 // Une liste d'affirmations.
 const initialAffirmations = [
@@ -45,18 +46,18 @@ const initialAffirmations = [
 ];
 
 const rainbowColors = [
-  "#FF0000",
-  "#FF7F00",
-  "#FFFF00",
-  "#7FFF00",
-  "#00FF00",
-  "#00FF7F",
-  "#00FFFF",
-  "#007FFF",
-  "#0000FF",
-  "#7F00FF",
-  "#FF00FF",
-  "#FF007F",
+  "#FF6666", // Rouge doux
+  "#FFB366", // Orange doux
+  "#FFFF99", // Jaune doux
+  "#B2FF99", // Vert clair doux
+  "#66FF99", // Vert doux
+  "#66FFCC", // Turquoise doux
+  "#99E6E6", // Cyan doux
+  "#66B2FF", // Bleu ciel doux
+  "#8080FF", // Bleu doux
+  "#BF80FF", // Violet doux
+  "#FF66FF", // Magenta doux
+  "#FF66B2", // Rose doux
 ];
 
 let lastColor = "";
@@ -236,11 +237,33 @@ export default function Tab4P0() {
 
           <TouchableOpacity
             onPress={async () => {
-              // 1. Mise à jour du contexte avec l'affirmation choisie.
-              userContext?.setSelectedAffirmation(affirmations);
+              try {
+                // 1. Mise à jour du contexte avec l'affirmation choisie.
+                userContext?.setSelectedAffirmation(affirmations);
 
-              // 2. Enregistrement de l'affirmation dans Firestore.
-              await updateSelectedAffirmation(affirmations);
+                // 2. Enregistrement de l'affirmation dans Firestore.
+                await updateSelectedAffirmation(affirmations);
+
+                // 3. Affichage d'une confirmation avec un toast.
+                Toast.show("Affirmation sélectionnée avec succès!", {
+                  duration: Toast.durations.LONG,
+                  position: Toast.positions.CENTER,
+                  shadow: true,
+                  animation: true,
+                  hideOnPress: true,
+                  delay: 0,
+                });
+              } catch (error) {
+                // Gestion d'erreur: affichez un toast pour informer l'utilisateur en cas d'erreur.
+                Toast.show("Une erreur s'est produite. Veuillez réessayer.", {
+                  duration: Toast.durations.LONG,
+                  position: Toast.positions.CENTER,
+                  shadow: true,
+                  animation: true,
+                  hideOnPress: true,
+                  delay: 0,
+                });
+              }
             }}
           >
             <Text style={styles.btnText}>Celle-ci me plait</Text>
