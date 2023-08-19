@@ -206,18 +206,24 @@ export default function Tab4P0() {
               <Text style={styles.dreamText}>{dream.dream}</Text>
             </View>
           ))}
+
+          <View>
+            <TouchableOpacity onPress={() => navigation.navigate("Tab4P1")}>
+              <View style={styles.btnMContainer}>
+                <Text style={styles.btnText}>Mettre à jour mes projets</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
 
-        <View>
-          <TouchableOpacity onPress={() => navigation.navigate("Tab4P1")}>
-            <View style={styles.btnMContainer}>
-              <Text style={styles.btnText}>Mettre à jour mes projets</Text>
-            </View>
-          </TouchableOpacity>
+        <View style={styles.affirmationsQuote}>
+          <MaterialCommunityIcons
+            name="comment-quote"
+            size={40}
+            color="#7e86c7"
+          />
         </View>
-
         <View style={styles.affirmationsContainer}>
-          {/* <Affirmations affirmations={affirmations} /> */}
           <Affirmations affirmation={affirmations} />
         </View>
 
@@ -232,12 +238,6 @@ export default function Tab4P0() {
             onPress={async () => {
               // 1. Mise à jour du contexte avec l'affirmation choisie.
               userContext?.setSelectedAffirmation(affirmations);
-
-              console.log("Affirmation sélectionnée TAB4:", affirmations);
-              console.log(
-                "Affirmation dans le contexte depuis TAB4:",
-                userContext?.selectedAffirmation
-              );
 
               // 2. Enregistrement de l'affirmation dans Firestore.
               await updateSelectedAffirmation(affirmations);
@@ -262,6 +262,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     backgroundColor: "white",
+    paddingBottom: 20,
   },
 
   headerContainer: {
@@ -315,8 +316,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     marginHorizontal: 15,
-    paddingHorizontal: 25,
-    paddingTop: 25,
+    paddingHorizontal: 10,
+    paddingTop: 15,
     //backgroundColor: "gold",
   },
 
@@ -324,7 +325,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
-    marginBottom: 15,
+    // marginBottom: 15,
     paddingHorizontal: 15,
     paddingVertical: 10,
     //backgroundColor: "rgba(255,255,255,0.8)", // Arrière-plan dégradé
@@ -334,16 +335,18 @@ const styles = StyleSheet.create({
 
   dreamText: {
     fontFamily: "roboto",
-    fontSize: 14, // Augmentation de la taille de la police
+    fontSize: 16, // Augmentation de la taille de la police
     color: "rgba(50,56,106,1)",
     marginLeft: 15, // Espacement entre l'icône et le texte
   },
 
   btnMContainer: {
     //backgroundColor: "#d8b04e",
-    padding: 10,
     justifyContent: "center",
     alignItems: "center",
+    padding: 10,
+    marginTop: 10,
+    marginBottom: 25,
   },
 
   btnSelectMContainer: {
@@ -354,7 +357,7 @@ const styles = StyleSheet.create({
     //backgroundColor: "#d8b04e",
     padding: 10,
     alignItems: "center",
-    marginBottom: 35,
+    //marginBottom: 35,
     //marginTop: 10,
     //borderRadius: 80,
     //width: "20%",
@@ -374,7 +377,7 @@ const styles = StyleSheet.create({
   btnText: {
     fontFamily: "roboto500",
     color: "#7e86c7",
-    lineHeight: 25,
+    //lineHeight: 25,
     //paddingHorizontal: 10,
     fontSize: 16,
   },
@@ -382,9 +385,20 @@ const styles = StyleSheet.create({
   affirmationsContainer: {
     flex: 1,
     justifyContent: "center",
-    marginTop: 35,
-    //backgroundColor: "red",
-    height: 100,
+    //marginTop: 35,
+    //backgroundColor: "#83a6c9",
+    backgroundColor: "rgba(190,205,224,0.67)",
+    marginHorizontal: 20,
+    borderRadius: 10,
+
+    height: 120,
+    zIndex: 0,
+  },
+
+  affirmationsQuote: {
+    paddingLeft: 25,
+    marginBottom: -20,
+    zIndex: 1,
   },
 
   affirmationItem: {

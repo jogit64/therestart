@@ -404,8 +404,12 @@ export default function Tab3P1b() {
 
         <View style={styles.thirdPartContainer}>
           <Text style={styles.sstitle}>Inversez vos émotions</Text>
+          <Text style={styles.textInter}>
+            Cliquez sur l'émotion et recherchez à faire émerger un sentiment
+            inverse
+          </Text>
           <View style={styles.ssSecondParContainer}>
-            <Image
+            {/* <Image
               source={require("./../../../../../assets/images/plants2.png")}
               style={{
                 width: "100%",
@@ -415,12 +419,12 @@ export default function Tab3P1b() {
                 borderTopRightRadius: 10, // pour le coin supérieur droit
                 marginBottom: 10,
               }}
-            />
+            /> */}
             {/* <Text style={styles.sstitle}>Inverser vos émotions</Text> */}
-            <Text style={styles.textInter}>
+            {/* <Text style={styles.textInter}>
               Cliquez sur l'émotion et recherchez à faire émerger un sentiment
               inverse
-            </Text>
+            </Text> */}
 
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               {emotions.map((item, index) => (
@@ -439,8 +443,9 @@ export default function Tab3P1b() {
 
         <View style={styles.fourthPartContainer}>
           <Text style={styles.sstitle}>Revitalisez vos besoins</Text>
+          <Text style={styles.textInter}>Cliquez sur le besoin inverse</Text>
           <View style={styles.ssfourthParContainer}>
-            <Image
+            {/* <Image
               source={require("./../../../../../assets/images/needs1.png")}
               style={{
                 width: "100%",
@@ -450,9 +455,9 @@ export default function Tab3P1b() {
                 borderTopRightRadius: 10, // pour le coin supérieur droit
                 marginBottom: 10,
               }}
-            />
+            /> */}
             {/* <Text style={styles.sstitle}>Satisfaire vos besoins</Text> */}
-            <Text style={styles.textInter}>Cliquez sur le besoin inverse</Text>
+            {/* <Text style={styles.textInter}>Cliquez sur le besoin inverse</Text> */}
 
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View style={styles.needContainer}>
@@ -659,7 +664,7 @@ const styles = StyleSheet.create({
     fontFamily: "roboto",
     color: "rgba(151,155,180,1)",
     lineHeight: 25,
-    paddingHorizontal: 10,
+    //paddingHorizontal: 10,
     fontSize: 16,
   },
 

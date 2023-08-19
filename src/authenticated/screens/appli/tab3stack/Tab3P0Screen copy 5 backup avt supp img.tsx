@@ -17,7 +17,6 @@ import { Tab3ParamList } from "../../../../../utils/navigationTypes";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import Icon from "react-native-vector-icons/Ionicons";
-import { Ionicons } from "@expo/vector-icons";
 
 import AppIntroSlider from "react-native-app-intro-slider";
 import { ScrollView } from "react-native-gesture-handler";
@@ -159,15 +158,10 @@ export default function Tab3() {
               >
                 <View style={styles.BtnContainer}>
                   <Text style={styles.afterTextBtn}>Observation détachée</Text>
-                  {/* <MaterialCommunityIcons
+                  <MaterialCommunityIcons
                     name="arrow-right"
                     size={24}
                     color="black"
-                  /> */}
-                  <Ionicons
-                    name="arrow-redo-circle-sharp"
-                    size={32}
-                    color="rgba(50,56,106,1)"
                   />
                 </View>
               </TouchableOpacity>
@@ -205,15 +199,10 @@ export default function Tab3() {
                   <Text style={styles.afterTextBtn}>
                     Régulation émotionnelle
                   </Text>
-                  {/* <MaterialCommunityIcons
+                  <MaterialCommunityIcons
                     name="arrow-right"
                     size={24}
                     color="black"
-                  /> */}
-                  <Ionicons
-                    name="arrow-redo-circle-sharp"
-                    size={32}
-                    color="rgba(50,56,106,1)"
                   />
                 </View>
               </TouchableOpacity>
@@ -326,7 +315,7 @@ const styles = StyleSheet.create({
   afterTextBtn: {
     fontFamily: "roboto",
     fontSize: 16,
-    marginRight: 8,
+    marginRight: 20,
     color: "rgba(50,56,106,1)",
   },
 
