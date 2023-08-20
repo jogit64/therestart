@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
 
   textRoom: {
     fontFamily: "roboto",
-    fontSize: 16,
+    fontSize: 14,
     color: "rgba(151,155,180,1)",
     lineHeight: 25,
     // paddingHorizontal: 10,

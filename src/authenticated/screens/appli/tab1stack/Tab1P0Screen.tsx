@@ -63,7 +63,7 @@ function Tab1() {
   const renderAffirmation = () => {
     const affirmation = userContext?.selectedAffirmation;
     if (!affirmation) {
-      return "Vous n'avez pas encore sélectionné de phrase.";
+      return "Vous n'avez pas encore sélectionné de phrase. Rendez-vous au phare !";
     }
     return affirmation;
   };
@@ -102,11 +102,11 @@ function Tab1() {
 
         <View style={styles.lowerSection}>
           <View style={styles.whiteBadgeContainer}>
-            <Text style={styles.textWhiteBadge}>Entrez dans </Text>
-            <Text style={styles.titreApp}>Zen·Zones</Text>
-            <Text style={styles.textWhiteBadge}>
-              Pour mieux comprendre chaque espace, consultez 'Le plan'.
-            </Text>
+            <Text style={styles.textWhiteBadge}>Bienvenue dans </Text>
+            <Text style={styles.titreApp}>Zen·Zones !</Text>
+            {/* <Text style={styles.textWhiteBadge}>
+              Pour mieux comprendre chaque espace, consultez le plan.
+            </Text> */}
           </View>
 
           <View style={styles.btnPlanContainer}>
@@ -232,11 +232,14 @@ const styles = StyleSheet.create({
   whiteBadgeContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
+    justifyContent: "center",
     backgroundColor: "white",
     borderRadius: 10,
-    marginHorizontal: 15,
+    //marginHorizontal: 15,
     paddingHorizontal: 25,
-    paddingVertical: 20,
+
+    paddingTop: 20,
+    paddingBottom: 35,
     marginTop: 55,
   },
 
@@ -245,6 +248,7 @@ const styles = StyleSheet.create({
     color: "rgba(50,56,106,1)",
     fontSize: 16,
     lineHeight: 23,
+    alignSelf: "center",
   },
 
   titreApp: {
@@ -257,7 +261,7 @@ const styles = StyleSheet.create({
 
   btnPlanContainer: {
     borderRadius: 5,
-    marginTop: -10,
+    marginTop: -20,
     marginRight: 25,
   },
 
@@ -265,7 +269,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#6f78bd",
     padding: 10,
     borderRadius: 5,
-    alignSelf: "flex-end",
+    //alignSelf: "flex-end",
+    alignSelf: "center",
   },
 
   buttonText: {
@@ -275,8 +280,9 @@ const styles = StyleSheet.create({
 
   globalQuoteContainer: {
     justifyContent: "center",
-    // backgroundColor: "rgba(190,205,224,0.67)",
-    backgroundColor: "white",
+    backgroundColor: "rgba(190,205,224,0.67)",
+    //backgroundColor: "white",
+
     borderRadius: 10,
     marginHorizontal: 15,
     paddingHorizontal: 25,
