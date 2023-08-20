@@ -324,7 +324,7 @@ const styles = StyleSheet.create({
   },
 
   afterTextBtn: {
-    fontFamily: "roboto",
+    fontFamily: "roboto500",
     fontSize: 16,
     marginRight: 8,
     color: "rgba(50,56,106,1)",

@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     backgroundColor: "white",
-    borderRadius: 20,
+    borderRadius: 10,
     marginHorizontal: 15,
     paddingHorizontal: 25,
     paddingVertical: 20,
@@ -273,8 +273,9 @@ const styles = StyleSheet.create({
 
   globalQuoteContainer: {
     justifyContent: "center",
-    backgroundColor: "rgba(190,205,224,0.67)",
-    borderRadius: 20,
+    // backgroundColor: "rgba(190,205,224,0.67)",
+    backgroundColor: "white",
+    borderRadius: 10,
     marginHorizontal: 15,
     paddingHorizontal: 25,
     paddingVertical: 20,
