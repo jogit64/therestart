@@ -174,10 +174,13 @@ const styles = StyleSheet.create({
 
   textRoom: {
     fontFamily: "roboto",
-    fontSize: 14,
+    fontSize: 16,
     color: "rgba(151,155,180,1)",
     lineHeight: 25,
-    // paddingHorizontal: 10,
+    borderColor: "rgba(151,155,180,1)",
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 10,
     marginBottom: 30,
     marginTop: 10,
   },

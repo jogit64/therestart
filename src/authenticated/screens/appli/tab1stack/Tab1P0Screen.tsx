@@ -125,6 +125,9 @@ function Tab1() {
                 size={30}
                 color="#7e86c7"
               />
+              <View style={styles.votreAffContainer}>
+                <Text style={styles.votreAffText}>Votre affirmation</Text>
+              </View>
             </View>
             <View style={styles.affirmationsContainer}>
               <Text style={styles.affirmation}>{renderAffirmation()}</Text>
@@ -196,14 +199,14 @@ const styles = StyleSheet.create({
   textBonjour: {
     fontFamily: "roboto",
     color: "rgba(50,56,106,1)",
-    fontSize: 20,
+    fontSize: 18,
     marginTop: 15,
   },
 
   textFirstname: {
     fontFamily: "roboto500",
     color: "white",
-    fontSize: 20,
+    fontSize: 18,
     marginTop: 15,
   },
 
@@ -246,7 +249,7 @@ const styles = StyleSheet.create({
   textWhiteBadge: {
     fontFamily: "roboto",
     color: "rgba(50,56,106,1)",
-    fontSize: 16,
+    fontSize: 18,
     lineHeight: 23,
     alignSelf: "center",
   },
@@ -274,6 +277,7 @@ const styles = StyleSheet.create({
   },
 
   buttonText: {
+    fontFamily: "roboto500",
     color: "white",
     fontSize: 14,
   },
@@ -296,6 +300,22 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
 
+  votreAffContainer: {
+    alignItems: "center",
+    zIndex: 0,
+  },
+
+  votreAffText: {
+    fontFamily: "roboto",
+    color: "rgba(50,56,106,1)",
+    fontSize: 16,
+    backgroundColor: "#f5f6fa",
+    paddingHorizontal: 10,
+    paddingBottom: 2,
+    borderRadius: 7,
+    marginTop: -31,
+  },
+
   affirmationsContainer: {
     alignItems: "center",
     zIndex: 0,
@@ -305,7 +325,7 @@ const styles = StyleSheet.create({
     fontFamily: "roboto",
     fontSize: 16,
     color: "rgba(50,56,106,1)",
-    lineHeight: 20,
+    lineHeight: 25,
   },
 });
 
