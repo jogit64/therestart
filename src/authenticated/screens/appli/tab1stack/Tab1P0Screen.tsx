@@ -102,10 +102,10 @@ function Tab1() {
 
         <View style={styles.lowerSection}>
           <View style={styles.whiteBadgeContainer}>
-            <Text style={styles.textWhiteBadge}>Prêt à voyager dans</Text>
-            <Text style={styles.titreApp}>Zen·Zones ?</Text>
+            <Text style={styles.textWhiteBadge}>Entrez dans </Text>
+            <Text style={styles.titreApp}>Zen·Zones</Text>
             <Text style={styles.textWhiteBadge}>
-              Découvrez chaque endroit avec notre plan.
+              Pour mieux comprendre chaque espace, consultez 'Le plan'.
             </Text>
           </View>
 
@@ -244,18 +244,20 @@ const styles = StyleSheet.create({
     fontFamily: "roboto",
     color: "rgba(50,56,106,1)",
     fontSize: 16,
-    lineHeight: 25,
+    lineHeight: 23,
   },
 
   titreApp: {
     fontFamily: "roboto500",
     color: "rgba(50,56,106,1)",
-    fontSize: 20,
+    fontSize: 16,
+    lineHeight: 23,
+    //paddingLeft: 3,
   },
 
   btnPlanContainer: {
     borderRadius: 5,
-    marginTop: -30,
+    marginTop: -10,
     marginRight: 25,
   },
 
@@ -268,7 +270,7 @@ const styles = StyleSheet.create({
 
   buttonText: {
     color: "white",
-    fontSize: 16,
+    fontSize: 14,
   },
 
   globalQuoteContainer: {
@@ -294,7 +296,10 @@ const styles = StyleSheet.create({
   },
 
   affirmation: {
+    fontFamily: "roboto",
     fontSize: 16,
+    color: "rgba(50,56,106,1)",
+    lineHeight: 20,
   },
 });
 
