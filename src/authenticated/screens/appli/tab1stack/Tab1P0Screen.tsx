@@ -15,7 +15,6 @@ import UserContext, {
 } from "../../../../../utils/UserContext";
 
 import { useNavigation } from "@react-navigation/native";
-//import Tab1Styles from "./../../../styles/Tab1Styles";
 
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Tab1ParamList } from "../../../../../utils/navigationTypes";
@@ -24,6 +23,7 @@ import { RootStackParamList } from "../../../../../utils/navigationTypes";
 import Icon from "react-native-vector-icons/Entypo";
 
 import { useHardwareBackButton } from "components/useHardwareBackButton";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 type CombinedParamList = Tab1ParamList & RootStackParamList;
 
@@ -42,15 +42,8 @@ function Tab1() {
   const defaultImage = require("assets/images/userHead.png");
   const [isLoading, setIsLoading] = useState(true);
 
-  //const { user } = useContext(UserContext);
-  //console.log("Au chargement de Tab1, UserContext est:", userContext);
-
   useEffect(() => {
     if (userContext !== null) {
-      //console.log("Le Usercontext changed:", userContext);
-      console.log("HEY JO ICI ICI :", userContext.user.selectedAffirmation);
-      //console.log("Le First name:", userContext.user.basicInfo.firstName);
-      //console.log("URL de l'image actuelle:", userContext.imageUrl);
       setIsLoading(false);
     }
   }, [userContext]);
@@ -67,33 +60,11 @@ function Tab1() {
     }
   }, [userContext?.selectedAffirmation]);
 
-  // useEffect(() => {
-  //   if (userContext) {
-  //     console.log(
-  //       "Affirmation mise à jour PAR JO:",
-  //       userContext.user.selectedAffirmation
-  //     );
-  //   }
-  // }, [userContext?.user.selectedAffirmation]);
-
   const renderAffirmation = () => {
-    // Affichez le contenu complet de userContext
-    console.log("Contenu de userContext:", userContext);
-
-    // Si userContext existe, affichez le contenu de userContext.user
-    if (userContext) {
-      console.log("Contenu de userContext.user:", userContext.user);
-    }
-
     const affirmation = userContext?.selectedAffirmation;
-
-    //console.log("Début de renderAffirmation. Affirmation:", affirmation);
-
     if (!affirmation) {
       return "Vous n'avez pas encore sélectionné de phrase.";
     }
-
-    console.log("Affirmation actuelle:", affirmation);
     return affirmation;
   };
 
@@ -131,32 +102,34 @@ function Tab1() {
 
         <View style={styles.lowerSection}>
           <View style={styles.whiteBadgeContainer}>
-            <View style={styles.chapeauContainerA}></View>
-            <View style={styles.bienvenueContainer}>
-              <Text style={styles.textBienvenue}>Bienvenue dans </Text>
-              <Text style={styles.mirroredZ}>Z</Text>
-              <Text style={styles.titreApp}>en·</Text>
-              <Text style={styles.mirroredZ}>Z</Text>
-              <Text style={styles.titreApp}>ones</Text>
-            </View>
-
+            <Text style={styles.textWhiteBadge}>Prêt à voyager dans</Text>
+            <Text style={styles.titreApp}>Zen·Zones ?</Text>
             <Text style={styles.textWhiteBadge}>
-              Pour un survol de l'application, c'est par ici !
+              Découvrez chaque endroit avec notre plan.
             </Text>
+          </View>
+
+          <View style={styles.btnPlanContainer}>
             <TouchableOpacity
               style={styles.button}
               onPress={() => navigation.navigate("Tab1P1")}
             >
-              <Text style={styles.buttonText}>Survol</Text>
+              <Text style={styles.buttonText}>Consulter le plan</Text>
             </TouchableOpacity>
           </View>
-        </View>
 
-        <View style={styles.container}>
-          <Text style={styles.title}>
-            Bienvenue, {user.basicInfo.firstName}!
-          </Text>
-          <Text style={styles.affirmation}>{renderAffirmation()}</Text>
+          <View style={styles.globalQuoteContainer}>
+            <View style={styles.affirmationsQuote}>
+              <MaterialCommunityIcons
+                name="comment-quote"
+                size={30}
+                color="#7e86c7"
+              />
+            </View>
+            <View style={styles.affirmationsContainer}>
+              <Text style={styles.affirmation}>{renderAffirmation()}</Text>
+            </View>
+          </View>
         </View>
       </View>
     );
@@ -167,27 +140,19 @@ function Tab1() {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    flex: 1,
-    flexDirection: "column",
-    //justifyContent: "space-evenly",
-    //alignItems: "flex-start",
-    //backgroundColor: "rgba(255,255,255,1)",
     backgroundColor: "#f5f6fa",
   },
+
   headerContainer: {
-    //flex: 1,
     height: 110,
     flexDirection: "row",
-    //  justifyContent: "flex-start",
     alignItems: "center",
-    //backgroundColor: "#6f78bd",
     backgroundColor: "rgba(190,205,224,0.67)",
     paddingTop: 50,
   },
 
   photoContainer: {
     width: 100,
-    //backgroundColor: "yellow",
     height: 100,
     marginTop: 32,
     marginLeft: 8,
@@ -199,6 +164,7 @@ const styles = StyleSheet.create({
     borderRadius: 110 / 2,
     zIndex: 0,
   },
+
   full: {
     width: 76,
     height: 76,
@@ -224,14 +190,11 @@ const styles = StyleSheet.create({
   textBonjourContainer: {
     flex: 1,
     flexDirection: "row",
-    //justifyContent: "center",
     alignItems: "center",
-    // backgroundColor: "red",
   },
 
   textBonjour: {
     fontFamily: "roboto",
-    // color: "grey",
     color: "rgba(50,56,106,1)",
     fontSize: 20,
     marginTop: 15,
@@ -239,12 +202,9 @@ const styles = StyleSheet.create({
 
   textFirstname: {
     fontFamily: "roboto500",
-    //color: "rgba(50,56,106,1)",
     color: "white",
     fontSize: 20,
-    //marginLeft: 1,
     marginTop: 15,
-    //zIndex: 4,
   },
 
   touchableIcon: {
@@ -256,161 +216,84 @@ const styles = StyleSheet.create({
     left: 172,
     position: "absolute",
   },
+
   iconCog: {
     top: 2,
     left: 3,
     position: "absolute",
-    //color: "rgba(111,120,189,1)",
     color: "white",
     fontSize: 44,
+  },
+
+  // FIN HEADER
+
+  lowerSection: {},
+
+  whiteBadgeContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    backgroundColor: "white",
+    borderRadius: 20,
+    marginHorizontal: 15,
+    paddingHorizontal: 25,
+    paddingVertical: 20,
+    marginTop: 55,
+  },
+
+  textWhiteBadge: {
+    fontFamily: "roboto",
+    color: "rgba(50,56,106,1)",
+    fontSize: 16,
+    lineHeight: 25,
+  },
+
+  titreApp: {
+    fontFamily: "roboto500",
+    color: "rgba(50,56,106,1)",
+    fontSize: 20,
+  },
+
+  btnPlanContainer: {
+    borderRadius: 5,
+    marginTop: -30,
+    marginRight: 25,
   },
 
   button: {
     backgroundColor: "#6f78bd",
     padding: 10,
     borderRadius: 5,
-    alignSelf: "center", // centrer le bouton
-    marginTop: 10,
+    alignSelf: "flex-end",
   },
+
   buttonText: {
     color: "white",
     fontSize: 16,
   },
 
-  lowerSection: {
-    // flex: 1,
-    //justifyContent: "flex-start",
-    //backgroundColor: "green",
-    //alignItems: "center",
-    //marginTop: 20, // Marge haute pour l'espacement si nécessaire
-  },
-  chapeauContainer: {
-    //flex: 1,
-    flexDirection: "row",
-    //justifyContent: "flex-start",
-    alignItems: "center",
-
-    // backgroundColor: "green",
-    //marginTop: 20, // Marge haute pour l'espacement si nécessaire
-    paddingTop: 65,
-    paddingBottom: 20,
-    marginLeft: 20,
-  },
-
-  logoStyle: {
-    width: 60, // Ajustez selon la taille souhaitée
-    height: 60, // Ajustez selon la taille souhaitée
-    resizeMode: "contain", // pour conserver les proportions de l'image
-    // marginLeft: 10, // Espacement à gauche, si nécessaire
-    transform: [{ rotate: "20deg" }],
-  },
-
-  textChapeau: {
-    fontFamily: "roboto500",
-    //color: "white",
-    color: "rgba(50,56,106,1)",
-    fontSize: 20,
-    //marginTop: 15,
-  },
-
-  whiteBadgeContainer: {
-    // flex: 1,
-    // flexDirection: "column",
-    // justifyContent: "flex-start",
-    backgroundColor: "white",
+  globalQuoteContainer: {
+    justifyContent: "center",
+    backgroundColor: "rgba(190,205,224,0.67)",
     borderRadius: 20,
     marginHorizontal: 15,
     paddingHorizontal: 25,
     paddingVertical: 20,
-    //height: 150,
     marginTop: 55,
   },
 
-  bienvenueContainer: {
-    //flexGrow: 1,
-    flexDirection: "row",
-    // justifyContent: "flex-start",
+  affirmationsQuote: {
+    marginTop: -32,
+    marginLeft: -20,
+    zIndex: 1,
   },
 
-  textBienvenue: {
-    fontFamily: "roboto",
-    //color: "white",
-    color: "rgba(50,56,106,1)",
-    fontSize: 20,
-    //marginTop: 15,
-  },
-  titreApp: {
-    fontFamily: "roboto500",
-    //color: "white",
-    color: "rgba(50,56,106,1)",
-    fontSize: 20,
-    //marginTop: 15,
-  },
-
-  mirroredZ: {
-    // transform: [{ scaleX: -1 }],
-    fontFamily: "roboto500",
-    //color: "white",
-    color: "rgba(50,56,106,1)",
-    fontSize: 20,
-  },
-
-  textWhiteBadge: {
-    fontFamily: "roboto",
-    //color: "white",
-    color: "rgba(50,56,106,1)",
-    fontSize: 16,
-    lineHeight: 25,
-    paddingTop: 20,
-  },
-
-  chapeauContainerA: {
-    //flex: 1,
-    flexDirection: "row",
-    //justifyContent: "flex-start",
+  affirmationsContainer: {
     alignItems: "center",
-
-    // backgroundColor: "green",
-    marginTop: -15, // Marge haute pour l'espacement si nécessaire
-    // paddingTop: 65,
-    //paddingBottom: 20,
-    //marginLeft: 20,
-    marginBottom: 10,
+    zIndex: 0,
   },
 
-  logoStyleA: {
-    width: 60, // Ajustez selon la taille souhaitée
-    height: 60, // Ajustez selon la taille souhaitée
-    resizeMode: "contain", // pour conserver les proportions de l'image
-    // marginLeft: 10, // Espacement à gauche, si nécessaire
-    transform: [{ rotate: "20deg" }],
-    marginTop: -25,
-  },
-
-  textChapeauA: {
-    fontFamily: "roboto500",
-    //color: "white",
-    color: "rgba(50,56,106,1)",
-    fontSize: 20,
-    //marginTop: 15,
-    // marginTop: -45,
-    // justifyContent: "flex-end",
-    // alignContent: "flex-end",
-  },
-
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 16,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 16,
-  },
   affirmation: {
-    fontSize: 18,
+    fontSize: 16,
   },
 });
 
