@@ -30,7 +30,7 @@ export default function Tab1P1Screen() {
               />
             </View>
           </TouchableOpacity>
-          <Text style={styles.titleScreen}>Le plan de Zen Zones</Text>
+          <Text style={styles.titleScreen}>Le plan de Zen·Zones</Text>
         </View>
 
         <View style={styles.firstPartContainer}>
@@ -46,12 +46,31 @@ export default function Tab1P1Screen() {
               </Text>
             </ImageBackground>
           </View>
+          <View style={{ flexDirection: "row" }}>
+            <View
+              style={{ transform: [{ rotate: "-90deg" }], alignSelf: "center" }}
+            >
+              <Text style={styles.textMonoZen}>Zen·Zones</Text>
+            </View>
+            <Text style={styles.textMono}>
+              {`
++-------+  +-------+
+|Récep. |  | Atel. |
++-------+  +-------+
++-------+  +-------+
+|Jardin |  | Phare |
++-------+  +-------+
+`}
+            </Text>
+          </View>
+
           <View style={styles.iconTextContainer}>
             <MaterialCommunityIcons
               name="bell-ring-outline"
               size={24}
               color="#5b5da7"
             />
+
             <Text style={styles.sstitle}>La réception</Text>
           </View>
           <Text style={styles.textRoom}>
@@ -142,11 +161,11 @@ const styles = StyleSheet.create({
   firstPartContainer: {
     flex: 1,
     paddingHorizontal: 18,
-    marginTop: 25,
+    marginTop: 20,
   },
 
   frontonContainer: {
-    marginBottom: 20,
+    //marginBottom: 20,
   },
 
   iconTextContainer: {
@@ -190,5 +209,21 @@ const styles = StyleSheet.create({
     height: 120,
     justifyContent: "center",
     alignItems: "center",
+  },
+
+  textMono: {
+    fontFamily: "monospace",
+    color: "rgba(151,155,180,1)",
+    fontSize: 14,
+    alignSelf: "center",
+  },
+
+  textMonoZen: {
+    fontFamily: "monospace",
+    color: "rgba(151,155,180,1)",
+    fontSize: 14,
+    alignSelf: "center",
+    //marginRight: -20,
+    marginBottom: -40,
   },
 });

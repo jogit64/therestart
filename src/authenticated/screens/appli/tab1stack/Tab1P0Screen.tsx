@@ -284,7 +284,8 @@ const styles = StyleSheet.create({
 
   globalQuoteContainer: {
     justifyContent: "center",
-    backgroundColor: "rgba(190,205,224,0.67)",
+    //    backgroundColor: "rgba(190,205,224,0.67)",
+    backgroundColor: "#feda62",
     //backgroundColor: "white",
 
     borderRadius: 10,
@@ -310,6 +311,7 @@ const styles = StyleSheet.create({
     color: "rgba(50,56,106,1)",
     fontSize: 16,
     backgroundColor: "#f5f6fa",
+    //backgroundColor: "#feda62",
     paddingHorizontal: 10,
     paddingBottom: 2,
     borderRadius: 7,
