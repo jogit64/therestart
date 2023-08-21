@@ -25,21 +25,6 @@ import BreathingGuide from "./../../../../../components/BreathingGuide";
 //import YouTubeVideo from "./../../../../../components/YouTubeVideo";
 //import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-const slides = [
-  {
-    key: "one",
-    title: "Bienvenue dans l'onglet Perspectives!",
-    text: "Nous avons rassemblé quelques thèmes clés qui peuvent être sources de préoccupations, et nous vous invitons à les explorer avec un regard neuf, curieux et ludique ! \n\nEssayez de trouver des clés pour déverrouiller de nouvelles façons de percevoir votre réalité.\n\nLes affirmations et questions présentées ici sont conçues pour vous aider à vous détacher des schémas de pensée restrictifs et à élargir votre vision.Choisissez jusqu’à 3 thèmes qui résonnent avec votre préoccupation du moment et voyez si les perspectives vous mènent dans un endroit plus confortable.",
-    backgroundColor: "#fff",
-  },
-  {
-    key: "two",
-    title: "Thème 1",
-    text: "Description du thème 1.",
-    backgroundColor: "#febe29",
-  },
-];
-
 function _renderNextButton() {
   return (
     <View style={styles.buttonCircle}>
@@ -93,7 +78,7 @@ export default function Tab3() {
 
           <TouchableOpacity
             style={styles.touchaBtnIdee}
-            onPress={() => setModalVisible1(true)}
+            onPress={() => navigation.navigate("Tab3P1i")}
           >
             <View style={styles.BtnDiscoverContainer}>
               <Feather name="info" size={40} color="rgba(50,56,106,1)" />
@@ -106,28 +91,6 @@ export default function Tab3() {
               </Text>
             </View>
           </TouchableOpacity>
-
-          <Modal visible={modalVisible1} transparent={false}>
-            <AppIntroSlider
-              data={slides}
-              renderItem={({ item }) => {
-                return (
-                  <View
-                    style={[
-                      styles.slide,
-                      { backgroundColor: item.backgroundColor },
-                    ]}
-                  >
-                    <Text style={styles.titleBoard}>{item.title}</Text>
-                    <Text style={styles.textBoard}>{item.text}</Text>
-                  </View>
-                );
-              }}
-              renderNextButton={_renderNextButton}
-              renderDoneButton={_renderDoneButton}
-              onDone={() => setModalVisible1(false)}
-            />
-          </Modal>
         </View>
 
         <View style={styles.secondPartContainer}>

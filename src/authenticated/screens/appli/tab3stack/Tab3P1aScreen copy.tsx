@@ -26,231 +26,112 @@ export default function Tab3P1a() {
 
   // La liste de vos éléments. Vous pouvez y mettre n'importe quel type de données.
   const items = [
-    // Autrui
     {
       id: 1,
-      category: "Autrui",
       name: "Une autre personne",
       phrases: [
-        "Je ne peux pas connaître entièrement la réalité d'une autre personne, seulement mon interprétation de celle-ci.",
-        "Ma relation avec cette personne est une construction mentale basée sur mes perceptions et mes expériences.",
+        "La représentation que j'ai d'une autre personne est un produit mental et n'existe que pour moi",
+        "L'autre est une représentation produite à partir de mon référentiel qui est le fruit de ma constitution (puissance de ma méoire..) et de mes expériences (éducation, culture..)",
+        "L'autre, comme représentation mentale, est l'extension de ce que je suis, dans laquelle je projette mes jugements, mes peurs, mes désirs..je pourrais remplacer son prénom par : moi.'son prénom'.",
+        "La conscience que j'ai de l'autre n'est accessible que par le prisme de ma propre conscience ; je ne peux jamais connaître véritablement son expérience subjective.",
+        "Tout ce que je sais ou crois savoir sur une autre personne provient de mes propres perceptions et interprétations.",
+        "L'identification à l'ego nous pousse à percevoir les autres comme séparés de nous-mêmes, mais en réalité, il n'y a pas de séparation.",
+        "L'autre que je perçois est une manifestation de la même réalité ultime à laquelle j'appartiens.",
+        "À un niveau subatomique, il n'y a pas de frontières solides entre 'moi' et 'l'autre'.",
+        "La réalité est probabiliste, et la manière dont nous percevons une autre personne dépend de nos observations.",
+        "Toute définition ou compréhension que j'ai de l'autre est limitée et ne peut embrasser l'entièreté de son être.",
+        "Chaque interaction est une rencontre avec une infinité de perspectives et d'histoires, dont la plupart me restent inconnues.",
+        "La singularité et le référentiel de l'autre m'est fondamentalement inaccessible.",
+        "Tout jugement ou interprétation que je porte sur l'autre en dit plus sur moi que sur lui.",
+        "La notion d'une personne distincte est une construction mentale basée sur des perceptions temporaires et changeantes.",
       ],
     },
     {
       id: 2,
-      category: "Autrui",
-      name: "Attentes d'autrui",
+      name: "Moi-même",
       phrases: [
-        "Les attentes des autres sont des reflets de leur propre réalité, pas de la mienne.",
-        "Je n'ai pas à être prisonnier des opinions ou des désirs des autres.",
+        "Phrase 2.1",
+        "Phrase 2.2",
+        "Phrase 2.3",
+        "Phrase 2.4",
+        "Phrase 2.5",
       ],
     },
     {
       id: 3,
-      category: "Autrui",
-      name: "Comparaison avec d'autres",
+      name: "La perception du temps",
       phrases: [
-        "Se comparer, c'est mesurer une interprétation contre une autre, aucune n'étant la vérité absolue.",
-        "Ma valeur ne dépend pas de la façon dont je me compare aux autres.",
+        "Phrase 2.1",
+        "Phrase 2.2",
+        "Phrase 2.3",
+        "Phrase 2.4",
+        "Phrase 2.5",
       ],
     },
-    // Moi-même
     {
       id: 4,
-      category: "Moi-même",
-      name: "Ma valeur personnelle",
+      name: "Mon corps",
       phrases: [
-        "Ma valeur intrinsèque existe indépendamment des jugements externes.",
-        "Je suis plus que les étiquettes ou les évaluations que je m'attribue ou que d'autres m'attribuent.",
+        "Phrase 2.1",
+        "Phrase 2.2",
+        "Phrase 2.3",
+        "Phrase 2.4",
+        "Phrase 2.5",
       ],
     },
     {
       id: 5,
-      category: "Moi-même",
-      name: "Mon apparence",
+      name: "La possession ou la perte",
       phrases: [
-        "Mon corps est en constante évolution, tout comme le reste de l'univers.",
-        "L'importance que j'accorde à mon apparence est le reflet de mes croyances, pas de ma réalité objective.",
+        "Phrase 2.1",
+        "Phrase 2.2",
+        "Phrase 2.3",
+        "Phrase 2.4",
+        "Phrase 2.5",
       ],
     },
     {
       id: 6,
-      category: "Moi-même",
-      name: "Mes compétences ou talents",
+      name: "La reconnaissance ou le manque de reconnaissance",
       phrases: [
-        "Mes compétences sont des outils, pas mon identité.",
-        "La perception de mes talents est relative et changeante.",
+        "Phrase 2.1",
+        "Phrase 2.2",
+        "Phrase 2.3",
+        "Phrase 2.4",
+        "Phrase 2.5",
       ],
     },
     {
       id: 7,
-      category: "Moi-même",
-      name: "Mes échecs ou erreurs passées",
+      name: "Le contrôle ou absence de contrôle sur les situations",
       phrases: [
-        "Le passé est une construction mentale, et mes erreurs ne définissent pas qui je suis maintenant.",
-        "Chaque expérience est une occasion d'apprendre et de grandir.",
+        "Phrase 2.1",
+        "Phrase 2.2",
+        "Phrase 2.3",
+        "Phrase 2.4",
+        "Phrase 2.5",
       ],
     },
-    // Possessions et avoirs
     {
       id: 8,
-      category: "Possessions et avoirs",
-      name: "Ce que je possède",
+      name: "Mes attentes",
       phrases: [
-        "Les possessions sont temporaires et sujettes au changement. Ma relation avec elles est plus significative que leur simple possession.",
-        "Rien ne m'appartient vraiment, tout est éphémère.",
+        "Phrase 2.1",
+        "Phrase 2.2",
+        "Phrase 2.3",
+        "Phrase 2.4",
+        "Phrase 2.5",
       ],
     },
     {
       id: 9,
-      category: "Possessions et avoirs",
-      name: "Ce que je veux posséder",
+      name: "Autre",
       phrases: [
-        "Le désir de posséder est souvent lié à une quête de validation ou de sécurité, et non à l'objet lui-même.",
-        "L'acquisition ne garantit pas le bonheur ou la satisfaction.",
-      ],
-    },
-    {
-      id: 10,
-      category: "Possessions et avoirs",
-      name: "Ce que j'ai perdu",
-      phrases: [
-        "La perte est une perception basée sur le temps et l'attachement. En réalité, tout est en flux.",
-        "Les choses ne sont jamais vraiment 'perdues', elles changent simplement de forme ou de place dans ma vie.",
-      ],
-    },
-
-    // Temps
-    {
-      id: 11,
-      category: "Temps",
-      name: "Perception du moment présent",
-      phrases: [
-        "Le moment présent est tout ce qui existe réellement ; le passé et le futur sont des constructions mentales.",
-        "Ma relation avec le temps influence la manière dont je vis chaque instant.",
-      ],
-    },
-    {
-      id: 12,
-      category: "Temps",
-      name: "Anxiété ou incertitude concernant l'avenir",
-      phrases: [
-        "L'avenir est une série d'instantanés présents que je n'ai pas encore expérimentés.",
-        "Mon inquiétude pour l'avenir est basée sur des prédictions et non sur des certitudes.",
-      ],
-    },
-    {
-      id: 13,
-      category: "Temps",
-      name: "Souvenirs du passé",
-      phrases: [
-        "Le passé n'est plus, il ne vit qu'à travers mes souvenirs et interprétations.",
-        "Je peux choisir la relation que j'entretiens avec mon passé.",
-      ],
-    },
-
-    // Émotions et sentiments
-    {
-      id: 14,
-      category: "Émotions et sentiments",
-      name: "Ce que je ressens maintenant",
-      phrases: [
-        "Les émotions sont comme les nuages, elles passent. Je ne suis ni mes émotions ni mes pensées.",
-        "Mon ressenti est une réaction à mes perceptions, pas une réalité immuable.",
-      ],
-    },
-    {
-      id: 15,
-      category: "Émotions et sentiments",
-      name: "Ce que je crains de ressentir",
-      phrases: [
-        "La peur est une anticipation basée sur des suppositions, pas sur la réalité présente.",
-        "Je peux observer mes peurs sans y adhérer.",
-      ],
-    },
-
-    // Événements et circonstances
-    {
-      id: 16,
-      category: "Événements et circonstances",
-      name: "Événements futurs",
-      phrases: [
-        "Les événements à venir sont des potentialités, pas des certitudes.",
-        "Ma perception d'un événement futur est une projection, pas une réalité.",
-      ],
-    },
-    {
-      id: 17,
-      category: "Événements et circonstances",
-      name: "Événements actuels",
-      phrases: [
-        "Tout événement est temporaire et en constante évolution, tout comme ma perception de celui-ci.",
-        "Je peux choisir ma relation avec les événements de ma vie.",
-      ],
-    },
-    {
-      id: 18,
-      category: "Événements et circonstances",
-      name: "Événements passés",
-      phrases: [
-        "Un événement passé n'existe plus, seulement mon interprétation de celui-ci.",
-        "Je peux reconsidérer et recontextualiser les événements de mon passé.",
-      ],
-    }, // Monde extérieur
-    {
-      id: 19,
-      category: "Monde extérieur",
-      name: "Mon environnement immédiat",
-      phrases: [
-        "Mon environnement est une manifestation extérieure avec laquelle j'interagis, pas une réalité fixe.",
-        "Je suis en relation avec mon environnement, je ne lui suis pas soumis.",
-      ],
-    },
-    {
-      id: 20,
-      category: "Monde extérieur",
-      name: "Situations sur lesquelles je n'ai aucun contrôle",
-      phrases: [
-        "La recherche de contrôle est une quête illusoire; la fluidité et l'adaptation sont plus bénéfiques.",
-        "Je peux influencer, mais je ne peux pas tout contrôler. Mon pouvoir réside dans ma réaction.",
-      ],
-    },
-
-    // Identification à l'ego
-    {
-      id: 21,
-      category: "Identification à l'ego",
-      name: "Mon récit personnel",
-      phrases: [
-        "Je ne suis pas le récit que je me raconte.",
-        "Mon histoire est une construction, pas mon essence véritable.",
-      ],
-    },
-    {
-      id: 22,
-      category: "Identification à l'ego",
-      name: "Ma personnalité",
-      phrases: [
-        "Je ne suis pas ma personnalité, elle est une manifestation changeante.",
-        "Ma personnalité est façonnée par des expériences et des influences; je suis plus que cela.",
-      ],
-    },
-    {
-      id: 23,
-      category: "Identification à l'ego",
-      name: "Pensées automatiques",
-      phrases: [
-        "Les pensées viennent et vont; je ne suis pas ces pensées.",
-        "Mon esprit génère des pensées, mais je peux choisir de ne pas m'y attacher.",
-      ],
-    },
-    {
-      id: 24,
-      category: "Identification à l'ego",
-      name: "Mon corps",
-      phrases: [
-        "Je ne suis pas mon corps; il est un véhicule temporaire.",
-        "Mon corps change et évolue, mais mon essence reste constante.",
+        "Phrase 2.1",
+        "Phrase 2.2",
+        "Phrase 2.3",
+        "Phrase 2.4",
+        "Phrase 2.5",
       ],
     },
   ];
