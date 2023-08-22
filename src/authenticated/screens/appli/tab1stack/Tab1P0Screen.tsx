@@ -237,9 +237,18 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
     backgroundColor: "white",
+
+    //backgroundColor: "white",
+    borderWidth: 1,
+    borderColor: "rgba(190,205,224,0.67)",
     borderRadius: 10,
+    marginHorizontal: 15,
+    //paddingHorizontal: 25,
+    //paddingVertical: 20,
+
+    //borderRadius: 10,
     //marginHorizontal: 15,
-    paddingHorizontal: 25,
+    //paddingHorizontal: 25,
 
     paddingTop: 20,
     paddingBottom: 35,
@@ -284,10 +293,11 @@ const styles = StyleSheet.create({
 
   globalQuoteContainer: {
     justifyContent: "center",
-    //    backgroundColor: "rgba(190,205,224,0.67)",
-    backgroundColor: "#feda62",
-    //backgroundColor: "white",
-
+    //backgroundColor: "rgba(190,205,224,0.67)",
+    // backgroundColor: "#feda62",
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderColor: "rgba(190,205,224,0.67)",
     borderRadius: 10,
     marginHorizontal: 15,
     paddingHorizontal: 25,
