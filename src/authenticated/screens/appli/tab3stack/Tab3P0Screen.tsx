@@ -271,6 +271,7 @@ const styles = StyleSheet.create({
 
     borderWidth: 2,
     borderColor: "#f2f7fb",
+    //borderColor: "#f6e482",
   },
 
   BtnDiscoverContainer: {
