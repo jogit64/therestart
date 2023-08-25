@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -13,17 +13,20 @@ import { useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Tab3ParamList } from "../../../../../utils/navigationTypes";
+import Collapsible from "react-native-collapsible";
 
 export default function Tab3P2Screen({ route }) {
   const navigation =
     useNavigation<StackNavigationProp<Tab3ParamList, "Tab3P0">>();
   const { selectedItemsPhrases } = route.params;
 
+  const [isCollapsed, setIsCollapsed] = useState(true);
+
   return (
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.firstPartContainer}>
-          <TouchableOpacity onPress={() => navigation.navigate("Tab3P1a")}>
+          {/* <TouchableOpacity onPress={() => navigation.navigate("Tab3P1a")}>
             <View style={styles.backButtonContainer}>
               <MaterialCommunityIcons
                 name="arrow-left"
@@ -31,66 +34,92 @@ export default function Tab3P2Screen({ route }) {
                 color="#000"
               />
             </View>
+          </TouchableOpacity> */}
+
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Text style={styles.btnFermer}>Fermer</Text>
           </TouchableOpacity>
         </View>
+        <View>
+          <TouchableOpacity
+            onPress={() => setIsCollapsed(!isCollapsed)}
+            style={styles.collapseTitletContainer}
+          >
+            <Text style={styles.intro}>Idées de pratique</Text>
+            <MaterialCommunityIcons
+              name={isCollapsed ? "chevron-down" : "chevron-up"}
+              size={42}
+              color="rgba(50,56,106,1)"
+            />
+          </TouchableOpacity>
+          <Collapsible collapsed={isCollapsed}>
+            {/* <Text>Réponse à la question...</Text> */}
 
-        <View style={styles.secondPartContainer}>
-          <Text style={styles.intro}>Comment pratiquer ?</Text>
-          <View style={styles.instruction}>
-            <Text style={styles.number}>1.</Text>
-            <Text style={styles.text}>
-              <Text style={styles.bold}>Confrontez votre pensée initiale</Text>{" "}
-              avec les phrases proposées. Ces phrases visent à élargir votre
-              perspective, à remettre en question la validité de votre croyance
-              initiale.
-            </Text>
-          </View>
-          <View style={styles.instruction}>
-            <Text style={styles.number}>2.</Text>
-            <Text style={styles.text}>
-              <Text style={styles.bold}>
-                Immergez-vous dans la nouvelle perspective
-              </Text>
-              . Prenez un moment pour vraiment vous installer dans cette
-              nouvelle vision des choses que la phrase suggère. Efforcez-vous de
-              maintenir et d'approfondir cette représentation, en la laissant
-              éclipser votre croyance initiale. Accordez-vous le temps
-              nécessaire pour ressentir pleinement les nuances, la complexité et
-              l'incertitude que cette perspective apporte.
-            </Text>
-          </View>
-          <View style={styles.instruction}>
-            <Text style={styles.number}>3.</Text>
-            <Text style={styles.text}>
-              <Text style={styles.bold}>Retournez à votre pensée initiale</Text>
-              . Après avoir médité sur ces phrases, repensez à votre pensée
-              perturbatrice originale. Si l'émotion reste vive, répétez le
-              processus. L'idée est d'itérer jusqu'à ce que la charge
-              émotionnelle diminue.
-            </Text>
-          </View>
-          <View style={styles.instruction}>
-            <Text style={styles.number}>4.</Text>
-            <Text style={styles.text}>
-              <Text style={styles.bold}>Évaluez vos sentiments</Text>.
-              L'objectif est d'arriver à un point où votre pensée initiale
-              semble moins chargée, voire neutre. Si ce n'est pas le cas,
-              n'hésitez pas à recommencer le processus ou à chercher d'autres
-              phrases qui résonnent davantage avec vous.
-            </Text>
-          </View>
+            <View style={styles.secondPartContainer}>
+              <View style={styles.instruction}>
+                <Text style={styles.number}>1.</Text>
+                <Text style={styles.text}>
+                  <Text style={styles.bold}>
+                    Confrontez votre pensée initiale
+                  </Text>{" "}
+                  avec les phrases proposées. Ces phrases visent à élargir votre
+                  perspective, à remettre en question la validité de votre
+                  croyance initiale.
+                </Text>
+              </View>
+              <View style={styles.instruction}>
+                <Text style={styles.number}>2.</Text>
+                <Text style={styles.text}>
+                  <Text style={styles.bold}>
+                    Immergez-vous dans la nouvelle perspective
+                  </Text>
+                  . Prenez un moment pour vraiment vous installer dans cette
+                  nouvelle vision des choses que la phrase suggère.
+                  Efforcez-vous de maintenir et d'approfondir cette
+                  représentation, en la laissant éclipser votre croyance
+                  initiale. Accordez-vous le temps nécessaire pour ressentir
+                  pleinement les nuances, la complexité et l'incertitude que
+                  cette perspective apporte.
+                </Text>
+              </View>
+              <View style={styles.instruction}>
+                <Text style={styles.number}>3.</Text>
+                <Text style={styles.text}>
+                  <Text style={styles.bold}>
+                    Retournez à votre pensée initiale
+                  </Text>
+                  . Après avoir médité sur ces phrases, repensez à votre pensée
+                  perturbatrice originale. Si l'émotion reste vive, répétez le
+                  processus. L'idée est d'itérer jusqu'à ce que la charge
+                  émotionnelle diminue.
+                </Text>
+              </View>
+              <View style={styles.instruction}>
+                <Text style={styles.number}>4.</Text>
+                <Text style={styles.text}>
+                  <Text style={styles.bold}>Évaluez vos sentiments</Text>.
+                  L'objectif est d'arriver à un point où votre pensée initiale
+                  semble moins chargée, voire neutre. Si ce n'est pas le cas,
+                  n'hésitez pas à recommencer le processus ou à chercher
+                  d'autres phrases qui résonnent davantage avec vous.
+                </Text>
+              </View>
+            </View>
+          </Collapsible>
         </View>
 
         <View style={styles.thirdPartContainer}>
+          <Text style={styles.titleScreen}>
+            Inspirations {"\n"} pour l'observation
+          </Text>
           <View style={styles.arrowContainer}>
-            <View style={styles.arrowCircle}>
+            {/* <View style={styles.arrowCircle}>
               <MaterialCommunityIcons
                 name="arrow-down"
                 size={24}
                 color="#000"
               />
-            </View>
-            <Text style={styles.titleScreen}>Pratiquez</Text>
+            </View> */}
             <View style={styles.arrowCircle}>
               <MaterialCommunityIcons
                 name="arrow-down"
@@ -109,6 +138,21 @@ export default function Tab3P2Screen({ route }) {
             ))}
           </View>
         </View>
+        <View style={styles.firstPartContainer}>
+          {/* <TouchableOpacity onPress={() => navigation.navigate("Tab3P1a")}>
+            <View style={styles.backButtonContainer}>
+              <MaterialCommunityIcons
+                name="arrow-left"
+                size={24}
+                color="#000"
+              />
+            </View>
+          </TouchableOpacity> */}
+
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Text style={styles.btnFermer}>Fermer</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </View>
   );
@@ -124,12 +168,31 @@ const styles = StyleSheet.create({
     //marginTop: 35,
   },
 
+  btnFermer: {
+    backgroundColor: "#f5f6fa",
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+    borderRadius: 5,
+  },
+
+  collapseTitletContainer: {
+    flex: 1,
+    flexDirection: "row", // Ajoutez cette ligne
+    justifyContent: "flex-end",
+    alignItems: "center", // Centrez les éléments verticalement
+    backgroundColor: "#f5f6fa",
+    paddingHorizontal: 20,
+    marginBottom: 20,
+  },
+
   firstPartContainer: {
     flex: 1,
     flexDirection: "row", // Ajoutez cette ligne
+    justifyContent: "center",
     alignItems: "center", // Centrez les éléments verticalement
     paddingHorizontal: 20,
     marginBottom: 20,
+    //backgroundColor: "#f5f6fa",
   },
 
   backButtonContainer: {
@@ -154,13 +217,16 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
     marginBottom: 10,
+    marginTop: 10,
   },
+
   instruction: {
     fontFamily: "roboto",
     color: "rgba(50,56,106,1)",
     flexDirection: "row",
     marginBottom: 8,
   },
+
   number: {
     fontFamily: "roboto",
     color: "rgba(50,56,106,1)",
@@ -172,6 +238,7 @@ const styles = StyleSheet.create({
     fontFamily: "roboto",
     color: "rgba(50,56,106,1)",
   },
+
   bold: {
     fontWeight: "bold",
   },
@@ -189,13 +256,16 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "rgba(50,56,106,1)",
     marginHorizontal: 15,
-    marginVertical: 20,
+    //marginVertical: 10,
   },
 
   arrowContainer: {
     flexDirection: "row", // Ligne horizontale pour les éléments enfants
     alignItems: "center", // Aligner les éléments verticalement au centre
+    marginBottom: 10,
+    marginTop: 10,
   },
+
   arrowCircle: {
     width: 40,
     height: 40,

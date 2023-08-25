@@ -46,8 +46,16 @@ function Tab3Navigator() {
         }}
       />
 
+      <Tab3Stack.Screen
+        name="Tab3P2"
+        component={Tab3P2Screen}
+        options={{
+          ...TransitionPresets.ScaleFromCenterAndroid,
+        }}
+      />
+
       <Tab3Stack.Screen name="Tab3P1a" component={Tab3P1aScreen} />
-      <Tab3Stack.Screen name="Tab3P2" component={Tab3P2Screen} />
+      {/* <Tab3Stack.Screen name="Tab3P2" component={Tab3P2Screen} /> */}
       <Tab3Stack.Screen name="Tab3P1b" component={Tab3P1bScreen} />
     </Tab3Stack.Navigator>
   );
