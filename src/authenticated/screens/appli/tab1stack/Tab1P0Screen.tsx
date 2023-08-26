@@ -35,7 +35,7 @@ const UserImage = ({ imageUrl, defaultImage }) => (
   />
 );
 
-function Tab1() {
+function Tab1P0() {
   useHardwareBackButton();
   const navigation = useNavigation<StackNavigationProp<CombinedParamList>>();
   const userContext = useContext<UserContextInterface | null>(UserContext);
@@ -100,40 +100,56 @@ function Tab1() {
           </View>
         </View>
 
-        <View style={styles.lowerSection}>
-          <View style={styles.whiteBadgeContainer}>
-            <Text style={styles.textWhiteBadge}>Bienvenue dans </Text>
-            <Text style={styles.titreApp}>Zen·Zones !</Text>
-            {/* <Text style={styles.textWhiteBadge}>
+        <ScrollView style={styles.scrollSection}>
+          <View style={styles.lowerSection}>
+            <View style={styles.whiteBadgeContainer}>
+              <Text style={styles.textWhiteBadge}>Bienvenue dans </Text>
+              <Text style={styles.titreApp}>Zen·Zones !</Text>
+              {/* <Text style={styles.textWhiteBadge}>
               Pour mieux comprendre chaque espace, consultez le plan.
             </Text> */}
-          </View>
+            </View>
 
-          <View style={styles.btnPlanContainer}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => navigation.navigate("Tab1P1")}
-            >
-              <Text style={styles.buttonText}>Consulter le plan</Text>
-            </TouchableOpacity>
-          </View>
+            <View style={styles.btnPlanContainer}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => navigation.navigate("Tab1P1")}
+              >
+                <Text style={styles.buttonText}>Consulter le plan</Text>
+              </TouchableOpacity>
+            </View>
 
-          <View style={styles.globalQuoteContainer}>
-            <View style={styles.affirmationsQuote}>
-              <MaterialCommunityIcons
-                name="comment-quote"
-                size={30}
-                color="#7e86c7"
-              />
-              <View style={styles.votreAffContainer}>
-                <Text style={styles.votreAffText}>Votre affirmation</Text>
+            <View style={styles.globalQuoteContainer}>
+              <View style={styles.affirmationsQuote}>
+                <MaterialCommunityIcons
+                  name="comment-quote"
+                  size={30}
+                  color="#7e86c7"
+                />
+                <View style={styles.votreAffContainer}>
+                  <Text style={styles.votreAffText}>Votre affirmation</Text>
+                </View>
+              </View>
+              <View style={styles.affirmationsContainer}>
+                <Text style={styles.affirmation}>{renderAffirmation()}</Text>
               </View>
             </View>
-            <View style={styles.affirmationsContainer}>
-              <Text style={styles.affirmation}>{renderAffirmation()}</Text>
+
+            <View style={styles.globalTipsContainer}>
+              <View style={styles.votreAffContainer}>
+                <Text style={styles.tipsTitle}>Tips</Text>
+              </View>
+
+              <View style={styles.tipsContainer}>
+                <Text style={styles.tipsText}>
+                  Cliquez sur l'icône en haut à droite pour accéder aux réglages
+                  : vos infos personnelles, FAQ, mot de passe, contact,
+                  déconnexion.
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
+        </ScrollView>
       </View>
     );
   }
@@ -143,7 +159,9 @@ function Tab1() {
 
 const styles = StyleSheet.create({
   mainContainer: {
+    flex: 1,
     backgroundColor: "#f5f6fa",
+    //marginBottom: 50,
   },
 
   headerContainer: {
@@ -230,7 +248,13 @@ const styles = StyleSheet.create({
 
   // FIN HEADER
 
-  lowerSection: {},
+  scrollSection: {
+    //flexGrow: 1,
+  },
+
+  lowerSection: {
+    marginBottom: 50,
+  },
 
   whiteBadgeContainer: {
     flexDirection: "row",
@@ -339,6 +363,52 @@ const styles = StyleSheet.create({
     color: "rgba(50,56,106,1)",
     lineHeight: 25,
   },
+
+  globalTipsContainer: {
+    justifyContent: "center",
+    //backgroundColor: "rgba(190,205,224,0.67)",
+    // backgroundColor: "#feda62",
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderColor: "rgba(190,205,224,0.67)",
+    borderRadius: 10,
+    marginHorizontal: 15,
+    paddingHorizontal: 25,
+    paddingVertical: 20,
+    marginTop: 55,
+  },
+
+  tipsTitle: {
+    fontFamily: "roboto",
+    color: "rgba(50,56,106,1)",
+    fontSize: 16,
+    backgroundColor: "#f5f6fa",
+    //backgroundColor: "#feda62",
+    paddingHorizontal: 10,
+    paddingBottom: 2,
+    borderRadius: 7,
+    marginTop: -30,
+  },
+
+  tipsContainer: {
+    alignItems: "center",
+    zIndex: 0,
+  },
+
+  tipsText: {
+    fontFamily: "roboto",
+    fontSize: 16,
+    color: "rgba(50,56,106,1)",
+    lineHeight: 25,
+  },
+
+  textInvitParam: {
+    fontFamily: "roboto",
+    color: "rgba(50,56,106,1)",
+    fontSize: 16,
+    lineHeight: 23,
+    alignSelf: "center",
+  },
 });
 
-export default Tab1;
+export default Tab1P0;
